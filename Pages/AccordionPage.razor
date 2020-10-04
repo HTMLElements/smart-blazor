@@ -1,0 +1,25 @@
+﻿@page "/accordion"
+
+@using Dashboard.Data
+@using Smart.Blazor;
+
+<Example Name="Accordion">
+    <h3>Accordion with single expand</h3>
+    <Accordion>
+        <AccordionItem Label="First Item">First Item Content.</AccordionItem>
+        <AccordionItem Label="Second Item">Second Item Content.</AccordionItem>
+        <AccordionItem Label="Third Item">Third Item Content.</AccordionItem>
+        <AccordionItem Label="Fourth Item">Fourth Item Content.</AccordionItem>
+    </Accordion>
+    <h3>Accordion with multiple expand</h3>
+    <Accordion ExpandMode="AccordionExpandMode.Multiple">
+        <AccordionItem Label="First Item">First Item Content.</AccordionItem>
+        <AccordionItem Label="Second Item">Second Item Content.</AccordionItem>
+        <AccordionItem Label="Third Item">Third Item Content.</AccordionItem>
+        <AccordionItem Label="Fourth Item">Fourth Item Content.</AccordionItem>
+    </Accordion>
+</Example>
+
+@code {
+
+}
