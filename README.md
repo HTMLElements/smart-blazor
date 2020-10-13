@@ -28,8 +28,8 @@ Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-s
 
 Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include this snippet
 
-<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
-<script src="\_content/Smart.Blazor/smart.elements.js"></script>
+	<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
+	<script src="\_content/Smart.Blazor/smart.elements.js"></script>
 			
 ###   
 
@@ -41,110 +41,109 @@ Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-s
 
 This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET Core hosted project types. You should place the code into the Program.cs of your client project
 
-```
-// other usings
-using Smart.Blazor;
+	// other usings
+	using Smart.Blazor;
 
-public class Program
-{
-	public static async Task Main( string\[\] args )
+	public class Program
 	{
-		var builder = WebAssemblyHostBuilder.CreateDefault( args );
-
-		builder.Services
-		.AddSmart()
-		.AddBootstrapProviders()
-		.AddFontAwesomeIcons();
-
-		builder.Services.AddSingleton( new HttpClient
+		public static async Task Main( string\[\] args )
 		{
-			BaseAddress = new Uri( builder.HostEnvironment.BaseAddress )
-		} );
+			var builder = WebAssemblyHostBuilder.CreateDefault( args );
 
-		builder.RootComponents.Add<App>( "app" );
+			builder.Services
+			.AddSmart()
+			.AddBootstrapProviders()
+			.AddFontAwesomeIcons();
 
-		var host = builder.Build();
+			builder.Services.AddSingleton( new HttpClient
+			{
+				BaseAddress = new Uri( builder.HostEnvironment.BaseAddress )
+			} );
 
-		host.Services
-		.UseBootstrapProviders()
-		.UseFontAwesomeIcons();
+			builder.RootComponents.Add<App>( "app" );
 
-		await host.RunAsync();
+			var host = builder.Build();
+
+			host.Services
+			.UseBootstrapProviders()
+			.UseFontAwesomeIcons();
+
+			await host.RunAsync();
+		}
 	}
-}
-```				
+			
 ####   
 
 #### Blazor Server
 
 This step is going only into the Startup.cs of your Blazor Server project.
-```
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Smart.Blazor;
 
-namespace Smart.Blazor.Demos
-{
-	public class Startup
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Components;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.HttpsPolicy;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Hosting;
+	using Smart.Blazor;
+
+	namespace Smart.Blazor.Demos
 	{
-		public Startup(IConfiguration configuration)
+		public class Startup
 		{
-			Configuration = configuration;
-		}
-
-		public IConfiguration Configuration { get; }
-
-		// This method gets called by the runtime. Use this method to add services to the container.
-		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddRazorPages();
-			services.AddServerSideBlazor();
-			services.AddSingleton<WeatherForecastService>();
-			services.AddSingleton<RandomDataService>();
-
-			// Set your license key here.
-			Smart.Blazor.License.Key = "Your License Key";
-			services.AddSmart();
-		}
-
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
+			public Startup(IConfiguration configuration)
 			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
+				Configuration = configuration;
 			}
 
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
+			public IConfiguration Configuration { get; }
 
-			app.UseRouting();
+			// This method gets called by the runtime. Use this method to add services to the container.
+			// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+			public void ConfigureServices(IServiceCollection services)
+			{
+				services.AddRazorPages();
+				services.AddServerSideBlazor();
+				services.AddSingleton<WeatherForecastService>();
+				services.AddSingleton<RandomDataService>();
 
-			app.UseEndpoints(endpoints =>
+				// Set your license key here.
+				Smart.Blazor.License.Key = "Your License Key";
+				services.AddSmart();
+			}
+
+			// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+			public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+			{
+				if (env.IsDevelopment())
 				{
-					endpoints.MapBlazorHub();
-					endpoints.MapFallbackToPage("/\_Host");
-				});
+					app.UseDeveloperExceptionPage();
+				}
+				else
+				{
+					app.UseExceptionHandler("/Error");
+					// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+					app.UseHsts();
+				}
+
+				app.UseHttpsRedirection();
+				app.UseStaticFiles();
+
+				app.UseRouting();
+
+				app.UseEndpoints(endpoints =>
+					{
+						endpoints.MapBlazorHub();
+						endpoints.MapFallbackToPage("/\_Host");
+					});
+				}
 			}
-		}
-}
-```								
+	}
+							
 ###   
 
 ### Using Smart.Blazor Components
@@ -154,60 +153,60 @@ Use any Smart Blazor component by typing its tag name in a Blazor page e.g. <But
 ###   
 
 ### Data binding a property
-```		
-<Input Value="@text"></Input>
-@code {
-	string text = " Hi from Smart!";
-}
 
-```		
+	<Input Value="@text"></Input>
+	@code {
+		string text = " Hi from Smart!";
+	}
+
+		
 ### Events Handing
-```
-<Calendar id="calendar" OnChange=@OnChange></Calendar>
-<div class="options">
-	<div class="caption">Events</div>
-	<div class="option" id="log">
-	@eventLog
+
+	<Calendar id="calendar" OnChange=@OnChange></Calendar>
+	<div class="options">
+		<div class="caption">Events</div>
+		<div class="option" id="log">
+		@eventLog
+		</div>
 	</div>
-</div>
 
-@code {
-	private string eventLog;
+	@code {
+		private string eventLog;
 
-	private void OnChange(Event eventObj)
-	{
-		CalendarChangeEventDetail detail = eventObj\[" Detail & quot;\];
-
-		eventLog = detail.Value\[0\].ToString();
-	}
-}
-```
-Alternatively you can do that:
-```
-@page "/calendar"
-
-<Calendar OnReady="OnReady" id="calendar" ></Calendar>
-<div class="options">
-	<div class="caption">Events</div>
-	<div class="option" id="log">
-	@eventLog
-	</div>
-</div>
-
-
-@code {
-	private string eventLog;
-
-	private void OnReady(Calendar calendar)
-	{
-		calendar.Changed += delegate (object sender, CalendarChangedEventArgs args)
+		private void OnChange(Event eventObj)
 		{
-			string value = args.Value\[0\].ToString();
-			eventLog = value;
-			StateHasChanged();
-		};
+			CalendarChangeEventDetail detail = eventObj\[" Detail & quot;\];
+
+			eventLog = detail.Value\[0\].ToString();
+		}
 	}
-}
-```
+
+Alternatively you can do that:
+
+	@page "/calendar"
+
+	<Calendar OnReady="OnReady" id="calendar" ></Calendar>
+	<div class="options">
+		<div class="caption">Events</div>
+		<div class="option" id="log">
+		@eventLog
+		</div>
+	</div>
+
+
+	@code {
+		private string eventLog;
+
+		private void OnReady(Calendar calendar)
+		{
+			calendar.Changed += delegate (object sender, CalendarChangedEventArgs args)
+			{
+				string value = args.Value\[0\].ToString();
+				eventLog = value;
+				StateHasChanged();
+			};
+		}
+	}
+
 
 `OnReady` callback is called for each Blazor component, after it is initialized and rendered.
