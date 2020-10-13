@@ -1,0 +1,25 @@
+﻿@page "/input"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+<Example Name="Input">
+	<p>Press "a" to Open the Auto-complete dropdown</p>
+	<Input Value="@text" DataSource="items" Class="underlined" Placeholder="Some Text..." />
+</Example>
+
+@code {
+	private WeatherForecast[] forecasts;
+	private List<string> items = new List<string>();
+	string text = "Hi from Smart";
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+
+		foreach (WeatherForecast forecast in forecasts)
+		{
+			items.Add(forecast.Date.ToString() + ", " + forecast.Summary);
+		}
+	}
+}

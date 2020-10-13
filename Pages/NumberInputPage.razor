@@ -1,0 +1,73 @@
+﻿@page "/numberinput"
+
+<Example Name="NumberInput">
+	<p>
+		<b>Smart.NumberInput</b> is an input that allows you to easily enter and
+		format numbers. It uses the Intl.NumberFormat API for formatting the numbers.
+	</p>
+	<h3>Default "1000"</h3>
+	<NumberInput Placeholder="Please Enter a Number"></NumberInput>
+	<h3>Underlined</h3>
+	<br />
+	<NumberInput Class="underlined" Placeholder="Please Enter a Number"></NumberInput>
+	<h2>Number Formats</h2>
+	<h3>Number "1000.42"</h3>
+	<br />
+	<NumberInput NumberFormat="numberFormat" Value="1000.42" id="numericInput" Placeholder="Please Enter a Number"></NumberInput>
+	<h4>Currency "$1000.42"</h4>
+	<br />
+	<NumberInput NumberFormat="currencyFormat" Value="1000.42" id="currencyInput" Placeholder="Please Enter a Currency"></NumberInput>
+	<h4>Accounting "($1000.42)"</h4>
+	<br />
+	<NumberInput NumberFormat="accountingFormat" Value="-1000.42" Min="-9999" id="accountingInput"
+				 Placeholder="Please Enter a Currency"></NumberInput>
+	<h4>Currency Localized "1000,42 EUR"</h4>
+	<br />
+	<NumberInput NumberFormat="currencyFormatLocalized" Locale="de" Value="1000.42" id="currencyInputLocalized"
+				 Placeholder="Please Enter a Currency"></NumberInput>
+	<h4>Percent "10%"</h4>
+	<br />
+	<NumberInput NumberFormat="percentFormat" Value="10" id="percentInput" Placeholder="Please Enter a Percent"></NumberInput>
+	<h4>Custom "10 litres"</h4>
+	<br />
+	<NumberInput NumberFormat="customFormat" Value="10" id="customInput" Placeholder="Please Enter litres"></NumberInput>
+	<br /><br /><br /><br />
+</Example>
+
+@code  {
+		private object numberFormat = new {
+			minimumFractionDigits = 2
+		};
+
+		private object currencyFormat = new
+		{
+			style = "currency",
+			currency = "USD"
+		};
+
+		private object currencyFormatLocalized = new {
+
+			style= "currency",
+			currency= "EUR"
+
+		};
+
+		private object accountingFormat = new {
+
+			style= "currency",
+			currency= "USD",
+			currencySign= "accounting"
+		};
+
+		private object percentFormat = new {
+			style= "percent"
+		};
+
+		private object customFormat = new {
+
+			style= "unit",
+			unit= "liter",
+			unitDisplay= "long"
+		};
+}
+

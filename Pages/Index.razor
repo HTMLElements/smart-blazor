@@ -1,165 +1,400 @@
 ﻿@page "/"
 @using Smart.Blazor;
-@using Dashboard.Data;
+
+@using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
+@inject IJSRuntime JSRuntime
 
-<h1>Hello, world!</h1>
+<h1>Smart.Blazor Component Library</h1>
+<p>Smart Blazor Components is a commercial set of 60+ Blazor UI controls. Both server-side and client-side (WASM) Blazor are supported.</p>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-<Grid OnReady="OnReady" Sorting="@sorting" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
-    <Columns>
-        <Column DataField="Date" Label="Date"></Column>
-        <Column DataField="TemperatureC" Label="TemperatureC"></Column>
-        <Column DataField="TemperatureF" Label="TemperatureF"></Column>
-        <Column DataField="Summary" Label="Summary"></Column>
-    </Columns>
-    <Rows>
-        @foreach (var forecast in forecasts)
-        {
-            <Row>
-                <Cell Content="@forecast.Date.ToShortDateString()"></Cell>
-                <Cell Content="@forecast.TemperatureC"></Cell>
-                <Cell Content="@forecast.TemperatureF"></Cell>
-                <Cell Content="@forecast.Summary"></Cell>
-            </Row>
-        }
-    </Rows>
+<Grid OnReady="OnReady" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
+	<Columns>
+		<Column DataField="Date" Label="Date"></Column>
+		<Column DataField="TemperatureC" Label="TemperatureC"></Column>
+		<Column DataField="TemperatureF" Label="TemperatureF"></Column>
+		<Column DataField="Summary" Label="Summary"></Column>
+	</Columns>
+	<Rows>
+		@foreach (var forecast in forecasts)
+		{
+			<Row>
+				<Cell Content="@forecast.Date.ToShortDateString()"></Cell>
+				<Cell Content="@forecast.TemperatureC"></Cell>
+				<Cell Content="@forecast.TemperatureF"></Cell>
+				<Cell Content="@forecast.Summary"></Cell>
+			</Row>
+		}
+	</Rows>
 </Grid>
 
 <br />
 <br />
 
 <Chart Style="width: 80%;" ShowLegend="@showLegend" Padding="@padding" ColorScheme="ChartColorScheme.Scheme29" OnReady="OnChartReady" SeriesGroups="@seriesGroups" XAxis="@xAxis" Caption="@caption" Description="@description" DataSource="@chartData"></Chart>
-<br /><br />
-      <Tabs>
-          <TabItem Label="Tab 1">Content 1</TabItem>
-          <TabItem Label="Tab 2">Content 2</TabItem>
-      </Tabs>
+<br />
+<br />
+<h2>Getting Started</h2>
+<ul>
+	<li>
+		<h3>Installation</h3>
+		Smart.Blazor Components are distributed as the <strong>Smart.Blazor</strong> Nuget package.
+		You can use any of the following options:
+		<ul>
+			<li>
+				Install the package from command line by running <strong>dotnet add package Smart.Blazor</strong>.
+			</li>
+			<li>Alternatively, you can add the project from the Visual Nuget Package Manager.</li>
+			<li>Edit the .csproj file and add a project reference</li>
+		</ul>
+	</li>
+	<li>
+		<h3>Import the Smart.Blazor namespace.</h3>
+		<p>Open the _Imports.razor file of your Blazor application and add <code>@@using Smart.Blazor</code></p>
+	</li>
+	<li>
+		<h3>Set a Theme</h3>
+		<p>
+			Open the _Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include a theme CSS file by adding this snippet &lt;link rel=&quot;stylesheet&quot; href=&quot;_content/Smart.Blazor/source/smart.default.css&quot;&gt;
+			You can include 14+ additional CSS themes for the Controls.
+		</p>
+	</li>
+	<li>
+		<h3>Source files</h3>
+		<p>
+			Open the _Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include this snippet
+			<pre @ref="pre5"><code>
+&lt;script src=&quot;_content/Smart.Blazor/smart.blazor.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;_content/Smart.Blazor/smart.elements.js&quot;&gt;&lt;/script&gt;
+			</code>
+</pre>
+		</p>
+	</li>
+	<li>
+		<h3>Registrations</h3>
+		<ul>
+			<li>
+				<h4>Blazor WebAssembly</h4>
+				This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET Core hosted project types. You should place the code into the Program.cs of your client project
+				<pre @ref="pre4"><code>
+// other usings
+using Smart.Blazor;
 
+public class Program
+{
+	public static async Task Main( string[] args )
+	{
+		var builder = WebAssemblyHostBuilder.CreateDefault( args );
+
+		builder.Services
+		.AddSmart()
+		.AddBootstrapProviders()
+		.AddFontAwesomeIcons();
+
+		builder.Services.AddSingleton( new HttpClient
+		{
+			BaseAddress = new Uri( builder.HostEnvironment.BaseAddress )
+		} );
+
+		builder.RootComponents.Add&lt;App&gt;( &quot;app&quot; );
+
+		var host = builder.Build();
+
+		host.Services
+		.UseBootstrapProviders()
+		.UseFontAwesomeIcons();
+
+		await host.RunAsync();
+	}
+}
+				</code></pre>
+			</li>
+			<li>
+				<h4>Blazor Server</h4>
+				This step is going only into the Startup.cs of your Blazor Server project.
+				<div class="language-cs highlighter-rouge">
+					<div class="highlight">
+						<pre @ref="pre3" class="csharp hljs"><code>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Smart.Blazor;
+
+namespace Smart.Blazor.Demos
+{
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
+
+		public IConfiguration Configuration { get; }
+
+		// This method gets called by the runtime. Use this method to add services to the container.
+		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddRazorPages();
+			services.AddServerSideBlazor();
+			services.AddSingleton&lt;WeatherForecastService&gt;();
+			services.AddSingleton&lt;RandomDataService&gt;();
+
+			// Set your license key here.
+			Smart.Blazor.License.Key = &quot;Your License Key&quot;;
+			services.AddSmart();
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler(&quot;/Error&quot;);
+				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+				app.UseHsts();
+			}
+
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
+
+			app.UseRouting();
+
+			app.UseEndpoints(endpoints =&gt;
+				{
+					endpoints.MapBlazorHub();
+					endpoints.MapFallbackToPage(&quot;/_Host&quot;);
+				});
+			}
+		}
+}
+				</code>
+				</pre>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<h3>Using Smart.Blazor Component</h3>
+		<p>
+			Use any Smart Blazor component by typing its tag name in a Blazor page e.g. &lt;Button&gt;Click Me&lt;/Button&gt;
+
+			If you are using client-side WebAssembly Blazor also add the following code to your .csproj file (after the closing RazorLangVersion element):
+			&lt;BlazorLinkOnBuild&gt;false&lt;/BlazorLinkOnBuild&gt;
+
+			<h3>Data binding a property</h3>
+			<pre @ref="pre2">
+			<code>
+&lt;Input Value=&quot;@@text&quot;&gt;&lt;/Input&gt;
+@@code {
+	string text = &quot; Hi from Smart!&quot;;
+}
+			</code></pre>
+			<h3>Events Handing</h3>
+			<pre @ref="pre1"><code>
+@@page  &quot;/calendar&quot;
+
+&lt;Calendar id=&quot;calendar&quot; OnChange=@@OnChange&gt;&lt;/Calendar&gt;
+&lt;div class=&quot;options&quot;&gt;
+	&lt;div class=&quot;caption&quot;&gt;Events&lt;/div&gt;
+	&lt;div class=&quot;option&quot; id=&quot;log&quot;&gt;
+	@@eventLog
+	&lt;/div&gt;
+&lt;/div&gt;
+
+@@code {
+	private string eventLog;
+
+	private void OnChange(Event eventObj)
+	{
+		CalendarChangeEventDetail detail = eventObj[&quot; Detail & quot;];
+
+		eventLog = detail.Value[0].ToString();
+	}
+}
+</code></pre>
+			Alternatively you can do that:
+			<pre @ref="pre0"><code>
+@@page &quot;/calendar&quot;
+
+&lt;Calendar OnReady=&quot;OnReady&quot; id=&quot;calendar&quot; &gt;&lt;/Calendar&gt;
+&lt;div class=&quot;options&quot;&gt;
+	&lt;div class=&quot;caption&quot;&gt;Events&lt;/div&gt;
+	&lt;div class=&quot;option&quot; id=&quot;log&quot;&gt;
+	@@eventLog
+	&lt;/div&gt;
+&lt;/div&gt;
+
+
+@@code {
+	private string eventLog;
+
+	private void OnReady(Calendar calendar)
+	{
+		calendar.Changed += delegate (object sender, CalendarChangedEventArgs args)
+		{
+			string value = args.Value[0].ToString();
+			eventLog = value;
+			StateHasChanged();
+		};
+	}
+}
+</code>
+</pre>
+			<br />
+			<code>OnReady</code> callback is called for each Blazor component, after it is initialized and rendered.
+		</p>
+	</li>
+</ul>
 @code {
+	private ElementReference pre0;
+	private ElementReference pre1;
+	private ElementReference pre2;
+	private ElementReference pre3;
+	private ElementReference pre4;
+	private ElementReference pre5;
 
-    GridSorting sorting = new GridSorting() { Enabled = true };
-    GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
-    GridSelection selection = new GridSelection()
-    {
-        Enabled = true,
-        CheckBoxes = new GridSelectionCheckBoxes()
-        {
-            Enabled = true
-        }
-    };
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre0);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre1);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre2);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre3);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre4);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre5);
+	}
 
-    private WeatherForecast[] forecasts;
+	GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
+	GridSelection selection = new GridSelection()
+	{
+		Enabled = true,
+		CheckBoxes = new GridSelectionCheckBoxes()
+		{
+			Enabled = true
+		}
+	};
 
-    private void OnReady(Grid grid)
-    {
+	private WeatherForecast[] forecasts;
 
-    }
+	private void OnReady(Grid grid)
+	{
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+	}
 
-
-    public class FitnessItem
-    {
-        public int George { get; set; }
-
-        public int Erica { get; set; }
-
-        public int Keith { get; set; }
-
-        public string Day { get; set; }
-    }
-
-    string caption = "Fitness & exercise weekly scorecard";
-    string description = "Time spent in vigorous exercise";
-    bool showLegend = true;
-    Padding padding = new Padding()
-    {
-        Left = 5,
-        Top = 5,
-        Right = 5,
-        Bottom = 5
-    };
-
-    IEnumerable<object> chartData = new List<object>(){
-       new FitnessItem() {
-            Day = "Monday",
-            Keith= 30,
-            Erica = 15,
-            George = 25
-        },
-        new FitnessItem() {
-         Day= "Tuesday", Keith= 25, Erica= 25, George= 30
-        },
-        new FitnessItem() {
-              Day= "Wednesday", Keith= 30, Erica= 20, George= 25
-        },
-        new FitnessItem() {
-           Day= "Wednesday", Keith= 30, Erica= 20, George= 25
-        },
-        new FitnessItem() {
-           Day= "Thursday", Keith= 35, Erica= 25, George= 45
-        },
-        new FitnessItem() {
-         Day= "Friday", Keith= 20, Erica= 20, George= 25
-        },
-        new FitnessItem() {
-          Day= "Saturday", Keith= 30, Erica= 20, George= 30
-        },
-        new FitnessItem() {
-          Day= "Sunday", Keith= 60, Erica= 45, George= 90
-        }
-    };
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
 
 
-    ChartXAxis xAxis = new ChartXAxis()
-    {
-        DataField = "Day"
-    };
+	public class FitnessItem
+	{
+		public int George { get; set; }
 
-    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>(){
-            new ChartSeriesGroup()
-        {
-            Type = ChartType.Column,
-            ValueAxis = new ChartValueAxis()
-            {
-                UnitInterval = 10,
-                MinValue = 0,
-                MaxValue = 100,
-                Description = "Time in Minutes"
-            },
-            Series = new List<ChartSeriesGroupSerie>()
-            {
-                    new ChartSeriesGroupSerie()
-                    {
-                        DataField = "Keith",
-                        DisplayText = "Keith"
-                    },
-                    new ChartSeriesGroupSerie()
-                    {
-                        DataField = "Erica",
-                        DisplayText = "Erica"
-                    },
-                    new ChartSeriesGroupSerie()
-                    {
-                        DataField = "George",
-                        DisplayText = "George"
-                    }
-                }
-            }
-    };
+		public int Erica { get; set; }
 
-    private void OnChartReady(Chart chart)
-    {
-        var seriesGroups = chart.SeriesGroups;
-        var description = chart.Description;
-        var xAxis = chart.XAxis;
-    }
+		public int Keith { get; set; }
+
+		public string Day { get; set; }
+	}
+
+	string caption = "Fitness & exercise weekly scorecard";
+	string description = "Time spent in vigorous exercise";
+	bool showLegend = true;
+	Padding padding = new Padding()
+	{
+		Left = 5,
+		Top = 5,
+		Right = 5,
+		Bottom = 5
+	};
+
+	IEnumerable<object> chartData = new List<object>(){
+	   new FitnessItem() {
+			Day = "Monday",
+			Keith= 30,
+			Erica = 15,
+			George = 25
+		},
+		new FitnessItem() {
+		 Day= "Tuesday", Keith= 25, Erica= 25, George= 30
+		},
+		new FitnessItem() {
+			  Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		   Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		   Day= "Thursday", Keith= 35, Erica= 25, George= 45
+		},
+		new FitnessItem() {
+		 Day= "Friday", Keith= 20, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		  Day= "Saturday", Keith= 30, Erica= 20, George= 30
+		},
+		new FitnessItem() {
+		  Day= "Sunday", Keith= 60, Erica= 45, George= 90
+		}
+	};
+
+
+	ChartXAxis xAxis = new ChartXAxis()
+	{
+		DataField = "Day"
+	};
+
+	List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>(){
+			new ChartSeriesGroup()
+		{
+			Type = ChartType.Column,
+			ValueAxis = new ChartValueAxis()
+			{
+				UnitInterval = 10,
+				MinValue = 0,
+				MaxValue = 100,
+				Description = "Time in Minutes"
+			},
+			Series = new List<ChartSeriesGroupSerie>()
+{
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "Keith",
+						DisplayText = "Keith"
+					},
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "Erica",
+						DisplayText = "Erica"
+					},
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "George",
+						DisplayText = "George"
+					}
+				}
+			}
+	};
+
+	private void OnChartReady(Chart chart)
+	{
+		var seriesGroups = chart.SeriesGroups;
+		var description = chart.Description;
+		var xAxis = chart.XAxis;
+	}
 }
 

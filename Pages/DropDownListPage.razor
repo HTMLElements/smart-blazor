@@ -1,0 +1,30 @@
+﻿@page "/dropdownlist"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+<Example Name="DropDownList">
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<h2>Forecasts Summary</h2>
+		<DropDownList SelectedIndexes="new int[] { 0 }">
+			@foreach (var forecast in forecasts)
+			{
+				<ListItem Label="@forecast.Summary.Trim()"></ListItem>
+			}
+		</DropDownList>
+	}
+</Example>
+
+@code {
+	private WeatherForecast[] forecasts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
+}

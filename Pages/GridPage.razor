@@ -1,56 +1,59 @@
 ﻿@page "/grid"
 
-@using Dashboard.Data
-@using Smart.Blazor;
+@using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<h1>Weather forecast</h1>
+<Example Name="Grid">
+	<h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+	<p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <Grid Sorting="@sorting" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
-        <Columns>
-            <Column DataField="Date" Label="Date"></Column>
-            <Column DataField="TemperatureC" Label="TemperatureC"></Column>
-            <Column DataField="TemperatureF" Label="TemperatureF"></Column>
-            <Column DataField="Summary" Label="Summary"></Column>
-        </Columns>
-        <Rows>
-            @foreach (var forecast in forecasts)
-            {
-                <Row>
-                    <Cell Content="@forecast.Date.ToShortDateString()"></Cell>
-                    <Cell Content="@forecast.TemperatureC"></Cell>
-                    <Cell Content="@forecast.TemperatureF"></Cell>
-                    <Cell Content="@forecast.Summary"></Cell>
-                </Row>
-            }
-        </Rows>
-    </Grid>
-}
+
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<Grid Sorting="@sorting" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
+			<Columns>
+				<Column DataField="Date" Label="Date"></Column>
+				<Column DataField="TemperatureC" Label="TemperatureC"></Column>
+				<Column DataField="TemperatureF" Label="TemperatureF"></Column>
+				<Column DataField="Summary" Label="Summary"></Column>
+			</Columns>
+			<Rows>
+				@foreach (var forecast in forecasts)
+				{
+					<Row>
+						<Cell Content="@forecast.Date.ToShortDateString()"></Cell>
+						<Cell Content="@forecast.TemperatureC"></Cell>
+						<Cell Content="@forecast.TemperatureF"></Cell>
+						<Cell Content="@forecast.Summary"></Cell>
+					</Row>
+				}
+			</Rows>
+		</Grid>
+	}
+</Example>
 
 @code {
-    GridSorting sorting = new GridSorting() { Enabled = true };
-    GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
-    GridSelection selection = new GridSelection()
-    {
-        Enabled = true,
-        CheckBoxes = new GridSelectionCheckBoxes()
-        {
-            Enabled = true
-        }
-    };
+	GridSorting sorting = new GridSorting() { Enabled = true };
+	GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
+	GridSelection selection = new GridSelection()
+	{
+		Enabled = true,
+		Mode = GridSelectionMode.One,
+		CheckBoxes = new GridSelectionCheckBoxes()
+		{
+			Enabled = true
+		}
+	};
 
-    private WeatherForecast[] forecasts;
+	private WeatherForecast[] forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
 }

@@ -1,35 +1,33 @@
 ﻿@page "/chart"
-@using Smart.Blazor;
-@using Dashboard.Data;
 
 <Example Name="Chart">
     <Chart Style="width: 80%;" ShowLegend="@showLegend" Padding="@padding" ColorScheme="ChartColorScheme.Scheme29" OnReady="OnChartReady" SeriesGroups="@seriesGroups" XAxis="@xAxis" Caption="@caption" Description="@description" DataSource="@chartData"></Chart>
 </Example>
 
-    @code {
-        public class FitnessItem
-        {
-            public int George { get; set; }
+@code {
+    public class FitnessItem
+    {
+        public int George { get; set; }
 
-            public int Erica { get; set; }
+        public int Erica { get; set; }
 
-            public int Keith { get; set; }
+        public int Keith { get; set; }
 
-            public string Day { get; set; }
-        }
+        public string Day { get; set; }
+    }
 
-        string caption = "Fitness & exercise weekly scorecard";
-        string description = "Time spent in vigorous exercise";
-        bool showLegend = true;
-        Padding padding = new Padding()
-        {
-            Left = 5,
-            Top = 5,
-            Right = 5,
-            Bottom = 5
-        };
+    string caption = "Fitness & exercise weekly scorecard";
+    string description = "Time spent in vigorous exercise";
+    bool showLegend = true;
+    Padding padding = new Padding()
+    {
+        Left = 5,
+        Top = 5,
+        Right = 5,
+        Bottom = 5
+    };
 
-        IEnumerable<object> chartData = new List<object>(){
+    IEnumerable<object> chartData = new List<object>(){
        new FitnessItem() {
             Day = "Monday",
             Keith= 30,
@@ -60,12 +58,12 @@
     };
 
 
-        ChartXAxis xAxis = new ChartXAxis()
-        {
-            DataField = "Day"
-        };
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Day"
+    };
 
-        List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>(){
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>(){
             new ChartSeriesGroup()
         {
             Type = ChartType.Column,
@@ -77,7 +75,7 @@
                 Description = "Time in Minutes"
             },
             Series = new List<ChartSeriesGroupSerie>()
-        {
+{
                     new ChartSeriesGroupSerie()
                     {
                         DataField = "Keith",
@@ -97,11 +95,16 @@
             }
     };
 
-        private void OnChartReady(Chart chart)
-        {
-            var seriesGroups = chart.SeriesGroups;
-            var description = chart.Description;
-            var xAxis = chart.XAxis;
-        }
+    private void OnChartReady(Chart chart)
+    {
+        var seriesGroups = chart.SeriesGroups;
+        var description = chart.Description;
+        var xAxis = chart.XAxis;
     }
+
+    protected override bool ShouldRender()
+    {
+        return false;
+    }
+}
 

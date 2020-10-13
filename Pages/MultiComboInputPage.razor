@@ -1,0 +1,27 @@
+﻿@page "/multicomboinput"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+<Example Name="MultiComboInput">
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<h2>Forecasts Summary</h2>
+		<MultiComboInput DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></MultiComboInput>
+	}
+</Example>
+
+@code {
+	private WeatherForecast[] forecasts;
+	private string[] summaries;
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+		summaries = forecasts.Select(item => item.Summary).ToArray();
+	}
+}
