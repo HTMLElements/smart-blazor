@@ -269,7 +269,7 @@ dotnet add package Smart.Blazor
 	</html>
 
 * Open Pages/Index.razor and replace the code as follows:
-
+```
 	@page "/"
 
 	@inject HttpClient Http
