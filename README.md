@@ -48,6 +48,21 @@ Smart.Blazor Components are distributed as the **Smart.Blazor** Nuget package. Y
 *   Alternatively, you can add the project from the Visual Nuget Package Manager.
 *   Edit the .csproj file and add a project reference
 
+```csharp
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>BlazorApp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Smart.Blazor" Version="8.1.3" />
+  </ItemGroup>
+
+</Project>
+```
+
 ### Import the Smart.Blazor namespace.
 
 Open the \_Imports.razor file of your Blazor application and add `@using Smart.Blazor`
