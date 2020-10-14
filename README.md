@@ -31,13 +31,13 @@ If you receive a 'dotnet' is not recognized as an internal or external command e
 Blazor WebAssembly (blazorwasm)
 
 ```console 
-dotnet new blazorwasm -o smart-blazor-app
+dotnet new blazorwasm -o BlazorApp
 ```
 
 Blazor Server (blazorserver)
 
 ```console 
-dotnet new blazorserver -o smart-blazor-app
+dotnet new blazorserver -o BlazorServerApp
 ```
 
 ### Installation
