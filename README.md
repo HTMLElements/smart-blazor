@@ -14,7 +14,7 @@ The Blazor framework provides templates to develop apps for each of the Blazor h
 
 Blazor WebAssembly (blazorwasm)
 
-* dotnet new blazorwasm -o smart-blazor-app
+* ```console dotnet new blazorwasm -o smart-blazor-app```
 
 Blazor Server (blazorserver)
 
