@@ -1,0 +1,77 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="MenuProperties"><a id="Menu_properties" href="javascript: void(0)" class="anchor"><strong>Menu</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoCloseDelay</td><td>int</td><td>100</td><td>Determines delay (in milliseconds) before a Menu dropdown is closed when leaving the Menu with the mouse. Applicable only when <strong>selectionMode</strong> is <em>'mouseenter'</em>.</td></tr>
+      <tr><td>AutoFocusOnMouseenter</td><td>bool</td><td>false</td><td>If set to <em>true</em>, on mouseenter, the element receives focus automatically.</td></tr>
+      <tr><td>Checkable</td><td>bool</td><td>false</td><td>Allows top-level Menu items (immediate children of the Menu) to be checkable. Sublevels are controlled by setting <strong>checkable</strong> to the respective jqx-menu-items-group.</td></tr>
+      <tr><td>Checkboxes</td><td>bool</td><td>false</td><td>Sets or gets whether checkboxes and radio buttons can be displayed in the Menu. This property is applicable only to the Menu itself, and not its jqx-menu-item/jqx-menu-items-group subitems. <em>See also the property <strong>checkable</strong></em>.</td></tr>
+      <tr><td>CheckMode</td><td>MenuCheckMode</td><td>MenuCheckMode.Checkbox</td><td>Sets the check mode of top-level Menu items (immediate children of the Menu). checkMode can be set to <em>'checkbox'</em>, <em>'radioButton'</em>, or a comma-separated list containing 'checkbox', 'radioButton', or 'none' (e.g. <em>'checkbox, radioButton, none, checkbox'</em>). When set to a list, each value in the list is applied to groups of Menu items separated by an item with separator (item after the one with separator is the start of a new checkMode context). Sublevels are controlled by setting <strong>checkMode</strong> to the respective jqx-menu-items-group.</td></tr>
+      <tr><td>CloseAction</td><td>MenuCloseAction</td><td>MenuCloseAction.Up</td><td>Sets the document event which closes any open Menu drop downs (or the Menu itself when <strong>mode</strong> is <em>'dropDown'</em>).</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the Menu. The data source represents an array of objects with the following properties: <ul><li>label - a string representing the text content of the item.</li><li>value - the value of the item.</li><li>shortcut - a string representing a shortuct for the item. It will be displayed inside the item.</li><li>items - allows to define an array of sub menu items.</li></ul></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables element.</td></tr>
+      <tr><td>DisplayMember</td><td>string</td><td>&quot;label&quot;</td><td>Determines the field in the data source that corresponds to an item's <strong>label</strong>.</td></tr>
+      <tr><td>DropDownAppendTo</td><td>string </td><td>N/A</td><td>Sets custom outer container, where all dropdown containers must be appended. By default they are inside the menu. The value of the property can be an HTML element or the id of an HTML element. In <strong>mode</strong> <em>'dropDown'</em>, the property <strong>dropDownAppendTo</strong> also controls the parent element of the whole Menu. The <strong>open</strong> method works relatively to the original place of the Menu in the DOM.</td></tr>
+      <tr><td>DropDownOverlay</td><td>bool</td><td>false</td><td>If this property is enabled, when an element's dropdown is opened, a transparent overlay is positioned between the dropdown and the rest of the document.</td></tr>
+      <tr><td>DropDownPosition</td><td>MenuDropDownPosition</td><td>MenuDropDownPosition.Auto</td><td>Determines the opening direction of Menu dropdowns.</td></tr>
+      <tr><td>Items</td><td>IEnumerable&lt;object&gt;</td><td></td><td>A getter that returns an array of all Menu items.</td></tr>
+      <tr><td>ItemsMember</td><td>string</td><td>&quot;items&quot;</td><td>Determines the field in the data source that corresponds to an item group's subitems collection.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>MinimizeIconTemplate</td><td>string</td><td>&quot;null&quot;</td><td>Used to load a custom minimize icon from an HTMLTemplateElement object. The HTMLTemplateElement is selected by it's id.</td></tr>
+      <tr><td>MinimizeWidth</td><td>int</td><td>N/A</td><td>Determines the minimum width of the Menu at which it will switch from normal to minimized mode. If set to <em>null</em>, the Menu does not minimize automatically.</td></tr>
+      <tr><td>Mode</td><td>MenuMode</td><td>MenuMode.Horizontal</td><td>Determines the menu's display mode.</td></tr>
+      <tr><td>IsOpened</td><td>bool</td><td>false</td><td>Opens or closes thte menu when it's in <em>'dropDown'</em> <strong>mode</strong>.</td></tr>
+      <tr><td>Overflow</td><td>Overflow</td><td>Overflow.Auto</td><td>Sets or gets the menu's scroll buttons behavior. Applicable only when <strong>dropDownAppendTo</strong> is not <em>null</em>.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>SelectionMode</td><td>MenuSelectionMode</td><td>MenuSelectionMode.Click</td><td>Determines the menu's selection mode.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;value&quot;</td><td>Determines the field in the data source that corresponds to an item's <strong>value</strong>.</td></tr>
+  </table>
+  <h2 id="MenuMethods"><a id="Menu_methods" href="javascript: void(0)" class="anchor"><strong>Menu</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddItem</td><td>void</td><td>object Item, object Parent</td><td>Adds an item to the menu.</td></tr>
+      <tr><td>CheckItem</td><td>void</td><td>object item</td><td>Checks an item.</td></tr>
+      <tr><td>Clear</td><td>void</td><td>N/A</td><td>Clears all Menu items.</td></tr>
+      <tr><td>Close</td><td>void</td><td>N/A</td><td>Closes the Menu when <strong>mode</strong> is <em>'dropDown'</em>.</td></tr>
+      <tr><td>CollapseItem</td><td>void</td><td>object item, bool animation</td><td>Collapses an item.</td></tr>
+      <tr><td>ExpandItem</td><td>void</td><td>object item, bool animation</td><td>Expands an item.</td></tr>
+      <tr><td>GetItem</td><td>object</td><td>string id</td><td>Gets an item by its id or numeric path.</td></tr>
+      <tr><td>Maximize</td><td>void</td><td>N/A</td><td>Maximizes the Menu.</td></tr>
+      <tr><td>Minimize</td><td>void</td><td>N/A</td><td>Minimizes the Menu.</td></tr>
+      <tr><td>Open</td><td>void</td><td>int left, int top</td><td>Opens the Menu when <strong>mode</strong> is <em>'dropDown'</em>.</td></tr>
+      <tr><td>RemoveItem</td><td>void</td><td>object item</td><td>Removes an item from the menu.</td></tr>
+      <tr><td>UncheckItem</td><td>void</td><td>object item</td><td>Unchecks an item.</td></tr>
+  </table>
+  <h2 id="MenuEvents"><a id="Menu_events" href="javascript: void(0)" class="anchor"><strong>Menu</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the menu is closed. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event MenuClosedEventHandler</td><td>This event is triggered when the menu is closed. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>MenuClosedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the menu is about to be closed. The closing operation can be canceled by calling event.preventDefault() in the event handler function. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>dynamic trigger</td></tr>
+      <tr><td>Closing</td><td>event MenuClosingEventHandler</td><td>This event is triggered when the menu is about to be closed. The closing operation can be canceled by calling event.preventDefault() in the event handler function. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>MenuClosingEventArgs</td></tr>
+      <tr><td>OnCollapse</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a jqx-menu-items-group is collapsed.</td><td>dynamic item, string label, dynamic value, dynamic path, dynamic children</td></tr>
+      <tr><td>Collapsed</td><td>event MenuCollapsedEventHandler</td><td>This event is triggered when a jqx-menu-items-group is collapsed.</td><td>MenuCollapsedEventArgs</td></tr>
+      <tr><td>OnCollapsing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a jqx-menu-items-group is collapsing.</td><td>dynamic item, string label, dynamic value, dynamic path, dynamic children</td></tr>
+      <tr><td>Collapsing</td><td>event MenuCollapsingEventHandler</td><td>This event is triggered when a jqx-menu-items-group is collapsing.</td><td>MenuCollapsingEventArgs</td></tr>
+      <tr><td>OnExpand</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a jqx-menu-items-group is expanded.</td><td>dynamic item, string label, dynamic value, dynamic path, dynamic children</td></tr>
+      <tr><td>Expanded</td><td>event MenuExpandedEventHandler</td><td>This event is triggered when a jqx-menu-items-group is expanded.</td><td>MenuExpandedEventArgs</td></tr>
+      <tr><td>OnExpanding</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered before a jqx-menu-items-group is expanded.</td><td>dynamic item, string label, dynamic value, dynamic path, dynamic children</td></tr>
+      <tr><td>Expanding</td><td>event MenuExpandingEventHandler</td><td>This event is triggered before a jqx-menu-items-group is expanded.</td><td>MenuExpandingEventArgs</td></tr>
+      <tr><td>OnItemCheckChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a menu item check state is changed.</td><td>dynamic item, string label, dynamic value, dynamic checked</td></tr>
+      <tr><td>ItemCheckChanged</td><td>event MenuItemCheckChangedEventHandler</td><td>This event is triggered when a menu item check state is changed.</td><td>MenuItemCheckChangedEventArgs</td></tr>
+      <tr><td>OnItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a menu item is clicked.</td><td>dynamic item, string label, dynamic value</td></tr>
+      <tr><td>ItemClicked</td><td>event MenuItemClickedEventHandler</td><td>This event is triggered when a menu item is clicked.</td><td>MenuItemClickedEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the menu is opened. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event MenuOpenedEventHandler</td><td>This event is triggered when the menu is opened. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>MenuOpenedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the menu is about to be opened. The opening operation can be canceled by calling event.preventDefault() in the event handler function. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event MenuOpeningEventHandler</td><td>This event is triggered when the menu is about to be opened. The opening operation can be canceled by calling event.preventDefault() in the event handler function. The event is fired only in &quot;'dropDown'&quot; &quot;mode&quot;.</td><td>MenuOpeningEventArgs</td></tr>
+    </table>
+</div>

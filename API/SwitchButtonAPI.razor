@@ -1,0 +1,34 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="SwitchButtonProperties"><a id="SwitchButton_properties" href="javascript: void(0)" class="anchor"><strong>SwitchButton</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>ClickMode</td><td>ClickMode</td><td>ClickMode.Release</td><td>Sets the click mode of the switch button. This property is active only when switchMode is 'click'. <ul><li>press - the state of the switch is changed on mousedown</li><li>release - the state of the switch is changed on mouseup</li><li>pressAndRelease - the state of the switch is changed on mousedown and reverted to the original on mouseup.</li></ul></td></tr>
+      <tr><td>Checked</td><td>bool</td><td>false</td><td>Sets or gets the check state.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the ratio button.</td></tr>
+      <tr><td>FalseContent</td><td>string</td><td>&quot;&quot;</td><td>Sets the text representation of checked=false state.</td></tr>
+      <tr><td>FalseTemplate</td><td>object</td><td>N/A</td><td>Sets custom template about false state.</td></tr>
+      <tr><td>Indeterminate</td><td>bool</td><td>false</td><td>Sets or gets indeterminate state of the switch.</td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>Sets the direction of switchin. If is true - positions of the switch states are changed.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets an object with string values, related to the different states of passwords strength.</td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the widget's name.</td></tr>
+      <tr><td>Orientation</td><td>Orientation</td><td>Orientation.Horizontal</td><td>Sets the orientation of the switch</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the custom element is readonly, it cannot be interacted with.</td></tr>
+      <tr><td>TrueContent</td><td>string</td><td>&quot;&quot;</td><td>Sets the text representation of checked=true state.</td></tr>
+      <tr><td>TrueTemplate</td><td>string</td><td>&quot;null&quot;</td><td>Sets custom template about true state.</td></tr>
+      <tr><td>SwitchMode</td><td>SwitchButtonSwitchMode</td><td>SwitchButtonSwitchMode.Default</td><td>Sets the switchMode of the element. <ul><li>default - dragging the thumb or clicking inside the track can change the state of the element.</li> <li>click - clicking inside the track changes the state of the element.</li> <li>drag - dragging the thumb changes the state of the element.</li><li>none - the state of the element can only be changed via the API</li></ul></td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the widget's value.</td></tr>
+  </table>
+  <h2 id="SwitchButtonEvents"><a id="SwitchButton_events" href="javascript: void(0)" class="anchor"><strong>SwitchButton</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the widget is checked/unchecked.</td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event SwitchButtonChangedEventHandler</td><td>This event is triggered when the widget is checked/unchecked.</td><td>SwitchButtonChangedEventArgs</td></tr>
+    </table>
+</div>

@@ -1,0 +1,36 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ScrollBarProperties"><a id="ScrollBar_properties" href="javascript: void(0)" class="anchor"><strong>ScrollBar</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>LargeStep</td><td>int</td><td>100</td><td>Sets or gets the scrollbar's largestep. The value is increased/decreased with this largestep when the user presses the left mouse button in the area between a scrollbar button and thumb.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Max</td><td>int</td><td>1000</td><td>Sets or gets the scrollbar's maximum value.</td></tr>
+      <tr><td>MechanicalAction</td><td>DragMechanicalAction</td><td>DragMechanicalAction.SwitchWhileDragging</td><td>Sets or gets the type of used mechanical action. The mechanical action defines in which moment the value of the element will be updated.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets an object with string values, related to the different states of passwords strength.</td></tr>
+      <tr><td>Min</td><td>int</td><td>0</td><td>Sets or gets the scrollbar's minimum value.</td></tr>
+      <tr><td>Orientation</td><td>Orientation</td><td>Orientation.Horizontal</td><td>Sets or gets the scrollbar's orientation</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>ShowButtons</td><td>bool</td><td>true</td><td>Sets or gets scrollbar buttons visibility.</td></tr>
+      <tr><td>Step</td><td>int</td><td>10</td><td>Sets or gets the scrollbar's step. The value is increased/decreased with this step when the user presses a scrollbar button.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>int</td><td>0</td><td>Sets or gets the widget's value.</td></tr>
+  </table>
+  <h2 id="ScrollBarMethods"><a id="ScrollBar_methods" href="javascript: void(0)" class="anchor"><strong>ScrollBar</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Refresh</td><td>void</td><td>N/A</td><td>Redraws the element.</td></tr>
+  </table>
+  <h2 id="ScrollBarEvents"><a id="ScrollBar_events" href="javascript: void(0)" class="anchor"><strong>ScrollBar</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the value is changed.</td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event ScrollBarChangedEventHandler</td><td>This event is triggered when the value is changed.</td><td>ScrollBarChangedEventArgs</td></tr>
+    </table>
+</div>

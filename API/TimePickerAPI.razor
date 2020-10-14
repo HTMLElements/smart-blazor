@@ -1,0 +1,38 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="TimePickerProperties"><a id="TimePicker_properties" href="javascript: void(0)" class="anchor"><strong>TimePicker</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoSwitchToMinutes</td><td>bool</td><td>false</td><td>Sets or gets whether after selecting hours, the element will automatically switch to minute selection.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>Footer</td><td>bool</td><td>false</td><td>Determines whether the footer section of the element is visible or not.</td></tr>
+      <tr><td>FooterTemplate</td><td>object</td><td>N/A</td><td>Sets or gets the footer template. The value of this property can be the id of an HTMLTemplateElement or the HTMLTemplateElement itself. If set to <em>null</em>, a default, empty, template is applied.</td></tr>
+      <tr><td>Format</td><td>TimePickerFormat</td><td>TimePickerFormat.12Hour</td><td>Determines the hour selection format.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>language</strong>. </td></tr>
+      <tr><td>MinuteInterval</td><td>int</td><td>1</td><td>Sets or gets the step when selecting minutes.</td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute for the element. Name is used when submiting HTML forms.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Disables user interaction with the element.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Selection</td><td>TimePickerSelection</td><td>TimePickerSelection.Hour</td><td>Determines the view that is currently being shown. By default the hours view is visible.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>object</td><td>new Date()</td><td>Sets or gets the value of the element. The value can be a valid Date object or a string representing a valid time.</td></tr>
+      <tr><td>View</td><td>ViewLayout</td><td>ViewLayout.Portrait</td><td>Determines whether the element is in landscape or portrait mode.</td></tr>
+  </table>
+  <h2 id="TimePickerMethods"><a id="TimePicker_methods" href="javascript: void(0)" class="anchor"><strong>TimePicker</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>SetHours</td><td>void</td><td>int hours</td><td>Sets the hours.</td></tr>
+      <tr><td>SetMinutes</td><td>void</td><td>int minutes</td><td>Sets the minutes.</td></tr>
+  </table>
+  <h2 id="TimePickerEvents"><a id="TimePicker_events" href="javascript: void(0)" class="anchor"><strong>TimePicker</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the value is changed.</td><td>dynamic oldValue, dynamic value</td></tr>
+      <tr><td>Changed</td><td>event TimePickerChangedEventHandler</td><td>This event is triggered when the value is changed.</td><td>TimePickerChangedEventArgs</td></tr>
+    </table>
+</div>

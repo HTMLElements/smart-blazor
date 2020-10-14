@@ -1,0 +1,458 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ChartProperties"><a id="Chart_properties" href="javascript: void(0)" class="anchor"><strong>Chart</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <em>'none'</em>.</td></tr>
+      <tr><td>AnimationDuration</td><td>int</td><td>300</td><td>Determines the animation duration in milliseconds. The value must be between 0 and 5000. If it is outside of this range jqxChart will reset it to the default value.</td></tr>
+      <tr><td>BackgroundColor</td><td>string</td><td>&quot;null&quot;</td><td>Sets the chart's background color.</td></tr>
+      <tr><td>BackgroundImage</td><td>string</td><td>&quot;&quot;</td><td>Sets the chart's background image.</td></tr>
+      <tr><td>BorderLineColor</td><td>string</td><td>&quot;null&quot;</td><td>Sets the chart's border color.</td></tr>
+      <tr><td>BorderLineWidth</td><td>int</td><td>1</td><td>Sets the chart's border line width.</td></tr>
+      <tr><td>Caption</td><td>string</td><td>&quot;Caption&quot;</td><td>Sets the caption (title) of the chart.</td></tr>
+      <tr><td>Clip</td><td>bool</td><td>true</td><td>Determines whether to clip plotted elements that overflow the axis boundaries.</td></tr>
+      <tr><td>ColorScheme</td><td>ChartColorScheme</td><td>ChartColorScheme.Scheme01</td><td>Sets the chart's color pallete. jqxChart suppports 32 color schemes from 'scheme01' to 'scheme32'.</td></tr>
+      <tr><td>ColumnSeriesOverlap</td><td>bool</td><td>false</td><td>Enables or disables overlapping of the column series.</td></tr>
+      <tr><td>CrosshairsColor</td><td>string</td><td>&quot;null&quot;</td><td>Gets or sets the color of the crosshairs lines.</td></tr>
+      <tr><td>CrosshairsDashStyle</td><td>string</td><td>&quot;2,2&quot;</td><td>Gets or sets the dash style of the crosshairs lines. The style is a series of numbers indicating line length followed by space length.</td></tr>
+      <tr><td>CrosshairsLineWidth</td><td>int</td><td>1</td><td>Gets or sets the width of the crosshairs lines.</td></tr>
+      <tr><td>DataSource</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Sets the chart's data source.</td></tr>
+      <tr><td>Description</td><td>string</td><td>&quot;Description&quot;</td><td>Sets the description text of the chart.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the chart.</td></tr>
+      <tr><td>Draw</td><td>object</td><td>N/A</td><td>Determines the drawing function of jqxChart. When the property is set, you can override the jqxChart's drawing.</td></tr>
+      <tr><td>DrawBefore</td><td>object</td><td>N/A</td><td>Function for custom drawing before the caption and other chart elements.</td></tr>
+      <tr><td>EnableAxisTextAnimation</td><td>bool</td><td>false</td><td>Determines if the animation of the axes text is enabled.</td></tr>
+      <tr><td>EnableCrosshairs</td><td>bool</td><td>false</td><td>Enables or disables the crosshairs lines. The lines are displayed in line and area series when you move over a data point.</td></tr>
+      <tr><td>GreyScale</td><td>bool</td><td>false</td><td>Determines whether to display the chart using greyscale colors.</td></tr>
+      <tr><td>LegendLayout</td><td>object</td><td>N/A</td><td>Sets the legend's layout.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the locale. Used in conjunction with the property <strong>messages</strong>.</td></tr>
+      <tr><td>Localization</td><td>ChartLocalization</td><td>N/A</td><td>Localization object containing culture-specific properties required for formatting currencies, numbers and dates.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>.</td></tr>
+      <tr><td>Padding</td><td>Padding</td><td>N/A</td><td>Sets the left, top, right and bottom padding of the Chart.</td></tr>
+      <tr><td>LegendPosition</td><td>ChartLegendPosition</td><td>N/A</td><td>Sets the legend bar position in the Chart.</td></tr>
+      <tr><td>RenderEngine</td><td>ChartRenderEngine</td><td>ChartRenderEngine.</td><td>Determines the rendering engine used to display the chart. When the property is set to an empty string, jqxChart will automatically select an optimal rendering engine depending on the browser capabilities.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets a value indicating whether the Chart's layout is mirrored.</td></tr>
+      <tr><td>SeriesGroups</td><td>IEnumerable&lt;IChartSeriesGroup&gt;</td><td>N/A</td><td>The seriesGroups property is used to describe all series displayed on the chart. jqxChart supports multiple series of different types and series grouping. Each series group may have its own Value Axis (Y-axis) which allows you to have values with different scales displayed on the same chart at the same time. It also allows you to display multiple series types together on the same chart. For example, you can display all series in one group as lines and the series in a second group as columns. seriesGroups is an array of objects where each object represents one group.</td></tr>
+      <tr><td>ShowBorderLine</td><td>bool</td><td>true</td><td>Determines whether to display the chart's border line.</td></tr>
+      <tr><td>ShowLegend</td><td>bool</td><td>true</td><td>Determines whether to show or hide the chart series legend.</td></tr>
+      <tr><td>ShowToolTips</td><td>bool</td><td>true</td><td>Enables or disables the chart tooltips.</td></tr>
+      <tr><td>ShowToolTipsOnAllSeries</td><td>bool</td><td>false</td><td>Determines whether to show a composite tooltip containing information for all series.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;light&quot;</td><td>Determines the set of default background, line, text and band colors that will be used in the Chart.</td></tr>
+      <tr><td>TitlePadding</td><td>Padding</td><td>N/A</td><td>Sets the padding of the chart's title (caption).</td></tr>
+      <tr><td>ToolTipBackground</td><td>string</td><td>&quot;null&quot;</td><td>Tooltip background color.</td></tr>
+      <tr><td>ToolTipHideDelay</td><td>int</td><td>4000</td><td>Determines the tooltip hide delay in milliseconds.</td></tr>
+      <tr><td>ToolTipLineColor</td><td>string</td><td>&quot;null&quot;</td><td>Tooltip line color.</td></tr>
+      <tr><td>ToolTipShowDelay</td><td>int</td><td>300</td><td>Determines the tooltip show delay in milliseconds. Values may range from 0 to 10000 [ms].</td></tr>
+      <tr><td>ValueAxis</td><td>ChartValueAxis</td><td>N/A</td><td>An object with settings about the Chart's y-axis (value axis).</td></tr>
+      <tr><td>XAxis</td><td>ChartXAxis</td><td>N/A</td><td>Sets the Chart's xAxis.</td></tr>
+  </table>
+  <h2 id="ChartMethods"><a id="Chart_methods" href="javascript: void(0)" class="anchor"><strong>Chart</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddColorScheme</td><td>void</td><td>string schemeName, IEnumerable&lt;object&gt; colorsArray</td><td>Adds a new color sheme. If a scheme with the same name already exists, the method will update its colors.</td></tr>
+      <tr><td>GetColorScheme</td><td>IEnumerable&lt;object&gt;</td><td>string schemeName</td><td>Returns the colors of a color scheme by name. If the scheme doesn't exist the method returns undefined.</td></tr>
+      <tr><td>GetItemCoord</td><td>object</td><td>int groupIndex, int serieIndex, int itemIndex</td><td>Gets the rendered coordinates of a data point element.</td></tr>
+      <tr><td>GetItemsCount</td><td>int</td><td>int groupIndex, int serieIndex</td><td>Gets the number of rendered items in a specific serie.</td></tr>
+      <tr><td>GetValueAxisLabels</td><td>object</td><td>int groupIndex</td><td>Gets the rendered coordinates and values of the valueAxis labels.</td></tr>
+      <tr><td>GetValueAxisRect</td><td>object</td><td>int groupIndex</td><td>Gets the rendered rectangle coordinates of the valueAxis of specific serie group.</td></tr>
+      <tr><td>GetValueAxisValue</td><td>object</td><td>int offset, int groupIndex</td><td>Gets the valueAxis (vertical axis)'s value.</td></tr>
+      <tr><td>GetXAxisLabels</td><td>object</td><td>int groupIndex</td><td>Gets the rendered coordinates and values of the xAxis labels.</td></tr>
+      <tr><td>GetXAxisRect</td><td>object</td><td>int groupIndex</td><td>Gets the rendered rectangle coordinates of the x-Axis of specific serie group.</td></tr>
+      <tr><td>GetXAxisValue</td><td>object</td><td>int offset, int groupIndex</td><td>Gets the xAxis (horizontal axis)'s value.</td></tr>
+      <tr><td>HideSerie</td><td>void</td><td>int groupIndex, int serieIndex, int itemIndex</td><td>Hides a chart serie. The result of calling this function is same as the user unchecking the legend box of a chart serie.</td></tr>
+      <tr><td>HideToolTip</td><td>void</td><td>int hideDelay</td><td>Hides the current tooltip if visible.</td></tr>
+      <tr><td>Print</td><td>void</td><td>N/A</td><td>Prints the chart.</td></tr>
+      <tr><td>Refresh</td><td>void</td><td>N/A</td><td>Refreshes the content of the chart element after a property or data update.</td></tr>
+      <tr><td>RemoveColorScheme</td><td>void</td><td>string schemeName</td><td>Removes an existing color scheme. If the scheme does not exist, the method has no effect.</td></tr>
+      <tr><td>SaveAsJPEG</td><td>void</td><td>string fileName</td><td>Exports the chart's content as JPEG image.</td></tr>
+      <tr><td>SaveAsPNG</td><td>void</td><td>string fileName</td><td>Exports the chart's content as PNG image.</td></tr>
+      <tr><td>SaveAsPDF</td><td>void</td><td>string fileName, string pageOrientation</td><td>Exports the chart's content as PDF.</td></tr>
+      <tr><td>ShowSerie</td><td>void</td><td>int groupIndex, int serieIndex, int itemIndex</td><td>Shows a hidden chart serie. The result of calling this function is same as the user checking the legend box of a chart serie.</td></tr>
+      <tr><td>ShowToolTip</td><td>void</td><td>int groupIndex, int serieIndex, int itemIndex, int showDelay, int hideDelay</td><td>Shows a the tooltip for a particular data point.</td></tr>
+      <tr><td>Update</td><td>void</td><td>N/A</td><td>Updates the values of the chart series without full refresh of the entire chart. The method should be used for animation of frequently changing values.</td></tr>
+  </table>
+  <h2 id="ChartEvents"><a id="Chart_events" href="javascript: void(0)" class="anchor"><strong>Chart</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnAnnotationClick</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user clicks on a chart annotation.</td><td>N/A</td></tr>
+      <tr><td>AnnotationClicked</td><td>event ChartAnnotationClickedEventHandler</td><td>The event is raised when the user clicks on a chart annotation.</td><td>ChartAnnotationClickedEventArgs</td></tr>
+      <tr><td>OnAnnotationMouseenter</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user moves the cursor above a chart annotation.</td><td>N/A</td></tr>
+      <tr><td>AnnotationMouseentered</td><td>event ChartAnnotationMouseenteredEventHandler</td><td>The event is raised when the user moves the cursor above a chart annotation.</td><td>ChartAnnotationMouseenteredEventArgs</td></tr>
+      <tr><td>OnAnnotationMouseleave</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user moves the cursor out of a chart annotation.</td><td>N/A</td></tr>
+      <tr><td>AnnotationMouseleaved</td><td>event ChartAnnotationMouseleavedEventHandler</td><td>The event is raised when the user moves the cursor out of a chart annotation.</td><td>ChartAnnotationMouseleavedEventArgs</td></tr>
+      <tr><td>OnClick</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user clicks on series element.</td><td>N/A</td></tr>
+      <tr><td>Clicked</td><td>event ChartClickedEventHandler</td><td>The event is raised when the user clicks on series element.</td><td>ChartClickedEventArgs</td></tr>
+      <tr><td>OnMouseout</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user moves the cursor out of a series element.</td><td>N/A</td></tr>
+      <tr><td>Mouseouted</td><td>event ChartMouseoutedEventHandler</td><td>The event is raised when the user moves the cursor out of a series element.</td><td>ChartMouseoutedEventArgs</td></tr>
+      <tr><td>OnMouseover</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the user moves the cursor above a series element.</td><td>N/A</td></tr>
+      <tr><td>Mouseovered</td><td>event ChartMouseoveredEventHandler</td><td>The event is raised when the user moves the cursor above a series element.</td><td>ChartMouseoveredEventArgs</td></tr>
+      <tr><td>OnRangeSelectionChanged</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised after the chart's range selector position changes and after the chart ends rendering.</td><td>N/A</td></tr>
+      <tr><td>RangeSelectionChanged</td><td>event ChartRangeSelectionChangedEventHandler</td><td>The event is raised after the chart's range selector position changes and after the chart ends rendering.</td><td>ChartRangeSelectionChangedEventArgs</td></tr>
+      <tr><td>OnRangeSelectionChanging</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the chart's range selector position changes and before the chart starts rendering.</td><td>N/A</td></tr>
+      <tr><td>RangeSelectionChanging</td><td>event ChartRangeSelectionChangingEventHandler</td><td>The event is raised when the chart's range selector position changes and before the chart starts rendering.</td><td>ChartRangeSelectionChangingEventArgs</td></tr>
+      <tr><td>OnRefreshBegin</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the chart begins rendering.</td><td>N/A</td></tr>
+      <tr><td>RefreshBegined</td><td>event ChartRefreshBeginedEventHandler</td><td>The event is raised when the chart begins rendering.</td><td>ChartRefreshBeginedEventArgs</td></tr>
+      <tr><td>OnRefreshEnd</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when the chart finishes rendering.</td><td>N/A</td></tr>
+      <tr><td>RefreshEnded</td><td>event ChartRefreshEndedEventHandler</td><td>The event is raised when the chart finishes rendering.</td><td>ChartRefreshEndedEventArgs</td></tr>
+      <tr><td>OnToggle</td><td>EventCallback&lt;Event&gt;</td><td>The event is raised when a serie is toggled by a user click in the chart's legend or through an API call.</td><td>N/A</td></tr>
+      <tr><td>Toggled</td><td>event ChartToggledEventHandler</td><td>The event is raised when a serie is toggled by a user click in the chart's legend or through an API call.</td><td>ChartToggledEventArgs</td></tr>
+    </table>
+  <h2 id="ChartLocalizationProperties"><a id="ChartLocalization_properties" href="javascript: void(0)" class="anchor"><strong>ChartLocalization</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>DecimalSeparator</td><td>string</td><td>&quot;.&quot;</td><td>A symbol used to mark the border between the integer and fractional parts of a number.</td></tr>
+      <tr><td>Patterns</td><td>object</td><td>null</td><td>An object containing datetime formatting patterns.</td></tr>
+      <tr><td>ThousandsSeparator</td><td>string</td><td>&quot;&quot;</td><td>A symbol used to mark the border between thousands, millions, billions, etc.</td></tr>
+    </table>
+  <h2 id="PaddingProperties"><a id="Padding_properties" href="javascript: void(0)" class="anchor"><strong>Padding</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Bottom</td><td>int</td><td>5</td><td>Bottom padding of the Chart.</td></tr>
+      <tr><td>Left</td><td>int</td><td>5</td><td>Left padding of the Chart.</td></tr>
+      <tr><td>Right</td><td>int</td><td>5</td><td>Right padding of the Chart.</td></tr>
+      <tr><td>Top</td><td>int</td><td>5</td><td>Top padding of the Chart.</td></tr>
+    </table>
+  <h2 id="ChartLegendPositionProperties"><a id="ChartLegendPosition_properties" href="javascript: void(0)" class="anchor"><strong>ChartLegendPosition</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Height</td><td>int</td><td>5</td><td>Height of legend in the Chart.</td></tr>
+      <tr><td>Left</td><td>int</td><td>5</td><td>Left legend position in the Chart.</td></tr>
+      <tr><td>Width</td><td>int</td><td>5</td><td>Width of legend in the Chart.</td></tr>
+      <tr><td>Top</td><td>int</td><td>5</td><td>Top legend position in the Chart.</td></tr>
+    </table>
+  <h2 id="ChartSeriesGroupProperties"><a id="ChartSeriesGroup_properties" href="javascript: void(0)" class="anchor"><strong>ChartSeriesGroup</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Annotations</td><td>IEnumerable&lt;IChartSeriesGroupAnnotation&gt;</td><td>null</td><td>An array of chart annotation objects.</td></tr>
+      <tr><td>Bands</td><td>IEnumerable&lt;IChartSeriesGroupBand&gt;</td><td>null</td><td>Optional color bands dislayed in the chart's plot area.</td></tr>
+      <tr><td>ColumnsGapPercent</td><td>int</td><td>25</td><td>Percentage gap between columns within the same serie.</td></tr>
+      <tr><td>ColumnsMaxWidth</td><td>int</td><td>-1</td><td>Maximum width of columns in column series.</td></tr>
+      <tr><td>ColumnsMinWidth</td><td>int</td><td>1</td><td>Minimum width of columns in column series.</td></tr>
+      <tr><td>ColumnsBottomWidthPercent</td><td>int</td><td>100</td><td>Columns bottom width (as percentage of the total width).</td></tr>
+      <tr><td>ColumnsTopWidthPercent</td><td>int</td><td>100</td><td>Columns top width (as percentage of the total width).</td></tr>
+      <tr><td>Draw</td><td>object</td><td>null</td><td>Determines the drawing function of the series group. When the property is set, you can draw after the series group has been plotted.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>null</td><td>Determines the data source of the serie</td></tr>
+      <tr><td>DrawBefore</td><td>object</td><td>null</td><td>Function for custom drawing before the series group.</td></tr>
+      <tr><td>EnableSelection</td><td>bool</td><td>true</td><td>Determines whether series are selectable.</td></tr>
+      <tr><td>EnableSeriesToggle</td><td>bool</td><td>true</td><td>Determines whether to toggle series visibility after click on a legend's box.</td></tr>
+      <tr><td>EndAngle</td><td>int</td><td>360</td><td>The end angle (in degrees) of the polar coordinate system. Applicable to polar and spider charts only.</td></tr>
+      <tr><td>FormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Object describing the format settings of series labels.</td></tr>
+      <tr><td>LinesUnselectMode</td><td>ChartUnselectMode</td><td>ChartUnselectMode.Default</td><td>Determines how line and area series are unselected based on mouse and touch events. If the value is set to <em>'click'</em>, once a line or area serie is selected, it will remain selected until the user clicks or moves the cursor outside the chart. In default mode, the serie will be unselected immediatelly after the cursor moves over another serie or outside the chart.</td></tr>
+      <tr><td>OffsetX</td><td>int</td><td>-1</td><td>Horizontal position of the center of the polar coordinate system. Applicable to polar and spider charts only.</td></tr>
+      <tr><td>OffsetY</td><td>int</td><td>-1</td><td>Vertical position of the center of the polar coordinate system. Applicable to polar and spider charts only.</td></tr>
+      <tr><td>Orientation</td><td>Orientation</td><td>Orientation.Vertical</td><td>Specifies the orientation of the series group.</td></tr>
+      <tr><td>Summary</td><td>string</td><td>&quot;&quot;</td><td>Specifies the summary of the series group.</td></tr>
+      <tr><td>Polar</td><td>bool</td><td>false</td><td>When <strong>polar</strong> is set to <em>true</em>, the chart will render in polar coordinates.</td></tr>
+      <tr><td>Radius</td><td>int</td><td>-1</td><td>The radius of the polar coordinate system. Applicable to polar and spider charts only.</td></tr>
+      <tr><td>Series</td><td>IEnumerable&lt;IChartSeriesGroupSerie&gt;</td><td>null</td><td>An array of chart series.</td></tr>
+      <tr><td>SeriesGapPercent</td><td>int</td><td>10</td><td>Percentage gap between columns belonging to different series.</td></tr>
+      <tr><td>SkipOverlappingPoints</td><td>bool</td><td>true</td><td>Determines whether to display overlapping data points in column, ohlc and candlestick series.</td></tr>
+      <tr><td>ShowLabels</td><td>bool</td><td>true</td><td>When <strong>showLabels</strong> is set to <em>true</em>, the chart will render pie labels.</td></tr>
+      <tr><td>Spider</td><td>bool</td><td>false</td><td>When <strong>spider</strong> is set to <em>true</em>, the chart will render in polar coordinates.</td></tr>
+      <tr><td>StartAngle</td><td>int</td><td>0</td><td>The start angle (in degrees) of the polar coordinate system. Applicable to polar and spider charts only.</td></tr>
+      <tr><td>Type</td><td>ChartType</td><td>ChartType.Column</td><td>Sets the chart type. jqxChart supports several common chart types. You can easily plot series of different types on a common chart. A type must be specified for each series group. Currently, jqxChart supports the following series types:<ul><li><em>'column'</em> - simple column series</li><li><em>'stackedcolumn'</em> - stacked column series</li><li><em>'stackedcolumn100'</em> - percentage stacked columns</li><li><em>'rangecolumn'</em> - floating column between two values</li><li><em>'waterfall'</em> - waterfall series</li><li><em>'stackedwaterfall'</em> - stacked waterfall series</li><li><em>'line'</em> - simple straight lines connecting the value points</li><li><em>'stackedline'</em> - stacked lines</li><li><em>'stackedline100'</em> - percentage stacked lines</li><li><em>'spline'</em> - smooth lines connecting the value points</li><li><em>'stackedspline'</em> - smooth stacked lines</li><li><em>'stackedspline100'</em> - percentage stacked smooth lines</li><li><em>'stepline'</em> - step line</li><li><em>'stackedstepline'</em> - stacked step line</li><li><em>'stackedstepline100'</em> - percentage stacked step line</li><li><em>'area'</em> - area connecting the value points with straight lines</li><li><em>'stackedarea'</em> - stacked area with straight lines between the points</li><li><em>'stackedarea100'</em> - percentage stacked area with straight lines between the points</li><li><em>'rangearea'</em> - floating area between pairs of value points</li><li><em>'splinearea'</em> - smooth area connecting the value points</li><li><em>'stackedsplinearea'</em> - stacked smooth area connecting the value points</li><li><em>'stackedsplinearea100'</em> - percentage stacked smooth area</li><li><em>'splinerangearea'</em> - smooth floating area between pairs of value points</li><li><em>'steprangearea'</em> - step area between pairs of value points</li><li><em>'stackedsplineara'</em> - smooth stacked area</li><li><em>'steparea'</em> - step area connecting the value points</li><li><em>'stackedsteparea'</em> - step stacked area</li><li><em>'stackedsteparea100'</em> - percentage stacked step area</li><li><em>'pie'</em> - circular chart divided into sectors, illustrating proportion</li><li><em>'donut'</em> - chart divided into circular sectors with different inner and outer radius</li><li><em>'scatter'</em> - data is displayed as a collection of points</li><li><em>'stackedscatter'</em> - data is displayed as a collection of points and the values are stacked</li><li><em>'stackedscatter100'</em> - data is displayed as a collection of points and the values are percentage stacked</li><li><em>'bubble'</em> - data is displayed as a collection of bubbles</li><li><em>'stackedbubble'</em> - data is displayed as a collection of bubbles and the values are stacked</li><li><em>'stackedbubble100'</em> - data is displayed as a collection of bubbles and the values are percentage stacked</li><li><em>'candlestick'</em> - display candlestick series using open, high, low, close data points</li><li><em>'ohlc'</em> - display OHLC series using open, high, low, close data points</li></ul></td></tr>
+      <tr><td>ToolTipFormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Object describing the format settings of series tooltips.</td></tr>
+      <tr><td>UseGradientColors</td><td>bool</td><td>false</td><td>Determines whether to use color gradients.</td></tr>
+      <tr><td>ValueAxis</td><td>ChartValueAxis</td><td>new ChartValueAxis()</td><td>Object describing the valueAxis for this group. jqxChart allows you to use a common valueAxis and/or multiple value axes per serie group.</td></tr>
+      <tr><td>XAxis</td><td>ChartXAxis</td><td>new ChartXAxis()</td><td>Object describing the xAxis for this group.</td></tr>
+    </table>
+  <h2 id="ChartSeriesGroupAnnotationProperties"><a id="ChartSeriesGroupAnnotation_properties" href="javascript: void(0)" class="anchor"><strong>ChartSeriesGroupAnnotation</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>FillColor</td><td>string</td><td>&quot;&quot;</td><td>Fill/background color of the annotation.</td></tr>
+      <tr><td>Height</td><td>int</td><td>-1</td><td>Height of the annotation.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Line color of the annotation.</td></tr>
+      <tr><td>Offset</td><td>Offset</td><td>new Offset()</td><td>Custom offset of the annotation relative to <strong>xValue</strong> & <strong>yValue</strong>.</td></tr>
+      <tr><td>Path</td><td>string</td><td>&quot;&quot;</td><td>Line path command in case the <strong>type</strong> is <em>'path'</em>, e.g. 'M 10,10 L 20,20 L 50,50'.</td></tr>
+      <tr><td>Radius</td><td>int</td><td>-1</td><td>Radius of the annotation in case its <strong>type</strong> is <em>'circle'</em>.</td></tr>
+      <tr><td>Text</td><td>ChartSeriesGroupAnnotationText</td><td>new ChartSeriesGroupAnnotationText()</td><td>Object describing the text of the annotation.</td></tr>
+      <tr><td>Type</td><td>ChartSeriesGroupAnnotationType</td><td>ChartSeriesGroupAnnotationType.Null</td><td>Shape type of the annotation.</td></tr>
+      <tr><td>Width</td><td>int</td><td>-1</td><td>Width of the annotation.</td></tr>
+      <tr><td>XValue</td><td>int</td><td>-1</td><td>Value to determine the horizontal offset of the annotation.</td></tr>
+      <tr><td>XValue2</td><td>int</td><td>-1</td><td>Optional 2nd value to determine the horizontal offset of the annotation bottom-right point.</td></tr>
+      <tr><td>YValue</td><td>int</td><td>-1</td><td>Value to determine the vertical offset of the annotation.</td></tr>
+      <tr><td>YValue2</td><td>int</td><td>-1</td><td>Optional 2nd value to determine the vertical offset of the annotation's bottom-right point.</td></tr>
+    </table>
+  <h2 id="OffsetProperties"><a id="Offset_properties" href="javascript: void(0)" class="anchor"><strong>Offset</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>X</td><td>int</td><td>-1</td><td>Horizontal offset.</td></tr>
+      <tr><td>Y</td><td>int</td><td>-1</td><td>Vertical offset.</td></tr>
+    </table>
+  <h2 id="ChartSeriesGroupAnnotationTextProperties"><a id="ChartSeriesGroupAnnotationText_properties" href="javascript: void(0)" class="anchor"><strong>ChartSeriesGroupAnnotationText</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Angle</td><td>int</td><td>-1</td><td>Text rotation angle.</td></tr>
+      <tr><td>Class</td><td>string</td><td>&quot;&quot;</td><td>CSS class of the annotation.</td></tr>
+      <tr><td>FillColor</td><td>string</td><td>&quot;&quot;</td><td>Inner text color (fill).</td></tr>
+      <tr><td>HorizontalAlignment</td><td>HorizontalAlignment</td><td>HorizontalAlignment.Center</td><td>Horizontal text alignment.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Outer text color (stroke).</td></tr>
+      <tr><td>Offset</td><td>Offset</td><td>new Offset()</td><td>Offset of the annotation text relative to the base annotation offset.</td></tr>
+      <tr><td>RotationPoint</td><td>ChartRotationPoint</td><td>ChartRotationPoint.Centermiddle</td><td>Position to rotate the text around.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;&quot;</td><td>Text of the annotation.</td></tr>
+      <tr><td>VerticalAlignment</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Vertical text alignment.</td></tr>
+    </table>
+  <h2 id="ChartSeriesGroupBandProperties"><a id="ChartSeriesGroupBand_properties" href="javascript: void(0)" class="anchor"><strong>ChartSeriesGroupBand</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Color</td><td>string</td><td>&quot;&quot;</td><td>Color used to fill the area between the minValue and the maxValue.</td></tr>
+      <tr><td>DashStyle</td><td>string</td><td>&quot;&quot;</td><td>Dash style of the band lines. The style is a series of numbers indicating line length followed by space length.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Band line color.</td></tr>
+      <tr><td>LineWidth</td><td>object</td><td>null</td><td>Band line width.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>End value of the color band.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Start value of the color band.</td></tr>
+      <tr><td>Opacity</td><td>int</td><td>1</td><td>Fraction indicating the fill opacity.</td></tr>
+    </table>
+  <h2 id="ChartFormatSettingsProperties"><a id="ChartFormatSettings_properties" href="javascript: void(0)" class="anchor"><strong>ChartFormatSettings</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>DateFormat</td><td>string</td><td>&quot;&quot;</td><td>Optional date format string. This property is applicable only when displaying Date objects.</td></tr>
+      <tr><td>DecimalPlaces</td><td>int</td><td>-1</td><td>Decimal places of numeric values.</td></tr>
+      <tr><td>DecimalSeparator</td><td>string</td><td>&quot;&quot;</td><td>A symbol used to mark the border between the integer and fractional parts of a number. The default value is inherited from <strong>localization.decimalSeparator</strong>.</td></tr>
+      <tr><td>NegativeWithBrackets</td><td>bool</td><td>false</td><td>A boolean value indicating whether to display negative numbers in brackets.</td></tr>
+      <tr><td>Prefix</td><td>string</td><td>&quot;&quot;</td><td>Text to prepend to the value.</td></tr>
+      <tr><td>Sufix</td><td>string</td><td>&quot;&quot;</td><td>Text to append to the value</td></tr>
+      <tr><td>ThousandsSeparator</td><td>string</td><td>&quot;&quot;</td><td>A symbol used to mark the border between thousands, millions, billions, etc. The default value is inherited from <strong>localization.thousandsSeparator</strong>.</td></tr>
+    </table>
+  <h2 id="ChartSeriesGroupSerieProperties"><a id="ChartSeriesGroupSerie_properties" href="javascript: void(0)" class="anchor"><strong>ChartSeriesGroupSerie</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>CenterOffset</td><td>object</td><td>0</td><td>Offset from the center point in a pie/donut series.</td></tr>
+      <tr><td>ColorScheme</td><td>ChartColorScheme</td><td>ChartColorScheme.Scheme01</td><td>Color palette to use when rendering the serie.</td></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;&quot;</td><td>Name of the field in the data source.</td></tr>
+      <tr><td>DataFieldClose</td><td>string</td><td>&quot;&quot;</td><td>Data field used in candlestcik and ohlc series.</td></tr>
+      <tr><td>DataFieldHigh</td><td>string</td><td>&quot;&quot;</td><td>Data field used in candlestcik and ohlc series.</td></tr>
+      <tr><td>DataFieldLow</td><td>string</td><td>&quot;&quot;</td><td>Data field used in candlestcik and ohlc series.</td></tr>
+      <tr><td>DataFieldOpen</td><td>string</td><td>&quot;&quot;</td><td>Data field used in candlestcik and ohlc series.</td></tr>
+      <tr><td>DataFieldFrom</td><td>string</td><td>&quot;&quot;</td><td>Data field used in in range column series as a start data field.</td></tr>
+      <tr><td>DataFieldTo</td><td>string</td><td>&quot;&quot;</td><td>Data field used in range column series as an end data field.</td></tr>
+      <tr><td>RadiusDataField</td><td>string</td><td>&quot;&quot;</td><td>Data field used in bubble series.</td></tr>
+      <tr><td>DisplayText</td><td>string</td><td>&quot;&quot;</td><td>Name to display for this serie.</td></tr>
+      <tr><td>DisplayTextClose</td><td>string</td><td>&quot;&quot;</td><td>Name to display for candlestick and ohlc series.</td></tr>
+      <tr><td>DisplayTextHigh</td><td>string</td><td>&quot;&quot;</td><td>Name to display for candlestick and ohlc series.</td></tr>
+      <tr><td>DisplayTextLow</td><td>string</td><td>&quot;&quot;</td><td>Name to display for candlestick and ohlc series.</td></tr>
+      <tr><td>DisplayTextOpen</td><td>string</td><td>&quot;&quot;</td><td>Name to display for candlestick and ohlc series.</td></tr>
+      <tr><td>EmptyPointsDisplay</td><td>ChartSeriesGroupSerieEmptyPointsDisplay</td><td>ChartSeriesGroupSerieEmptyPointsDisplay.Skip</td><td>Determines how to display value gaps in line series.</td></tr>
+      <tr><td>EnableSelection</td><td>bool</td><td>true</td><td>Determines whether the serie is selectable.</td></tr>
+      <tr><td>EnableSeriesToggle</td><td>bool</td><td>true</td><td>Determines whether to toggle the series visibility after click on a legend's box.</td></tr>
+      <tr><td>LabelRadius</td><td>int</td><td>0</td><td>Determines the labels rotation radius when the Chart is 'pie' or 'donut'.</td></tr>
+      <tr><td>FormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Object describing the format settings of the labels.</td></tr>
+      <tr><td>Summary</td><td>string</td><td>&quot;&quot;</td><td>Specifies the summary of the series group.</td></tr>
+      <tr><td>EndAngle</td><td>int</td><td>360</td><td>Maximum angle in a pie, donut, polar and spider series.</td></tr>
+      <tr><td>FillColor</td><td>string</td><td>&quot;&quot;</td><td>Fill color for the serie.</td></tr>
+      <tr><td>FillColorAlt</td><td>string</td><td>&quot;&quot;</td><td>Alternating fill color for the serie. Applicable to OHLC series only.</td></tr>
+      <tr><td>FillColorAltSelected</td><td>string</td><td>&quot;&quot;</td><td>Alternating fill color for the serie when selected. Applicable to OHLC series only.</td></tr>
+      <tr><td>FillColorSelected</td><td>string</td><td>&quot;&quot;</td><td>Fill color for the serie when selected.</td></tr>
+      <tr><td>FillColorSymbol</td><td>string</td><td>&quot;&quot;</td><td>Fill color for the marker symbols in the serie.</td></tr>
+      <tr><td>FillColorSymbolSelected</td><td>string</td><td>&quot;&quot;</td><td>Fill color for the the marker symbols in serie when selected.</td></tr>
+      <tr><td>GreyScale</td><td>bool</td><td>false</td><td>Determines whether to display the serie in grey scale.</td></tr>
+      <tr><td>HiddenPointsDisplay</td><td>bool</td><td>false</td><td>Determines whether to hide slices of toggled points in pie and donut series.</td></tr>
+      <tr><td>InitialAngle</td><td>int</td><td>0</td><td>Initial angle in pie and donut series.</td></tr>
+      <tr><td>InnerRadius</td><td>object</td><td>0</td><td>Inner radius of donut series in pixels or percents.</td></tr>
+      <tr><td>Labels</td><td>ChartLabels</td><td>new ChartLabels()</td><td>Object describing the labels properties of the axis.</td></tr>
+      <tr><td>LegendFillColor</td><td>string</td><td>&quot;&quot;</td><td>Fill color of the legend box. The default value is inherited from the serie's color.</td></tr>
+      <tr><td>LegendFormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Legend data formatting settings for the values in the serie.</td></tr>
+      <tr><td>LegendLineColor</td><td>string</td><td>&quot;&quot;</td><td>Line color of the legend box. The default value is inherited from the serie's color.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Line color for the serie.</td></tr>
+      <tr><td>LineColorSelected</td><td>string</td><td>&quot;&quot;</td><td>Line color for the serie when selected.</td></tr>
+      <tr><td>LineColorSymbol</td><td>string</td><td>&quot;&quot;</td><td>Line color for the marker symbols in serie.</td></tr>
+      <tr><td>LineColorSymbolSelected</td><td>string</td><td>&quot;&quot;</td><td>Line color for the marker symbols in the serie when selected.</td></tr>
+      <tr><td>LineDashStyle</td><td>string</td><td>&quot;&quot;</td><td>A string sequence of numbers represening line and space lengths, e.g. '2,2'.</td></tr>
+      <tr><td>LinesUnselectMode</td><td>ChartUnselectMode</td><td>ChartUnselectMode.Default</td><td>Determines how line and area series are unselected based on mouse and touch events. If the value is set to <em>'click'</em>, once a line or area serie is selected, it will remain selected until the user clicks or moves the cursor outside the chart. In default mode, the serie will be unselected immediatelly after the cursor moves over another serie or outside the chart.</td></tr>
+      <tr><td>LineWidth</td><td>object</td><td>null</td><td>Determines the line tickness of the items in this serie.</td></tr>
+      <tr><td>LineWidthSelected</td><td>object</td><td>null</td><td>Determines the line tickness of the items in this serie when selected.</td></tr>
+      <tr><td>MinRadius</td><td>object</td><td>null</td><td>Min radius of bubble series in pixels or percents.</td></tr>
+      <tr><td>MaxRadius</td><td>object</td><td>null</td><td>Max radius of bubble series in pixels or percents.</td></tr>
+      <tr><td>Opacity</td><td>int</td><td>1</td><td>Determines the opacity of the items in this serie.</td></tr>
+      <tr><td>Radius</td><td>object</td><td>null</td><td>Outer radius of pie and donut series in pixels or percents.</td></tr>
+      <tr><td>SelectedRadiusChange</td><td>object</td><td>null</td><td>Radius change on selection of pie and donut series in pixels or percents.</td></tr>
+      <tr><td>StartAngle</td><td>int</td><td>0</td><td>Minimum angle in a pie, donut, polar and spider series.</td></tr>
+      <tr><td>SymbolSize</td><td>int</td><td>-1</td><td>Determines the size of the symbol element.</td></tr>
+      <tr><td>SymbolSizeSelected</td><td>int</td><td>-1</td><td>Determines the size of the symbol element. This property is applicable to line and area series only.</td></tr>
+      <tr><td>SymbolType</td><td>ChartSymbolType</td><td>ChartSymbolType.None</td><td>Determines the symbol type displayed for the data points in the serie. This parameter is applicable to line, area, scatter and bubble series only.</td></tr>
+      <tr><td>ToolTipBackground</td><td>string</td><td>&quot;&quot;</td><td>Determines the tooltip's background.</td></tr>
+      <tr><td>ToolTipClass</td><td>string</td><td>&quot;&quot;</td><td>Determines the tooltip's CSS class name.</td></tr>
+      <tr><td>ToolTipFormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Tooltip data formatting settings for the values in the serie.</td></tr>
+      <tr><td>ToolTipLineColor</td><td>string</td><td>&quot;&quot;</td><td>Determines the tooltip's border lines color.</td></tr>
+      <tr><td>UseGradientColors</td><td>bool</td><td>false</td><td>Determines whether to use color gradients.</td></tr>
+    </table>
+  <h2 id="ChartLabelsProperties"><a id="ChartLabels_properties" href="javascript: void(0)" class="anchor"><strong>ChartLabels</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Angle</td><td>int</td><td>0</td><td>Text rotation angle.</td></tr>
+      <tr><td>AutoRotate</td><td>bool</td><td>false</td><td>boolean determining if auto rotation is enabled.</td></tr>
+      <tr><td>BackgroundColor</td><td>string</td><td>&quot;&quot;</td><td>Labels background color.</td></tr>
+      <tr><td>BackgroundOpacity</td><td>int</td><td>1</td><td>Labels background opacity.</td></tr>
+      <tr><td>BorderColor</td><td>string</td><td>&quot;&quot;</td><td>Labels border line color.</td></tr>
+      <tr><td>BorderOpacity</td><td>int</td><td>1</td><td>Labels border line opacity.</td></tr>
+      <tr><td>Class</td><td>string</td><td>&quot;&quot;</td><td>CSS class of the labels.</td></tr>
+      <tr><td>Custom</td><td>IEnumerable&lt;object&gt;</td><td>null</td><td>An array of custom values/offsets where a label will be displayed. Applicable only if labels.<strong>visible</strong> is set to <em>'custom'</em>.</td></tr>
+      <tr><td>FormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Object describing the format settings of the labels.</td></tr>
+      <tr><td>HorizontalAlignment</td><td>HorizontalAlignment</td><td>HorizontalAlignment.Center</td><td>Horizontal labels alignment.</td></tr>
+      <tr><td>LinesAngles</td><td>bool</td><td>true</td><td>Determines whether to use direct lines for the labels in pie/donut series.</td></tr>
+      <tr><td>LinesEnabled</td><td>bool</td><td>true</td><td>Determines whether to use lines for the labels in pie/donut series.</td></tr>
+      <tr><td>Offset</td><td>Offset</td><td>new Offset()</td><td>Labels offset.</td></tr>
+      <tr><td>Padding</td><td>Padding</td><td>new Padding()</td><td>Object describing the padding of the labels.</td></tr>
+      <tr><td>Radius</td><td>int</td><td>-1</td><td>Radius of the labels in pie/donut series.</td></tr>
+      <tr><td>RotationPoint</td><td>ChartRotationPoint</td><td>ChartRotationPoint.Auto</td><td>Position to rotate the text around.</td></tr>
+      <tr><td>Step</td><td>int</td><td>-1</td><td>Interval steps between label placements (multiples of the axis unit interval).</td></tr>
+      <tr><td>UnitInterval</td><td>int</td><td>-1</td><td>Sets the interval between the labels.</td></tr>
+      <tr><td>VerticalAlignment</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Vertical labels alignment.</td></tr>
+      <tr><td>Visible</td><td>object</td><td>true</td><td><p><strong>Possible values:</strong> true, false, 'custom'.</p><p>Determines the visibility of labels. When <em>'custom'</em> is set, displays only custom values/offsets from the labels.<strong>custom</strong> array.</p></td></tr>
+    </table>
+  <h2 id="ChartValueAxisProperties"><a id="ChartValueAxis_properties" href="javascript: void(0)" class="anchor"><strong>ChartValueAxis</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AlternatingBackgroundColor</td><td>string</td><td>&quot;&quot;</td><td>Alternating background color between grid lines.</td></tr>
+      <tr><td>AlternatingBackgroundColor2</td><td>string</td><td>&quot;&quot;</td><td>Second alternating background color.</td></tr>
+      <tr><td>AlternatingBackgroundOpacity</td><td>int</td><td>1</td><td>Opacity of the alternating background.</td></tr>
+      <tr><td>AxisSize</td><td>object</td><td>null</td><td>Sets the size of the axis.</td></tr>
+      <tr><td>Bands</td><td>IEnumerable&lt;IChartValueAxisBand&gt;</td><td>null</td><td>Optional color bands dislayed in the chart's plot area.</td></tr>
+      <tr><td>BaselineValue</td><td>object</td><td>0</td><td>Sets the baseline value for the axis.</td></tr>
+      <tr><td>CustomDraw</td><td>bool</td><td>false</td><td>boolean determining whether to draw the axis or the user will use APIs to draw it.</td></tr>
+      <tr><td>Description</td><td>string</td><td>&quot;&quot;</td><td>Sets the description of the value axis.</td></tr>
+      <tr><td>DisplayValueAxis</td><td>bool</td><td>true</td><td>Specifies whether the values axis is displayed.</td></tr>
+      <tr><td>Flip</td><td>bool</td><td>false</td><td>Specifies whether the values are displayed in reverse order.</td></tr>
+      <tr><td>FormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Settings used to format the displayed values along the axis.</td></tr>
+      <tr><td>GridLines</td><td>ChartLines</td><td>new ChartLines()</td><td>Object describing the grid lines properties of the valueAxis.</td></tr>
+      <tr><td>Labels</td><td>ChartLabels</td><td>new ChartLabels()</td><td>Object describing the labels properties of the axis.</td></tr>
+      <tr><td>Line</td><td>ChartLine</td><td>new ChartLine()</td><td>Object describing the line properties of the axis.</td></tr>
+      <tr><td>LogarithmicScale</td><td>bool</td><td>false</td><td>Determines whether to use logarithmic scale.</td></tr>
+      <tr><td>LogarithmicScaleBase</td><td>int</td><td>10</td><td>Base for logarithmic scale.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>Sets the maximum value of the valueAxis.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Sets the minimum value of the valueAxis.</td></tr>
+      <tr><td>Padding</td><td>Padding</td><td>new Padding()</td><td>Object describing the padding of the axis.</td></tr>
+      <tr><td>Position</td><td>AxisPosition</td><td>AxisPosition.Left</td><td>Sets the axis position. The values <em>'left'</em> and <em>'right'</em> are available in the default case. If the valueAxis is horizontal, only <em>'top'</em> and <em>'bottom'</em> are available.</td></tr>
+      <tr><td>TextRotationAngle</td><td>int</td><td>-1</td><td>Text rotation angle.</td></tr>
+      <tr><td>Type</td><td>string</td><td>&quot;&quot;</td><td>Value Axis Type</td></tr>
+      <tr><td>TextRotationPoint</td><td>ChartRotationPoint</td><td>ChartRotationPoint.Auto</td><td>Position to rotate the text around.</td></tr>
+      <tr><td>TickMarks</td><td>ChartLines</td><td>new ChartLines()</td><td>Object describing the tick marks properties of the valueAxis.</td></tr>
+      <tr><td>Title</td><td>ChartTitle</td><td>new ChartTitle()</td><td>Object describing the title of the valueAxis.</td></tr>
+      <tr><td>UnitInterval</td><td>int</td><td>-1</td><td>Sets the interval between the units.</td></tr>
+      <tr><td>ValuesOnTicks</td><td>bool</td><td>true</td><td>Specifies whether the axis values will be aligned with the tick marks.</td></tr>
+      <tr><td>Visible</td><td>bool</td><td>true</td><td>Shows or hides the valueAxis.</td></tr>
+    </table>
+  <h2 id="ChartValueAxisBandProperties"><a id="ChartValueAxisBand_properties" href="javascript: void(0)" class="anchor"><strong>ChartValueAxisBand</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Color</td><td>string</td><td>&quot;&quot;</td><td>Color used to fill the area between the minValue and the maxValue.</td></tr>
+      <tr><td>DashStyle</td><td>string</td><td>&quot;&quot;</td><td>Dash style of the band lines. The style is a series of numbers indicating line length followed by space length.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Band line color.</td></tr>
+      <tr><td>LineWidth</td><td>object</td><td>null</td><td>Band line width.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>End value of the color band.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Start value of the color band.</td></tr>
+      <tr><td>Opacity</td><td>int</td><td>1</td><td>Fraction indicating the fill opacity.</td></tr>
+    </table>
+  <h2 id="ChartLinesProperties"><a id="ChartLines_properties" href="javascript: void(0)" class="anchor"><strong>ChartLines</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Color</td><td>string</td><td>&quot;&quot;</td><td>Color of the grid lines.</td></tr>
+      <tr><td>Custom</td><td>IEnumerable&lt;object&gt;</td><td>null</td><td>An array of custom values/offsets where a grid line will be displayed. Applicable only if gridLines.<strong>visible</strong> is set to <em>'custom'</em>.</td></tr>
+      <tr><td>DashStyle</td><td>string</td><td>&quot;&quot;</td><td>Grid lines dash style, e.g. '2,2'.</td></tr>
+      <tr><td>LineWidth</td><td>object</td><td>1</td><td>Line width (in pixels) of the grid lines.</td></tr>
+      <tr><td>Size</td><td>object</td><td>4</td><td>Size (in pixels) of the tick marks.</td></tr>
+      <tr><td>Step</td><td>int</td><td>-1</td><td>Interval steps between grid line placements (multiples of the axis unit interval).</td></tr>
+      <tr><td>UnitInterval</td><td>int</td><td>-1</td><td>Sets the interval between the grid lines.</td></tr>
+      <tr><td>Visible</td><td>object</td><td>true</td><td><p><strong>Possible values:</strong> true, false, 'custom'.</p><p>Determines the visibility of grid lines. When <em>'custom'</em> is set, displays only custom values/offsets from the gridLines.<strong>custom</strong> array.</p></td></tr>
+    </table>
+  <h2 id="ChartLineProperties"><a id="ChartLine_properties" href="javascript: void(0)" class="anchor"><strong>ChartLine</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Color</td><td>string</td><td>&quot;&quot;</td><td>Color of axis line.</td></tr>
+      <tr><td>DashStyle</td><td>string</td><td>&quot;&quot;</td><td>Line dash style, e.g. '2,2'. The default is inherited from gridLines.<strong>dashStyle</strong>.</td></tr>
+      <tr><td>LineWidth</td><td>int</td><td>1</td><td>Line width. The default is inherited from gridLines.<strong>lineWidth</strong>.</td></tr>
+      <tr><td>Visible</td><td>object</td><td>true</td><td>boolean determining the visibility of the axis line.</td></tr>
+    </table>
+  <h2 id="ChartTitleProperties"><a id="ChartTitle_properties" href="javascript: void(0)" class="anchor"><strong>ChartTitle</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Class</td><td>string</td><td>&quot;&quot;</td><td>CSS class of the title text.</td></tr>
+      <tr><td>HorizontalAlignment</td><td>HorizontalAlignment</td><td>HorizontalAlignment.Center</td><td>Horizontal alignment.</td></tr>
+      <tr><td>Text</td><td>string</td><td>&quot;&quot;</td><td>Text of the title.</td></tr>
+      <tr><td>VerticalAlignment</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Vertical alignment.</td></tr>
+      <tr><td>Visible</td><td>bool</td><td>true</td><td>boolean determining the visibility of the title.</td></tr>
+    </table>
+  <h2 id="ChartXAxisProperties"><a id="ChartXAxis_properties" href="javascript: void(0)" class="anchor"><strong>ChartXAxis</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AlternatingBackgroundColor</td><td>string</td><td>&quot;&quot;</td><td>Alternating background color between grid lines.</td></tr>
+      <tr><td>AlternatingBackgroundColor2</td><td>string</td><td>&quot;&quot;</td><td>Second alternating background color.</td></tr>
+      <tr><td>AlternatingBackgroundOpacity</td><td>int</td><td>1</td><td>Opacity of the alternating background.</td></tr>
+      <tr><td>AxisSize</td><td>object</td><td>null</td><td>Sets the size of the xAxis.</td></tr>
+      <tr><td>Bands</td><td>IEnumerable&lt;IChartXAxisBand&gt;</td><td>null</td><td>Optional color bands dislayed in the chart's plot area.</td></tr>
+      <tr><td>BaseUnit</td><td>ChartBaseUnit</td><td>ChartBaseUnit.Null</td><td>The base unit when used with 'date' axis.</td></tr>
+      <tr><td>CustomDraw</td><td>bool</td><td>false</td><td>boolean determining whether to draw the axis or the user will use APIs to draw it.</td></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;&quot;</td><td>Points to a data field in the data source.</td></tr>
+      <tr><td>DateFormat</td><td>string</td><td>&quot;&quot;</td><td>Optional date format for parsing the data from the data source. Applicable when xAxis.<strong>type</strong> is set to <em>'date'</em>.</td></tr>
+      <tr><td>DisplayText</td><td>string</td><td>&quot;&quot;</td><td>Optional custom xAxis display text.</td></tr>
+      <tr><td>Flip</td><td>bool</td><td>false</td><td>Specifies whether the values are displayed in reverse order.</td></tr>
+      <tr><td>FormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Settings used to format the displayed values along the axis.</td></tr>
+      <tr><td>GridLines</td><td>ChartLines</td><td>new ChartLines()</td><td>Object describing the grid lines properties of the xAxis.</td></tr>
+      <tr><td>Labels</td><td>ChartLabels</td><td>new ChartLabels()</td><td>Object describing the labels properties of the axis.</td></tr>
+      <tr><td>Line</td><td>ChartLine</td><td>new ChartLine()</td><td>Object describing the line properties of the axis.</td></tr>
+      <tr><td>LogarithmicScale</td><td>bool</td><td>false</td><td>Determines whether to use logarithmic scale.</td></tr>
+      <tr><td>LogarithmicScaleBase</td><td>int</td><td>10</td><td>Base for logarithmic scale.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>Sets the maximum value of the xAxis.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Sets the minimum value of the xAxis.</td></tr>
+      <tr><td>Padding</td><td>Padding</td><td>new Padding()</td><td>Object describing the padding of the axis.</td></tr>
+      <tr><td>Position</td><td>AxisPosition</td><td>AxisPosition.Bottom</td><td>Sets the axis position. The values <em>'bottom'</em> and <em>'top'</em> are available in the default case. If the xAxis is vertical, only <em>'left'</em> and <em>'right'</em> are available.</td></tr>
+      <tr><td>RangeSelector</td><td>ChartRangeSelector</td><td>new ChartRangeSelector()</td><td>Definition of a range selector on the xAxis. The range selector itself is also an instance of jqx-chart.</td></tr>
+      <tr><td>Text</td><td>string</td><td>&quot;&quot;</td><td>xAxis's text value.</td></tr>
+      <tr><td>TextRotationAngle</td><td>int</td><td>-1</td><td>Text rotation angle.</td></tr>
+      <tr><td>TextRotationPoint</td><td>ChartRotationPoint</td><td>ChartRotationPoint.Auto</td><td>Position to rotate the text around.</td></tr>
+      <tr><td>TickMarks</td><td>ChartLines</td><td>new ChartLines()</td><td>Object describing the tick marks properties of the xAxis.</td></tr>
+      <tr><td>Title</td><td>ChartTitle</td><td>new ChartTitle()</td><td>Object describing the title of the xAxis.</td></tr>
+      <tr><td>ToolTipFormatSettings</td><td>ChartFormatSettings</td><td>new ChartFormatSettings()</td><td>Settings used to format xAxis values in tooltips.</td></tr>
+      <tr><td>Type</td><td>ChartXAxisType</td><td>ChartXAxisType.Auto</td><td>The type of the axis. <ul><li><em>'auto'</em> - automatically detects and switches to <em>'basic'</em>, <em>'linear'</em> or <em>'date'</em>.</li><li><em>'date'</em> - when displaying dates.</li><li><em>'basic'</em> - displays all data points sequentially.</li><li><em>'linear'</em> - linear arrangement by the value of the xAxis data field.</li></ul></td></tr>
+      <tr><td>UnitInterval</td><td>int</td><td>-1</td><td>Sets the interval between the units.</td></tr>
+      <tr><td>ValuesOnTicks</td><td>bool</td><td>true</td><td>Specifies whether the axis values will be aligned with the tick marks.</td></tr>
+      <tr><td>Visible</td><td>bool</td><td>true</td><td>Shows or hides the xAxis.</td></tr>
+    </table>
+  <h2 id="ChartXAxisBandProperties"><a id="ChartXAxisBand_properties" href="javascript: void(0)" class="anchor"><strong>ChartXAxisBand</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Color</td><td>string</td><td>&quot;&quot;</td><td>Color used to fill the area between the minValue and the maxValue.</td></tr>
+      <tr><td>DashStyle</td><td>string</td><td>&quot;&quot;</td><td>Dash style of the band lines. The style is a series of numbers indicating line length followed by space length.</td></tr>
+      <tr><td>LineColor</td><td>string</td><td>&quot;&quot;</td><td>Band line color.</td></tr>
+      <tr><td>LineWidth</td><td>object</td><td>null</td><td>Band line width.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>End value of the color band.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Start value of the color band.</td></tr>
+      <tr><td>Opacity</td><td>int</td><td>1</td><td>Fraction indicating the fill opacity.</td></tr>
+    </table>
+  <h2 id="ChartRangeSelectorProperties"><a id="ChartRangeSelector_properties" href="javascript: void(0)" class="anchor"><strong>ChartRangeSelector</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>BackgroundColor</td><td>string</td><td>&quot;&quot;</td><td>Sets the range selector chart's background color.</td></tr>
+      <tr><td>BackgroundImage</td><td>string</td><td>&quot;&quot;</td><td>Sets the range selector chart's background image.</td></tr>
+      <tr><td>BaseUnit</td><td>ChartBaseUnit</td><td>ChartBaseUnit.Null</td><td>The base unit when used with 'date' axis.</td></tr>
+      <tr><td>BorderLineColor</td><td>string</td><td>&quot;&quot;</td><td>Sets the range selector chart's border color.</td></tr>
+      <tr><td>BorderLineWidth</td><td>int</td><td>-1</td><td>Sets the range selector chart's border line width.</td></tr>
+      <tr><td>Caption</td><td>string</td><td>&quot;&quot;</td><td>Sets the caption (title) of the range selector chart.</td></tr>
+      <tr><td>ColorScheme</td><td>ChartColorScheme</td><td>ChartColorScheme.Scheme01</td><td>Sets the range selector chart's color pallete. jqxChart suppports 32 color schemes from 'scheme01' to 'scheme32'.</td></tr>
+      <tr><td>ColumnSeriesOverlap</td><td>bool</td><td>false</td><td>Enables or disables overlapping of the column series.</td></tr>
+      <tr><td>ColumnsGapPercent</td><td>int</td><td>25</td><td>Percentage gap between columns within the same serie.</td></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;&quot;</td><td>Points to a data field in the data source.</td></tr>
+      <tr><td>Description</td><td>string</td><td>&quot;&quot;</td><td>Sets the description text of the range selector chart.</td></tr>
+      <tr><td>GreyScale</td><td>bool</td><td>false</td><td>Determines whether to display the range selector chart using greyscale colors.</td></tr>
+      <tr><td>GridLines</td><td>ChartLines</td><td>new ChartLines()</td><td>Object describing the grid lines properties of the range selector chart's xAxis.</td></tr>
+      <tr><td>FormatSettings</td><td>object</td><td>null</td><td>Chart Format Settings</td></tr>
+      <tr><td>Labels</td><td>ChartLabels</td><td>new ChartLabels()</td><td>Object describing the labels properties of the axis.</td></tr>
+      <tr><td>MaxValue</td><td>object</td><td>null</td><td>Sets the maximum value of the range selector chart's xAxis.</td></tr>
+      <tr><td>MinValue</td><td>object</td><td>null</td><td>Sets the minimum value of the range selector chart's xAxis.</td></tr>
+      <tr><td>Padding</td><td>Padding</td><td>new Padding()</td><td>Object describing the padding of the range selector chart.</td></tr>
+      <tr><td>Position</td><td>AxisPosition</td><td>AxisPosition.Left</td><td>Sets the range selector chart position.</td></tr>
+      <tr><td>RenderTo</td><td>object</td><td>null</td><td>An HTML element outside the chart to render the range selector chart to.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets a value indicating whether the range selector chart's layout is mirrored.</td></tr>
+      <tr><td>SeriesGapPercent</td><td>int</td><td>10</td><td>Percentage gap between columns belonging to different series.</td></tr>
+      <tr><td>SeriesGroups</td><td>IEnumerable&lt;object&gt;</td><td>null</td><td><p>(Optional) The seriesGroups property is used to describe all series displayed on the range selector chart.</p><p><em>Please refer to the main <strong>seriesGroups</strong> property entry for more information and a full subproperty list.</em></p></td></tr>
+      <tr><td>SerieType</td><td>ChartType</td><td>ChartType.Area</td><td>Sets the range selector chart type. jqxChart supports several common chart types. You can easily plot series of different types on a common chart. A type must be specified for each series group. Currently, jqxChart supports the following series types:<ul><li><em>'column'</em> - simple column series</li><li><em>'stackedcolumn'</em> - stacked column series</li><li><em>'stackedcolumn100'</em> - percentage stacked columns</li><li><em>'rangecolumn'</em> - floating column between two values</li><li><em>'waterfall'</em> - waterfall series</li><li><em>'stackedwaterfall'</em> - stacked waterfall series</li><li><em>'line'</em> - simple straight lines connecting the value points</li><li><em>'stackedline'</em> - stacked lines</li><li><em>'stackedline100'</em> - percentage stacked lines</li><li><em>'spline'</em> - smooth lines connecting the value points</li><li><em>'stackedspline'</em> - smooth stacked lines</li><li><em>'stackedspline100'</em> - percentage stacked smooth lines</li><li><em>'stepline'</em> - step line</li><li><em>'stackedstepline'</em> - stacked step line</li><li><em>'stackedstepline100'</em> - percentage stacked step line</li><li><em>'area'</em> - area connecting the value points with straight lines</li><li><em>'stackedarea'</em> - stacked area with straight lines between the points</li><li><em>'stackedarea100'</em> - percentage stacked area with straight lines between the points</li><li><em>'rangearea'</em> - floating area between pairs of value points</li><li><em>'splinearea'</em> - smooth area connecting the value points</li><li><em>'stackedsplinearea'</em> - stacked smooth area connecting the value points</li><li><em>'stackedsplinearea100'</em> - percentage stacked smooth area</li><li><em>'splinerangearea'</em> - smooth floating area between pairs of value points</li><li><em>'steprangearea'</em> - step area between pairs of value points</li><li><em>'stackedsplineara'</em> - smooth stacked area</li><li><em>'steparea'</em> - step area connecting the value points</li><li><em>'stackedsteparea'</em> - step stacked area</li><li><em>'stackedsteparea100'</em> - percentage stacked step area</li><li><em>'pie'</em> - circular chart divided into sectors, illustrating proportion</li><li><em>'donut'</em> - chart divided into circular sectors with different inner and outer radius</li><li><em>'scatter'</em> - data is displayed as a collection of points</li><li><em>'stackedscatter'</em> - data is displayed as a collection of points and the values are stacked</li><li><em>'stackedscatter100'</em> - data is displayed as a collection of points and the values are percentage stacked</li><li><em>'bubble'</em> - data is displayed as a collection of bubbles</li><li><em>'stackedbubble'</em> - data is displayed as a collection of bubbles and the values are stacked</li><li><em>'stackedbubble100'</em> - data is displayed as a collection of bubbles and the values are percentage stacked</li><li><em>'candlestick'</em> - display candlestick series using open, high, low, close data points</li><li><em>'ohlc'</em> - display OHLC series using open, high, low, close data points</li></ul></td></tr>
+      <tr><td>ShowBorderLine</td><td>bool</td><td>false</td><td>Determines whether to display the range selector chart's border line.</td></tr>
+      <tr><td>Size</td><td>int</td><td>-1</td><td>Sets the size of the range selector chart.</td></tr>
+      <tr><td>SkipOverlappingPoints</td><td>bool</td><td>true</td><td>Determines whether to display overlapping data points in column, ohlc and candlestick series.</td></tr>
+      <tr><td>TitlePadding</td><td>Padding</td><td>new Padding()</td><td>Sets the padding of the chart's title (caption).</td></tr>
+      <tr><td>UnitInterval</td><td>int</td><td>-1</td><td>Sets the interval between the units.</td></tr>
+      <tr><td>ValueAxis</td><td>ChartValueAxis</td><td>new ChartValueAxis()</td><td>An object with settings about the range selector Chart's y-axis (value axis).</td></tr>
+      <tr><td>Visible</td><td>bool</td><td>false</td><td>Shows or hides the range selector.</td></tr>
+    </table>
+</div>

@@ -1,0 +1,49 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="PagerProperties"><a id="Pager_properties" href="javascript: void(0)" class="anchor"><strong>Pager</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoEllipsis</td><td>PagerAutoEllipsis</td><td>PagerAutoEllipsis.None</td><td>Handles pager's elipsis. Ellipsis buttons are displayed as indicators and additional help to navigate between pages.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the pager.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>NavigationButtonsPosition</td><td>LayoutPosition</td><td>LayoutPosition.Near</td><td>Handles the position of the navigation buttons.</td></tr>
+      <tr><td>PageIndex</td><td>int</td><td>0</td><td>Gets/sets current page index.</td></tr>
+      <tr><td>PageIndexSelectors</td><td>object</td><td>0</td><td>Defines the number of page index selectors.</td></tr>
+      <tr><td>PageSize</td><td>int</td><td>10</td><td>Gets/sets total number of items displayed on page.</td></tr>
+      <tr><td>PageSizeSelectorDataSource</td><td>int[]</td><td>new int[]{}</td><td>Defines the data source of the element's page size selector drop down.</td></tr>
+      <tr><td>PagesCount</td><td>int</td><td>100</td><td>The number of pages in the element.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>ShowFirstLastNavigationButtons</td><td>bool</td><td>false</td><td>Controlls displaying of the 'first' and 'last' navigation buttons.</td></tr>
+      <tr><td>ShowNavigationButtonLabels</td><td>bool</td><td>false</td><td>Displays text content in navigation buttons instead default icons.</td></tr>
+      <tr><td>ShowNavigationInput</td><td>bool</td><td>false</td><td>Determines whether the navigation input is displayed.</td></tr>
+      <tr><td>ShowPageIndexSelectors</td><td>bool</td><td>false</td><td>Determines whether the page index selectors are displayed.</td></tr>
+      <tr><td>ShowPageSizeSelector</td><td>bool</td><td>false</td><td>Determines whether the page size selector is displayed.</td></tr>
+      <tr><td>ShowPrevNextNavigationButtons</td><td>bool</td><td>false</td><td>Controlls displaying of the 'previous' and 'next' navigation buttons.</td></tr>
+      <tr><td>ShowSummary</td><td>bool</td><td>false</td><td>Determines whether the page summary is displayed.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>TotalRecords</td><td>int</td><td>N/A</td><td>Gets/sets total number of records whose pagination the Pager controls. Useful when the Pager is part of a more complex element or application.</td></tr>
+  </table>
+  <h2 id="PagerMethods"><a id="Pager_methods" href="javascript: void(0)" class="anchor"><strong>Pager</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>First</td><td>void</td><td>N/A</td><td>Selects first item.</td></tr>
+      <tr><td>Last</td><td>void</td><td>N/A</td><td>Selects last item.</td></tr>
+      <tr><td>NavigateTo</td><td>void</td><td>object pageIndex</td><td>Navigates to particular item.</td></tr>
+      <tr><td>Next</td><td>void</td><td>N/A</td><td>Selects next pager item.</td></tr>
+      <tr><td>Prev</td><td>void</td><td>N/A</td><td>Selects previous pager item.</td></tr>
+  </table>
+  <h2 id="PagerEvents"><a id="Pager_events" href="javascript: void(0)" class="anchor"><strong>Pager</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user selects a new item.</td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event PagerChangedEventHandler</td><td>This event is triggered when user selects a new item.</td><td>PagerChangedEventArgs</td></tr>
+      <tr><td>OnPageSizeChanged</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when page size is changed.</td><td>N/A</td></tr>
+      <tr><td>PageSizeChanged</td><td>event PagerPageSizeChangedEventHandler</td><td>This event is triggered when page size is changed.</td><td>PagerPageSizeChangedEventArgs</td></tr>
+    </table>
+</div>

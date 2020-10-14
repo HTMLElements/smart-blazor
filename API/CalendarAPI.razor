@@ -1,0 +1,84 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="CalendarProperties"><a id="Calendar_properties" href="javascript: void(0)" class="anchor"><strong>Calendar</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AnimationSettings</td><td>object</td><td>N/A</td><td>Applies new animation settings when it is enabled.<br/><br/> Properties:<br/><strong>startSpeed</strong> - Determines the initial speed of the animation.<br/><strong>easeThreshold</strong> - Determines the point at which the animation starts to slow down - the "ease effect".<br/><strong>step</strong> - Determines the step ( scrolling interval ) at which the animation will run. <br/><strong>stepEaseSize</strong> - Coefficient that is used to calculated the new step once the threshold has been passed. <br/><strong>resetThreshold</strong> - Determines the threshold for animation reset. When it's reached the animation will start over.<br/></td></tr>
+      <tr><td>CalendarMode</td><td>CalendarMode</td><td>CalendarMode.Default</td><td>Determines the date controls inside the header of the Calendar.</td></tr>
+      <tr><td>DayNameFormat</td><td>DayFormat</td><td>DayFormat.FirstTwoLetters</td><td>Determines the format of the day names located above the days inside the calendar.</td></tr>
+      <tr><td>DateFormatFunction</td><td>object</td><td>N/A</td><td> A callback that can be used to customize the format of the month name when calendarMode is set to 'default'.<br/></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the Calendar.</td></tr>
+      <tr><td>DisableAutoNavigation</td><td>bool</td><td>false</td><td>Disables auto navigation when the user clicks on a date that's not from the current month in view.</td></tr>
+      <tr><td>DisplayMode</td><td>CalendarDisplayMode</td><td>CalendarDisplayMode.Month</td><td>Determines the date view of the calendar when calendarMode is set to 'default'</td></tr>
+      <tr><td>DisplayModeView</td><td>CalendarDisplayModeView</td><td>CalendarDisplayModeView.Table</td><td>Determines the type of the month/year view when calendarMode is set to Default.</td></tr>
+      <tr><td>DropDownHeight</td><td>string</td><td>&quot;200&quot;</td><td>Determines the height of the month's drop down inside the Calendar.</td></tr>
+      <tr><td>DropDownWidth</td><td>string</td><td>&quot;&quot;</td><td>Determines the width of the month's drop down inside the Calendar.</td></tr>
+      <tr><td>FirstDayOfWeek</td><td>int</td><td>0</td><td>Determines the first day of the week. From 0(Sunday) to 6(Saturday)</td></tr>
+      <tr><td>FooterTemplate</td><td>object</td><td>N/A</td><td>Sets a custom footer template. Accepts the id of an HTMLTemplateElement or a reference ot it.</td></tr>
+      <tr><td>HeaderTemplate</td><td>object</td><td>N/A</td><td>Sets custom header template. Accepts the id of an HTMLTemplateElement or a reference ot it.</td></tr>
+      <tr><td>HideDayNames</td><td>bool</td><td>false</td><td>Hides the names of the weekdays.</td></tr>
+      <tr><td>HideOtherMonthDays</td><td>bool</td><td>false</td><td>Hides the dates from other months.</td></tr>
+      <tr><td>HideTooltipArrow</td><td>bool</td><td>false</td><td>Hides the arrow of the tooltip.</td></tr>
+      <tr><td>ImportantDates</td><td>object</td><td>N/A</td><td>Sets the dates that will be displayed as important.</td></tr>
+      <tr><td>ImportantDatesTemplate</td><td>object</td><td>N/A</td><td>Sets a template for the important dates. Accepts the id of an HTMLTemplate element inside the DOM of or a reference to it.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td> Determines the language of the Calendar. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Max</td><td>object</td><td>new Date(2100, 1, 1)</td><td>Determines the max date for the Calendar. Accepts date objects and valid date string formats.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Min</td><td>object</td><td>new Date(1900, 1, 1)</td><td>Determines the min date for the Calendar. Accepts date objects and valid date string formats.</td></tr>
+      <tr><td>Months</td><td>int</td><td>1</td><td>Determines the number of months to be displayed inside the calendar. The maximum amount of months that can be shown is 12. By default only 1 month is shown.</td></tr>
+      <tr><td>MonthNameFormat</td><td>MonthFormat</td><td>MonthFormat.Long</td><td>Determines the format of the month names in the header when DisplayMode is set to Default or when Months property is greater than 1. <br/></td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute for the element. Name is used when submiting HTML forms.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RestrictedDates</td><td>string[]</td><td>new string[]{}</td><td>Sets restricted dates. Restricted dates are dates that cannot be selected/hovered/focused. They are visualy styled as restricted. The dates can be javascript date objects or strings representing a valid date.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>ScrollButtonsNavigationMode</td><td>ViewLayout</td><td>ViewLayout.Landscape</td><td> Determines the direction of the navigation buttons located in the header and the animation.</td></tr>
+      <tr><td>ScrollButtonsPosition</td><td>LayoutPosition</td><td>LayoutPosition.Both</td><td> Determines the position of the navigation buttons located inside the header. </td></tr>
+      <tr><td>SelectedDates</td><td>object</td><td>N/A</td><td>Sets the dates that will be selected. Selected dates are styled differently than the rest. The dates can be Date objects or strings in a valid date format.</td></tr>
+      <tr><td>SelectionMode</td><td>CalendarSelectionMode</td><td>CalendarSelectionMode.Default</td><td>Determines the date selection mode.</td></tr>
+      <tr><td>SpinButtonsDelay</td><td>int</td><td>80</td><td>Sets the delay between clicks of the date navigation buttons located in the header of the Calendar. </td></tr>
+      <tr><td>SpinButtonsInitialDelay</td><td>int</td><td>0</td><td>Determines the initial delay before the action of the date navigation buttons located in the header of the Calendar. </td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>TitleTemplate</td><td>object</td><td>N/A</td><td>Sets a template for the title section of the Calendar. Accepts the id of an HTMLTemplate element inside the DOM of or a reference it.</td></tr>
+      <tr><td>Tooltip</td><td>bool</td><td>false</td><td>Enables/Disabled the tooltip for the important dates. If enabled when an important date is hovered a tooltip is displayed.</td></tr>
+      <tr><td>TooltipArrow</td><td>bool</td><td>true</td><td>Show/Hide the arrow of the the tooltip for the important dates. By default the arrow is visible.</td></tr>
+      <tr><td>TooltipDelay</td><td>int</td><td>100</td><td>Sets the delay of the tooltip before it appears.</td></tr>
+      <tr><td>TooltipOffset</td><td>int[][]</td><td>new List&lt;int[][]&gt;()</td><td>Set's a custom offset to the tooltip's position. Accepts an array of two <strong>numbers</strong>: the <strong>left</strong> coordinate and the <strong>top</strong> coordinate.</td></tr>
+      <tr><td>TooltipPosition</td><td>TooltipPosition</td><td>TooltipPosition.Top</td><td>Sets the position of the tooltip.</td></tr>
+      <tr><td>TooltipTemplate</td><td>object</td><td>N/A</td><td>Sets a template for the tooltip's content. Accepts the id of an HTMLTEmplate element inside the DOM or it's reference.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>View</td><td>ViewLayout</td><td>ViewLayout.Portrait</td><td>Determines the orientation of the Calendar.</td></tr>
+      <tr><td>ViewSections</td><td>string[]</td><td>new string[]{}</td><td>Determines the visible sections of the Calendar. The view sections are : title, header, footer. Multiple sections can be applied at the same time. By default only the 'header' section is visible.</td></tr>
+      <tr><td>WeekNumbers</td><td>bool</td><td>false</td><td>Enables/Disabled week numbering. If enabled week numbers are displayed infront of each week inside the Calendar.</td></tr>
+      <tr><td>Weeks</td><td>int</td><td>6</td><td>Determines the number of visible weeks. The value of the property ranges from 1 to 6. Where 1 is one week and 6 is a full month ( 6 weeks ).</td></tr>
+      <tr><td>YearFormat</td><td>YearFormat</td><td>YearFormat.Numeric</td><td>Determines the year format in the header when DisplayMode is set to Default or when Months property is greater than 1.<br/></td></tr>
+  </table>
+  <h2 id="CalendarMethods"><a id="Calendar_methods" href="javascript: void(0)" class="anchor"><strong>Calendar</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>ClearSelection</td><td>void</td><td>N/A</td><td>Clears the selection. Removes all seleceted dates.</td></tr>
+      <tr><td>Navigate</td><td>bool</td><td>object step</td><td>Navigates forwards/backwards depending on the argument.</td></tr>
+      <tr><td>Select</td><td>void</td><td>object date</td><td>Selects or Unselects a date.</td></tr>
+      <tr><td>Today</td><td>DateTime</td><td>N/A</td><td>Selects today's date.</td></tr>
+  </table>
+  <h2 id="CalendarEvents"><a id="Calendar_events" href="javascript: void(0)" class="anchor"><strong>Calendar</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a new date has been selected/unselected.</td><td>IDictionary&lt;int, string&gt; value</td></tr>
+      <tr><td>Changed</td><td>event CalendarChangedEventHandler</td><td>This event is triggered when a new date has been selected/unselected.</td><td>CalendarChangedEventArgs</td></tr>
+      <tr><td>OnDisplayModeChanging</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the displayMode is about to change. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>dynamic oldDisplayMode, dynamic newDisplayMode</td></tr>
+      <tr><td>DisplayModeChanging</td><td>event CalendarDisplayModeChangingEventHandler</td><td>This event is triggered when the displayMode is about to change. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>CalendarDisplayModeChangingEventArgs</td></tr>
+      <tr><td>OnDisplayModeChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the display mode has changed.</td><td>N/A</td></tr>
+      <tr><td>DisplayModeChanged</td><td>event CalendarDisplayModeChangedEventHandler</td><td>This event is triggered when the display mode has changed.</td><td>CalendarDisplayModeChangedEventArgs</td></tr>
+      <tr><td>OnNavigationChanging</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the view is changing. This navigation can be cancelled by using the preventDefault method.</td><td>DateTime value, string type</td></tr>
+      <tr><td>NavigationChanging</td><td>event CalendarNavigationChangingEventHandler</td><td>This event is triggered when the view is changing. This navigation can be cancelled by using the preventDefault method.</td><td>CalendarNavigationChangingEventArgs</td></tr>
+      <tr><td>OnNavigationChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the view is changed.</td><td>DateTime value, string type</td></tr>
+      <tr><td>NavigationChanged</td><td>event CalendarNavigationChangedEventHandler</td><td>This event is triggered when the view is changed.</td><td>CalendarNavigationChangedEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the tooltip for the important date is opened.</td><td>dynamic target, dynamic value</td></tr>
+      <tr><td>Opened</td><td>event CalendarOpenedEventHandler</td><td>This event is triggered when the tooltip for the important date is opened.</td><td>CalendarOpenedEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the tooltip for the important date is closed.</td><td>dynamic target, dynamic value</td></tr>
+      <tr><td>Closed</td><td>event CalendarClosedEventHandler</td><td>This event is triggered when the tooltip for the important date is closed.</td><td>CalendarClosedEventArgs</td></tr>
+    </table>
+</div>

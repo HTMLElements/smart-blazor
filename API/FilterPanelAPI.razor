@@ -1,0 +1,43 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="FilterPanelProperties"><a id="FilterPanel_properties" href="javascript: void(0)" class="anchor"><strong>FilterPanel</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>Buttons</td><td>string[]</td><td>new string[]{}</td><td>Defines which operation buttons will be shown in the filter panel</td></tr>
+      <tr><td>Data</td><td>int[]</td><td>new int[]{}</td><td>Array in mode: 'excel', determines the data to extract unique filter values from. The expected format of the data is an array of objects with key-value pairs (JSON array)</td></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;null&quot;</td><td>Describes filtered data field.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>If set to an array, determines a custom collection of filter values to be displayed. If set to a callback function, the user can add custom filter values dynamically to the default filter values (in this case, the evaluateFilterExpression function must also be implemented) .dataSource  is only available in mode: 'excel'.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables filter panel.</td></tr>
+      <tr><td>EvaluateFilterExpression</td><td>object</td><td>N/A</td><td>Callback function, used for custom evaluations in filter panel.</td></tr>
+      <tr><td>FilterType</td><td>FilterPanelFilterType</td><td>FilterPanelFilterType.String</td><td>Defines which filter type is used.</td></tr>
+      <tr><td>FormatString</td><td>string</td><td>&quot;d&quot;</td><td>Format string used in filterType 'Date'.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Defines field names of the filtered element.</td></tr>
+      <tr><td>Mode</td><td>FilterPanelMode</td><td>FilterPanelMode.Default</td><td>Desfines filter panel's  mode</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+  </table>
+  <h2 id="FilterPanelMethods"><a id="FilterPanel_methods" href="javascript: void(0)" class="anchor"><strong>FilterPanel</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Cancel</td><td>void</td><td>N/A</td><td>Discards current filtering.</td></tr>
+      <tr><td>Clear</td><td>void</td><td>N/A</td><td>Clears current filtering.</td></tr>
+      <tr><td>Evaluate</td><td>void</td><td>object value</td><td>Evaluates a filter.</td></tr>
+      <tr><td>Filter</td><td>void</td><td>N/A</td><td>Applies current filtering.</td></tr>
+      <tr><td>GetState</td><td>object</td><td>N/A</td><td>Gets the current filter state.</td></tr>
+      <tr><td>LoadState</td><td>void</td><td>object state</td><td>Loads a previously saved filter state.</td></tr>
+  </table>
+  <h2 id="FilterPanelEvents"><a id="FilterPanel_events" href="javascript: void(0)" class="anchor"><strong>FilterPanel</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnCancel</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the current filtering is discarted.</td><td>N/A</td></tr>
+      <tr><td>Canceled</td><td>event FilterPanelCanceledEventHandler</td><td>This event is triggered when the current filtering is discarted.</td><td>FilterPanelCanceledEventArgs</td></tr>
+      <tr><td>OnClear</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the current filtering is cleared.</td><td>N/A</td></tr>
+      <tr><td>Cleared</td><td>event FilterPanelClearedEventHandler</td><td>This event is triggered when the current filtering is cleared.</td><td>FilterPanelClearedEventArgs</td></tr>
+      <tr><td>OnFilter</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when filter panel settings are applied.</td><td>N/A</td></tr>
+      <tr><td>Filtered</td><td>event FilterPanelFilteredEventHandler</td><td>This event is triggered when filter panel settings are applied.</td><td>FilterPanelFilteredEventArgs</td></tr>
+    </table>
+</div>

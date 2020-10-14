@@ -1,0 +1,116 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ComboBoxProperties"><a id="ComboBox_properties" href="javascript: void(0)" class="anchor"><strong>ComboBox</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoCloseDelay</td><td>int</td><td>100</td><td>Used only when <strong>dropDownOpenMode</strong> is set to 'auto'. Determines the delay before the opened drop down closes if the pointer is not over the element.</td></tr>
+      <tr><td>AutoComplete</td><td>AutoComplete</td><td>AutoComplete.None</td><td>Determines the autocomplete mode. Auto complete modes filter the items from the dataSource and show only those that match the input.</td></tr>
+      <tr><td>AutoCompleteDelay</td><td>int</td><td>100</td><td>Determines the delay before the drop down opens to show the matches from the auto complete operation. The delay is measured in miliseconds.</td></tr>
+      <tr><td>AutoOpenShortcutKey</td><td>string[]</td><td>new string[]{}</td><td>Allows the user to define a custom key name ( or multiple key names) to open that popup with.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the ComboBox. The dataSource can be an array of strings/numbers or objects where the attributes represent the properties of a List Item. For example <strong>label</strong>, <strong>value</strong>, <strong>group</strong>. It can also be a callback that returns an Array of items as previously described.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the combo box.</td></tr>
+      <tr><td>DisplayLoadingIndicator</td><td>bool</td><td>false</td><td>Determines whether an indicator will appear during filtering and remote item loading.</td></tr>
+      <tr><td>DisplayMember</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the displayMember. The displayMember specifies the name of a property to display. The name is contained in the collection specified by the 'dataSource' property.</td></tr>
+      <tr><td>DropDownAppendTo</td><td>object</td><td>N/A</td><td>Determines the drop down parent. The drop down can be removed from the body of the element and continue to work in another container. This is usefull when one of the parents of the element doesn't allow overflowing, by settings this property to 'body' the drop down will be appended to the DOM and the popup will open/close as usual. <strong>dropDownAppendTo</strong> can be a string representing the id of an HTML element on the page or a direct reference to that element. Reseting it back to null will take the drop down back to it's original place.</td></tr>
+      <tr><td>DropDownButtonPosition</td><td>DropDownButtonPosition</td><td>DropDownButtonPosition.Right</td><td>Determines the position of the drop down button.</td></tr>
+      <tr><td>DropDownHeight</td><td>object</td><td></td><td>Sets the height of the drop down. By default it's set to an empty string. In this case the height of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>DropDownMaxHeight</td><td>object</td><td></td><td>Sets the maximum Height of the drop down. By default it's set to an empty string. In this case the maxHeight of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>DropDownMaxWidth</td><td>object</td><td></td><td>Sets the maximum Width of the drop down. By default it's set to an empty string. In this case the maxWidth of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>DropDownMinHeight</td><td>object</td><td></td><td>Sets the minimum Height of the drop down. By default it's set to an empty string. In this case the minHeight of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>DropDownMinWidth</td><td>object</td><td></td><td>Sets the minimum Width of the drop down. By default it's set to an empty string. In this case the minWidth of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>DropDownOpenMode</td><td>DropDownOpenMode</td><td>DropDownOpenMode.Default</td><td>Determines how the drop down is going to open.</td></tr>
+      <tr><td>DropDownOverlay</td><td>bool</td><td>false</td><td>If this property is enabled, when the element's dropdown is opened, a transparent overlay is positioned between the dropdown and the rest of the document. The purpose of the overlay is to make sure that clicking anywhere outside the popup will will target the overlay and not the DOM.</td></tr>
+      <tr><td>DropDownPlaceholder</td><td>string</td><td>&quot;No Items&quot;</td><td>Determines the placeholder for the drop down, displayed when there are no items in it.</td></tr>
+      <tr><td>DropDownPosition</td><td>DropDownPosition</td><td>DropDownPosition.Auto</td><td>Determines the position of the drop down when opened.</td></tr>
+      <tr><td>DropDownWidth</td><td>object</td><td></td><td>Sets the width of the drop down. By default it's set to an empty string. In this case the width of the drop down is controlled by a CSS variable.</td></tr>
+      <tr><td>EscKeyMode</td><td>ComboBoxEscKeyMode</td><td>ComboBoxEscKeyMode.Null</td><td>Determines the behavior of the element when Escape key is pressed.</td></tr>
+      <tr><td>Filterable</td><td>bool</td><td>false</td><td>Determines whether filtering is enabled.</td></tr>
+      <tr><td>FilterInputPlaceholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the placeholder for the drop down list filter input field.</td></tr>
+      <tr><td>FilterMode</td><td>FilterMode</td><td>FilterMode.StartsWithIgnoreCase</td><td>Determines the filtering mode of the Combo box.</td></tr>
+      <tr><td>Grouped</td><td>bool</td><td>false</td><td>If enabled, the items will be grouped by their first letter. Can't be applied if the dataSource already contains groups.</td></tr>
+      <tr><td>GroupMember</td><td>string</td><td>&quot;&quot;</td><td>Determines which attribute from the dataSource object will be used as the group member for the items. If not set, by default 'group' property is used from the source object. <strong>groupMember</strong> is especially usefull when loading the data from a JSON file as a dataSource for the ListBox and there's a specific property that should be used to group the items.</td></tr>
+      <tr><td>Hint</td><td>string</td><td>&quot;&quot;</td><td>Sets additional helper text below the element. The hint is visible only when the element is focused.</td></tr>
+      <tr><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility.Auto</td><td>Determines the visibility of the horizontal Scroll bar inside the drop down.</td></tr>
+      <tr><td>InputMember</td><td>string</td><td>&quot;&quot;</td><td>Represents the property name of a List item. Determines the value of the input when a ListItem is selected. Usefull in cases where the user wants to display for example the value of an item instead of it's label. By default the label is displayed in the input.</td></tr>
+      <tr><td>InputPurpose</td><td>string</td><td>&quot;off&quot;</td><td>Sets the purpose of the input and what, if any, permission the user agent has to provide automated assistance in filling out the element's input when in a form, as well as guidance to the browser as to the type of information expected in the element. This value corresponds to the standard HTML <strong>autocomplete</strong> attribute and can be set to values such as <em>'on'</em>, <em>'name'</em>, <em>'organization'</em>, <em>'street-address'</em>, etc.</td></tr>
+      <tr><td>IncrementalSearchDelay</td><td>int</td><td>700</td><td>IncrementalSearchDelay property specifies the time-interval in milliseconds until the previous search query is cleared. The timer starts when the user stops typing. A new query can be started only when the delay has passed.</td></tr>
+      <tr><td>IncrementalSearchMode</td><td>SearchMode</td><td>SearchMode.StartsWithIgnoreCase</td><td>Sets ot gets the mode of the incremental search mode. Incremental search is enabled by default. Typing while the drop down is focused starts the incremental search.</td></tr>
+      <tr><td>ItemHeight</td><td>int</td><td>N/A</td><td>Sets the height for all list items. <strong>Used only when virtualization is enabled.</strong></td></tr>
+      <tr><td>ItemMeasureMode</td><td>ListItemMeasureMode</td><td>ListItemMeasureMode.Auto</td><td>Determines the item width measuring algorithm.</td></tr>
+      <tr><td>Items</td><td>object</td><td></td><td>A getter that returns an array of all List items inside the drop down.</td></tr>
+      <tr><td>ItemTemplate</td><td>object</td><td>N/A</td><td>The itemTemplate property is a string that represents the id of an HTMLTemplateElement in the DOM.  It's used to set a customize the content of the list items.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Sets a little text label above the element.</td></tr>
+      <tr><td>LoadingIndicatorPlaceholder</td><td>string</td><td>&quot;Loading...&quot;</td><td>Determines the text that will be displayed next to the loading indicator when the loader is visible and it's position is top or bottom.</td></tr>
+      <tr><td>LoadingIndicatorPosition</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Determines the position of the loading indicator.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>MinLength</td><td>int</td><td>2</td><td>Determines the minimum number of characters inside the input in order to trigger the autocomplete functionality</td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute for the element. Name is used when submiting HTML forms.</td></tr>
+      <tr><td>IsOpened</td><td>bool</td><td>false</td><td>Determines whether the popup is opened or closed</td></tr>
+      <tr><td>Placeholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the input's placeholder.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Disables user interaction with the element.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>ResizeIndicator</td><td>bool</td><td>false</td><td>Determines whether the resize indicator in the bottom right corner of the drop down is visible or not. This property is used in conjunction with <strong>resizeMode</strong>.</td></tr>
+      <tr><td>ResizeMode</td><td>ResizeMode</td><td>ResizeMode.Null</td><td>Determines whether the dropDown can be resized or not. When resizing is enabled, a resize bar appears on the top/bottom side of the drop down.</td></tr>
+      <tr><td>SelectionDisplayMode</td><td>SelectionDisplayMode</td><td>SelectionDisplayMode.Plain</td><td>Determines what will be displayed in the input.</td></tr>
+      <tr><td>SelectedIndexes</td><td>int[]</td><td>new int[]{}</td><td>Sets or gets the selected indexes. Selected indexes represents an array of the indexes of the items that should be selected.</td></tr>
+      <tr><td>SelectedValues</td><td>string[]</td><td>new string[]{}</td><td>Sets or gets elected indexes. Selected values represents the values of the items that should be selected.</td></tr>
+      <tr><td>SelectionMode</td><td>ListSelectionMode</td><td>ListSelectionMode.One</td><td>Determines how many items can be selected.</td></tr>
+      <tr><td>Sorted</td><td>bool</td><td>false</td><td>Determines whether the items are sorted alphabetically or not</td></tr>
+      <tr><td>SortDirection</td><td>string</td><td>&quot;asc&quot;</td><td>Determines sorting direction - ascending(asc) or descending(desc)</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme for the element. Themes define the look of the elements.</td></tr>
+      <tr><td>TokenTemplate</td><td>object</td><td>N/A</td><td>Sets a custom content for the tokens when selectionDisplayMode is set to 'tokens'. Tokens are used only for multiple selection.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the value.</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;&quot;</td><td>Determines the value member of an item. Stored as value in the item object. Similar to groupMember, <strong>valueMember</strong> is especially usefull when using data from a JSON file as a dataSource for the ListBox and there's a specific property that should be used for the value the items.</td></tr>
+      <tr><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility.Auto</td><td>Determines the visibility of the vertical scroll bar.</td></tr>
+      <tr><td>Virtualized</td><td>bool</td><td>false</td><td>Determines weather or not Virtualization is used for the Combo box. Virtualization allows a huge amount of items to be loaded to the List box while preserving the performance. For example a milion items can be loaded to the list box.</td></tr>
+  </table>
+  <h2 id="ComboBoxMethods"><a id="ComboBox_methods" href="javascript: void(0)" class="anchor"><strong>ComboBox</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AppendChild</td><td>dynamic</td><td>dynamic node</td><td>Appends a ListItem to the end of the list of items inside element.</td></tr>
+      <tr><td>ClearItems</td><td>void</td><td>N/A</td><td>Removes all items from the drop down list.</td></tr>
+      <tr><td>ClearSelection</td><td>void</td><td>N/A</td><td>Unselects all items.</td></tr>
+      <tr><td>Close</td><td>void</td><td>N/A</td><td>Closes the dropDown list.</td></tr>
+      <tr><td>EnsureVisible</td><td>void</td><td>object item</td><td>Ensures the desired item is visible by scrolling to it.</td></tr>
+      <tr><td>GetItem</td><td>object</td><td>string value</td><td>Returns an item instance from the dropDown list.</td></tr>
+      <tr><td>Insert</td><td>void</td><td>int position, object item</td><td>Inserts a new item at a specified position.</td></tr>
+      <tr><td>InsertBefore</td><td>dynamic</td><td>dynamic node, dynamic referenceNode</td><td>Inserts a new ListItem before another in the list.</td></tr>
+      <tr><td>Open</td><td>void</td><td>N/A</td><td>Opens the dropDown list.</td></tr>
+      <tr><td>RemoveAt</td><td>void</td><td>int position</td><td>Removes an item at a specified position.</td></tr>
+      <tr><td>RemoveChild</td><td>dynamic</td><td>dynamic node</td><td>Removes a ListItem from the list of items inside element.</td></tr>
+      <tr><td>Select</td><td>void</td><td>string  item</td><td>Selects an item from the dropDown list. </td></tr>
+      <tr><td>Unselect</td><td>void</td><td>string  item</td><td>Unselects an item from the dropDown list. </td></tr>
+      <tr><td>Update</td><td>void</td><td>int position, object value</td><td>Updates an item from the dropDown list.</td></tr>
+  </table>
+  <h2 id="ComboBoxEvents"><a id="ComboBox_events" href="javascript: void(0)" class="anchor"><strong>ComboBox</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the selection is changed.</td><td>dynamic addedItems, dynamic disabled, int index, string label, dynamic removedItems, dynamic selected, dynamic value</td></tr>
+      <tr><td>Changed</td><td>event ComboBoxChangedEventHandler</td><td>This event is triggered when the selection is changed.</td><td>ComboBoxChangedEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down list is closed.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event ComboBoxClosedEventHandler</td><td>This event is triggered when the drop down list is closed.</td><td>ComboBoxClosedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down list is about to be closed. This event allows to cancel the closing operation calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Closing</td><td>event ComboBoxClosingEventHandler</td><td>This event is triggered when the drop down list is about to be closed. This event allows to cancel the closing operation calling event.preventDefault() in the event handler function.</td><td>ComboBoxClosingEventArgs</td></tr>
+      <tr><td>OnItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is clicked.</td><td>dynamic disabled, int index, string label, dynamic selected, dynamic value</td></tr>
+      <tr><td>ItemClicked</td><td>event ComboBoxItemClickedEventHandler</td><td>This event is triggered when an item is clicked.</td><td>ComboBoxItemClickedEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down list is opened.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event ComboBoxOpenedEventHandler</td><td>This event is triggered when the drop down list is opened.</td><td>ComboBoxOpenedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down list is about to be opened. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event ComboBoxOpeningEventHandler</td><td>This event is triggered when the drop down list is about to be opened. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>ComboBoxOpeningEventArgs</td></tr>
+      <tr><td>OnResizeStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user starts resizing the drop down.</td><td>dynamic position</td></tr>
+      <tr><td>ResizeStarted</td><td>event ComboBoxResizeStartedEventHandler</td><td>This event is triggered when user starts resizing the drop down.</td><td>ComboBoxResizeStartedEventArgs</td></tr>
+      <tr><td>OnResizeEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the resizing of the drop down is finished.</td><td>dynamic position</td></tr>
+      <tr><td>ResizeEnded</td><td>event ComboBoxResizeEndedEventHandler</td><td>This event is triggered when the resizing of the drop down is finished.</td><td>ComboBoxResizeEndedEventArgs</td></tr>
+      <tr><td>OnScrollBottomReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user scrolls to the end of the dropDown list.</td><td>N/A</td></tr>
+      <tr><td>ScrollBottomReached</td><td>event ComboBoxScrollBottomReachedEventHandler</td><td>This event is triggered when user scrolls to the end of the dropDown list.</td><td>ComboBoxScrollBottomReachedEventArgs</td></tr>
+      <tr><td>OnScrollTopReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user scrolls to the start of the dropDown list.</td><td>N/A</td></tr>
+      <tr><td>ScrollTopReached</td><td>event ComboBoxScrollTopReachedEventHandler</td><td>This event is triggered when user scrolls to the start of the dropDown list.</td><td>ComboBoxScrollTopReachedEventArgs</td></tr>
+      <tr><td>OnTokenClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a token item(pill) has been clicked. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>TokenClicked</td><td>event ComboBoxTokenClickedEventHandler</td><td>This event is triggered when a token item(pill) has been clicked. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>ComboBoxTokenClickedEventArgs</td></tr>
+    </table>
+</div>

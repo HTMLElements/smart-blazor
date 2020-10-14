@@ -1,0 +1,100 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ListBoxProperties"><a id="ListBox_properties" href="javascript: void(0)" class="anchor"><strong>ListBox</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AllowDrag</td><td>bool</td><td>false</td><td>Enables or disables the ability to drag list items out of the List box. Disabled items cannot be dragged.</td></tr>
+      <tr><td>AllowDrop</td><td>bool</td><td>false</td><td>Enables or disables the ability to drop list items inside the target List box.</td></tr>
+      <tr><td>AlternationCount</td><td>int</td><td>0</td><td>Determines the number of color alternations in rows.</td></tr>
+      <tr><td>AlternationEnd</td><td>int</td><td>0</td><td>Determines the ending index of color alternations in rows.</td></tr>
+      <tr><td>AlternationStart</td><td>int</td><td>0</td><td>Determines the starting index of color alternations in rows</td></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoSort</td><td>bool</td><td>true</td><td>Enables or disables auto sorting. If sorted is enabled, but <strong>autoSort</strong> is <em>false</em>, the element will not be re-sorted automatically.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the ListBox. The dataSource can be an array of strings/numbers or objects where the attributes represent the properties of a List Item. For example <strong>label</strong>, <strong>value</strong>, <strong>group</strong>. It can also be a callback that returns an Array of items as previously described.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the list box.</td></tr>
+      <tr><td>DisplayLoadingIndicator</td><td>bool</td><td>false</td><td>Determines whether an indicator will appear during filtering and remote item loading.</td></tr>
+      <tr><td>DisplayMember</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the displayMember. The displayMember specifies the name of an object property to display. The name is contained in the collection specified by the 'dataSource' property.</td></tr>
+      <tr><td>DragFeedbackFormatFunction</td><td>object</td><td>N/A</td><td>A callback function for customizing the HTML of the drag feedback. It receives one parameter - the currently dragged item.</td></tr>
+      <tr><td>DragOffset</td><td>int[]</td><td>new int[]{}</td><td>Determines the offset of the drag feedback element from the mouse cursor when dragging an item. The first member of the array is the horizontal offset and the second one - the vertical offset.</td></tr>
+      <tr><td>DropAction</td><td>ListBoxDropAction</td><td>ListBoxDropAction.Move</td><td>Determines what happens when an item is dropped.</td></tr>
+      <tr><td>Editable</td><td>bool</td><td>false</td><td>Determines if list items can be edited or not. If enabled, items can be edited by double clicking on a target item ( that is not disabled ) or pressing the <strong>F2</strong> key on the keyboard.</td></tr>
+      <tr><td>Filterable</td><td>bool</td><td>false</td><td>Determines whether list items can be filtered or not. If enable a filter input appears at the top of the list box.</td></tr>
+      <tr><td>FilterCallback</td><td>object</td><td>N/A</td><td>A callback that should return a condition that will be used for custom item filtering. Used in conjunction with filterMode 'custom'</td></tr>
+      <tr><td>FilterMode</td><td>FilterMode</td><td>FilterMode.ContainsIgnoreCase</td><td>Determines the filtering mode.</td></tr>
+      <tr><td>FilterInputPlaceholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the placeholder for the filter input field.</td></tr>
+      <tr><td>Grouped</td><td>bool</td><td>false</td><td>If enabled, the items will be grouped by their first letter. Can't be applied if the dataSource already contains groups.</td></tr>
+      <tr><td>GroupMember</td><td>string</td><td>&quot;null&quot;</td><td>Determines which attribute from the dataSource object will be used as the group member for the items. If not set, by default 'group' property is used from the source object. <strong>groupMember</strong> is especially usefull when loading the data from a JSON file as a dataSource for the ListBox and there's a specific property that should be used to group the items.</td></tr>
+      <tr><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility.Auto</td><td>Determines the visibility of the horizontal Scroll bar.</td></tr>
+      <tr><td>IncrementalSearchDelay</td><td>int</td><td>700</td><td>IncrementalSearchDelay property specifies the time-interval in milliseconds until the previous search query is cleared. The timer starts when the user stops typing. A new query can be started only when the delay has passed.</td></tr>
+      <tr><td>IncrementalSearchMode</td><td>SearchMode</td><td>SearchMode.StartsWithIgnoreCase</td><td>Sets ot gets the mode of the incremental search mode. Incremental search is enabled by default. Typing while the List box is focused starts the incremental search.</td></tr>
+      <tr><td>ItemHeight</td><td>int</td><td>N/A</td><td>Sets the height for all list box items. <strong>Used only when virtualization is enabled.</strong></td></tr>
+      <tr><td>ItemMeasureMode</td><td>ListItemMeasureMode</td><td>ListItemMeasureMode.Auto</td><td>Determines the item width measuring algorithm.</td></tr>
+      <tr><td>Items</td><td>object</td><td></td><td>A getter that returns an array of all ListBox items.</td></tr>
+      <tr><td>ItemTemplate</td><td>object</td><td>N/A</td><td>A string that represents the id of an HTMLTemplateElement inside the DOM or a reference to the template itself. It's used to set a custom template for the list items.</td></tr>
+      <tr><td>LoadingIndicatorPlaceholder</td><td>string</td><td>&quot;Loading...&quot;</td><td>Determines the text that will be displayed next to the loading indicator when the loader is visible and it's position is top or bottom.</td></tr>
+      <tr><td>LoadingIndicatorPosition</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Determines the position of the loading indicator.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>language</strong>. </td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute for the element. Name is used when submiting HTML forms.</td></tr>
+      <tr><td>Placeholder</td><td>string</td><td>&quot;No Items&quot;</td><td>Determines the placeholder that will be shown when the List box is empty.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Sets or gets the readonly property. If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>SelectedIndexes</td><td>int[]</td><td>new int[]{}</td><td>Sets or gets the selected indexes. Selected indexes represents an array of the indexes of the items that should be selected.</td></tr>
+      <tr><td>SelectedValues</td><td>string[]</td><td>new string[]{}</td><td>Sets or gets elected indexes. Selected values represents the values of the items that should be selected.</td></tr>
+      <tr><td>SelectionMode</td><td>ListSelectionMode</td><td>ListSelectionMode.OneOrManyExtended</td><td>Determines how many items can be selected depending on the selection mode.</td></tr>
+      <tr><td>SelectionChangeAction</td><td>ListBoxSelectionChangeAction</td><td>ListBoxSelectionChangeAction.Release</td><td>Determines when listbox selection is achieved - on 'press' or 'release'.</td></tr>
+      <tr><td>Sorted</td><td>bool</td><td>false</td><td>Determines whether the items are sorted alphabetically or not</td></tr>
+      <tr><td>SortDirection</td><td>string</td><td>&quot;asc&quot;</td><td>Determines sorting direction - ascending(asc) or descending(desc)</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme for the element. Themes define the look of the elements.</td></tr>
+      <tr><td>TopVisibleIndex</td><td>int</td><td>-1</td><td>Ensures the item with the target index is in view as the first (top) item in the list box.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>object</td><td>N/A</td><td>Sets or gets the value. Returns the selection. Return type: {label: string, value: any}[].</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;&quot;</td><td>Determines the value member of an item. Stored as value in the item object. Similar to groupMember, <strong>valueMember</strong> is especially usefull when using data from a JSON file as a dataSource for the ListBox and there's a specific property that should be used for the value the items.</td></tr>
+      <tr><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility.Auto</td><td>Determines the visibility of the vertical scroll bar.</td></tr>
+      <tr><td>Virtualized</td><td>bool</td><td>false</td><td>Determines weather or not Virtualization is used for the ListBox. Virtualization allows a huge amount of items to be loaded to the List box while preserving the performance. For example a milion items can be loaded to the list box.</td></tr>
+  </table>
+  <h2 id="ListBoxMethods"><a id="ListBox_methods" href="javascript: void(0)" class="anchor"><strong>ListBox</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AppendChild</td><td>dynamic</td><td>dynamic node</td><td>Appends a ListItem to the end of the list of items inside element.</td></tr>
+      <tr><td>ClearItems</td><td>void</td><td>N/A</td><td>Removes all items from the listBox.</td></tr>
+      <tr><td>ClearSelection</td><td>void</td><td>N/A</td><td>Unselects all items.</td></tr>
+      <tr><td>EnsureVisible</td><td>void</td><td>object item</td><td>Ensures the target item is visible by scrolling to it.</td></tr>
+      <tr><td>GetItem</td><td>object</td><td>string value</td><td>Returns an item instance from the listBox.</td></tr>
+      <tr><td>Insert</td><td>void</td><td>int index, object items</td><td>Inserts a new item at a specified index.</td></tr>
+      <tr><td>InsertBefore</td><td>dynamic</td><td>dynamic node, dynamic referenceNode</td><td>Inserts a new ListItem before another in the list.</td></tr>
+      <tr><td>RemoveAt</td><td>void</td><td>int index</td><td>Removes an item at a specified index.</td></tr>
+      <tr><td>RemoveChild</td><td>dynamic</td><td>dynamic node</td><td>Removes a ListItem from the list of items inside element.</td></tr>
+      <tr><td>Select</td><td>void</td><td>object  item</td><td>Selects an item from the listBox. </td></tr>
+      <tr><td>Unselect</td><td>void</td><td>string  item</td><td>Unselects an item from the listBox. </td></tr>
+      <tr><td>Update</td><td>void</td><td>int index, object details</td><td>Updates an item from the listBox.</td></tr>
+  </table>
+  <h2 id="ListBoxEvents"><a id="ListBox_events" href="javascript: void(0)" class="anchor"><strong>ListBox</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnBindingComplete</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when listbox binding is completed.</td><td>N/A</td></tr>
+      <tr><td>BindingCompleted</td><td>event ListBoxBindingCompletedEventHandler</td><td>This event is triggered when listbox binding is completed.</td><td>ListBoxBindingCompletedEventArgs</td></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when selection is changed.</td><td>dynamic addedItems, dynamic disabled, int index, string label, dynamic removedItems, dynamic selected, dynamic value</td></tr>
+      <tr><td>Changed</td><td>event ListBoxChangedEventHandler</td><td>This event is triggered when selection is changed.</td><td>ListBoxChangedEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is dropped. The dragging operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>dynamic container, dynamic data, dynamic item, dynamic originalEvent, dynamic previousContainer, dynamic target</td></tr>
+      <tr><td>DragEnded</td><td>event ListBoxDragEndedEventHandler</td><td>This event is triggered when an item is dropped. The dragging operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>ListBoxDragEndedEventArgs</td></tr>
+      <tr><td>OnDragging</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a List item is being dragged.</td><td>dynamic data, dynamic item, dynamic originalEvent</td></tr>
+      <tr><td>Dragging</td><td>event ListBoxDraggingEventHandler</td><td>This event is triggered when a List item is being dragged.</td><td>ListBoxDraggingEventArgs</td></tr>
+      <tr><td>OnDragStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is dragged. The dragging operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>dynamic container, dynamic data, dynamic item, dynamic originalEvent, dynamic previousContainer, dynamic target</td></tr>
+      <tr><td>DragStarted</td><td>event ListBoxDragStartedEventHandler</td><td>This event is triggered when an item is dragged. The dragging operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>ListBoxDragStartedEventArgs</td></tr>
+      <tr><td>OnItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is clicked.</td><td>dynamic disabled, int index, string label, dynamic selected, dynamic value</td></tr>
+      <tr><td>ItemClicked</td><td>event ListBoxItemClickedEventHandler</td><td>This event is triggered when an item is clicked.</td><td>ListBoxItemClickedEventArgs</td></tr>
+      <tr><td>OnItemLabelChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item has been edited.</td><td>dynamic selected, dynamic disabled, int index, string label, dynamic value</td></tr>
+      <tr><td>ItemLabelChanged</td><td>event ListBoxItemLabelChangedEventHandler</td><td>This event is triggered when an item has been edited.</td><td>ListBoxItemLabelChangedEventArgs</td></tr>
+      <tr><td>OnScrollBottomReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user scrolls to the end of the list.</td><td>N/A</td></tr>
+      <tr><td>ScrollBottomReached</td><td>event ListBoxScrollBottomReachedEventHandler</td><td>This event is triggered when user scrolls to the end of the list.</td><td>ListBoxScrollBottomReachedEventArgs</td></tr>
+      <tr><td>OnScrollTopReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user scrolls to the beginning of the list.</td><td>N/A</td></tr>
+      <tr><td>ScrollTopReached</td><td>event ListBoxScrollTopReachedEventHandler</td><td>This event is triggered when user scrolls to the beginning of the list.</td><td>ListBoxScrollTopReachedEventArgs</td></tr>
+      <tr><td>OnSwipeleft</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user swipes to the left, inside the listBox.</td><td>N/A</td></tr>
+      <tr><td>SwipedLeft</td><td>event ListBoxSwipedLeftEventHandler</td><td>This event is triggered when the user swipes to the left, inside the listBox.</td><td>ListBoxSwipedLeftEventArgs</td></tr>
+      <tr><td>OnSwiperight</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user swipes to the right, inside the listBox.</td><td>N/A</td></tr>
+      <tr><td>SwipeRight</td><td>event ListBoxSwipeRightEventHandler</td><td>This event is triggered when the user swipes to the right, inside the listBox.</td><td>ListBoxSwipeRightEventArgs</td></tr>
+    </table>
+</div>

@@ -1,0 +1,25 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="SortPanelProperties"><a id="SortPanel_properties" href="javascript: void(0)" class="anchor"><strong>SortPanel</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>CloseButtonPosition</td><td>SortPanelCloseButtonPosition</td><td>SortPanelCloseButtonPosition.Left</td><td>Sets or gets the the position of the close button of sort panel items.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the sort panel.<br />Each member of the <strong>dataSource</strong> array is an object with the following fields:<ul><li><strong>dataField</strong> - the dataField of the column to be sorted.</li><li><strong>dataType</strong> - the data type of the column to be sorted.</li><li><strong>label</strong> - the column label to be displayed in the column selection input.</li><li><strong>icon</strong> - a specific class to be applied to the respective item in the column selection input.</li><li><strong>sortDirection</strong> - the sort direction to be applied. Possible values: <em>'ascending'</em> and <em>'descending'</em>.</li><li><strong>sortIndex</strong> - the sort order of columns. If this value is -1, the column will not be initially sorted.</li></ul></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the sort panel.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>.</td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+  </table>
+  <h2 id="SortPanelEvents"><a id="SortPanel_events" href="javascript: void(0)" class="anchor"><strong>SortPanel</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnApply</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Apply&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>Applyed</td><td>event SortPanelApplyedEventHandler</td><td>This event is triggered when the &quot;Apply&quot; button is clicked.</td><td>SortPanelApplyedEventArgs</td></tr>
+      <tr><td>OnCancel</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Cancel&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>Canceled</td><td>event SortPanelCanceledEventHandler</td><td>This event is triggered when the &quot;Cancel&quot; button is clicked.</td><td>SortPanelCanceledEventArgs</td></tr>
+    </table>
+</div>

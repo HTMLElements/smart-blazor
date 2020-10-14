@@ -1,0 +1,37 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="FormControlProperties"><a id="FormControl_properties" href="javascript: void(0)" class="anchor"><strong>FormControl</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Action</td><td>FormControlAction</td><td>FormControlAction.</td><td>Gets or Sets the FormControl Action. This property is used when the 'controlType' is 'button' or 'submit'</td></tr>
+      <tr><td>Align</td><td>FormControlAlign</td><td>FormControlAlign.Left</td><td>Sets or Gets the alignment of the FormControl</td></tr>
+      <tr><td>AppendHTML</td><td>object</td><td></td><td>HTML Content displayed after the Form Control</td></tr>
+      <tr><td>ControlOptions</td><td>object</td><td></td><td>JSON object with initialization properties of the UI component. Example: <em>{ dataSource: ['item 1', 'item 2', 'item 3'] }</em> will set the <strong>dataSource</strong> property of the Form control.</td></tr>
+      <tr><td>ControlType</td><td>FormControlControlType</td><td>FormControlControlType.Input</td><td>The type of the control.</td></tr>
+      <tr><td>Columns</td><td>int</td><td>1</td><td>Sets the Form Group columns.</td></tr>
+      <tr><td>ColumnSpan</td><td>int</td><td>1</td><td>Sets the Form control column span.</td></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;&quot;</td><td>Sets the Form control data field. The control's inner input's name is set to the <em>dataField</em> value and in the FormGroup it is accessible through the <em>dataField</em> value.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Sets the Form control disabled mode.</td></tr>
+      <tr><td>Dirty</td><td>bool</td><td>false</td><td>Gets whether the Form control is 'dirty' i.e its value is changed by the user.</td></tr>
+      <tr><td>Info</td><td>string</td><td>&quot;&quot;</td><td>Gets or Sets the Form control's info icon's tooltip.</td></tr>
+      <tr><td>Invalid</td><td>bool</td><td>false</td><td>Gets whether the Form control is invalid.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Gets or Sets the Form control's label.</td></tr>
+      <tr><td>LabelPosition</td><td>FormControlLabelPosition</td><td>FormControlLabelPosition.Left</td><td>Gets or Sets the Form control's label position.</td></tr>
+      <tr><td>LabelOffset</td><td>int</td><td>10</td><td>Gets or Sets the offset between the label and the control.</td></tr>
+      <tr><td>LabelAlign</td><td>FormControlAlign</td><td>FormControlAlign.Left</td><td>FormGroup only(when <strong>controlType</strong> is set to <em>'group'</em>). Gets or Sets whether the navigation buttons are displayed. The property has effect when the <em>viewMode</em> property is set.</td></tr>
+      <tr><td>NextButtonLabel</td><td>string</td><td>&quot;Next&quot;</td><td>FormGroup only(when <strong>controlType</strong> is set to <em>'group'</em>). Gets or Sets the next button label.</td></tr>
+      <tr><td>BackButtonLabel</td><td>string</td><td>&quot;Back&quot;</td><td>FormGroup only(when <strong>controlType</strong> is set to <em>'group'</em>). Gets or Sets the back button label.</td></tr>
+      <tr><td>Placeholder</td><td>string</td><td>&quot;&quot;</td><td>Gets or Sets the FormControl placeholder.</td></tr>
+      <tr><td>PrependHTML</td><td>object</td><td></td><td>HTML Content displayed before the Form Control</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Gets or Sets the Form control readonly mode.</td></tr>
+      <tr><td>Required</td><td>bool</td><td>false</td><td>Gets or Sets whether this field is required.</td></tr>
+      <tr><td>Untouched</td><td>bool</td><td>false</td><td>Gets whether the Form control is not touched by the user. This flag is changed usually on blur, after the user interacted with the Form control</td></tr>
+      <tr><td>ShowColonAfterLabel</td><td>bool</td><td>false</td><td>Gets or Sets whether colon is displayed after the label.</td></tr>
+      <tr><td>ShowButtons</td><td>bool</td><td>false</td><td>FormGroup only(when <strong>controlType</strong> is set to <em>'group'</em>). Gets or Sets whether the navigation buttons are displayed. The property has effect when the <em>viewMode</em> property is set.</td></tr>
+      <tr><td>Value</td><td>object</td><td>N/A</td><td>Sets or Gets the Form control or Form group value.</td></tr>
+      <tr><td>Valid</td><td>bool</td><td>false</td><td>Gets whether the Form control is valid.</td></tr>
+      <tr><td>ValidationRules</td><td>IEnumerable&lt;object&gt;</td><td>[]</td><td>Validation rules array. Accepts any JQX.Validator rules.</td></tr>
+      <tr><td>ViewMode</td><td>FormControlViewMode</td><td>FormControlViewMode.</td><td>FormGroup only(when <strong>controlType</strong> is set to <em>'group'</em>). Gets or Sets the form'group view mode.</td></tr>
+  </table>
+</div>

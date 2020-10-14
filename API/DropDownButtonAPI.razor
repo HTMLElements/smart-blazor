@@ -1,0 +1,68 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="DropDownButtonProperties"><a id="DropDownButton_properties" href="javascript: void(0)" class="anchor"><strong>DropDownButton</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoCloseDelay</td><td>int</td><td>100</td><td>Determines the delay before the opened drop down closes when <strong>dropDownOpenMode</strong> is set to 'auto'.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>DropDownAppendTo</td><td>object</td><td>N/A</td><td>Sets the parent container of the dropDown (the popup). Used when a CSS property of unknowned parent is interfering with the visibility of the dropDown.</td></tr>
+      <tr><td>DropDownButtonPosition</td><td>DropDownButtonPosition</td><td>DropDownButtonPosition.Right</td><td>Determines the position of the drop down button.</td></tr>
+      <tr><td>DropDownHeight</td><td>object</td><td></td><td>Sets the height of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>DropDownMaxHeight</td><td>object</td><td></td><td>Sets the max height of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>DropDownMaxWidth</td><td>object</td><td></td><td>Sets the max width of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>DropDownMinHeight</td><td>object</td><td></td><td>Sets the min height of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>DropDownMinWidth</td><td>object</td><td></td><td>Sets the min width of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>DropDownOpenMode</td><td>DropDownOpenMode</td><td>DropDownOpenMode.Default</td><td>Determines how the drop down is going to open.</td></tr>
+      <tr><td>DropDownOverlay</td><td>bool</td><td>false</td><td>If this property is enabled, when the element's dropdown is opened, a transparent overlay is positioned between the dropdown and the rest of the document.</td></tr>
+      <tr><td>DropDownPlaceholder</td><td>string</td><td>&quot;No Items&quot;</td><td>Sets a placeholder text to appear when there is no content inside the dropdown.</td></tr>
+      <tr><td>DropDownPosition</td><td>DropDownPosition</td><td>DropDownPosition.Auto</td><td>Determines the vertical position of the dropDown. 'Auto' means its automatically determined depending on the viewport size.</td></tr>
+      <tr><td>DropDownWidth</td><td>object</td><td></td><td>Sets the width of the drop down. Default value of empty string means that CSS variables are used. This property should be used when the browser doesn't support CSS variables.</td></tr>
+      <tr><td>Hint</td><td>string</td><td>&quot;&quot;</td><td>Sets additional helper text below the element. The hint is visible only when the element is focused.</td></tr>
+      <tr><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility.Auto</td><td>Determines the visibility of the horizontal Scroll bar inside the drop down.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Sets a label above the element. The label is always visible.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>IsOpened</td><td>bool</td><td>false</td><td>Determines whether the popup is opened or closed</td></tr>
+      <tr><td>Placeholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the element's placeholder, displayed in the element's action button container.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Disables user interaction with the element.</td></tr>
+      <tr><td>ResizeIndicator</td><td>bool</td><td>false</td><td>Determines whether the resize indicator in the bottom right corner is visible or not.</td></tr>
+      <tr><td>ResizeMode</td><td>ResizeMode</td><td>ResizeMode.Null</td><td>Determines whether the dropDown can be resized or not. When resizing is enabled, a resize bar appears on the top/bottom side of the drop down.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility.Auto</td><td>Determines the visibility of the vertical scroll bar.</td></tr>
+  </table>
+  <h2 id="DropDownButtonMethods"><a id="DropDownButton_methods" href="javascript: void(0)" class="anchor"><strong>DropDownButton</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AppendChild</td><td>dynamic</td><td>dynamic node</td><td>Appends a new HTML node to the drop down.</td></tr>
+      <tr><td>Close</td><td>void</td><td>N/A</td><td>Closes the dropDown.</td></tr>
+      <tr><td>Open</td><td>void</td><td>N/A</td><td>Opens the dropDown.</td></tr>
+      <tr><td>RemoveAll</td><td>void</td><td>N/A</td><td>Removes everything from the drop down.</td></tr>
+      <tr><td>RemoveChild</td><td>dynamic</td><td>dynamic node</td><td>Removes a child node from the drop down.</td></tr>
+      <tr><td>ScrollTo</td><td>void</td><td>int top, int left</td><td>Scrolls the drop down to a specific position.</td></tr>
+  </table>
+  <h2 id="DropDownButtonEvents"><a id="DropDownButton_events" href="javascript: void(0)" class="anchor"><strong>DropDownButton</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnActionButtonClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user clicks on the action button. The action button is visible when the &quot;placeholder&quot; is set.</td><td>N/A</td></tr>
+      <tr><td>ActionButtonClicked</td><td>event DropDownButtonActionButtonClickedEventHandler</td><td>This event is triggered when user clicks on the action button. The action button is visible when the &quot;placeholder&quot; is set.</td><td>DropDownButtonActionButtonClickedEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down is closed.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event DropDownButtonClosedEventHandler</td><td>This event is triggered when the drop down is closed.</td><td>DropDownButtonClosedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down list is about to be closed. This event allows to cancel the closing operation calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Closing</td><td>event DropDownButtonClosingEventHandler</td><td>This event is triggered when the drop down list is about to be closed. This event allows to cancel the closing operation calling event.preventDefault() in the event handler function.</td><td>DropDownButtonClosingEventArgs</td></tr>
+      <tr><td>OnDropDownButtonClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user clicks on the drop down button.</td><td>N/A</td></tr>
+      <tr><td>DropDownButtonClicked</td><td>event DropDownButtonDropDownButtonClickedEventHandler</td><td>This event is triggered when user clicks on the drop down button.</td><td>DropDownButtonDropDownButtonClickedEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down is opened.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event DropDownButtonOpenedEventHandler</td><td>This event is triggered when the drop down is opened.</td><td>DropDownButtonOpenedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the drop down is about to be opened. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event DropDownButtonOpeningEventHandler</td><td>This event is triggered when the drop down is about to be opened. This event allows to cancel the opening operation calling event.preventDefault() in the event handler function.</td><td>DropDownButtonOpeningEventArgs</td></tr>
+      <tr><td>OnResizeStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user starts resizing the drop down.</td><td>dynamic position</td></tr>
+      <tr><td>ResizeStarted</td><td>event DropDownButtonResizeStartedEventHandler</td><td>This event is triggered when user starts resizing the drop down.</td><td>DropDownButtonResizeStartedEventArgs</td></tr>
+      <tr><td>OnResizeEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when user finishes resizing the drop down.</td><td>dynamic position</td></tr>
+      <tr><td>ResizeEnded</td><td>event DropDownButtonResizeEndedEventHandler</td><td>This event is triggered when user finishes resizing the drop down.</td><td>DropDownButtonResizeEndedEventArgs</td></tr>
+    </table>
+</div>

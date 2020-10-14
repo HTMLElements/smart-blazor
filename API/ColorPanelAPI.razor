@@ -1,0 +1,52 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ColorPanelProperties"><a id="ColorPanel_properties" href="javascript: void(0)" class="anchor"><strong>ColorPanel</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>ApplyValueMode</td><td>ColorApplyValueMode</td><td>ColorApplyValueMode.Instantly</td><td>Specifies how the value is applied.</td></tr>
+      <tr><td>ColumnCount</td><td>int</td><td>8</td><td>Defines the number of columns for the colors in displayModes 'grid', 'hexagonal' and 'spectrumGrid'.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element. Disabled elements can not be interacted with.</td></tr>
+      <tr><td>DisplayMode</td><td>ColorDisplayMode</td><td>ColorDisplayMode.Default</td><td>Determines the colors that will be displayed and their layout.</td></tr>
+      <tr><td>DisableUndo</td><td>bool</td><td>false</td><td>By default clicking on color panel's preview container returns the color value to it's previous state. 'disableUndo' prevents this functionality.</td></tr>
+      <tr><td>EditAlphaChannel</td><td>bool</td><td>false</td><td>Allows to edit the alpha(transparency) of the colors via an editor/slider in the following displayModes: 'palette', 'radial', 'hexagonal'</td></tr>
+      <tr><td>EnableCustomColors</td><td>bool</td><td>false</td><td>Allows to select a custom color via an editor popup. Custom color selection is available in modes that don't have this option by default, like: 'grid', 'default, 'spectrum grid'.</td></tr>
+      <tr><td>GridThemeColors</td><td>string[]</td><td>new string[]{}</td><td>Defines an Array of colors that will be used as the Theme Colors in the corresponding section in displayMode: 'default'.</td></tr>
+      <tr><td>GridShadeColors</td><td>string[]</td><td>new string[]{}</td><td>Defines an Array of colors that will be used as the Shade Colors in the corresponding section of displayMode: 'default'.</td></tr>
+      <tr><td>GridStandardColors</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Defines an Array of colors that will be used as the Standart Colors in the corresponding section of displayMode: 'default'.</td></tr>
+      <tr><td>HideAlphaEditor</td><td>bool</td><td>false</td><td>Hides the alpha editor. Alpha editor is an input containing the value of the current color opacity. The input is available in the following modes: 'radial', 'palette', 'hexagonal'. The input is only visible if there's enough space. This editor is visible by default.</td></tr>
+      <tr><td>HideContentToFit</td><td>string[]</td><td>new string[]{}</td><td>Determines which color editors will be hidden first when there's not enough space for all of them to be visible. By default the editors are only visible in 'palette', 'radial' and 'hexagonal' display modes. This property allows to prioritize the visibility of the editors.</td></tr>
+      <tr><td>HideHEXEditor</td><td>bool</td><td>false</td><td>HEX editor is an input containing the hexadecimal representation of a color. This editor is visible by default. Setting 'hideRGBeditor' to true hides it.</td></tr>
+      <tr><td>HidePreviewContainer</td><td>bool</td><td>false</td><td>Hides the preview container. Preview container is used to show the currently selected value in 'palette', 'radial' and 'hexagonal' display modes.</td></tr>
+      <tr><td>HideRGBEditor</td><td>bool</td><td>false</td><td>Hides the RGB editor. This editor is a group of three separate inputs for the Red, Green and Blue values of the color.</td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>Inverts the colors in 'spectrumGrid', 'hexagonal', 'radial' modes.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>.</td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute for the element. Name is used when submiting HTML forms.</td></tr>
+      <tr><td>Palette</td><td>ColorPalette</td><td>ColorPalette.Default</td><td>Determines what colors will be displayed in 'spectrumGrid', 'grid' and 'hexagonal' displayModes.</td></tr>
+      <tr><td>PaletteColors</td><td>object</td><td>N/A</td><td>Defines an array of colors that form a custom palette. This palette can be used in displayModes 'grid' and 'spectrum grid' if the <strong>palette</strong> property is set to <strong>custom</strong>. The value of the property can be an array of strings or objects that contain valid colors ( HEX, RGBA, etc).</td></tr>
+      <tr><td>PaletteCustomColors</td><td>string[]</td><td>new string[]{}</td><td>Defines an array of colors that represent a predefined list of custom colors. This palette can be used in displayModes 'grid', 'default' and 'spectrum grid'. Custom colors are displayed at the bottom of the color grid below the button for custom color selection. They are only visible if <strong>enableCustomColors</strong> property is true.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>TooltipDisplayMode</td><td>ColorTooltipDisplayMode</td><td>ColorTooltipDisplayMode.Hex</td><td>Determines how the tooltip displays the value of the color that is being hovered.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;null&quot;</td><td>Represents the value of the selected color.</td></tr>
+      <tr><td>ValueFormat</td><td>ColorValueFormat</td><td>ColorValueFormat.Default</td><td>Determines the format of the color. Whether it's in HEX, RGB or RGBA. By default it shows the color depending on the displayMode.</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;null&quot;</td><td>Determines the value member for the color when the <strong>paletteColors</strong> consists of objects. Usefull in cases where the colors are loaded as objects in an array and the attribute that holds the color key is not named 'value'.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+  </table>
+  <h2 id="ColorPanelEvents"><a id="ColorPanel_events" href="javascript: void(0)" class="anchor"><strong>ColorPanel</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the color is changed.</td><td>dynamic oldValue, dynamic value</td></tr>
+      <tr><td>Changed</td><td>event ColorPanelChangedEventHandler</td><td>This event is triggered when the color is changed.</td><td>ColorPanelChangedEventArgs</td></tr>
+      <tr><td>OnCancelButtonClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the cancel button is clicked. 'Cancel' button is visible only when &quot;applyValueMode&quot; is set to &quot;useButtons&quot;.</td><td>N/A</td></tr>
+      <tr><td>CancelButtonClicked</td><td>event ColorPanelCancelButtonClickedEventHandler</td><td>This event is triggered when the cancel button is clicked. 'Cancel' button is visible only when &quot;applyValueMode&quot; is set to &quot;useButtons&quot;.</td><td>ColorPanelCancelButtonClickedEventArgs</td></tr>
+      <tr><td>OnCustomColorSelection</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the custom color selection view is opened/closed. Custom color selection view is available when &quot;enableCustomColors&quot; property is true.</td><td>dynamic value</td></tr>
+      <tr><td>CustomColorSelectioned</td><td>event ColorPanelCustomColorSelectionedEventHandler</td><td>This event is triggered when the custom color selection view is opened/closed. Custom color selection view is available when &quot;enableCustomColors&quot; property is true.</td><td>ColorPanelCustomColorSelectionedEventArgs</td></tr>
+      <tr><td>OnOkButtonClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the ok button is clicked. 'Ok' button is visible only when &quot;applyValueMode&quot; is set to &quot;useButtons&quot;.</td><td>N/A</td></tr>
+      <tr><td>OkButtonClicked</td><td>event ColorPanelOkButtonClickedEventHandler</td><td>This event is triggered when the ok button is clicked. 'Ok' button is visible only when &quot;applyValueMode&quot; is set to &quot;useButtons&quot;.</td><td>ColorPanelOkButtonClickedEventArgs</td></tr>
+    </table>
+</div>

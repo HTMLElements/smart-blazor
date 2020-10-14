@@ -1,0 +1,238 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="GanttChartProperties"><a id="GanttChart_properties" href="javascript: void(0)" class="anchor"><strong>GanttChart</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AutoSchedule</td><td>bool</td><td>false</td><td>Recalculates the tasks that are connected and re-schedules them according to their connections. If no connections are present, autoScheduling has no effect until a connection is created. Connection types determines the start/end date limits of the tasks.</td></tr>
+      <tr><td>AutoScheduleStrictMode</td><td>bool</td><td>false</td><td>Affects the tasks only when <strong>autoSchedule</strong> is enabled. When set to true, the tasks are strictly scheduled ( according to their connections ) and dragging is not allowed. <br /> Users can set lag to specific connections to determine a delay of overlap of between the two tasks ( interval of time in miliseconds ). Lag one of the attributes of a task connection and should be set in the dataSource where the task connections are defined.</td></tr>
+      <tr><td>AutoScrollStep</td><td>int</td><td>5</td><td>Determines the scroll speed when dragging when autoScroll property is set. </td></tr>
+      <tr><td>DataExport</td><td>GanttChartDataExport</td><td>N/A</td><td>Sets the GanttChart's Data Export options.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the tasks that will be loaded inside the Timeline. Each item represents an <strong>object</strong> that should contain the following properties: <ul><li>label - the label of the Task</li><li>dateStart - the starting date of the Task. Should be a string representing a valid date.</li><li>dateEnd - the ending date of the Task. Should be a string representing a valid date.</li><li>type - determines the type of the task. Whether it's a simple <strong>task</strong>, a <strong>project</strong> or a <strong>milestone</strong>. Each type of task has specific behavior and additional attributes.</li></ul>. <br /> Additional properties: <ul><li>connections - an <strong>array</strong> of objects representing the connection between two tasks. Each connection (object) should have the following properties : <ul><li>target - a number representing the index of the target task</li><li>type - a number representing the type of the connection. Four types of connections are available: <ul><li>0 - is a connection of type Start-to-Start </li><li>1 - is a connection of type End-to-Start </li><li>2 - is a connection of type End-to-End</li><li>3 - is a connection of type Start-to-End </li></ul></li><li>lag - a <strong>number</strong> that determines the delay between two connected auto scheduled tasks. Lag property can be a positive or a negative number. When negative it determines the overlap between two connected tasks. This property is used in conjuction with <strong>autoSchedule</strong>.</li></ul></li><li>duration - determines the duration of a Task in days, hours, minutes, seconds or miliseconds. Very usefull when the the dateEnd of a Task is unknown.</li><li>minDuration - sets the minimum duration of a task. </li><li>maxDuration - sets the maximum duration of a task.</li><li>minDateStart - determines the mininum date that a task can start from. Must be if type <strong>string</strong> and should represent a valid date.</li><li>maxDateStart - determines the maximum date that a task can start from. Must be if type <strong>string</strong> and should represent a valid date.</li><li>minDateEnd - determines the mininum date that a task can end. Must be if type <strong>string</strong> and should represent a valid date.</li><li>maxDateEnd - determines the maximum date that a task can end. Must be if type <strong>string</strong> and should represent a valid date.</li><li>progress - a number that determines the progress of a task ( from 0 to 100 ).</li><li>disableDrag - a <strong>boolean</strong> property that disables the dragging of a task when set to true.</li><li>disableResize - a <strong>boolean</strong> property that disables the resizing of a task when set to true.</li><li>dragProject - a <strong>boolean</strong> that determines whether or not the whole project (along with the tasks) can be dragged while dragging the project task. <strong>Applicalbe only to Projects.</strong></li><li>synchronized - a <strong>boolean</strong> that if set the project task's start/end dates are automatically calculated based on the tasks. By default a synchronized project task can't be dragged alone. <strong>Applicable only to Project tasks.</strong></li><li>expanded - a <strong>boolean</strong> that determines if a project is expanded or not. If not all of it's sub-tasks are not visible. Only the project task itself is visible. By default no projects are expanded. <strong>Applicable only to project tasks.</strong>.</li></ul></td></tr>
+      <tr><td>DayFormat</td><td>GanttDayFormat</td><td>GanttDayFormat.Short</td><td>Determines the format of the dates in the timeline header when they represent days.</td></tr>
+      <tr><td>DateEnd</td><td>object</td><td></td><td>Determines a specific end date for the Timeline. Usefull when the user wants custom ending date for the Timeline. If no date is set the end date of the timeline is automatically determined from the tasks.</td></tr>
+      <tr><td>DateStart</td><td>object</td><td></td><td>Determines a specific starting date for the Timeline. Usefull when the user wants custom starting date for the Timeline. If no date is set the start date of the timeline is automatically determined from the tasks.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>DisableAutoScroll</td><td>bool</td><td>false</td><td>Disables auto scrolling while dragging/resizing a task bar inside the Timeline.</td></tr>
+      <tr><td>DisableTaskDrag</td><td>bool</td><td>false</td><td>Disables dragging of tasks in the Timeline.</td></tr>
+      <tr><td>DisableTaskProgressChange</td><td>bool</td><td>false</td><td>Disables task progress changing in the Timeline.</td></tr>
+      <tr><td>DisableTaskResize</td><td>bool</td><td>false</td><td>Disables resizing of tasks in the Timeline.</td></tr>
+      <tr><td>DisableSelection</td><td>bool</td><td>false</td><td>Disables the selection inside the GanttChart.</td></tr>
+      <tr><td>DisableWindowEditor</td><td>bool</td><td>false</td><td>Disables the window editor for the GanttChart.</td></tr>
+      <tr><td>DurationUnit</td><td>Duration</td><td>Duration.Milisecond</td><td>Determines in what unit is task <strong>duration</strong> property measured.</td></tr>
+      <tr><td>HeaderTemplate</td><td>object</td><td>N/A</td><td>Allows to create a custom header content for the Task Panel. The attribute accepts an HTMLTemplate element, it's id or a function.</td></tr>
+      <tr><td>HideTimelineHeaderDetails</td><td>bool</td><td>false</td><td>By default the Timeline has a two level header - timeline details and timeline header. This property hides the header details container( the top container ).</td></tr>
+      <tr><td>HideResourcePanel</td><td>bool</td><td>false</td><td>Hides the Resource panel regardless of the resources availability By default the Resource panel is visible if resources are added to the GanttChart. This property allows to hide the Resource panel permanently.</td></tr>
+      <tr><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility</td><td>HorizontalScrollBarVisibility.Auto</td><td>Determines weather or not horizontal scrollbar is shown.</td></tr>
+      <tr><td>HourFormat</td><td>HourFormat</td><td>HourFormat.Numeric</td><td>Determines the format of the dates inside the timeline header when they represent hours.</td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>When set the Timeline is positioned on the left side while the Task Tree is positioned on the right. By default it's vice versa.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td> Determines the language of the GanttChart. </td></tr>
+      <tr><td>Max</td><td>object</td><td>2100-1-1</td><td>Detetmines the maximum possible date of the Timeline.</td></tr>
+      <tr><td>Min</td><td>object</td><td>1900-1-1</td><td>Detetmines the minimum possible date of the Timeline.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>MonthFormat</td><td>MonthFormat</td><td>MonthFormat.Short</td><td>Determines the format of the dates the timeline header when they represent months.</td></tr>
+      <tr><td>NonworkingDays</td><td>int[]</td><td>new int[]{}</td><td>Determines the nonworking days of the week from 0 to 6, where 0 is the first day of the week and 6 is the last day. Nonworking days will be displayed with colored cells inside the timeline and will be ignored during task range calculations.</td></tr>
+      <tr><td>NonworkingHours</td><td>int[]</td><td>new int[]{}</td><td>Determines the nonworking hours of a day. Hours are represented as numbers inside an array. In the timline the cells that represent nonworking days are colored differently from the rest.</td></tr>
+      <tr><td>Resources</td><td>object</td><td>N/A</td><td>A getter that returns a flat structure as an array of all resources inside the element.</td></tr>
+      <tr><td>ResourceColumns</td><td>IEnumerable&lt;IGanttChartResourceColumn&gt;</td><td>N/A</td><td>Deteremines the columns that will be visible in the Resource Tree. Each entry in the value of this property must be of type <strong>Object</strong>. <br /> It should contain the <strong>label</strong> and <strong>value</strong> keys. The value of <strong>label</strong> determines the column header label inside the Task Tree. The value of <strong>value</strong> determines the content of the cells in the column.<br/ > By default, one column with all resource labels is visible. <br /> Additional properties: <ul><li>formatFunction - a function that allows to customize the content of each record in the column. The function accepts two arguments - the actual label as string that is going to be inserted and the index of the resource. The function must return a string as the new content. <li>min - controls the min size of the column</li></li> <li>max - controls the max size of the column</li><li>size - controls the actual size of the column</li></ul></td></tr>
+      <tr><td>ResourcePanelHeaderTemplate</td><td>object</td><td>N/A</td><td>Allows to create a custom header content for the Resource Panel. The attribute accepts an HTMLTemplate element, it's id or a function.</td></tr>
+      <tr><td>ResourcePanelMin</td><td>object</td><td>100</td><td>Determines the min size of the Resource Panel.</td></tr>
+      <tr><td>ResourcePanelSize</td><td>object</td><td></td><td>Determines the size of the Resource Panel.</td></tr>
+      <tr><td>ResourcePanelRefreshRate</td><td>int</td><td>0</td><td>Determines the refresh rate of the Resource Panel when dragging/resizing/progress changing a Task from the Timeline. This property allows to customize the interval between resource Tree/Timeline refreshes. By default they refresh immediately after a change.</td></tr>
+      <tr><td>ResourceTimelineMode</td><td>GanttChartResourceTimelineMode</td><td>GanttChartResourceTimelineMode.Diagram</td><td>Determines how the capacity of the resources will be visualized inside the resource timeline. By default, the capacity is measured in hours depending on the <b>view</b> property of the element.</td></tr>
+      <tr><td>ResourceTimelineView</td><td>GanttChartResourceTimelineView</td><td>GanttChartResourceTimelineView.Hours</td><td>Determines how the resources will be displayed inside the resource Timeline.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>SelectedIndexes</td><td>int[]</td><td>new int[]{}</td><td>Determines the selected task(s). If empty no tasks are selected.</td></tr>
+      <tr><td>ShowProgressLabel</td><td>bool</td><td>false</td><td>Shows the progress label inside the progress bars of the Timeline tasks.</td></tr>
+      <tr><td>SnapToNearest</td><td>bool</td><td>false</td><td>If set the dateStart/dateEnd of the tasks will be coerced to the nearest timeline cell date ( according to the view ). Affects the dragging operation as well.</td></tr>
+      <tr><td>Sortable</td><td>bool</td><td>false</td><td>Determines whether the GanttChart can be sorted or not.</td></tr>
+      <tr><td>SortMode</td><td>GanttChartSortMode</td><td>GanttChartSortMode.One</td><td>Determines whether the GanttChart can be sorted by one or more columns.</td></tr>
+      <tr><td>Tasks</td><td>IEnumerable&lt;IGanttChartTask&gt;</td><td></td><td>A getter that returns a flat structure as an array of all tasks inside the element.</td></tr>
+      <tr><td>TaskColumns</td><td>IEnumerable&lt;IGanttChartTaskColumn&gt;</td><td>N/A</td><td>Deteremines the columns that will be visible in the Task Tree. Each entry in the value of this property must be of type <strong>Object</strong>. <br /> It should contain the <strong>label</strong> and <strong>value</strong> keys. The value of <strong>label</strong> determines the column header label inside the Task Tree. The value of <strong>value</strong> determines the content of the cells in the column. It should reference a task attribute from the dataSource.<br/ > By default, one column with all task labels is visible. <br /> Additional properties: <ul><li>formatFunction - a function that allows to customize the content of each record in the column. The function accepts one argument - the actual label as string that is going to be inserted and must return some content. <li>min - controls the min size of the column</li></li> <li>max - controls the max size of the column</li> <li>size - controls the actual size of the column</li><li>customEditor - a callback that can be used to set a custom editor for the column when editing via the window. It accepts two arguments <ul><li>label - the label of the column</li><li>value - the value of the column.</li></ul> The callback must return the editor.</li><li>setCustomEditorValue - a callback that is used to set the value of the custom editor.</li><li>getCustomEditorValue - a callback that is used to get the value of the custom editor.</li></ul></td></tr>
+      <tr><td>TaskPanelMin</td><td>object</td><td>200</td><td>Determines the min size of the Task Panel. Used when Resource Panel is visible.</td></tr>
+      <tr><td>TaskPanelSize</td><td>object</td><td></td><td>Determines the size of the Task Panel. Used when Resource Panel is visible.</td></tr>
+      <tr><td>TimelineMin</td><td>object</td><td>200</td><td>Determines the min width of the timeline.</td></tr>
+      <tr><td>TreeMin</td><td>object</td><td>100</td><td>Determines the min width of the task tree.</td></tr>
+      <tr><td>TreeSize</td><td>object</td><td>100</td><td>Determines the size(width) of the task tree.</td></tr>
+      <tr><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility</td><td>VerticalScrollBarVisibility.Auto</td><td>Determines weather or not vertical scrollbar is shown.</td></tr>
+      <tr><td>View</td><td>GanttChartView</td><td>GanttChartView.Year</td><td>Determines the viewing date range of the timeline. Possible values: <ul><li>day - The timeline show the hours of the day.</li><li>week - the timeline shows the days of the week.</li><li>month - the timeline shows the days of the month.</li><li>year - the timeline shows the months of the year.</li><li>resource - displays the current tasks by grouping them according to the resources they have assigned. The unassigned tasks will be placed in a separate group called 'Unassigned'.</li></ul> <br /> The timeline has a header section that contains the labels of each cell according to the date inside them. The header is splitted in two sections in order to give a more detailed information of the dates.</td></tr>
+      <tr><td>YearFormat</td><td>YearFormat</td><td>YearFormat.Numeric</td><td>Determines the format of the dates inside the timeline header when they represent years.</td></tr>
+      <tr><td>WeekFormat</td><td>WeekFormat</td><td>WeekFormat.Long</td><td>Determines the format of the dates inside the timeline header when they represent weeks. </td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the element's visual theme. </td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>Sets or gets if the element can be focused.</td></tr>
+  </table>
+  <h2 id="GanttChartMethods"><a id="GanttChart_methods" href="javascript: void(0)" class="anchor"><strong>GanttChart</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddTaskTo</td><td>void</td><td>object taskIndex, object projectIndex</td><td>Adds a task as the last item of a Project.</td></tr>
+      <tr><td>BeginUpdate</td><td>void</td><td>N/A</td><td>Starts an update operation. This is appropriate when calling multiple methods or set multiple properties at once.</td></tr>
+      <tr><td>EndUpdate</td><td>void</td><td>N/A</td><td>Ends the update operation. This method will resume the rendering and will refresh the GanttChart.</td></tr>
+      <tr><td>Refresh</td><td>void</td><td>bool fullRefresh</td><td>Refereshes the GanttChart after resizing by recalculating the Scrollbars. </td></tr>
+      <tr><td>RemoveAllConnections</td><td>void</td><td>N/A</td><td>Removes all connections between tasks. </td></tr>
+      <tr><td>RemoveConnection</td><td>object</td><td>object startTaskIndex, int taskEndIndex, int connectionType</td><td>Removes a connection between tasks. The function accepts three arguments(task's start index, end index and connection type) or one connection string argument which describes the connection.</td></tr>
+      <tr><td>RemoveTaskConnection</td><td>string</td><td>int taskStartIndex, int taskEndIndex</td><td>Removes all connections of a task or between two tasks if the second argument is provided and valid.</td></tr>
+      <tr><td>ClearTasks</td><td>void</td><td>N/A</td><td>Removes all tasks. </td></tr>
+      <tr><td>ClearResources</td><td>void</td><td>N/A</td><td>Removes all resources. </td></tr>
+      <tr><td>CreateConnection</td><td>void</td><td>object startTaskIndex, int taskEndIndex, int connectionType</td><td>Creates a connection between two tasks. </td></tr>
+      <tr><td>Collapse</td><td>void</td><td>object index</td><td>Collapses an expanded project with tasks.</td></tr>
+      <tr><td>EnsureVisible</td><td>void</td><td>object item</td><td>Makes sure a Task is visible by scrolling to it.</td></tr>
+      <tr><td>Expand</td><td>void</td><td>object index</td><td>Expands a collapsed project with tasks.</td></tr>
+      <tr><td>ExportData</td><td>void</td><td>string dataFormat, object callback</td><td>Exports the data of Tree of the GanttChart.</td></tr>
+      <tr><td>GetState</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Returns a JSON representation of all tasks inside the element along with their connections and settings.</td></tr>
+      <tr><td>GetItemPath</td><td>string</td><td>object item</td><td>Returns the Tree path of a task/resource.</td></tr>
+      <tr><td>GetTaskIndex</td><td>int</td><td>GanttChartTask task</td><td>Returns the index of a task.</td></tr>
+      <tr><td>GetTaskPath</td><td>string</td><td>GanttChartTask task</td><td>Returns the tree path of a task.</td></tr>
+      <tr><td>GetTaskProject</td><td>object</td><td>GanttChartTask task</td><td>Returns teh Project of a task if any.</td></tr>
+      <tr><td>GetResourceIndex</td><td>int</td><td>object resource</td><td>Returns the index of a resource.</td></tr>
+      <tr><td>GetResourceTasks</td><td>IEnumerable&lt;object&gt;</td><td>object resource</td><td>Returns the tasks that are assigned to the resource.</td></tr>
+      <tr><td>ClearSelection</td><td>void</td><td>N/A</td><td>Unselects all currently selected items inside the GanttChart including Tasks and Resources. It also clears the assignment highlgihters.</td></tr>
+      <tr><td>ClearState</td><td>void</td><td>N/A</td><td>Removes a previously saved state of the element form LocalStorage according to it's id. <strong>Requires an id to be set to the element.</strong></td></tr>
+      <tr><td>LoadState</td><td>void</td><td>IEnumerable&lt;object&gt; state</td><td>Loads a previously saved state of the element or checks LocalStorage for any saved states if no argument is passed to the method.</td></tr>
+      <tr><td>SaveState</td><td>void</td><td>IEnumerable&lt;object&gt; state</td><td>Saves the current settings of the element to LocalStorage. <strong>Requires an id to be set to the element.</strong></td></tr>
+      <tr><td>InsertTask</td><td>void</td><td>object index, object taskObject</td><td>Inserts a new task in the timeline.</td></tr>
+      <tr><td>UpdateTask</td><td>void</td><td>object index, object taskObject</td><td>Updates a task inside the timeline.</td></tr>
+      <tr><td>RemoveTask</td><td>void</td><td>object index</td><td>Removes a task from the timeline.</td></tr>
+      <tr><td>InsertResource</td><td>void</td><td>object resourceId, object resourceObject</td><td>Inserts a new resource.</td></tr>
+      <tr><td>UpdateResource</td><td>void</td><td>object resourceId, object taskObject</td><td>Updates an existing resource.</td></tr>
+      <tr><td>RemoveResource</td><td>void</td><td>object resourceId</td><td>Removes a resource.</td></tr>
+      <tr><td>OpenWindow</td><td>void</td><td>object index</td><td>Opens the popup Window for specific task Editing.</td></tr>
+      <tr><td>CloseWindow</td><td>void</td><td>N/A</td><td>Closes an opened popup Window. The method will close any opened popup window inside the element.</td></tr>
+      <tr><td>Print</td><td>void</td><td>N/A</td><td>Prepares the GanttChart for printing by opening the browser's Print Preview.</td></tr>
+      <tr><td>Sort</td><td>void</td><td>object columns</td><td>Sorts the GanttChart tasks/resources if <b>sortable</b> is enabled.</td></tr>
+  </table>
+  <h2 id="GanttChartEvents"><a id="GanttChart_events" href="javascript: void(0)" class="anchor"><strong>GanttChart</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnBeginUpdate</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a batch update was started after executing the &lt;b&gt;beginUpdate&lt;/b&gt; method.</td><td>N/A</td></tr>
+      <tr><td>BeginUpdated</td><td>event GanttChartBeginUpdatedEventHandler</td><td>This event is triggered when a batch update was started after executing the &lt;b&gt;beginUpdate&lt;/b&gt; method.</td><td>GanttChartBeginUpdatedEventArgs</td></tr>
+      <tr><td>OnEndUpdate</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a batch update was ended from after executing the &lt;b&gt;endUpdate&lt;/b&gt; method.</td><td>N/A</td></tr>
+      <tr><td>EndUpdated</td><td>event GanttChartEndUpdatedEventHandler</td><td>This event is triggered when a batch update was ended from after executing the &lt;b&gt;endUpdate&lt;/b&gt; method.</td><td>GanttChartEndUpdatedEventArgs</td></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Task is selected/unselected.</td><td>dynamic value, dynamic oldValue</td></tr>
+      <tr><td>Changed</td><td>event GanttChartChangedEventHandler</td><td>This event is triggered when a Task is selected/unselected.</td><td>GanttChartChangedEventArgs</td></tr>
+      <tr><td>OnItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a task, resource or connection is clicked inside the Timeline or the Tree columns.</td><td>dynamic item, dynamic type, dynamic originalEvent</td></tr>
+      <tr><td>ItemClicked</td><td>event GanttChartItemClickedEventHandler</td><td>This event is triggered when a task, resource or connection is clicked inside the Timeline or the Tree columns.</td><td>GanttChartItemClickedEventArgs</td></tr>
+      <tr><td>OnItemInsert</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Task/Resource/Connection is inserted.</td><td>dynamic type, dynamic item</td></tr>
+      <tr><td>ItemInserted</td><td>event GanttChartItemInsertedEventHandler</td><td>This event is triggered when a Task/Resource/Connection is inserted.</td><td>GanttChartItemInsertedEventArgs</td></tr>
+      <tr><td>OnItemRemove</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Task/Resource/Connection is removed.</td><td>dynamic type, dynamic item</td></tr>
+      <tr><td>ItemRemoved</td><td>event GanttChartItemRemovedEventHandler</td><td>This event is triggered when a Task/Resource/Connection is removed.</td><td>GanttChartItemRemovedEventArgs</td></tr>
+      <tr><td>OnItemUpdate</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Task/Resource/Connection is updated.</td><td>dynamic type, dynamic item</td></tr>
+      <tr><td>ItemUpdated</td><td>event GanttChartItemUpdatedEventHandler</td><td>This event is triggered when a Task/Resource/Connection is updated.</td><td>GanttChartItemUpdatedEventArgs</td></tr>
+      <tr><td>OnProgressChangeStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the progress of a task bar starts to change as a result of user interaction. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>int index, dynamic progress</td></tr>
+      <tr><td>ProgressChangeStarted</td><td>event GanttChartProgressChangeStartedEventHandler</td><td>This event is triggered when the progress of a task bar starts to change as a result of user interaction. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>GanttChartProgressChangeStartedEventArgs</td></tr>
+      <tr><td>OnProgressChangeEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the progress of a task is changed.</td><td>int index, dynamic progress</td></tr>
+      <tr><td>ProgressChangeEnded</td><td>event GanttChartProgressChangeEndedEventHandler</td><td>This event is triggered when the progress of a task is changed.</td><td>GanttChartProgressChangeEndedEventArgs</td></tr>
+      <tr><td>OnDragStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when dragging of a task starts. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>int index, dynamic dateStart, dynamic dateEnd</td></tr>
+      <tr><td>DragStarted</td><td>event GanttChartDragStartedEventHandler</td><td>This event is triggered when dragging of a task starts. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>GanttChartDragStartedEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when dragging of a task finishes.</td><td>int index, dynamic dateStart, dynamic dateEnd</td></tr>
+      <tr><td>DragEnded</td><td>event GanttChartDragEndedEventHandler</td><td>This event is triggered when dragging of a task finishes.</td><td>GanttChartDragEndedEventArgs</td></tr>
+      <tr><td>OnResizeStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when resizing of a task starts. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>int index, dynamic dateStart, dynamic dateEnd</td></tr>
+      <tr><td>ResizeStarted</td><td>event GanttChartResizeStartedEventHandler</td><td>This event is triggered when resizing of a task starts. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>GanttChartResizeStartedEventArgs</td></tr>
+      <tr><td>OnResizeEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the resizing of a task finishes.</td><td>int index, dynamic dateStart, dynamic dateEnd</td></tr>
+      <tr><td>ResizeEnded</td><td>event GanttChartResizeEndedEventHandler</td><td>This event is triggered when the resizing of a task finishes.</td><td>GanttChartResizeEndedEventArgs</td></tr>
+      <tr><td>OnConnectionStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user starts connecting one task to another. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>dynamic startIndex</td></tr>
+      <tr><td>ConnectionStarted</td><td>event GanttChartConnectionStartedEventHandler</td><td>This event is triggered when the user starts connecting one task to another. This event allows to cancel the operation by calling event.preventDefault() in the event handler function.</td><td>GanttChartConnectionStartedEventArgs</td></tr>
+      <tr><td>OnConnectionEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user completes a connection between two tasks.</td><td>dynamic startIndex, dynamic endIndex, dynamic type</td></tr>
+      <tr><td>ConnectionEnded</td><td>event GanttChartConnectionEndedEventHandler</td><td>This event is triggered when the user completes a connection between two tasks.</td><td>GanttChartConnectionEndedEventArgs</td></tr>
+      <tr><td>OnScrollBottomReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the Timeline has been scrolled to the bottom.</td><td>N/A</td></tr>
+      <tr><td>ScrollBottomReached</td><td>event GanttChartScrollBottomReachedEventHandler</td><td>This event is triggered when the Timeline has been scrolled to the bottom.</td><td>GanttChartScrollBottomReachedEventArgs</td></tr>
+      <tr><td>OnScrollTopReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the Timeline has been scrolled to the top.</td><td>N/A</td></tr>
+      <tr><td>ScrollTopReached</td><td>event GanttChartScrollTopReachedEventHandler</td><td>This event is triggered when the Timeline has been scrolled to the top.</td><td>GanttChartScrollTopReachedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered just before the window for task editing starts opening. The opening operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>dynamic target, dynamic type</td></tr>
+      <tr><td>Opening</td><td>event GanttChartOpeningEventHandler</td><td>This event is triggered just before the window for task editing starts opening. The opening operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>GanttChartOpeningEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window for task editing is opened( visible ).</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event GanttChartOpenedEventHandler</td><td>This event is triggered when the window for task editing is opened( visible ).</td><td>GanttChartOpenedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered just before the window for task editing starts closing. The closing operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>dynamic target, dynamic type</td></tr>
+      <tr><td>Closing</td><td>event GanttChartClosingEventHandler</td><td>This event is triggered just before the window for task editing starts closing. The closing operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>GanttChartClosingEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window for task editing is closed( hidden )</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event GanttChartClosedEventHandler</td><td>This event is triggered when the window for task editing is closed( hidden )</td><td>GanttChartClosedEventArgs</td></tr>
+      <tr><td>OnCollapse</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Project is collapsed.</td><td>int index, string label, dynamic value</td></tr>
+      <tr><td>Collapsed</td><td>event GanttChartCollapsedEventHandler</td><td>This event is triggered when a Project is collapsed.</td><td>GanttChartCollapsedEventArgs</td></tr>
+      <tr><td>OnExpand</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Project is expanded.</td><td>dynamic item, string label, dynamic value</td></tr>
+      <tr><td>Expanded</td><td>event GanttChartExpandedEventHandler</td><td>This event is triggered when a Project is expanded.</td><td>GanttChartExpandedEventArgs</td></tr>
+    </table>
+  <h2 id="GanttChartDataExportProperties"><a id="GanttChartDataExport_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartDataExport</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Header</td><td>bool</td><td>true</td><td>Sets whether the columns header will be exported.</td></tr>
+      <tr><td>Style</td><td>object</td><td>null</td><td>Sets a custom style object of the dataExport. </td></tr>
+      <tr><td>FileName</td><td>string</td><td>&quot;jqxGanttChart&quot;</td><td>Sets the exported file's name.</td></tr>
+      <tr><td>ItemType</td><td>GanttChartDataExportItemType</td><td>GanttChartDataExportItemType.Task</td><td>Determines the type of items that is going to be exported. </td></tr>
+      <tr><td>IncludeHidden</td><td>bool</td><td>false</td><td>Determines whether hidden items will be exported as well. By default only the visible are exported.</td></tr>
+      <tr><td>PageOrientation</td><td>string</td><td>&quot;portrait&quot;</td><td>Sets the page orientation, when exporting to PDF.</td></tr>
+      <tr><td>ExpandChar</td><td>string</td><td>&quot;+&quot;</td><td>Sets the expand char displayed for the Project tasks when GanttChart exported.</td></tr>
+      <tr><td>CollapseChar</td><td>string</td><td>&quot;-&quot;</td><td>Sets the collapse char displayed for the Project tasks when GanttChart is exported.</td></tr>
+    </table>
+  <h2 id="GanttChartResourceColumnProperties"><a id="GanttChartResourceColumn_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartResourceColumn</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Column's label.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;&quot;</td><td>Column's value. The value shold reference an actual resoruce attribute.</td></tr>
+      <tr><td>Min</td><td>object</td><td>0</td><td>Column's min size.</td></tr>
+      <tr><td>Size</td><td>object</td><td>0</td><td>Column's size.</td></tr>
+    </table>
+  <h2 id="GanttChartTaskProperties"><a id="GanttChartTask_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartTask</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Connections</td><td>IEnumerable&lt;IGanttChartTaskConnection&gt;</td><td>null</td><td>Tasks connection.</td></tr>
+      <tr><td>Class</td><td>string</td><td>&quot;&quot;</td><td>Project, Task or Milestone CSS class.</td></tr>
+      <tr><td>DateStart</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone start date.</td></tr>
+      <tr><td>DateEnd</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone end date.</td></tr>
+      <tr><td>DisableResources</td><td>bool</td><td>false</td><td>Project, Task or Milestone with disabled resources.</td></tr>
+      <tr><td>DisableDrag</td><td>bool</td><td>false</td><td>Project, Task or Milestone dragging is disabled.</td></tr>
+      <tr><td>DisableResize</td><td>bool</td><td>false</td><td>Project, Task or Milestone resizing is disabled.</td></tr>
+      <tr><td>DragProject</td><td>bool</td><td>true</td><td>Project, Task or Milestone drag enabled in the view.</td></tr>
+      <tr><td>Duration</td><td>object</td><td>0</td><td>The duration of the tasks in miliseconds. The duration unit can be changed via the <b>durationUnit</b> property.</td></tr>
+      <tr><td>IsExpanded</td><td>bool</td><td>false</td><td>Project, Task or Milestone expanded state in the view.</td></tr>
+      <tr><td>Hidden</td><td>object</td><td>false</td><td>Task visibility.</td></tr>
+      <tr><td>Id</td><td>string</td><td>&quot;&quot;</td><td>Project, Task or Milestone id.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Project, Task or Milestone label.</td></tr>
+      <tr><td>MaxDateStart</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone max start date.</td></tr>
+      <tr><td>MinDateStart</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone min start date.</td></tr>
+      <tr><td>MaxDateEnd</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone max end date.</td></tr>
+      <tr><td>MinDateEnd</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone min end date.</td></tr>
+      <tr><td>MinDuration</td><td>object</td><td>0</td><td>The minimum duration of the Project, Task or Milestone in miliseconds. The units can be changed via the <b>durationUnit</b> property.</td></tr>
+      <tr><td>MaxDuration</td><td>object</td><td>0</td><td>The maximum duration of the Project, Task or Milestone in miliseconds. The unit can be changed via the <b>durationUnit</b> property.</td></tr>
+      <tr><td>Progress</td><td>int</td><td>0</td><td>Project, Task or Milestone progress.</td></tr>
+      <tr><td>Resources</td><td>IEnumerable&lt;IGanttChartTaskResource&gt;</td><td>null</td><td>Project, Task or Milestone resources.</td></tr>
+      <tr><td>Synchronized</td><td>bool</td><td>false</td><td>Project, Task or Milestone synchronized in the view.</td></tr>
+      <tr><td>Tasks</td><td>GanttChartTask[]</td><td>null</td><td>Project's tasks. Only projects can have tasks.</td></tr>
+      <tr><td>Type</td><td>GanttChartTaskType</td><td>GanttChartTaskType.Task</td><td>Project, Task or Milestone type. Possible values are 'project', 'milestone' and 'task'</td></tr>
+      <tr><td>Value</td><td>object</td><td>&quot;&quot;</td><td>Project, Task or Milestone value.</td></tr>
+    </table>
+  <h2 id="GanttChartTaskConnectionProperties"><a id="GanttChartTaskConnection_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartTaskConnection</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Lag</td><td>object</td><td>0</td><td>Task's connection lag. Used by the Auto Scheduling (<b>autoSchedue</b> proeprty) feature to determine the connection lag, which is the time before/after the target begins/ends (depending on the connection type). The <b>lag</b> can be a negative number in which case it acts as lead time. In other words, the <b>lab</b> property is used to make a task start late(positive lag) or early(negative lag) then planned when <b>autoSchedule</b> is enabled.</td></tr>
+      <tr><td>Target</td><td>object</td><td>0</td><td>Task's connection target.</td></tr>
+      <tr><td>Type</td><td>int</td><td>0</td><td>Task's connection type.</td></tr>
+    </table>
+  <h2 id="GanttChartTaskResourceProperties"><a id="GanttChartTaskResource_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartTaskResource</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Capacity</td><td>int</td><td>0</td><td>Resource capacity.</td></tr>
+      <tr><td>Hidden</td><td>object</td><td>false</td><td>Resource visibility.</td></tr>
+      <tr><td>Id</td><td>string</td><td>&quot;&quot;</td><td>Resource id.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;0&quot;</td><td>Resource label.</td></tr>
+      <tr><td>MaxCapacity</td><td>int</td><td>0</td><td>Resource max capacity.</td></tr>
+      <tr><td>MinCapacity</td><td>int</td><td>0</td><td>Resource min capacity.</td></tr>
+      <tr><td>Progress</td><td>int</td><td>0</td><td>Resource progress.</td></tr>
+      <tr><td>Type</td><td>object</td><td>&quot;&quot;</td><td>Resource type.</td></tr>
+      <tr><td>Value</td><td>object</td><td>&quot;&quot;</td><td>Resource value.</td></tr>
+      <tr><td>Workload</td><td>object</td><td>0</td><td>Resource workload.</td></tr>
+    </table>
+  <h2 id="GanttChartTaskColumnProperties"><a id="GanttChartTaskColumn_properties" href="javascript: void(0)" class="anchor"><strong>GanttChartTaskColumn</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>DisableEdit</td><td>bool</td><td>false</td><td>Determines whether the task propery determined by column can be edited from the Window editor or not. By default editing is enabled.</td></tr>
+      <tr><td>HideResizeBar</td><td>bool</td><td>false</td><td>Determines whether the Splitter Bar after the column is hidden or not. Splitter bars allow to resize the columns.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Column's label.</td></tr>
+      <tr><td>Locked</td><td>bool</td><td>false</td><td>Determines whether the column can be resized or not. Locked columns cannot be resized and their size remains fixed.</td></tr>
+      <tr><td>Value</td><td>string</td><td>&quot;&quot;</td><td>Column's value.</td></tr>
+      <tr><td>Min</td><td>object</td><td>0</td><td>Column's min size.</td></tr>
+      <tr><td>Root</td><td>bool</td><td>false</td><td>Determines whether the column will be the root column of the Task Tree. Root column contains the Tree structure. By default the first column is the root.</td></tr>
+      <tr><td>Size</td><td>object</td><td>0</td><td>Column's size.</td></tr>
+      <tr><td>CustomEditor</td><td>object</td><td>null</td><td>A function that allows to set a custom editor for the column's value in the Editor Window. The function must return an HTMLElement. The function has two arguments: <ul><li><b>name</b> - the name of the task property that is going to be edited.</li><li><b>value</b> - the value of the task property that is going to be edited.</li></ul> It's also important to define a <b>getCustomEditorValue</b> to return the value from the custom editor.</td></tr>
+      <tr><td>GetCustomEditorValue</td><td>object</td><td>null</td><td>A function that is used in conjunction with <b>customEditor</b> allows to return the value of the custom editor. Since the editor is unknown by the element, this function allows to return the expected result from the editor. It has one argument - an HTMLElement that contains the custom editor that was previously defined by the <b>customEditor</b> function.</td></tr>
+      <tr><td>SetCustomEditorValue</td><td>object</td><td>null</td><td>A function that is used in conjunction with <b>customEditor</b> allows to set the value of the custom editor. Since the editor is unknown by the element, this function allows to set the expected value to the editor. It has three arguments - <ul><li><b>editor</b> - an HTMLElement that contains the custom editor that was previously defined by the <b>customEditor</b> function.</li><li><b>columnValue</b> - the value property of the column.</li><li><b>value</b> - the value of the task property that the column displays(the editor value).</li></ul></td></tr>
+    </table>
+</div>

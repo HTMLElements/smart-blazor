@@ -1,0 +1,77 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="CardViewProperties"><a id="CardView_properties" href="javascript: void(0)" class="anchor"><strong>CardView</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AddNewButton</td><td>bool</td><td>false</td><td>Toggles the button for adding new cards.</td></tr>
+      <tr><td>AllowDrag</td><td>bool</td><td>false</td><td>Allows reordering by dragging cards.</td></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>CardHeight</td><td>int</td><td>N/A</td><td>Describes the height for each card.</td></tr>
+      <tr><td>CellOrientation</td><td>Orientation</td><td>Orientation.Vertical</td><td>Describes the orientation of the card cells.</td></tr>
+      <tr><td>Collapsible</td><td>bool</td><td>false</td><td>Allows collapsing the card content.</td></tr>
+      <tr><td>Columns</td><td>IEnumerable&lt;ICardViewColumn&gt;</td><td>N/A</td><td>Describes the columns properties:<ul><li>label - Sets the column name</li><li>dataField - Sets the dataField name</li><li>icon - Sets the icon for the column</li><li>formatSettings - Sets the settings about the format for the current column</li><li>formatFunction - Function for customizing the value</li></ul></td></tr>
+      <tr><td>CoverField</td><td>string</td><td>&quot;&quot;&quot;&quot;</td><td>Describes which data field to be set as cover.</td></tr>
+      <tr><td>CoverMode</td><td>CardViewCoverMode</td><td>CardViewCoverMode.Crop</td><td>Describes the cover image fit property.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source for the item that will be displayed inside the card.</td></tr>
+      <tr><td>Editable</td><td>bool</td><td>false</td><td>Allows the edit option for the cards.</td></tr>
+      <tr><td>HeaderPosition</td><td>CardViewHeaderPosition</td><td>CardViewHeaderPosition.None</td><td>Sets or gets the header position. The header contains the Customize, Filter, Sort, and Search buttons.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the locale. Used in conjunction with the property <strong>messages</strong>.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>OnRecordInserted</td><td>object</td><td>N/A</td><td>Callback function, used when record is inserted.</td></tr>
+      <tr><td>OnRecordRemoved</td><td>object</td><td>N/A</td><td>Callback function, used when record is removed.</td></tr>
+      <tr><td>Scrolling</td><td>Scrolling</td><td>Scrolling.Physical</td><td>Describes the scrolling behavior of the element.</td></tr>
+      <tr><td>TitleField</td><td>string</td><td>&quot;&quot;</td><td>Describes which data field to be set as title.</td></tr>
+  </table>
+  <h2 id="CardViewMethods"><a id="CardView_methods" href="javascript: void(0)" class="anchor"><strong>CardView</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddFilter</td><td>void</td><td>string[] filters, string operatorArg</td><td>Adds filtering</td></tr>
+      <tr><td>AddRecord</td><td>void</td><td>object recordId, object data, string position</td><td>Adds a new record</td></tr>
+      <tr><td>AddSort</td><td>void</td><td>object dataFields, object orderBy</td><td>Adds sorting</td></tr>
+      <tr><td>BeginEdit</td><td>void</td><td>object recordId</td><td>Begins an edit operation</td></tr>
+      <tr><td>CancelEdit</td><td>void</td><td>N/A</td><td>Ends the current edit operation and discards changes</td></tr>
+      <tr><td>ClosePanel</td><td>void</td><td>N/A</td><td>Closes any open header panel (drop down)</td></tr>
+      <tr><td>EndEdit</td><td>void</td><td>N/A</td><td>Ends the current edit operation and saves changes</td></tr>
+      <tr><td>EnsureVisible</td><td>object</td><td>object recordId</td><td>Makes sure a record is visible by scrolling to it. If succcessful, the method returns the HTML element of the record's card.</td></tr>
+      <tr><td>OpenCustomizePanel</td><td>void</td><td>N/A</td><td>Opens the "Customize cards" header panel (drop down)</td></tr>
+      <tr><td>OpenFilterPanel</td><td>void</td><td>N/A</td><td>Opens the "Filter" header panel (drop down)</td></tr>
+      <tr><td>OpenSortPanel</td><td>void</td><td>N/A</td><td>Opens the "Sort" header panel (drop down)</td></tr>
+      <tr><td>RemoveFilter</td><td>void</td><td>N/A</td><td>Removes filtering</td></tr>
+      <tr><td>RemoveRecord</td><td>void</td><td>object recordId</td><td>Removes a record</td></tr>
+      <tr><td>RemoveSort</td><td>void</td><td>N/A</td><td>Removes sorting</td></tr>
+      <tr><td>ShowColumn</td><td>void</td><td>string dataField</td><td>Shows a column</td></tr>
+  </table>
+  <h2 id="CardViewEvents"><a id="CardView_events" href="javascript: void(0)" class="anchor"><strong>CardView</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnFilter</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a filter has been applied.</td><td>N/A</td></tr>
+      <tr><td>Filtered</td><td>event CardViewFilteredEventHandler</td><td>This event is triggered when a filter has been applied.</td><td>CardViewFilteredEventArgs</td></tr>
+      <tr><td>OnSort</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when sorting has been applied.</td><td>N/A</td></tr>
+      <tr><td>Sorted</td><td>event CardViewSortedEventHandler</td><td>This event is triggered when sorting has been applied.</td><td>CardViewSortedEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is opened.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event CardViewOpenedEventHandler</td><td>This event is triggered when the window is opened.</td><td>CardViewOpenedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is about to be opened. The opening operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event CardViewOpeningEventHandler</td><td>This event is triggered when the window is about to be opened. The opening operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>CardViewOpeningEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is closed.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event CardViewClosedEventHandler</td><td>This event is triggered when the window is closed.</td><td>CardViewClosedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is about to be closed. The closing operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Closing</td><td>event CardViewClosingEventHandler</td><td>This event is triggered when the window is about to be closed. The closing operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>CardViewClosingEventArgs</td></tr>
+      <tr><td>OnDragStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user starts dragging the card.</td><td>N/A</td></tr>
+      <tr><td>DragStarted</td><td>event CardViewDragStartedEventHandler</td><td>This event is triggered when the user starts dragging the card.</td><td>CardViewDragStartedEventArgs</td></tr>
+      <tr><td>OnDragging</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user is dragging the card.</td><td>N/A</td></tr>
+      <tr><td>Dragging</td><td>event CardViewDraggingEventHandler</td><td>This event is triggered when the user is dragging the card.</td><td>CardViewDraggingEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user dragged the card.</td><td>N/A</td></tr>
+      <tr><td>DragEnded</td><td>event CardViewDragEndedEventHandler</td><td>This event is triggered when the user dragged the card.</td><td>CardViewDragEndedEventArgs</td></tr>
+    </table>
+  <h2 id="CardViewColumnProperties"><a id="CardViewColumn_properties" href="javascript: void(0)" class="anchor"><strong>CardViewColumn</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>DataField</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the column's data source bound field.</td></tr>
+      <tr><td>Icon</td><td>object</td><td>&quot;&quot;</td><td>Sets or gets the column's icon. Expects CSS class name.</td></tr>
+      <tr><td>Image</td><td>bool</td><td>false</td><td>Sets or gets the column's image visibility.</td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the text displayed in the column's header.</td></tr>
+      <tr><td>Visible</td><td>bool</td><td>true</td><td>Sets or gets whether the column is visible. Set the property to 'false' to hide the column.</td></tr>
+      <tr><td>FormatSettings</td><td>object</td><td>new object()</td><td>Sets or gets the column's format settings. You can use any of the build in formatting options or to NumberFormat object like that: 'Intl: {  NumberFormat: {  style: \'currency\', currency: \'EUR\' }}' or DateTimeFormat object like that: 'Intl: {  DateTimeFormat: {  dateStyle: \'full\' }}''</td></tr>
+    </table>
+</div>

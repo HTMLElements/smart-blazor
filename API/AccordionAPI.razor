@@ -1,0 +1,45 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="AccordionProperties"><a id="Accordion_properties" href="javascript: void(0)" class="anchor"><strong>Accordion</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the accordion. Disabled elements can not be interacted with.</td></tr>
+      <tr><td>ExpandedIndexes</td><td>int[]</td><td>new int[]{}</td><td>Sets or gets the expanded item indexes. Using this property items can be expanded by passing in their indexes. The number of expanded items is limited by the expandMode.</td></tr>
+      <tr><td>ExpandMode</td><td>AccordionExpandMode</td><td>AccordionExpandMode.SingleFitHeight</td><td>Sets or gets the expand mode. Expand mode determines how the items will expand or collapse.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>Determines if the element is readonly or not. If the element true, users cannot interact with it.</td></tr>
+      <tr><td>Reorder</td><td>bool</td><td>false</td><td>Enables or disables accordion reordering.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>Determines whether the element can be focused or not.</td></tr>
+  </table>
+  <h2 id="AccordionMethods"><a id="Accordion_methods" href="javascript: void(0)" class="anchor"><strong>Accordion</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Collapse</td><td>void</td><td>int position</td><td>Collapses an item at a specified index.</td></tr>
+      <tr><td>Expand</td><td>void</td><td>int position</td><td>Expands an item at a specified index.</td></tr>
+      <tr><td>Insert</td><td>void</td><td>int index, object item</td><td>Inserts a new item at a specified index.</td></tr>
+      <tr><td>RemoveAt</td><td>void</td><td>int position</td><td>Removes an item at a specified index.</td></tr>
+      <tr><td>Update</td><td>void</td><td>int index, object settings</td><td>Updates an item from the element.</td></tr>
+  </table>
+  <h2 id="AccordionEvents"><a id="Accordion_events" href="javascript: void(0)" class="anchor"><strong>Accordion</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnCollapse</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is collapsed.</td><td>dynamic content, int index, string label</td></tr>
+      <tr><td>Collapsed</td><td>event AccordionCollapsedEventHandler</td><td>This event is triggered when an item is collapsed.</td><td>AccordionCollapsedEventArgs</td></tr>
+      <tr><td>OnCollapsing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is going to be collapsed.</td><td>dynamic content, int index, string label</td></tr>
+      <tr><td>Collapsing</td><td>event AccordionCollapsingEventHandler</td><td>This event is triggered when an item is going to be collapsed.</td><td>AccordionCollapsingEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a reordering operation is completed.</td><td>dynamic position, dynamic target, dynamic content, int index, string label</td></tr>
+      <tr><td>DragEnded</td><td>event AccordionDragEndedEventHandler</td><td>This event is triggered when a reordering operation is completed.</td><td>AccordionDragEndedEventArgs</td></tr>
+      <tr><td>OnDragStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a reordering operation is started.</td><td>dynamic position, dynamic target, dynamic content, int index, string label</td></tr>
+      <tr><td>DragStarted</td><td>event AccordionDragStartedEventHandler</td><td>This event is triggered when a reordering operation is started.</td><td>AccordionDragStartedEventArgs</td></tr>
+      <tr><td>OnExpand</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is expanded.</td><td>dynamic position, dynamic target, dynamic content, int index, string label</td></tr>
+      <tr><td>Expanded</td><td>event AccordionExpandedEventHandler</td><td>This event is triggered when an item is expanded.</td><td>AccordionExpandedEventArgs</td></tr>
+      <tr><td>OnExpanding</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an item is going to be expanded.</td><td>dynamic content, int index, string label</td></tr>
+      <tr><td>Expanding</td><td>event AccordionExpandingEventHandler</td><td>This event is triggered when an item is going to be expanded.</td><td>AccordionExpandingEventArgs</td></tr>
+    </table>
+</div>

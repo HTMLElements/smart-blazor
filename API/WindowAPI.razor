@@ -1,0 +1,128 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="WindowProperties"><a id="Window_properties" href="javascript: void(0)" class="anchor"><strong>Window</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AddNewTab</td><td>bool</td><td>false</td><td>Determines if 'Add New' Tab inside the Tabs element is visible. <strong>Applicable only to TabsWindow</strong></td></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoCapitalize</td><td>WindowAutoCapitalize</td><td>WindowAutoCapitalize.None</td><td>Determines whether and how the value should be automatically capitalized as it is entered/edited by the user. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+      <tr><td>AutoExpand</td><td>bool</td><td>false</td><td>Determines whether element will auto expand when the input overflows vertically. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+      <tr><td>CancelLabel</td><td>string</td><td>&quot;Cancel&quot;</td><td>Determines the label for the 'cancel' button inside the Prompt Window.</td></tr>
+      <tr><td>CompleteLabel</td><td>string</td><td>&quot;Confirm&quot;</td><td>Determines the label for the 'Complete' button insinde the Progress Window.</td></tr>
+      <tr><td>ConfirmLabel</td><td>string</td><td>&quot;Confirm&quot;</td><td>Determines the label for the 'Confirm' button insinde the Prompt Window.</td></tr>
+      <tr><td>IsCollapsed</td><td>bool</td><td>false</td><td>Determines if the window is collapsed or not. When collapsed the only the header of the window is visible.</td></tr>
+      <tr><td>CloseOnMaskClick</td><td>bool</td><td>false</td><td>When a modal window is opened, thid property determines if clicking on the mask closes the window or not.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the TabsWindow. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the window.</td></tr>
+      <tr><td>DisableSnap</td><td>bool</td><td>false</td><td>Enables or disables the window snapping feature.</td></tr>
+      <tr><td>DisplayMode</td><td>WindowDisplayMode</td><td>WindowDisplayMode.Default</td><td>Determines how the characters are displayed inside the input. <b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>DropPosition</td><td>WindowDropPosition</td><td>WindowDropPosition.</td><td><strong>Applicable to TabsWindow when docked inside a DockingLayout Custom Element.</strong> <br/> Determines where the window(it's tab items as well) can be dropped inside the DockingLayout. <br/> The property is an array that accepts multiple positions. <strong>Note:</strong> Positions with prefix 'layout-' are applied to the Tab item children of the TabsWidnow owner that is being dragged. The rest of the positions indicate the allowed drop position inside the hovered target(TabsWindow). Used only by jqxDockingLayout custom elements. Determines the possible drop position inside the DockingLayout. The following values are allowed.</td></tr>
+      <tr><td>FormatFunction</td><td>object</td><td>N/A</td><td>A callback function defining the new format for the label of the Progress Bar. <b>Applicable only to ProgressWindow.</b></td></tr>
+      <tr><td>FooterPosition</td><td>WindowFooterPosition</td><td>WindowFooterPosition.Top</td><td>Determines the position of the footer of the window element.</td></tr>
+      <tr><td>FooterTemplate</td><td>object</td><td>N/A</td><td>Determines the template for the Dialog section of the window. By default footerTemplate is null.</td></tr>
+      <tr><td>HeaderButtons</td><td>string[]</td><td>new string[]{}</td><td>Set's the buttons that will be visible in the header section.</td></tr>
+      <tr><td>HeaderTemplate</td><td>object</td><td>N/A</td><td>Determines the template for the Dialog section of the window. By default headerTemplate is null.</td></tr>
+      <tr><td>HeaderPosition</td><td>TabPosition</td><td>TabPosition.Top</td><td>Determines the position of the header of the window element.</td></tr>
+      <tr><td>Hint</td><td>object</td><td>N/A</td><td>Sets additional helper text below the text box. The hint is visible only when the text box is focued. <b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>Indeterminate</td><td>bool</td><td>false</td><td>Sets the value of the Progress bar to indeterminate state(null) and starts the animation. <b>Applicable only to ProgressWindow.</b></td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>Sets the filling direction of the Progress Bar. <b>Applicable only to ProgressWindow.</b></td></tr>
+      <tr><td>Label</td><td>string</td><td>&quot;&quot;</td><td>The label of the window that appears in the header area.</td></tr>
+      <tr><td>LiveResize</td><td>bool</td><td>false</td><td>When enabled the resizing operation happens live. By default it's not enabled and during resizing a highlighter around the edges of the window appears to outline  the current size of the element.</td></tr>
+      <tr><td>Layout</td><td>object</td><td>N/A</td><td><strong>Applicable only to TabsWindow when used with a DockingLayout custom element.</strong>Used only by jqxDockingLayout. Determines the owner jqxDockingLayout  that the window belongs to. When the tabsWindow has been removed from a DockingLayout element, the property is used to indicate that it belongs to that particular Dockinglayout. Accepts a string, representing the ID of a jqxDockingLayout on the page, or an instance of jqxDokcingLayout.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>Locked</td><td>bool</td><td>false</td><td><strong>Applicable only to TabsWindow when docked inside a DockingLayout Custom Element.</strong>Determines of the item can be resized or not.</td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>IsMaximized</td><td>bool</td><td>false</td><td>Determines if the window is maximized or not. When maximized the window covers the whole viewport.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Modal</td><td>bool</td><td>false</td><td>Determines if the window is modal or not. If true the user can only interact with the window and nothing else on the page.</td></tr>
+      <tr><td>Max</td><td>object</td><td></td><td><strong>Applicable to TabsWindow when docked inside a DockingLayout Custom Element.</strong> Determines the max size of the item. <b>Applicable to Progress Window</b> by allowing the user to specify the maximum of the ProgressBar.</td></tr>
+      <tr><td>Min</td><td>object</td><td></td><td><strong>Applicable to TabsWindow when docked inside DockingLayout Custom Element.</strong> Determines the min size of the item. <b>Applicable to Progress Window</b> by allowing the user to specify the minimu of the ProgressBar.</td></tr>
+      <tr><td>IsMinimized</td><td>bool</td><td>false</td><td>Determines if the window is minimized or not. When minimized the window is docked at the bottom left corner of the viewport.</td></tr>
+      <tr><td>MaxLength</td><td>int</td><td>N/A</td><td>Sets or gets the maximum number of characters that the user can enter. <b>Applicable to Prompt/MultilinePrompt Window.</b></td></tr>
+      <tr><td>MinLength</td><td>int</td><td>2</td><td>Sets or gets the minimum number of characters that the user have to enter to trigger the auto complete functionality. <b>Applicable to Prompt/MultilinePrompt Window.</b></td></tr>
+      <tr><td>IsOpened</td><td>bool</td><td>false</td><td>Determines if the window is visible or not.</td></tr>
+      <tr><td>Pinned</td><td>bool</td><td>false</td><td>Determines if the window is pinned or not. Pinned window is a window that can't be dragged but can be resized.</td></tr>
+      <tr><td>Placeholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the input's placeholder. <b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>PromptLabel</td><td>string</td><td>&quot;&quot;</td><td>Determines the label for the Input insinde the PromptWindow.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>ResizeIndicator</td><td>bool</td><td>false</td><td>When applied a resize indicator is displayed in the bottom right corner of the window and resizing operation can be initiated only from its position.</td></tr>
+      <tr><td>ResizeMode</td><td>WindowResizeMode</td><td>WindowResizeMode.None</td><td>Determines the resizing mode of the window. <br/> Several modes are available: <ul> <li> none - resizing is disabled. </li> <li>vertical - vertical resizing is allowed. </li> <li>horizontal - horizontal resizing is allowed.</li> <li>both - horizontal and vertical resizing is allowed.</li> <li>top - the window can only be resized from the top side.</li> <li>bottom - the window is resizable only from the bottom side.</li> <li>left - the window can be resized only from the left side.</li> <li>right - the window can be resized only from the right side.</li> </ul></td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Required</td><td>bool</td><td>false</td><td>Specifies that the user must fill the input before submitting a form with the text box.<b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>RequiredMessage</td><td>string</td><td>&quot;&quot;</td><td>Specifies the message that will appear if <b>required</b> is set and no value is provided in the input. <b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>SelectAllOnFocus</td><td>bool</td><td>false</td><td>Determines whether the content of the input will be selected on focus or not. <b>Applicable to Prompt Window.</b></td></tr>
+      <tr><td>SelectedIndex</td><td>int</td><td>N/A</td><td>Sets or gets which tab is selected. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>SelectionMode</td><td>TabSelectionMode</td><td>TabSelectionMode.Click</td><td>Determines the way the user can switch between tabs. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>SelectionEnd</td><td>int</td><td>0</td><td>Indicates the index of the last character in the current selection. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+      <tr><td>SelectionStart</td><td>int</td><td>0</td><td>Indicates the index to the first character in the current selection. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+      <tr><td>ShowProgressValue</td><td>bool</td><td>false</td><td>Enables/Disabled the label for the Progress Bar. <b>Applicable only to Progress Window.</b></td></tr>
+      <tr><td>Siblings</td><td>object[]</td><td>new List&lt;object[]&gt;()</td><td>A getter that returns the siblings (that share the same parent) of a LayoutPanel item that is docked inside a DockingLayout. The siblings are also DockingLayout items ( LayoutPanels).<strong>Applicable only to TabsWindow when docked inside a DockingLayout</strong>.</td></tr>
+      <tr><td>Size</td><td>string</td><td>&quot;&quot;</td><td><strong>Applicable to TabsWindow when nested inside a DockingLayout Custom Element.</strong> Determines the size of the item.</td></tr>
+      <tr><td>SpellCheck</td><td>bool</td><td>false</td><td>Specifies whether the element is to have its spelling and grammar checked or not. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+      <tr><td>TabCloseButtons</td><td>bool</td><td>false</td><td>Sets or gets whether close buttons are displayed inside the Tab Strip of the TabsWindow. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>TabCloseButtonMode</td><td>WindowTabCloseButtonMode</td><td>WindowTabCloseButtonMode.Default</td><td>Determines if the close button is visible on select or always. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>TabOverflow</td><td>Overflow</td><td>Overflow.Auto</td><td>Sets or gets the Tabs scroll buttons behavior. Applicable only when <strong>tabLayout</strong> is <em>'scroll'</em>. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>TabPosition</td><td>TabPosition</td><td>TabPosition.Top</td><td>Detetmines Tab Strip is positioned of the TabsWindow. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>TabScrollButtonsPosition</td><td>LayoutPosition</td><td>LayoutPosition.Both</td><td>Sets or gets the position of the scroll buttons inside the Tab header of the TabsWindow. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>TabTextOrientation</td><td>Orientation</td><td>Orientation.Horizontal</td><td>Sets or gets the orientation of the text in the tabs labels of the TabsWindow. <strong>Applicable only to TabsWindow</strong>.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>object</td><td></td><td>Determines the value of the TextBox/ProgressBar inside the Dialog/Prompt/Progress Window</td></tr>
+      <tr><td>WindowParent</td><td>object</td><td>N/A</td><td>Determines the actual parent of the element. The window can size and move only in the area of that element.</td></tr>
+      <tr><td>Wrap</td><td>WindowWrap</td><td>WindowWrap.Soft</td><td>Indicates how the input wraps text. <b>Applicable only to MultilinePromptWindow.</b></td></tr>
+  </table>
+  <h2 id="WindowMethods"><a id="Window_methods" href="javascript: void(0)" class="anchor"><strong>Window</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AppendChild</td><td>dynamic</td><td>dynamic node</td><td>Appends a tabitem to the end of the list of tab items inside element.</td></tr>
+      <tr><td>BringToFront</td><td>void</td><td>N/A</td><td>Sets the window to the top level so the user can interact with it.</td></tr>
+      <tr><td>Clear</td><td>void</td><td>N/A</td><td>Clears the content of the Window.</td></tr>
+      <tr><td>Close</td><td>void</td><td>N/A</td><td>Closes the window.</td></tr>
+      <tr><td>Collapse</td><td>object</td><td>N/A</td><td>Collapses the window.</td></tr>
+      <tr><td>EnsureVisible</td><td>void</td><td>int index</td><td>Makes sure a tab item is visible by scrolling to it. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>Expand</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Expands the window after being collapsed.</td></tr>
+      <tr><td>Insert</td><td>void</td><td>int index, object details</td><td>Inserts a new tab and an associated content section. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>InsertBefore</td><td>dynamic</td><td>dynamic newNode, dynamic referenceNode</td><td>Inserts the specified "smart-tab-item" node before the reference "smart-tab-item" node. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>RemoveAt</td><td>void</td><td>int index</td><td>Removes a tab and its associated content section. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>RemoveChild</td><td>dynamic</td><td>dynamic node</td><td>Removes a child "smart-tab-item" node. <strong>Applicable only to TabsWindow.</strong></td></tr>
+      <tr><td>Maximize</td><td>void</td><td>N/A</td><td>Maximizes the window to fill the area.</td></tr>
+      <tr><td>Minimize</td><td>void</td><td>N/A</td><td>Minimizes the window.</td></tr>
+      <tr><td>Open</td><td>void</td><td>N/A</td><td>Opens the window</td></tr>
+      <tr><td>Pin</td><td>void</td><td>N/A</td><td>Pins the window. Disables window dragging.</td></tr>
+      <tr><td>Restore</td><td>void</td><td>N/A</td><td>Restores the window to it's previous size before maximization/minimization.</td></tr>
+      <tr><td>Select</td><td>void</td><td>int index</td><td>Selects a tab. <strong> Applicalbe only to TabsWindow elements.</strong></td></tr>
+      <tr><td>Unpin</td><td>void</td><td>N/A</td><td>Unpins the window. Enables window dragging.</td></tr>
+      <tr><td>Update</td><td>void</td><td>int index, string label, string  content</td><td>Updates a tab and its associated content section. <strong> Applicalbe only to TabsWindow elements.</strong></td></tr>
+  </table>
+  <h2 id="WindowEvents"><a id="Window_events" href="javascript: void(0)" class="anchor"><strong>Window</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered just before the window starts opening.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event WindowOpeningEventHandler</td><td>This event is triggered just before the window starts opening.</td><td>WindowOpeningEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is opened( visible ).</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event WindowOpenedEventHandler</td><td>This event is triggered when the window is opened( visible ).</td><td>WindowOpenedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered just before the window starts closing.</td><td>N/A</td></tr>
+      <tr><td>Closing</td><td>event WindowClosingEventHandler</td><td>This event is triggered just before the window starts closing.</td><td>WindowClosingEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is closed( hidden )</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event WindowClosedEventHandler</td><td>This event is triggered when the window is closed( hidden )</td><td>WindowClosedEventArgs</td></tr>
+      <tr><td>OnCollapse</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is collapsed.</td><td>N/A</td></tr>
+      <tr><td>Collapsed</td><td>event WindowCollapsedEventHandler</td><td>This event is triggered when the window is collapsed.</td><td>WindowCollapsedEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when window's dragging is ended.</td><td>N/A</td></tr>
+      <tr><td>DragEnded</td><td>event WindowDragEndedEventHandler</td><td>This event is triggered when window's dragging is ended.</td><td>WindowDragEndedEventArgs</td></tr>
+      <tr><td>OnDragStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when window's dragging is started.</td><td>N/A</td></tr>
+      <tr><td>DragStarted</td><td>event WindowDragStartedEventHandler</td><td>This event is triggered when window's dragging is started.</td><td>WindowDragStartedEventArgs</td></tr>
+      <tr><td>OnExpand</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is expanded.</td><td>N/A</td></tr>
+      <tr><td>Expanded</td><td>event WindowExpandedEventHandler</td><td>This event is triggered when the window is expanded.</td><td>WindowExpandedEventArgs</td></tr>
+      <tr><td>OnMaximize</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is maximized.</td><td>N/A</td></tr>
+      <tr><td>Maximized</td><td>event WindowMaximizedEventHandler</td><td>This event is triggered when the window is maximized.</td><td>WindowMaximizedEventArgs</td></tr>
+      <tr><td>OnMinimize</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is minimized.</td><td>N/A</td></tr>
+      <tr><td>Minimized</td><td>event WindowMinimizedEventHandler</td><td>This event is triggered when the window is minimized.</td><td>WindowMinimizedEventArgs</td></tr>
+      <tr><td>OnResizeEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when window's resizing is ended.</td><td>N/A</td></tr>
+      <tr><td>ResizeEnded</td><td>event WindowResizeEndedEventHandler</td><td>This event is triggered when window's resizing is ended.</td><td>WindowResizeEndedEventArgs</td></tr>
+      <tr><td>OnResizeStart</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when window's resizing is started.</td><td>N/A</td></tr>
+      <tr><td>ResizeStarted</td><td>event WindowResizeStartedEventHandler</td><td>This event is triggered when window's resizing is started.</td><td>WindowResizeStartedEventArgs</td></tr>
+      <tr><td>OnRestore</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the window is restored to it's previous state before maximization.</td><td>N/A</td></tr>
+      <tr><td>Restored</td><td>event WindowRestoredEventHandler</td><td>This event is triggered when the window is restored to it's previous state before maximization.</td><td>WindowRestoredEventArgs</td></tr>
+    </table>
+</div>

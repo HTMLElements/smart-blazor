@@ -1,0 +1,66 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="SliderProperties"><a id="Slider_properties" href="javascript: void(0)" class="anchor"><strong>Slider</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>Coerce</td><td>bool</td><td>false</td><td>With the coerce property true and clicking the track, the thumb and value are moved and set to the nearest value allowed by the interval property. </td></tr>
+      <tr><td>CustomInterval</td><td>bool</td><td>false</td><td>Sets or gets whether custom ticks at (possibly) uneven interval will be plotted. The ticks to be plotted are defined with the property <strong>customTicks</strong>.</td></tr>
+      <tr><td>CustomTicks</td><td>int[]</td><td>new int[]{}</td><td>If <strong>customInterval</strong> is enabled, sets a list of ticks to be plotted. If <strong>coerce</strong> is set to <em>true</em>, the value will snap to these ticks.</td></tr>
+      <tr><td>DateLabelFormatString</td><td>string</td><td>&quot;d&quot;</td><td>Sets or gets the pattern which labels are displayed in when <strong>mode</strong> is <em>'date'</em>.</td></tr>
+      <tr><td>DecimalSeparator</td><td>string</td><td>&quot;&quot;.&quot;&quot;</td><td>Sets or gets the char to use as the decimal separator in numeric values. </td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the widget. </td></tr>
+      <tr><td>EnableMouseWheelAction</td><td>bool</td><td>false</td><td>Enables or disables incrementing/decrementing the value using the mouse wheel in jqxSlider. </td></tr>
+      <tr><td>Interval</td><td>object</td><td>1</td><td>Determines what values the thumb snaps to. </td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>Sets the direction of the slider. If is true - positions of the slider's begin and end are changed. </td></tr>
+      <tr><td>LabelFormatFunction</td><td>object</td><td>N/A</td><td>A callback function that can be used to format the values displayed on the slider labels and tooltip.</td></tr>
+      <tr><td>LabelsVisibility</td><td>LabelsVisibility</td><td>LabelsVisibility.All</td><td>Sets or gets the widget's label visibility. </td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the locale. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>LogarithmicScale</td><td>bool</td><td>false</td><td>Enables or disables the usage of logarithmic scale in the widget. </td></tr>
+      <tr><td>Max</td><td>object</td><td>100</td><td>Sets or gets the maximum value of the widget. </td></tr>
+      <tr><td>MechanicalAction</td><td>DragMechanicalAction</td><td>DragMechanicalAction.SwitchWhileDragging</td><td>Sets or gets the type of used mechanical action. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Min</td><td>object</td><td>0</td><td>Sets or gets the minimum value of the widget. </td></tr>
+      <tr><td>Mode</td><td>ScaleMode</td><td>ScaleMode.Numeric</td><td>Sets or gets whether the widget works with numbers or dates.</td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the element's name, which is used as a reference when the data is submitted.</td></tr>
+      <tr><td>Orientation</td><td>Orientation</td><td>Orientation.Horizontal</td><td>Sets the orientation of the widget. </td></tr>
+      <tr><td>PrecisionDigits</td><td>int</td><td>N/A</td><td>Determines the number of digits after the decimal point. Applicable only when <strong>scaleType</strong> is <em>'integer'</em>. </td></tr>
+      <tr><td>RangeSlider</td><td>bool</td><td>false</td><td>Enables or disables the slider to be in range mode. If is  set to true, the range is represented between two thumbs. </td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>When the slider is read only the users cannot drag or click in the fill of the slider.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>ScalePosition</td><td>ScalePosition</td><td>ScalePosition.Near</td><td>Sets the position of the widget's scales. </td></tr>
+      <tr><td>ScaleType</td><td>ScaleType</td><td>ScaleType.FloatingPoint</td><td>Sets the type of the slider's scale. </td></tr>
+      <tr><td>ScientificNotation</td><td>bool</td><td>false</td><td>Enables or disables scientific notation.</td></tr>
+      <tr><td>ShowButtons</td><td>bool</td><td>false</td><td>Enables or disables displaying of the buttons. </td></tr>
+      <tr><td>ShowThumbLabel</td><td>bool</td><td>false</td><td>Enables or disables displaying of the thumb label.</td></tr>
+      <tr><td>ShowTooltip</td><td>bool</td><td>false</td><td>Enables or disables displaying of the tooltip. </td></tr>
+      <tr><td>ShowUnit</td><td>bool</td><td>false</td><td>Enables or disables displaying of the units. </td></tr>
+      <tr><td>SignificantDigits</td><td>int</td><td>N/A</td><td>Determining how many significant digits are in a number. Applicable only when <strong>scaleType</strong> is <em>'integer'</em>. </td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the element's visual theme. </td></tr>
+      <tr><td>ThumbLabelPosition</td><td>Position</td><td>Position.Near</td><td>Sets or gets the position of the thumb label.</td></tr>
+      <tr><td>TicksPosition</td><td>TicksPosition</td><td>TicksPosition.Scale</td><td>Sets or gets the position of the ticks in jqxSlider widget.</td></tr>
+      <tr><td>TicksVisibility</td><td>TicksVisibility</td><td>TicksVisibility.Minor</td><td>Sets or gets the visibility of the ticks.</td></tr>
+      <tr><td>TooltipPosition</td><td>Position</td><td>Position.Near</td><td>Sets or gets the position of the tooltip in jqxSlider widget. </td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>Sets or gets if the element can be focused.</td></tr>
+      <tr><td>Unit</td><td>string</td><td>&quot;kg&quot;</td><td>Sets or gets the name of unit used in jqxSlider widget. </td></tr>
+      <tr><td>Validation</td><td>Validation</td><td>Validation.Strict</td><td>Sets the value's validation by min/max. If <em>'strict'</em> is applied, the value is always validated by min and max. If <em>'interaction'</em> is applied, programmatic value changes are not coerced to min/max and if min/max are changed, resulting in the current value being out of range, the value is not coerced, and no <strong>change</strong> event is fired.</td></tr>
+      <tr><td>Value</td><td>object</td><td>0</td><td>Sets or gets the value of the jqxSlider widget. The property is used when the rangeSlider property is set to false.</td></tr>
+      <tr><td>Values</td><td>int[]</td><td>new int[]{}</td><td>Sets or gets the value of the jqxSlider widget. The property is used when the rangeSlider property is set to true.</td></tr>
+      <tr><td>WordLength</td><td>WordLength</td><td>WordLength.Int32</td><td>Sets or gets the word length. Applicable only when <strong>scaleType</strong> is <em>'integer'</em>. </td></tr>
+  </table>
+  <h2 id="SliderMethods"><a id="Slider_methods" href="javascript: void(0)" class="anchor"><strong>Slider</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Focus</td><td>void</td><td>N/A</td><td>Focuses the slider. </td></tr>
+      <tr><td>GetOptimalSize</td><td>object</td><td>N/A</td><td>Gets the optimal size of the widget. </td></tr>
+      <tr><td>Val</td><td>string</td><td>object value</td><td>Get/set the value of the slider. </td></tr>
+  </table>
+  <h2 id="SliderEvents"><a id="Slider_events" href="javascript: void(0)" class="anchor"><strong>Slider</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the value of the slider is changed. </td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event SliderChangedEventHandler</td><td>This event is triggered when the value of the slider is changed. </td><td>SliderChangedEventArgs</td></tr>
+    </table>
+</div>

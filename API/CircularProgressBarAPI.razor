@@ -1,0 +1,29 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="CircularProgressBarProperties"><a id="CircularProgressBar_properties" href="javascript: void(0)" class="anchor"><strong>CircularProgressBar</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element. </td></tr>
+      <tr><td>FormatFunction</td><td>object</td><td>N/A</td><td>A callback function defining the new format for the label of the Progress Bar.</td></tr>
+      <tr><td>Indeterminate</td><td>bool</td><td>false</td><td>Sets the value of the Circular Progress bar to indeterminate state(null) and starts the animation.</td></tr>
+      <tr><td>Inverted</td><td>bool</td><td>false</td><td>Sets the filling direction of the Circular Progress Bar.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Max</td><td>int</td><td>100</td><td>Sets progress bars maximum possible value.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Min</td><td>int</td><td>0</td><td>Sets progress bars minimum possible value.</td></tr>
+      <tr><td>ShowProgressValue</td><td>bool</td><td>false</td><td>Enables/Disabled the label for the Progress Bar.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>int</td><td>0</td><td>Sets or gets the value of the progress bar</td></tr>
+  </table>
+  <h2 id="CircularProgressBarEvents"><a id="CircularProgressBar_events" href="javascript: void(0)" class="anchor"><strong>CircularProgressBar</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the value is changed.</td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event CircularProgressBarChangedEventHandler</td><td>This event is triggered when the value is changed.</td><td>CircularProgressBarChangedEventArgs</td></tr>
+    </table>
+</div>

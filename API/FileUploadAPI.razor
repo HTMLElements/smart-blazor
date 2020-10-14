@@ -1,0 +1,60 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="FileUploadProperties"><a id="FileUpload_properties" href="javascript: void(0)" class="anchor"><strong>FileUpload</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Accept</td><td>string</td><td>&quot;null&quot;</td><td>Sets or gets the file types that can be submitted to the server via the element. This property corresponds to the 'accept' attribute of the hidden file input which is submitted to the URL specified by the <b>uploadUrl</b> property.</td></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AppendTo</td><td>object</td><td>N/A</td><td>Appends the list with selected files to a new custom container specified by the user. If the value of the property is a string it must represent a valid id of an HTML element inside the DOM that will be used as the new container for the uploaded files list.</td></tr>
+      <tr><td>AutoUpload</td><td>bool</td><td>false</td><td>Sets or gets whether files will be automatically uploaded after selection.</td></tr>
+      <tr><td>Directory</td><td>bool</td><td>false</td><td>Allows to upload a directory. Files in all subfolders will be uploaded also. This option is supported only in Firefox and Chrome.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>DropZone</td><td>object</td><td>N/A</td><td>Defines a custom container that will be used as the new drop zone for file uploads. The dropped files will be added in the fileUpload's list. If 'dropZone' property set to true, the default drop zone inside the element will be used instead. If set to certain id of an HTML element inside the DOM then it will be used as the drop zone.</td></tr>
+      <tr><td>HideFooter</td><td>bool</td><td>false</td><td>Hides the footer element and it's contents (Upload All, Pause All and Close All buttons).</td></tr>
+      <tr><td>ItemTemplate</td><td>object</td><td>N/A</td><td>Applies a custom template to the file items that represent the uploaded files.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets the various text values used in the widget. Useful for localization. The localization object has the following fields: browse, pauseFile, cancelFile, uploadFile, pauseAll, cancelAll, uploadAll. It's recommended these messages to be set before element's initialization.</td></tr>
+      <tr><td>Multiple</td><td>bool</td><td>false</td><td>Sets or gets whether multiple item uploads are allowed.</td></tr>
+      <tr><td>Name</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the name attribute of the hidden file input which is submitted to the URL specified by the uploadUrl property.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>ResponseHandler</td><td>object</td><td>N/A</td><td>Callback that can used to handle various server responses and error codes.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>SetHeaders</td><td>object</td><td>N/A</td><td>Callback function, used to change the headers of the file upload's XHR request.</td></tr>
+      <tr><td>ShowProgress</td><td>bool</td><td>false</td><td>Displays a progress bar at the bottom of each uploaded item to show the progress of the uploading process.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>UploadUrl</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the upload URL. This property corresponds to the upload form's action attribute. For example, the uploadUrl property can point to a PHP file, which handles the upload operation on the server-side.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>ValidateFile</td><td>object</td><td>N/A</td><td>Callback used to validate the files immediatelly after their selection. Retuns a boolean value. If the returned value is false, the file is removed from list and a 'validationError is fired.</td></tr>
+  </table>
+  <h2 id="FileUploadMethods"><a id="FileUpload_methods" href="javascript: void(0)" class="anchor"><strong>FileUpload</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Browse</td><td>void</td><td>N/A</td><td>Opens a popup to browse for a file.</td></tr>
+      <tr><td>CancelAll</td><td>void</td><td>N/A</td><td>Cancels all selected files. The files are removed from the list and their uploading is prevented.</td></tr>
+      <tr><td>CancelFile</td><td>void</td><td>int index</td><td>Cancels a selected file. The file is removed from the file list and it's uploading is prevented.</td></tr>
+      <tr><td>PauseAll</td><td>void</td><td>N/A</td><td>Pauses the uploading of all files. File upload is prevented but the files remain in the file list.</td></tr>
+      <tr><td>PauseFile</td><td>void</td><td>int id</td><td>Pauses upload of a file with particular index. File upload is prevented but file ramains in the file list.</td></tr>
+      <tr><td>UploadAll</td><td>void</td><td>N/A</td><td>Uploads all selected files.</td></tr>
+      <tr><td>UploadFile</td><td>void</td><td>int id</td><td>Uploads a selected file.</td></tr>
+  </table>
+  <h2 id="FileUploadEvents"><a id="FileUpload_events" href="javascript: void(0)" class="anchor"><strong>FileUpload</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnFileSelected</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a file has been selected.</td><td>dynamic filename, dynamic type, dynamic size, int index</td></tr>
+      <tr><td>FileSelected</td><td>event FileUploadFileSelectedEventHandler</td><td>This event is triggered when a file has been selected.</td><td>FileUploadFileSelectedEventArgs</td></tr>
+      <tr><td>OnUploadCanceled</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a file upload operation is canceled.</td><td>dynamic filename, dynamic type, dynamic size, int index</td></tr>
+      <tr><td>UploadCanceled</td><td>event FileUploadUploadCanceledEventHandler</td><td>This event is triggered when a file upload operation is canceled.</td><td>FileUploadUploadCanceledEventArgs</td></tr>
+      <tr><td>OnUploadCompleted</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a file upload operation is completed.</td><td>dynamic filename, dynamic type, dynamic size, int index, dynamic status</td></tr>
+      <tr><td>UploadCompleted</td><td>event FileUploadUploadCompletedEventHandler</td><td>This event is triggered when a file upload operation is completed.</td><td>FileUploadUploadCompletedEventArgs</td></tr>
+      <tr><td>OnUploadError</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when during the file upload process something happens and upload fails.</td><td>dynamic filename, dynamic type, dynamic size, int index, dynamic status</td></tr>
+      <tr><td>UploadErrored</td><td>event FileUploadUploadErroredEventHandler</td><td>This event is triggered when during the file upload process something happens and upload fails.</td><td>FileUploadUploadErroredEventArgs</td></tr>
+      <tr><td>OnUploadPaused</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a file upload operation is paused.</td><td>dynamic filename, dynamic type, dynamic size, int index</td></tr>
+      <tr><td>UploadPaused</td><td>event FileUploadUploadPausedEventHandler</td><td>This event is triggered when a file upload operation is paused.</td><td>FileUploadUploadPausedEventArgs</td></tr>
+      <tr><td>OnUploadStarted</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a file upload operation is started.</td><td>dynamic filename, dynamic type, dynamic size, int index</td></tr>
+      <tr><td>UploadStarted</td><td>event FileUploadUploadStartedEventHandler</td><td>This event is triggered when a file upload operation is started.</td><td>FileUploadUploadStartedEventArgs</td></tr>
+      <tr><td>OnValidationError</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered if the validation of a user defined 'validateFile' callback fails.</td><td>dynamic filename, dynamic type, dynamic size</td></tr>
+      <tr><td>ValidationErrored</td><td>event FileUploadValidationErroredEventHandler</td><td>This event is triggered if the validation of a user defined 'validateFile' callback fails.</td><td>FileUploadValidationErroredEventArgs</td></tr>
+    </table>
+</div>

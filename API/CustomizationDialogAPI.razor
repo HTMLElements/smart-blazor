@@ -1,0 +1,44 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="CustomizationDialogProperties"><a id="CustomizationDialog_properties" href="javascript: void(0)" class="anchor"><strong>CustomizationDialog</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Array with filtered fields and their settings.</td></tr>
+      <tr><td>DisplayMember</td><td>string</td><td>&quot;&quot;</td><td>Sets or gets the displayMember. The displayMember specifies the name of an object property to display. The name is contained in the collection specified by the 'dataSource' property.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>Filtering</td><td>bool</td><td>false</td><td>Sets whether is enabled/disabled filtering tab.</td></tr>
+      <tr><td>Grouping</td><td>bool</td><td>false</td><td>Sets whether is enabled/disabled grouping tab.</td></tr>
+      <tr><td>HeaderButtons</td><td>string[]</td><td>new string[]{}</td><td>Set's the buttons that will be visible in the header section.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback, related to localization module. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Reorder</td><td>bool</td><td>false</td><td>Sets or gets whether the columns reordering is active.</td></tr>
+      <tr><td>SelectedTab</td><td>int</td><td>0</td><td>Sets or gets the tab, wich is selected on initialization.</td></tr>
+      <tr><td>Sorting</td><td>bool</td><td>false</td><td>Sets whether is enabled/disabled sorting tab.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>object</td><td>N/A</td><td>Sets or gets element's value. It's represente by object, contained</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;&quot;</td><td>Determines the value member of an item. Stored as value in the item object.</td></tr>
+      <tr><td>Visibility</td><td>bool</td><td>false</td><td>Sets or gets whether the columns of the element could be hidden.</td></tr>
+  </table>
+  <h2 id="CustomizationDialogMethods"><a id="CustomizationDialog_methods" href="javascript: void(0)" class="anchor"><strong>CustomizationDialog</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>Open</td><td>void</td><td>N/A</td><td>Opens the dialog</td></tr>
+      <tr><td>Close</td><td>void</td><td>N/A</td><td>Closes the dialog.</td></tr>
+  </table>
+  <h2 id="CustomizationDialogEvents"><a id="CustomizationDialog_events" href="javascript: void(0)" class="anchor"><strong>CustomizationDialog</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the dialog is opened.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event CustomizationDialogOpenedEventHandler</td><td>This event is triggered when the dialog is opened.</td><td>CustomizationDialogOpenedEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the dialog is closed.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event CustomizationDialogClosedEventHandler</td><td>This event is triggered when the dialog is closed.</td><td>CustomizationDialogClosedEventArgs</td></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the data in the value property is changed.</td><td>N/A</td></tr>
+      <tr><td>Changed</td><td>event CustomizationDialogChangedEventHandler</td><td>This event is triggered when the data in the value property is changed.</td><td>CustomizationDialogChangedEventArgs</td></tr>
+      <tr><td>OnApply</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the dialog is closed via clicking the apply button.</td><td>N/A</td></tr>
+      <tr><td>Applyed</td><td>event CustomizationDialogApplyedEventHandler</td><td>This event is triggered when the dialog is closed via clicking the apply button.</td><td>CustomizationDialogApplyedEventArgs</td></tr>
+    </table>
+</div>

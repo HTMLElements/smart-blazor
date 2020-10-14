@@ -1,0 +1,47 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="LayoutProperties"><a id="Layout_properties" href="javascript: void(0)" class="anchor"><strong>Layout</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>ContextMenuDataSource</td><td>object</td><td>N/A</td><td>Determines the options that will be available for selection inside the context menu.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>DataSource</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Sets or gets Layout's data source.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets an object with string values, related to the different states of passwords strength.</td></tr>
+      <tr><td>Orientation</td><td>Orientation</td><td>Orientation.Vertical</td><td>Sets or gets Layout's main orientation. The orientation is applied to all Splitters inside the Layout unless they have their orientation explicitly set in the <b>dataSource</b>.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>AllowLiveSplit</td><td>bool</td><td>false</td><td>Determines whether splitting is live or not.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>SelectedIndex</td><td>object</td><td>N/A</td><td>Determines the selected item.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+  </table>
+  <h2 id="LayoutMethods"><a id="Layout_methods" href="javascript: void(0)" class="anchor"><strong>Layout</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>GetItem</td><td>void</td><td>object index</td><td>Returns a Layout item according to the index that is passed.</td></tr>
+      <tr><td>Refresh</td><td>void</td><td>N/A</td><td>Refreshes the Layout</td></tr>
+      <tr><td>CreateLayoutItem</td><td>void</td><td>object type, object position</td><td>Inserts a new item inside the Layout.</td></tr>
+      <tr><td>MoveChildren</td><td>void</td><td>object oldItem, object newItem</td><td>Moves all children from one item to another.</td></tr>
+  </table>
+  <h2 id="LayoutEvents"><a id="Layout_events" href="javascript: void(0)" class="anchor"><strong>Layout</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnStateChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a change regarding the Layout's state has occured, such as inserting a new item, removing an item, etc.</td><td>dynamic item, dynamic type</td></tr>
+      <tr><td>StateChanged</td><td>event LayoutStateChangedEventHandler</td><td>This event is triggered when a change regarding the Layout's state has occured, such as inserting a new item, removing an item, etc.</td><td>LayoutStateChangedEventArgs</td></tr>
+      <tr><td>OnChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the selection is changed.</td><td>dynamic oldSelectedIndex, dynamic selectedIndex</td></tr>
+      <tr><td>Changed</td><td>event LayoutChangedEventHandler</td><td>This event is triggered when the selection is changed.</td><td>LayoutChangedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a the context menu is about to be closed. The operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Closing</td><td>event LayoutClosingEventHandler</td><td>This event is triggered when a the context menu is about to be closed. The operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>LayoutClosingEventArgs</td></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a the context menu is closed.</td><td>N/A</td></tr>
+      <tr><td>Closed</td><td>event LayoutClosedEventHandler</td><td>This event is triggered when a the context menu is closed.</td><td>LayoutClosedEventArgs</td></tr>
+      <tr><td>OnOpening</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a the context menu is about to be opened. The operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>N/A</td></tr>
+      <tr><td>Opening</td><td>event LayoutOpeningEventHandler</td><td>This event is triggered when a the context menu is about to be opened. The operation can be canceled by calling event.preventDefault() in the event handler function.</td><td>LayoutOpeningEventArgs</td></tr>
+      <tr><td>OnOpen</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a the context menu is opened.</td><td>N/A</td></tr>
+      <tr><td>Opened</td><td>event LayoutOpenedEventHandler</td><td>This event is triggered when a the context menu is opened.</td><td>LayoutOpenedEventArgs</td></tr>
+      <tr><td>OnMenuItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when an option from the context menu has been clicked.</td><td>dynamic target, dynamic item, string label, dynamic value</td></tr>
+      <tr><td>MenuItemClicked</td><td>event LayoutMenuItemClickedEventHandler</td><td>This event is triggered when an option from the context menu has been clicked.</td><td>LayoutMenuItemClickedEventArgs</td></tr>
+    </table>
+</div>

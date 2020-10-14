@@ -1,0 +1,35 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="MultiColumnFilterPanelProperties"><a id="MultiColumnFilterPanel_properties" href="javascript: void(0)" class="anchor"><strong>MultiColumnFilterPanel</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>CloseButtonPosition</td><td>MultiColumnFilterPanelCloseButtonPosition</td><td>MultiColumnFilterPanelCloseButtonPosition.Left</td><td>Sets or gets the position of the close button of multi column filter panel items.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the multi column filter panel.<br />Each member of the <strong>dataSource</strong> array is an object with the following fields:<ul><li><strong>dataField</strong> - the dataField of the column to be grouped.</li><li><strong>dataType</strong> - the data type of the column to be grouped.</li><li><strong>groupIndex</strong> - the group order of columns. If this value is -1, the grouping will not be applied by this column initially.</li><li><strong>label</strong> - the column label to be displayed in the column selection input.</li><li><strong>icon</strong> - a specific class to be applied to the respective item in the column selection input.</li><li><strong>sortDirection</strong> - the sort direction to be applied when grouping. Possible values: <em>'ascending'</em> and <em>'descending'</em>.</li></ul></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the multi column filter panel.</td></tr>
+      <tr><td>EditorCallback</td><td>object</td><td>N/A</td><td>A callback function that can be used to modify the settings of value editors.</td></tr>
+      <tr><td>EditorPlaceholder</td><td>string</td><td>&quot;Value&quot;</td><td>Sets or gets the placeholder for the filter value editors.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>.</td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>MaxLevel</td><td>int</td><td>8</td><td>Sets or gets the maximum number of columns to group by. If set to <em>null</em>, there is no limit.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>Operator</td><td>MultiColumnFilterPanelOperator</td><td>MultiColumnFilterPanelOperator.False</td><td>Determines the logical operator between the items.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>Value</td><td>IEnumerable&lt;object&gt;</td><td>N/A</td><td>Sets of gets the initial value of the element.</td></tr>
+  </table>
+  <h2 id="MultiColumnFilterPanelEvents"><a id="MultiColumnFilterPanel_events" href="javascript: void(0)" class="anchor"><strong>MultiColumnFilterPanel</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnApply</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Apply&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>Applyed</td><td>event MultiColumnFilterPanelApplyedEventHandler</td><td>This event is triggered when the &quot;Apply&quot; button is clicked.</td><td>MultiColumnFilterPanelApplyedEventArgs</td></tr>
+      <tr><td>OnCancel</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Cancel&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>Canceled</td><td>event MultiColumnFilterPanelCanceledEventHandler</td><td>This event is triggered when the &quot;Cancel&quot; button is clicked.</td><td>MultiColumnFilterPanelCanceledEventArgs</td></tr>
+      <tr><td>OnCollapseAll</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Collapse all&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>CollapseAlled</td><td>event MultiColumnFilterPanelCollapseAlledEventHandler</td><td>This event is triggered when the &quot;Collapse all&quot; button is clicked.</td><td>MultiColumnFilterPanelCollapseAlledEventArgs</td></tr>
+      <tr><td>OnExpandAll</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Expand all&quot; button is clicked.</td><td>N/A</td></tr>
+      <tr><td>ExpandAlled</td><td>event MultiColumnFilterPanelExpandAlledEventHandler</td><td>This event is triggered when the &quot;Expand all&quot; button is clicked.</td><td>MultiColumnFilterPanelExpandAlledEventArgs</td></tr>
+    </table>
+</div>

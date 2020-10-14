@@ -1,0 +1,42 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="BreadcrumbProperties"><a id="Breadcrumb_properties" href="javascript: void(0)" class="anchor"><strong>Breadcrumb</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>AddNewItem</td><td>bool</td><td>false</td><td>Enables or disables the "Add new item" (+) button.</td></tr>
+      <tr><td>AllowDrag</td><td>bool</td><td>false</td><td>Enables or disables the dragging of breadcrumb items.</td></tr>
+      <tr><td>AllowDrop</td><td>bool</td><td>false</td><td>Enables or disables the dropping of dragged breadcrumb items.</td></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>CloseButtons</td><td>bool</td><td>false</td><td>Show/Hide the close button of breadcrumb items.</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>[]</td><td>Determines the data source to load breadcrumb items from. The Array should contain objects. Each object defines a single breadcrumb item.</td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the Breadcrumb.</td></tr>
+      <tr><td>ItemTemplate</td><td>object</td><td>N/A</td><td>Sets or gets the template of breadcrumb items. The value of this property can be the id of an HTMLTemplateElement or the HTMLTemplateElement itself. If set to <em>null</em>, no template is applied.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>MinimizeWidth</td><td>int</td><td>N/A</td><td>Determines the minimum width of the Breadcrumb at which it will switch from normal to minimized mode. If set to <em>null</em>, the Breadcrumb does not minimize automatically.</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+  </table>
+  <h2 id="BreadcrumbMethods"><a id="Breadcrumb_methods" href="javascript: void(0)" class="anchor"><strong>Breadcrumb</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddItem</td><td>void</td><td>object itemDetails</td><td>Adds an item.</td></tr>
+      <tr><td>Maximize</td><td>void</td><td>N/A</td><td>Restores the Breadcrumb from minimized state back to normal.</td></tr>
+      <tr><td>Minimize</td><td>void</td><td>N/A</td><td>Minimizes the Breadcrumb.</td></tr>
+      <tr><td>RemoveItem</td><td>void</td><td>object item</td><td>Removes an item.</td></tr>
+  </table>
+  <h2 id="BreadcrumbEvents"><a id="Breadcrumb_events" href="javascript: void(0)" class="anchor"><strong>Breadcrumb</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnClose</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Breadcrumb item is closed.</td><td>dynamic item</td></tr>
+      <tr><td>Closed</td><td>event BreadcrumbClosedEventHandler</td><td>This event is triggered when a Breadcrumb item is closed.</td><td>BreadcrumbClosedEventArgs</td></tr>
+      <tr><td>OnClosing</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Breadcrumb item is about to be closed. The closing operation can be canceled by calling &lt;code&gt;event.preventDefault()&lt;/code&gt; in the event handler function.</td><td>dynamic item</td></tr>
+      <tr><td>Closing</td><td>event BreadcrumbClosingEventHandler</td><td>This event is triggered when a Breadcrumb item is about to be closed. The closing operation can be canceled by calling &lt;code&gt;event.preventDefault()&lt;/code&gt; in the event handler function.</td><td>BreadcrumbClosingEventArgs</td></tr>
+      <tr><td>OnDragEnd</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Breadcrumb item is dropped.</td><td>N/A</td></tr>
+      <tr><td>DragEnded</td><td>event BreadcrumbDragEndedEventHandler</td><td>This event is triggered when a Breadcrumb item is dropped.</td><td>BreadcrumbDragEndedEventArgs</td></tr>
+      <tr><td>OnDragging</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a Breadcrumb item is being dragged.</td><td>dynamic item, dynamic originalEvent, dynamic target</td></tr>
+      <tr><td>Dragging</td><td>event BreadcrumbDraggingEventHandler</td><td>This event is triggered when a Breadcrumb item is being dragged.</td><td>BreadcrumbDraggingEventArgs</td></tr>
+      <tr><td>OnAddNewItem</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the &quot;Add new item&quot; (+) button is clicked.</td><td>N/A</td></tr>
+      <tr><td>AddNewItemed</td><td>event BreadcrumbAddNewItemedEventHandler</td><td>This event is triggered when the &quot;Add new item&quot; (+) button is clicked.</td><td>BreadcrumbAddNewItemedEventArgs</td></tr>
+    </table>
+</div>

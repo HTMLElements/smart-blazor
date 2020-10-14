@@ -1,0 +1,68 @@
+@namespace Smart.Blazor
+<div>
+
+  <h2 id="ListMenuProperties"><a id="ListMenu_properties" href="javascript: void(0)" class="anchor"><strong>ListMenu</strong> Properties</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Animation</td><td>Animation</td><td>Animation.Advanced</td><td>Sets or gets the animation mode. Animation is disabled when the property is set to <strong>'none'</strong></td></tr>
+      <tr><td>AutoFocusOnMouseenter</td><td>bool</td><td>false</td><td>Determines whether the element becomes focused on hover or not.</td></tr>
+      <tr><td>Checkable</td><td>bool</td><td>false</td><td>Allows top-level ListMenu items to be checkable.</td></tr>
+      <tr><td>Checkboxes</td><td>bool</td><td>false</td><td>Sets or gets whether checkboxes and radio buttons can be displayed in the top level menu groups. This property is applicable only to the ListMenu itself, and not its jqx-menu-item/jqx-menu-items-group subitems. <em>See also the property <strong>checkable</strong></em>.</td></tr>
+      <tr><td>CheckMode</td><td>MenuCheckMode</td><td>MenuCheckMode.Checkbox</td><td>Sets the check mode of top-level ListMenu items(groups).</td></tr>
+      <tr><td>DataSource</td><td>object</td><td>N/A</td><td>Determines the data source that will be loaded to the ListMenu. The data source represents an array of objects with the following properties: <ul><li>label - a string representing the text content of the item.</li><li>value - the value of the item.</li><li>shortcut - a string representing a shortuct for the item. It will be displayed inside the item.</li><li>items - allows to define an array of sub menu items.</li></ul></td></tr>
+      <tr><td>Disabled</td><td>bool</td><td>false</td><td>Enables or disables the element.</td></tr>
+      <tr><td>DisplayLoadingIndicator</td><td>bool</td><td>false</td><td>Displays or hides the loading indicator. Loading indicator is hidden by default.</td></tr>
+      <tr><td>DisplayMember</td><td>string</td><td>&quot;label&quot;</td><td>Determines the field in the data source that corresponds to an item's <strong>label</strong>.</td></tr>
+      <tr><td>DropDownAppendTo</td><td>string </td><td>N/A</td><td>Sets custom outer container where the minimized dropdown will be appednded. By default it is in the ListMenu. The value of the property can be an HTML element or the id of an HTML element.</td></tr>
+      <tr><td>DropDownOverlay</td><td>bool</td><td>false</td><td>If this property is enabled, when the element's minimized dropdown is opened, a transparent overlay is positioned between the dropdown and the rest of the document.</td></tr>
+      <tr><td>DropDownPosition</td><td>MenuDropDownPosition</td><td>MenuDropDownPosition.Auto</td><td>Sets or gets the opening direction of the ListMenu minimized dropdown.</td></tr>
+      <tr><td>EnableMouseWheelAction</td><td>bool</td><td>false</td><td>Enables or disables scrolling using the mouse wheel through overflowing menu items.</td></tr>
+      <tr><td>Filterable</td><td>bool</td><td>false</td><td>Determines whether menu item filtering is enabled. When enabled a filter input is shown at the top of the element. Only items in the current view can be filtered.</td></tr>
+      <tr><td>FilterInputPlaceholder</td><td>string</td><td>&quot;&quot;</td><td>Determines the placeholder for the filter input.</td></tr>
+      <tr><td>FilterMode</td><td>FilterMode</td><td>FilterMode.ContainsIgnoreCase</td><td>Determines the filtering mode.</td></tr>
+      <tr><td>Grouped</td><td>bool</td><td>false</td><td>If enabled, the items will be grouped by their first letter and sorted.</td></tr>
+      <tr><td>ItemsMember</td><td>string</td><td>&quot;items&quot;</td><td>Determines the field in the data source that corresponds to an item group's subitems collection.</td></tr>
+      <tr><td>LoadingIndicatorPlaceholder</td><td>string</td><td>&quot;Loading...&quot;</td><td>Determines the text that will be displayed next to the loading indicator when the loader is visible and it's position is top or bottom.</td></tr>
+      <tr><td>LoadingIndicatorPosition</td><td>VerticalAlignment</td><td>VerticalAlignment.Center</td><td>Determines the position of the loading indicator inside the element.</td></tr>
+      <tr><td>Locale</td><td>string</td><td>&quot;en&quot;</td><td>Sets or gets the language. Used in conjunction with the property <strong>messages</strong>. </td></tr>
+      <tr><td>LocalizeFormatFunction</td><td>object</td><td>N/A</td><td>Callback used to customize the format of the messages that are returned from the Localization Module.</td></tr>
+      <tr><td>Messages</td><td>object</td><td>N/A</td><td>Sets or gets an object specifying strings used in the widget that can be localized. Used in conjunction with the property <strong>locale</strong>. </td></tr>
+      <tr><td>MinimizeIconTemplate</td><td>string</td><td>&quot;null&quot;</td><td>Allows to load a custom minimize icon from an HTMLTemplateElement.The property acceps the id of an HTMLTemplateElement or it's direct instance.</td></tr>
+      <tr><td>MinimizeWidth</td><td>int</td><td>N/A</td><td>Determines the minimum width of the ListMenu at which it will switch from normal to minimized mode. If set to <em>null</em>, the ListMenu does not minimize automatically.</td></tr>
+      <tr><td>Overflow</td><td>Overflow</td><td>Overflow.Auto</td><td>Sets or gets the ListMenu's scroll buttons behavior.</td></tr>
+      <tr><td>Readonly</td><td>bool</td><td>false</td><td>If the element is readonly, users cannot interact with it.</td></tr>
+      <tr><td>RightToLeft</td><td>bool</td><td>false</td><td>Sets or gets the value indicating whether the element is aligned to support locales using right-to-left fonts.</td></tr>
+      <tr><td>Theme</td><td>string</td><td>&quot;&quot;</td><td>Determines the theme. Theme defines the look of the element</td></tr>
+      <tr><td>Unfocusable</td><td>bool</td><td>false</td><td>If is set to true, the element cannot be focused.</td></tr>
+      <tr><td>ValueMember</td><td>string</td><td>&quot;value&quot;</td><td>Determines the field in the data source that corresponds to an item's <strong>value</strong>.</td></tr>
+  </table>
+  <h2 id="ListMenuMethods"><a id="ListMenu_methods" href="javascript: void(0)" class="anchor"><strong>ListMenu</strong> Methods</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Arguments</th><th>Description</th></tr>
+      <tr><td>AddItem</td><td>void</td><td>object Item, object Parent</td><td>Adds an item to the list.</td></tr>
+      <tr><td>Back</td><td>void</td><td>bool animation</td><td>Navigates to the previous page (smart-menu-items-group).</td></tr>
+      <tr><td>ChangePage</td><td>void</td><td>string id</td><td>Navigates to a particular page (smart-menu-items-group).</td></tr>
+      <tr><td>CheckItem</td><td>void</td><td>object item</td><td>Checks an item.</td></tr>
+      <tr><td>GetItem</td><td>object</td><td>string id</td><td>Gets an item by its id or numeric path.</td></tr>
+      <tr><td>Maximize</td><td>void</td><td>N/A</td><td>Maximizes the List Menu.</td></tr>
+      <tr><td>Minimize</td><td>void</td><td>N/A</td><td>Minimizes the List Menu. An icon is displayed and the menu is hidden when minimized.</td></tr>
+      <tr><td>RemoveItem</td><td>void</td><td>object item</td><td>Removes an item.</td></tr>
+      <tr><td>UncheckItem</td><td>void</td><td>object item</td><td>Unchecks an item.</td></tr>
+  </table>
+  <h2 id="ListMenuEvents"><a id="ListMenu_events" href="javascript: void(0)" class="anchor"><strong>ListMenu</strong> Events</a></h2>
+  <table class="table">
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Event Detail</th></tr>
+      <tr><td>OnExpand</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a jqx-menu-items-group is expanded.</td><td>dynamic item, string label, dynamic value, dynamic path, dynamic children</td></tr>
+      <tr><td>Expanded</td><td>event ListMenuExpandedEventHandler</td><td>This event is triggered when a jqx-menu-items-group is expanded.</td><td>ListMenuExpandedEventArgs</td></tr>
+      <tr><td>OnItemCheckChange</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a menu item check state is changed.</td><td>dynamic item, string label, dynamic value, dynamic checked</td></tr>
+      <tr><td>ItemCheckChanged</td><td>event ListMenuItemCheckChangedEventHandler</td><td>This event is triggered when a menu item check state is changed.</td><td>ListMenuItemCheckChangedEventArgs</td></tr>
+      <tr><td>OnItemClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a list menu item is clicked.</td><td>dynamic item, string label, dynamic value</td></tr>
+      <tr><td>ItemClicked</td><td>event ListMenuItemClickedEventHandler</td><td>This event is triggered when a list menu item is clicked.</td><td>ListMenuItemClickedEventArgs</td></tr>
+      <tr><td>OnScrollBottomReached</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user scrolls to the bottom of the ListMenu.</td><td>N/A</td></tr>
+      <tr><td>ScrollBottomReached</td><td>event ListMenuScrollBottomReachedEventHandler</td><td>This event is triggered when the user scrolls to the bottom of the ListMenu.</td><td>ListMenuScrollBottomReachedEventArgs</td></tr>
+      <tr><td>OnSwipeleft</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user swipes to the left inside the ListMenu.</td><td>N/A</td></tr>
+      <tr><td>SwipedLeft</td><td>event ListMenuSwipedLeftEventHandler</td><td>This event is triggered when the user swipes to the left inside the ListMenu.</td><td>ListMenuSwipedLeftEventArgs</td></tr>
+      <tr><td>OnSwiperight</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when the user swipes to the right inside the ListMenu.</td><td>N/A</td></tr>
+      <tr><td>SwipeRight</td><td>event ListMenuSwipeRightEventHandler</td><td>This event is triggered when the user swipes to the right inside the ListMenu.</td><td>ListMenuSwipeRightEventArgs</td></tr>
+    </table>
+</div>
