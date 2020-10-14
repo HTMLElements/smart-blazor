@@ -97,7 +97,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Smart.Blazor;
 
-namespace BlazorApp3
+namespace BlazorApp
 {
     public class Program
     {
@@ -133,10 +133,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using smart_blazor_app.Data;
+using BlazorApp.Data;
 using Smart.Blazor;
 
-namespace smart_blazor_app
+namespace BlazorApp
 {
     public class Startup
     {
@@ -257,13 +257,13 @@ Alternatively you can do that:
 * Create a blazor application:
 
 ```console
-dotnet new blazorwasm -o smart-blazor-app
+dotnet new blazorwasm -o BlazorApp
 ```
 
 * Navigate to the application:
 
 ```console
-cd smart-blazor-app
+cd BlazorApp
 ```
 
 * Add the Smart.Blazor package:
@@ -385,7 +385,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Smart.Blazor;
 
-namespace BlazorApp3
+namespace BlazorApp
 {
     public class Program
     {
@@ -423,13 +423,13 @@ Once you get to the following page, you have successfully run your first Blazor 
 * Create a blazor application:
 
 ```console
-dotnet new blazorserver -o smart-blazor-app
+dotnet new blazorserver -o BlazorServerApp
 ```
 
 * Navigate to the application:
 
 ```console
-cd smart-blazor-app
+cd BlazorServerApp
 ```
 
 * Add the Smart.Blazor package:
@@ -565,10 +565,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using smart_blazor_app.Data;
+using BlazorServerApp.Data;
 using Smart.Blazor;
 
-namespace smart_blazor_app
+namespace BlazorServerApp
 {
     public class Startup
     {
