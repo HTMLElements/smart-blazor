@@ -87,7 +87,7 @@ This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET 
 #### Blazor Server
 
 This step is going only into the Startup.cs of your Blazor Server project. You will need to add ```services.AddSmart(); in the ConfigureServices method and ```using Smart.Blazor; in the using statements.
-
+```csharp
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
