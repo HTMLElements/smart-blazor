@@ -37,7 +37,7 @@ Open the \_Imports.razor file of your Blazor application and add `@using Smart.B
 Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include a theme CSS file by adding this snippet
 
 ```html
-<link rel="stylesheet" href="\_content/Smart.Blazor/source/smart.default.css"> 
+<link href="_content/Smart.Blazor/css/smart.default.css" rel="stylesheet" />
 ```
 
 You can include 14+ additional CSS themes for the Controls - 7 dark and 7 light themes.
@@ -46,9 +46,16 @@ You can include 14+ additional CSS themes for the Controls - 7 dark and 7 light 
 
 Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include this snippet
 ```html
-<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
-<script src="\_content/Smart.Blazor/smart.elements.js"></script>
-```			
+<script src="_content/Smart.Blazor/js/smart.blazor.js"></script>
+<script src="_content/Smart.Blazor/js/smart.elements.js"></script>
+```	
+
+If you would like to use only a specific component, instead of referring the ```smart.elements.js```, you can refer the component like that:
+
+```html
+<script type="module" src="_content/Smart.Blazor/js/modules/smart.table.js"></script>
+```
+
 ###   
 
 ### Registrations
@@ -432,8 +439,9 @@ dotnet add package Smart.Blazor
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="_content/smart-blazor-app/_framework/scoped.styles.css" rel="stylesheet" />
-	<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
-	<script src="\_content/Smart.Blazor/smart.elements.js"></script>
+    <link href="_content/Smart.Blazor/css/smart.default.css" rel="stylesheet" />
+	<script src="_content/Smart.Blazor/js/smart.blazor.js"></script>
+	<script src="_content/Smart.Blazor/js/smart.elements.js"></script>
 	
 </head>
 <body>
