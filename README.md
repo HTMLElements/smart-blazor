@@ -46,6 +46,9 @@ Smart.Blazor Components are distributed as the **Smart.Blazor** Nuget package. Y
 
 *   Install the package from command line by running **dotnet add package Smart.Blazor**.
 *   Alternatively, you can add the project from the Visual Nuget Package Manager.
+
+![Image of Smart.Blazor Nuget](https://github.com/HTMLElements/smart-blazor/blob/main/images/blazor-nuget.png)
+
 *   Edit the .csproj file and add a project reference
 
 ```csharp
