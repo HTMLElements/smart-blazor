@@ -134,7 +134,7 @@ namespace smart_blazor_app
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-			services.AddSmart();
+	    services.AddSmart();
 	   }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -440,8 +440,8 @@ dotnet add package Smart.Blazor
     <link href="css/site.css" rel="stylesheet" />
     <link href="_content/smart-blazor-app/_framework/scoped.styles.css" rel="stylesheet" />
     <link href="_content/Smart.Blazor/css/smart.default.css" rel="stylesheet" />
-	<script src="_content/Smart.Blazor/js/smart.blazor.js"></script>
-	<script src="_content/Smart.Blazor/js/smart.elements.js"></script>
+    <script src="_content/Smart.Blazor/js/smart.blazor.js"></script>
+    <script src="_content/Smart.Blazor/js/smart.elements.js"></script>
 	
 </head>
 <body>
@@ -561,7 +561,7 @@ namespace smart_blazor_app
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-			services.AddSmart();
+	    services.AddSmart();
 	   }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
