@@ -223,22 +223,22 @@ Alternatively you can do that:
 
 * Create a blazor application:
 
-dotnet new blazorwasm -o smart-blazor-app
+	dotnet new blazorwasm -o smart-blazor-app
 
 * Navigate to the application:
 
-cd smart-blazor-app
+	cd smart-blazor-app
 
 * Add the Smart.Blazor package:
 
-dotnet add package Smart.Blazor
+	dotnet add package Smart.Blazor
 
 * Open _Imports.razor and add the following at the bottom:
 
 @using Smart.Blazor
 
 * Open wwwroot/index.html and add the needed styles and scripts. 
-
+```html
 	<!DOCTYPE html>
 	<html>
 
@@ -267,7 +267,7 @@ dotnet add package Smart.Blazor
 	</body>
 
 	</html>
-
+```
 * Open Pages/Index.razor and replace the code as follows:
 ```html
 	@page "/"
@@ -330,9 +330,9 @@ dotnet add package Smart.Blazor
 	}
 ```
 * Start the app and check the result
-
+```javascript
 	dotnet watch run
-
+```
 ### Blazor Server (blazorserver)
  Example
 
