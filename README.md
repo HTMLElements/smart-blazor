@@ -596,3 +596,9 @@ namespace smart_blazor_app
 ```csharp
 dotnet watch run
 ```
+
+
+* Output
+
+![Image of Smart.Blazor table](https://github.com/HTMLElements/smart-blazor/blob/main/images/blazor-server.png)
+
