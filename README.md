@@ -8,9 +8,25 @@ Getting Started
 
 ###   
 
-### Create Blazor App
+### Create a new Blazor App
 
-The Blazor framework provides templates to develop apps for each of the Blazor hosting models:
+To start building .NET apps, download and install the .NET SDK (Software Development Kit).
+
+* Check everything installed correctly
+
+Once you've installed, open a new command prompt and run the following command:
+
+```console
+dotnet
+```
+
+If the command runs, printing out information about how to use dotnet, you're good to go.
+
+* Got an error?
+
+If you receive a 'dotnet' is not recognized as an internal or external command error, make sure you opened a new command prompt
+
+* The Blazor framework provides templates to develop apps for each of the Blazor hosting models:
 
 Blazor WebAssembly (blazorwasm)
 
@@ -240,19 +256,19 @@ Alternatively you can do that:
 
 * Create a blazor application:
 
-```csharp
+```console
 dotnet new blazorwasm -o smart-blazor-app
 ```
 
 * Navigate to the application:
 
-```csharp
+```console
 cd smart-blazor-app
 ```
 
 * Add the Smart.Blazor package:
 
-```csharp
+```console
 dotnet add package Smart.Blazor
 ```
 
@@ -388,9 +404,14 @@ namespace BlazorApp3
 ```
 
 * Start the app and check the result
-```csharp
+```console
 dotnet watch run
 ```
+
+Wait for the app to display that it's listening on http://localhost:5000 and then, open a browser and navigate to that address.
+
+Once you get to the following page, you have successfully run your first Blazor WebAssembly app using Smart UI for Blazor Components!
+
 
 * Output
 
@@ -401,19 +422,19 @@ dotnet watch run
 
 * Create a blazor application:
 
-```csharp
+```console
 dotnet new blazorserver -o smart-blazor-app
 ```
 
 * Navigate to the application:
 
-```csharp
+```console
 cd smart-blazor-app
 ```
 
 * Add the Smart.Blazor package:
 
-```csharp
+```console
 dotnet add package Smart.Blazor
 ```
 
@@ -597,9 +618,13 @@ namespace smart_blazor_app
 }
 ```
 * Start the app and check the result
-```csharp
+```console
 dotnet watch run
 ```
+
+Wait for the app to display that it's listening on http://localhost:5000 and then, open a browser and navigate to that address.
+
+Once you get to the following page, you have successfully run your first Blazor Server app using Smart UI for Blazor Components!
 
 
 * Output
