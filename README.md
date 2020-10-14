@@ -269,7 +269,7 @@ dotnet add package Smart.Blazor
 	</html>
 
 * Open Pages/Index.razor and replace the code as follows:
-```
+```html
 	@page "/"
 
 	@inject HttpClient Http
@@ -328,7 +328,7 @@ dotnet add package Smart.Blazor
 			public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 		}
 	}
-
+```
 * Start the app and check the result
 
 	dotnet watch run
