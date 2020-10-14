@@ -34,15 +34,21 @@ Open the \_Imports.razor file of your Blazor application and add `@using Smart.B
 
 ### Set a Theme
 
-Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include a theme CSS file by adding this snippet <link rel="stylesheet" href="\_content/Smart.Blazor/source/smart.default.css"> You can include 14+ additional CSS themes for the Controls.
+Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include a theme CSS file by adding this snippet
+
+```html
+	<link rel="stylesheet" href="\_content/Smart.Blazor/source/smart.default.css"> 
+```
+
+You can include 14+ additional CSS themes for the Controls - 7 dark and 7 light themes.
 
 ### Source files
 
 Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include this snippet
-
+```html
 	<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
 	<script src="\_content/Smart.Blazor/smart.elements.js"></script>
-			
+```			
 ###   
 
 ### Registrations
@@ -52,7 +58,7 @@ Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-s
 #### Blazor WebAssembly
 
 This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET Core hosted project types. You should place the code into the Program.cs of your client project
-
+```csharp
 	using System;
 	using System.Net.Http;
 	using System.Collections.Generic;
@@ -80,13 +86,14 @@ This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET 
 		}
 	    }
 	}
-
+```
 			
 ####   
 
 #### Blazor Server
 
-This step is going only into the Startup.cs of your Blazor Server project. You will need to add ```services.AddSmart(); in the ConfigureServices method and ```using Smart.Blazor; in the using statements.
+This step is going only into the Startup.cs of your Blazor Server project. You will need to add ```services.AddSmart();``` in the ConfigureServices method and ```using Smart.Blazor;``` in the using statements.
+
 ```csharp
 	using System;
 	using System.Collections.Generic;
@@ -151,7 +158,7 @@ This step is going only into the Startup.cs of your Blazor Server project. You w
 				}
 			}
 	}
-							
+```							
 ###   
 
 ### Using Smart.Blazor Components
@@ -161,15 +168,15 @@ Use any Smart Blazor component by typing its tag name in a Blazor page e.g. <But
 ###   
 
 ### Data binding a property
-
+```csharp
 	<Input Value="@text"></Input>
 	@code {
 		string text = " Hi from Smart!";
 	}
-
+```
 		
 ### Events Handing
-
+```csharp
 	<Calendar id="calendar" OnChange=@OnChange></Calendar>
 	<div class="options">
 		<div class="caption">Events</div>
@@ -188,9 +195,9 @@ Use any Smart Blazor component by typing its tag name in a Blazor page e.g. <But
 			eventLog = detail.Value\[0\].ToString();
 		}
 	}
-
+```
 Alternatively you can do that:
-
+```csharp
 	@page "/calendar"
 
 	<Calendar OnReady="OnReady" id="calendar" ></Calendar>
@@ -215,7 +222,7 @@ Alternatively you can do that:
 			};
 		}
 	}
-
+```
 
 `OnReady` callback is called for each Blazor component, after it is initialized and rendered.
 
