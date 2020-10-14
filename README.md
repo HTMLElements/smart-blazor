@@ -336,7 +336,7 @@ Alternatively you can do that:
 
 * Output
 
-![Image of Smart.Blazor table](https://github.com/HTMLElements/smart-blazor/images/blazor-webassembly.png)
+![Image of Smart.Blazor table](https://github.com/HTMLElements/smart-blazor/blob/main/images/blazor-webassembly.png)
 
 ### Blazor Server (blazorserver)
  Example
