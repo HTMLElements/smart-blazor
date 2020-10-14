@@ -8,7 +8,7 @@ Getting Started
 
 ###   
 
-### Create New App
+### Create Blazor App
 
 The Blazor framework provides templates to develop apps for each of the Blazor hosting models:
 
