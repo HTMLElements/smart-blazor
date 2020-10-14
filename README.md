@@ -106,57 +106,56 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using smart_blazor_app.Data;
 using Smart.Blazor;
 
-namespace Smart.Blazor.Demos
+namespace smart_blazor_app
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddRazorPages();
-			services.AddServerSideBlazor();
-			services.AddSingleton<WeatherForecastService>();
-			services.AddSingleton<RandomDataService>();
-
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
 			services.AddSmart();
-		}
+	   }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-			app.UseRouting();
+            app.UseRouting();
 
-			app.UseEndpoints(endpoints =>
-				{
-					endpoints.MapBlazorHub();
-					endpoints.MapFallbackToPage("/\_Host");
-				});
-			}
-		}
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
+            });
+        }
+    }
 }
 ```							
 ###   
@@ -230,19 +229,27 @@ Alternatively you can do that:
 
 * Create a blazor application:
 
-	dotnet new blazorwasm -o smart-blazor-app
+```csharp
+dotnet new blazorwasm -o smart-blazor-app
+```
 
 * Navigate to the application:
 
-	cd smart-blazor-app
+```csharp
+cd smart-blazor-app
+```
 
 * Add the Smart.Blazor package:
 
-	dotnet add package Smart.Blazor
+```csharp
+dotnet add package Smart.Blazor
+```
 
 * Open _Imports.razor and add the following at the bottom:
 
+```csharp
 @using Smart.Blazor
+```
 
 * Open wwwroot/index.html and add the needed styles and scripts. 
 ```csharp
@@ -336,15 +343,248 @@ else
 	}
 }
 ```
+
+* Edit Program.cs
+
+```csharp
+using System;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Smart.Blazor;
+
+namespace BlazorApp3
+{
+    public class Program
+    {
+	public static async Task Main(string[] args)
+	{
+	    var builder = WebAssemblyHostBuilder.CreateDefault(args);
+	    builder.RootComponents.Add<App>("#app");
+
+	    builder.Services.AddSmart();
+	    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+	    await builder.Build().RunAsync();
+	}
+    }
+}
+```
+
 * Start the app and check the result
-```javascript
-	dotnet watch run
+```csharp
+dotnet watch run
 ```
 
 * Output
 
 ![Image of Smart.Blazor table](https://github.com/HTMLElements/smart-blazor/blob/main/images/blazor-webassembly.png)
 
-### Blazor Server (blazorserver)
- Example
+### Blazor Server (blazorserver) Example
 
+
+* Create a blazor application:
+
+```csharp
+dotnet new blazorserver -o smart-blazor-app
+```
+
+* Navigate to the application:
+
+```csharp
+cd smart-blazor-app
+```
+
+* Add the Smart.Blazor package:
+
+```csharp
+dotnet add package Smart.Blazor
+```
+
+* Open _Imports.razor and add the following at the bottom:
+
+
+```csharp
+@using Smart.Blazor
+```
+
+* Open Pages/_Host.cshtml and add the needed styles and scripts. 
+```csharp
+@page "/"
+@namespace smart_blazor_app.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>smart-blazor-app</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="_content/smart-blazor-app/_framework/scoped.styles.css" rel="stylesheet" />
+	<script src="\_content/Smart.Blazor/smart.blazor.js"></script>
+	<script src="\_content/Smart.Blazor/smart.elements.js"></script>
+	
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
+```
+* Open Pages/Index.razor and replace the code as follows:
+```csharp
+@page "/"
+
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<Table Selection="true" SortMode="TableSortMode.One" class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Temp. (C)</th>
+					<th>Temp. (F)</th>
+					<th>Summary</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var forecast in forecasts)
+				{
+					<tr>
+						<td>@forecast.Date.ToShortDateString()</td>
+						<td>@forecast.TemperatureC</td>
+						<td>@forecast.TemperatureF</td>
+						<td>@forecast.Summary</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</Table>
+}
+
+@code {
+	private WeatherForecast[] forecasts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+	}
+
+	public class WeatherForecast
+	{
+		public DateTime Date { get; set; }
+
+		public int TemperatureC { get; set; }
+
+		public string Summary { get; set; }
+
+		public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+	}
+}
+```
+
+* Edit Startup.cs
+
+ You will need to add ```services.AddSmart();``` in the ConfigureServices method and ```using Smart.Blazor;``` in the using statements.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using smart_blazor_app.Data;
+using Smart.Blazor;
+
+namespace smart_blazor_app
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
+			services.AddSmart();
+	   }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
+            });
+        }
+    }
+}
+```
+* Start the app and check the result
+```csharp
+dotnet watch run
+```
