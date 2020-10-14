@@ -333,6 +333,11 @@ Alternatively you can do that:
 ```javascript
 	dotnet watch run
 ```
+
+* Output
+
+![Image of Smart.Blazor table](https://github.com/HTMLElements/smart-blazor/images/blazor-webassembly.png)
+
 ### Blazor Server (blazorserver)
  Example
 
