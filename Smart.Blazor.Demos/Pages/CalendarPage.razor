@@ -1,0 +1,23 @@
+﻿@page "/calendar"
+
+<Example Name="Calendar">
+	<Calendar id="calendar" OnChange=@OnChange></Calendar>
+	<div class="options">
+		<div class="caption">Events</div>
+		<div class="option" id="log">
+			@eventLog
+		</div>
+	</div>
+</Example>
+
+@code {
+	private string eventLog;
+
+	private void OnChange(Event eventObj)
+	{
+		CalendarChangeEventDetail detail = eventObj["Detail"];
+
+		eventLog = detail.Value[0].ToString();
+	}
+}
+

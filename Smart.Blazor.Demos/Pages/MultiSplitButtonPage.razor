@@ -1,0 +1,26 @@
+﻿@page "/multisplitbutton"
+
+<Example Name="MultiSplitButton">
+	<MultiSplitButton Style="width: 300px;" ButtonsDataSource="buttons">
+		<ListItem value="Afghanistan">Afghanistan</ListItem>
+		<ListItem selected value="Albania">Albania</ListItem>
+		<ListItem value="Algeria">Algeria</ListItem>
+		<ListItem value="American Samoa">American Samoa</ListItem>
+		<ListItem value="Andorra">Andorra</ListItem>
+		<ListItem value="Angola">Angola</ListItem>
+		<ListItem value="Anguilla">Anguilla</ListItem>
+		<ListItem value="Antarctica">Antarctica</ListItem>
+		<ListItem value="Antigua and Barbuda">Antigua and Barbuda</ListItem>
+		<ListItem value="Argentina">Argentina</ListItem>
+		<ListItem value="Armenia">Armenia</ListItem>
+		<ListItem value="Aruba">Aruba</ListItem>
+		<ListItem value="Australia">Australia</ListItem>
+		<ListItem value="Austria">Austria</ListItem>
+		<ListItem value="Azerbaijan">Azerbaijan</ListItem>
+		<ListItem value="Bahamas">Bahamas</ListItem>
+	</MultiSplitButton>
+</Example>
+
+@code {
+	private string[] buttons = new string[] { "A", "B", "C" };
+}

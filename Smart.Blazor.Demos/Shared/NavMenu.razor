@@ -1,0 +1,342 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Smart.Blazor</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+	<ul class="nav flex-column">
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+				<span class="oi oi-home" aria-hidden="true"></span> Home
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="accordion" Match="NavLinkMatch.All">
+				<span title="Blazor Accordion" class="demo-icon accordion-icon"></span> Accordion
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="button" Match="NavLinkMatch.All">
+				<span title="Blazor Button" class="demo-icon button-icon"></span> Button
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="badge" Match="NavLinkMatch.All">
+				<span title="Blazor Badge" class="demo-icon badge-icon"></span> Badge
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="breadcrumb" Match="NavLinkMatch.All">
+				<span title="Blazor Breadcrumb" class="demo-icon toolbar-icon"></span> Breadcrumb
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="buttongroup" Match="NavLinkMatch.All">
+				<span title="Blazor Button" class="demo-icon button-icon"></span> ButtonGroup
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="calendar" Match="NavLinkMatch.All">
+				<span title="Blazor Calendar" class="demo-icon calendar-icon"></span> Calendar
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="card" Match="NavLinkMatch.All">
+				<span title="Blazor Card" class="demo-icon navbar-icon"></span> Card
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="cardview" Match="NavLinkMatch.All">
+				<span title="Blazor CardView" class="demo-icon kanban-icon"></span> CardView
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="carousel" Match="NavLinkMatch.All">
+				<span title="Blazor Carousel" class="demo-icon scrollview-icon"></span> Carousel
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="chart" Match="NavLinkMatch.All">
+				<span title="Blazor Chart" class="demo-icon chart-icon"></span> Chart
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="checkbox" Match="NavLinkMatch.All">
+				<span title="Blazor CheckBox" class="demo-icon checkbox-icon"></span> Checkbox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="checkinput" Match="NavLinkMatch.All">
+				<span title="Blazor CheckInput" class="demo-icon textbox-icon"></span> CheckInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="colorinput" Match="NavLinkMatch.All">
+				<span title="Blazor ColorInput" class="demo-icon colorpicker-icon"></span> ColorInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="colorpicker" Match="NavLinkMatch.All">
+				<span title="Blazor ColorPicker" class="demo-icon colorpicker-icon"></span> ColorPicker
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="combobox" Match="NavLinkMatch.All">
+				<span title="Blazor ComboBox" class="demo-icon combobox-icon"></span> ComboBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dateinput" Match="NavLinkMatch.All">
+				<span title="Blazor DateInput" class="demo-icon datetimepicker-icon"></span> DateInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="daterangeinput" Match="NavLinkMatch.All">
+				<span title="Blazor DateRangeInput" class="demo-icon datetimepicker-icon"></span> DateRangeInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="datetimepicker" Match="NavLinkMatch.All">
+				<span title="Blazor DateTimePicker" class="demo-icon datetimepicker-icon"></span> DateTimePicker
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dockinglayout" Match="NavLinkMatch.All">
+				<span title="Blazor DockingLayout" class="demo-icon dockinglayout-icon"></span> DockingLayout
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dropdownbutton" Match="NavLinkMatch.All">
+				<span title="Blazor DropDownButton" class="demo-icon dropdownlist-icon"></span> DropDownButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dropdownlist" Match="NavLinkMatch.All">
+				<span title="Blazor DropDownList" class="demo-icon dropdownlist-icon"></span> DropDownList
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="fileupload" Match="NavLinkMatch.All">
+				<span title="Blazor FileUpload" class="demo-icon fileupload-icon"></span> FileUpload
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="form" Match="NavLinkMatch.All">
+				<span title="Blazor Form" class="demo-icon editor-icon"></span> Form
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="ganttchart" Match="NavLinkMatch.All">
+				<span title="Blazor Gantt Chart" class="demo-icon scheduler-icon"></span> Gantt Chart
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="gauge" Match="NavLinkMatch.All">
+				<span title="Blazor Gauge" class="demo-icon gauge-icon"></span> Gauge
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="grid" Match="NavLinkMatch.All">
+				<span title="Blazor Grid" class="demo-icon grid-icon"></span> Grid
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="input" Match="NavLinkMatch.All">
+				<span title="Blazor Input" class="demo-icon textbox-icon"></span> Input
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="kanban" Match="NavLinkMatch.All">
+				<span title="Blazor Kanban" class="demo-icon kanban-icon"></span> Kanban
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="listbox" Match="NavLinkMatch.All">
+				<span title="Blazor ListBox" class="demo-icon listbox-icon"></span> ListBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="listmenu" Match="NavLinkMatch.All">
+				<span title="Blazor ListMenu" class="demo-icon listmenu-icon"></span> ListMenu
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="maskedtextbox" Match="NavLinkMatch.All">
+				<span title="Blazor MaskedTextBox" class="demo-icon maskedtextbox-icon"></span> MaskedTextBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="menu" Match="NavLinkMatch.All">
+				<span title="Blazor Menu" class="demo-icon menu-icon"></span> Menu
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="multicomboinput" Match="NavLinkMatch.All">
+				<span title="Blazor MultiComboInput" class="demo-icon combobox-icon"></span> MultiComboInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="multiinput" Match="NavLinkMatch.All">
+				<span title="Blazor MultiInput" class="demo-icon textbox-icon"></span> MultiInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="multilinetextbox" Match="NavLinkMatch.All">
+				<span title="Blazor MultilineTextBox" class="demo-icon textarea-icon"></span> MultilineTextBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="multisplitbutton" Match="NavLinkMatch.All">
+				<span title="Blazor SplitButton" class="demo-icon dropdownlist-icon"></span> MultisplitButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="numberinput" Match="NavLinkMatch.All">
+				<span title="Blazor NumberTextBox" class="demo-icon numerictextbox-icon"></span> NumberInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="numerictextbox" Match="NavLinkMatch.All">
+				<span title="Blazor NumberTextBox" class="demo-icon numerictextbox-icon"></span> NumberTextBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="pager" Match="NavLinkMatch.All">
+				<span title="Blazor Pager" class="demo-icon pager-icon"></span> Pager
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="passwordtextbox" Match="NavLinkMatch.All">
+				<span title="Blazor Button" class="demo-icon button-icon"></span> PasswordTextBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="pivottable" Match="NavLinkMatch.All">
+				<span title="Blazor PivotTable" class="demo-icon pivotgrid-icon"></span> PivotTable
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="powerbutton" Match="NavLinkMatch.All">
+				<span title="Blazor PowerButton" class="demo-icon powerbutton-icon"></span> PowerButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="progressbar" Match="NavLinkMatch.All">
+				<span title="Blazor ProgressBar" class="demo-icon progressbar-icon"></span> ProgressBar
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="querybuilder" Match="NavLinkMatch.All">
+				<span title="Blazor QueryBuilder" class="demo-icon querybuilder-icon"></span> QueryBuilder
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="radiobutton" Match="NavLinkMatch.All">
+				<span title="Blazor RadioButton" class="demo-icon radiobutton-icon"></span> RadioButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="rating" Match="NavLinkMatch.All">
+				<span title="Blazor Rating" class="demo-icon rating-icon"></span> Rating
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="scrollbar" Match="NavLinkMatch.All">
+				<span title="Blazor ScrollBar" class="demo-icon scrollbar-icon"></span> ScrollBar
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="slider" Match="NavLinkMatch.All">
+				<span title="Blazor Slider" class="demo-icon slider-icon"></span> Slider
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="sortable" Match="NavLinkMatch.All">
+				<span title="Blazor Sortable" class="demo-icon sortable-icon"></span> Sortable
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="splitter" Match="NavLinkMatch.All">
+				<span title="Blazor Splitter" class="demo-icon splitter-icon"></span> Splitter
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="switchbutton" Match="NavLinkMatch.All">
+				<span title="Blazor SwitchButton" class="demo-icon switchbutton-icon"></span> SwitchButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="table" Match="NavLinkMatch.All">
+				<span title="Blazor Table" class="demo-icon datatable-icon"></span> Table
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="tabs" Match="NavLinkMatch.All">
+				<span title="Blazor Tabs" class="demo-icon tabs-icon"></span> Tabs
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="tank" Match="NavLinkMatch.All">
+				<span title="Blazor Tank" class="demo-icon tank-icon"></span> Tank
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="textbox" Match="NavLinkMatch.All">
+				<span title="Blazor TextBox" class="demo-icon textbox-icon"></span> TextBox
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="textarea" Match="NavLinkMatch.All">
+				<span title="Blazor TextArea" class="demo-icon textarea-icon"></span> TextArea
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="timeinput" Match="NavLinkMatch.All">
+				<span title="Blazor TimeInput" class="demo-icon timepicker-icon"></span> TimeInput
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="timepicker" Match="NavLinkMatch.All">
+				<span title="Blazor TimePicker" class="demo-icon timepicker-icon"></span> TimePicker
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="toast" Match="NavLinkMatch.All">
+				<span title="Blazor Toast" class="demo-icon notification-icon"></span> Toast
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="tooltip" Match="NavLinkMatch.All">
+				<span title="Blazor Tooltip" class="demo-icon tooltip-icon"></span> Tooltip
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="togglebutton" Match="NavLinkMatch.All">
+				<span title="Blazor ToggleButton" class="demo-icon togglebutton-icon"></span> ToggleButton
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="tree" Match="NavLinkMatch.All">
+				<span title="Blazor Tree" class="demo-icon tree-icon"></span> Tree
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="window" Match="NavLinkMatch.All">
+				<span title="Blazor Window" class="demo-icon window-icon"></span> Window
+			</NavLink>
+		</li>
+	</ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

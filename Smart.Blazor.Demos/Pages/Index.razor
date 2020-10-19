@@ -1,0 +1,817 @@
+﻿@page "/"
+@using Smart.Blazor;
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+@inject IJSRuntime JSRuntime
+
+<h1>Smart.Blazor Component Library</h1>
+<p>Smart Blazor Components is a commercial set of 60+ Blazor UI controls. Both server-side and client-side (WASM) Blazor are supported.</p>
+
+<Grid OnReady="OnReady" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
+	<Columns>
+		<Column DataField="Date" Label="Date"></Column>
+		<Column DataField="TemperatureC" Label="TemperatureC"></Column>
+		<Column DataField="TemperatureF" Label="TemperatureF"></Column>
+		<Column DataField="Summary" Label="Summary"></Column>
+	</Columns>
+	<Rows>
+		@foreach (var forecast in forecasts)
+		{
+			<Row>
+				<Cell Content="@forecast.Date.ToShortDateString()"></Cell>
+				<Cell Content="@forecast.TemperatureC"></Cell>
+				<Cell Content="@forecast.TemperatureF"></Cell>
+				<Cell Content="@forecast.Summary"></Cell>
+			</Row>
+		}
+	</Rows>
+</Grid>
+
+<br />
+<br />
+
+<Chart Style="width: 80%;" ShowLegend="@showLegend" Padding="@padding" ColorScheme="ChartColorScheme.Scheme29" OnReady="OnChartReady" SeriesGroups="@seriesGroups" XAxis="@xAxis" Caption="@caption" Description="@description" DataSource="@chartData"></Chart>
+<br />
+<br />
+
+<div>
+
+
+	<h2>Create a new Blazor App</h2>
+	<p>To start building .NET apps, download and install the .NET SDK (Software Development Kit).</p>
+
+	<strong>Check everything installed correctly</strong>
+	<p>Once you've installed, open a new command prompt and run the following command:</p>
+
+
+<pre class="console">dotnet</pre>
+	<br />
+	If the command runs, printing out information about how to use dotnet, you're good to go.
+	<br />
+	<strong>
+		Got an error?
+	</strong><br />
+	If you receive a 'dotnet' is not recognized as an internal or external command error, make sure you opened a new command prompt
+	<br />
+	<p>The Blazor framework provides templates to develop apps for each of the Blazor hosting models:</p>
+
+	<strong>Blazor WebAssembly (blazorwasm)</strong>
+	<br />
+	<pre class="console">dotnet new blazorwasm -o BlazorApp</pre>
+	<br />
+	<strong>Blazor Server (blazorserver)</strong>
+	<br />
+	<pre class="console">dotnet new blazorserver -o BlazorServerApp</pre>
+	<br />
+	<h3>Installation</h3>
+
+	Smart.Blazor Components are distributed as the <strong>Smart.Blazor</strong> Nuget package. You can use any of the following options:
+	<ul>
+		<li>
+			Install the package from command line by running <strong>dotnet add package Smart.Blazor</strong>
+		</li>
+		<li>
+			Alternatively, you can add the project from the Visual Nuget Package Manager.
+			<br /><br />
+			<img src="https://raw.githubusercontent.com/HTMLElements/smart-blazor/main/images/blazor-nuget.png" style="max-width:100%;" alt="Blazor Nuget" /><br /><br />
+		</li>
+		<li>
+			Edit the .csproj file and add a project reference<br /><br />
+			<pre @ref="pre0">
+&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
+	&lt;PropertyGroup&gt;
+	&lt;TargetFramework&gt;net5.0&lt;/TargetFramework&gt;
+	&lt;RootNamespace&gt;BlazorApp&lt;/RootNamespace&gt;
+		&lt;/PropertyGroup&gt;
+	&lt;ItemGroup&gt;
+	&lt;PackageReference Include=&quot;Smart.Blazor&quot; Version=&quot;8.1.3&quot; /&gt;
+	&lt;/ItemGroup&gt;
+&lt;/Project&gt;
+</pre>
+		</li>
+	</ul>
+
+	<h3>Import the Smart.Blazor namespace</h3>
+	<br />
+	Open the \_Imports.razor file of your Blazor application and add `@@using Smart.Blazor`
+	<br /><br />
+	<h3>Set a Theme</h3>
+	<br />
+	Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include a theme CSS file by adding this snippet
+	<br />
+	<pre @ref="pre1">
+&lt;link href=&quot;_content/Smart.Blazor/css/smart.default.css&quot; rel=&quot;stylesheet&quot; /&gt;
+	</pre>
+
+	You can include 14+ additional CSS themes for the Controls - 7 dark and 7 light themes.
+	<br /><br />
+	<h3>Source files</h3>
+	<br />
+	Open the \_Host.cshtml file (server-side Blazor) or wwwroot/index.html (client-side WebAssembly Blazor) and include this snippet
+<pre @ref="pre2">
+&lt;script src=&quot;_content/Smart.Blazor/js/smart.blazor.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;_content/Smart.Blazor/js/smart.elements.js&quot;&gt;&lt;/script&gt;
+</pre>
+	<br />
+	If you would like to use only a specific component, instead of referring the <strong>smart.elements.js</strong>, you can refer the component like that:
+	<pre @ref="pre3">
+&lt;script type=&quot;module&quot; src=&quot;_content/Smart.Blazor/js/modules/smart.table.js&quot;&gt;&lt;/script&gt;
+</pre>
+	<br />
+	<h3>Registrations</h3>
+	<br />
+	<h4>Blazor WebAssembly</h4>
+
+	This step is mandatory for Blazor WebAssembly(client-side) and also for ASP.NET Core hosted project types. You should place the code into the Program.cs of your client project
+	<pre @ref="pre4">
+using System;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Smart.Blazor;
+
+namespace BlazorApp
+{
+	public class Program
+	{
+		public static async Task Main(string[] args)
+		{
+			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+			builder.RootComponents.Add&lt;App&gt;
+			(&quot;#app&quot;);
+
+			builder.Services.AddSmart();
+			builder.Services.AddScoped(sp =&gt; new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+			await builder.Build().RunAsync();
+		}
+	}
+}
+</pre><br />
+	<h4>Blazor Server</h4>
+	<br />
+	This step is going only into the Startup.cs of your Blazor Server project. You will need to add <code>services.AddSmart();</code> in the ConfigureServices method and <code>using Smart.Blazor;</code> in the using statements.
+	<pre @ref="pre5">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using BlazorApp.Data;
+using Smart.Blazor;
+
+namespace BlazorApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton&lt;WeatherForecastService&gt;();
+	    services.AddSmart();
+	   }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(&quot;/Error&quot;);
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =&gt;
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage(&quot;/_Host&quot;);
+            });
+        }
+    }
+}
+	</pre>
+	<h3>Using Smart.Blazor Components</h3>
+
+	Use any Smart Blazor component by typing its tag name in a Blazor page e.g. <code>&lt;Button&gt;Click Me&lt;/Button&gt;</code> If you are using client-side WebAssembly Blazor also add the following code to your .csproj file (after the closing RazorLangVersion element): <code>&lt;BlazorLinkOnBuild&gt;false&lt;/BlazorLinkOnBuild&gt;</code>
+	<br /><br />
+	<h4>Data binding a property</h4>
+	<pre @ref="pre6">
+&lt;Input Value=&quot;@@text&quot;&gt;&lt;/Input&gt;
+@@code {																
+	string text = &quot; Hi from Smart!&quot;;
+ }
+
+</pre>
+	<h4>Events Handing</h4>
+	<pre @ref="pre7">
+&lt;Calendar id=&quot;calendar&quot; OnChange=@@OnChange&gt;&lt;/Calendar&gt;
+&lt;div class=&quot;options&quot;&gt;
+	&lt;div class=&quot;caption&quot;&gt;Events&lt;/div&gt;
+	&lt;div class=&quot;option&quot; id=&quot;log&quot;&gt;
+	@@eventLog
+	&lt;/div&gt;
+&lt;/div&gt;
+
+@@code {
+	private string eventLog;
+
+	private void OnChange(Event eventObj)
+	{
+		CalendarChangeEventDetail detail = eventObj\[&quot; Detail &amp; quot;\];
+
+		eventLog = detail.Value\[0\].ToString();
+	}
+}
+</pre>
+	Alternatively you can do that:<br /><br />
+	<pre @ref="pre8">
+@@page &quot;/calendar&quot;
+
+&lt;Calendar OnReady=&quot;OnReady&quot; id=&quot;calendar&quot; &gt;&lt;/Calendar&gt;
+&lt;div class=&quot;options&quot;&gt;
+	&lt;div class=&quot;caption&quot;&gt;Events&lt;/div&gt;
+	&lt;div class=&quot;option&quot; id=&quot;log&quot;&gt;
+	@@eventLog
+	&lt;/div&gt;
+&lt;/div&gt;
+
+
+@@code {
+	private string eventLog;
+
+	private void OnReady(Calendar calendar)
+	{
+		calendar.Changed += delegate (object sender, CalendarChangedEventArgs args)
+		{
+			string value = args.Value\[0\].ToString();
+			eventLog = value;
+			StateHasChanged();
+		};
+	}
+}
+</pre>
+
+	<strong>OnReady</strong> callback is called for each Blazor component, after it is initialized and rendered.
+	<br />
+	<h3>Blazor WebAssembly (blazorwasm) Example</h3>
+	<br /><br />
+	1. Create a blazor application:
+	<br /><br />
+	<pre class="console">dotnet new blazorwasm -o BlazorApp</pre>
+	<br />
+	2. Navigate to the application:
+	<br /><br />
+	<pre class="console">cd BlazorApp</pre>
+	<br />
+	3. Add the Smart.Blazor package:
+	<br /><br />
+	<pre class="console">dotnet add package Smart.Blazor</pre>
+	<br />
+	4. Open _Imports.razor and add the following at the bottom:
+	<br /><br />
+	<pre>@@using Smart.Blazor</pre>
+	<br />
+	5. Open wwwroot/index.html and add the needed styles and scripts.
+	<br /><br />
+	<pre @ref="pre9">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+    &lt;title&gt;Blazor WebAssembly App&lt;/title&gt;
+    &lt;base href=&quot;/&quot; /&gt;
+    &lt;link href=&quot;css/bootstrap/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;link href=&quot;css/app.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;link href=&quot;_framework/scoped.styles.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;link href=&quot;_content/Smart.Blazor/css/smart.default.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;script src=&quot;_content/Smart.Blazor/js/smart.blazor.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;_content/Smart.Blazor/js/smart.elements.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;Loading...&lt;/div&gt;
+
+    &lt;div id=&quot;blazor-error-ui&quot;&gt;
+	An unhandled error has occurred.
+	&lt;a href=&quot;&quot; class=&quot;reload&quot;&gt;Reload&lt;/a&gt;
+	&lt;a class=&quot;dismiss&quot;&gt;🗙&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;_framework/blazor.webassembly.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+
+	6. Open Pages/Index.razor and replace the code as follows:<br />
+	<pre @ref="pre10">
+@@page &quot;/&quot;
+
+@@inject HttpClient Http
+
+&lt;h1&gt;Weather forecast&lt;/h1&gt;
+
+&lt;p&gt;This component demonstrates fetching data from the server.&lt;/p&gt;
+
+@@if (forecasts == null)
+{
+	&lt;p&gt;&lt;em&gt;Loading...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+	&lt;Table Selection=&quot;true&quot; SortMode=&quot;TableSortMode.One&quot; class=&quot;table&quot;&gt;
+		&lt;table&gt;
+			&lt;thead&gt;
+				&lt;tr&gt;
+					&lt;th&gt;Date&lt;/th&gt;
+					&lt;th&gt;Temp. (C)&lt;/th&gt;
+					&lt;th&gt;Temp. (F)&lt;/th&gt;
+					&lt;th&gt;Summary&lt;/th&gt;
+				&lt;/tr&gt;
+			&lt;/thead&gt;
+			&lt;tbody&gt;
+				@@foreach (var forecast in forecasts)
+				{
+					&lt;tr&gt;
+						&lt;td&gt;@@forecast.Date.ToShortDateString()&lt;/td&gt;
+						&lt;td&gt;@@forecast.TemperatureC&lt;/td&gt;
+						&lt;td&gt;@@forecast.TemperatureF&lt;/td&gt;
+						&lt;td&gt;@@forecast.Summary&lt;/td&gt;
+					&lt;/tr&gt;
+				}
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/Table&gt;
+}
+
+@@code {
+	private WeatherForecast[] forecasts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await Http.GetFromJsonAsync&lt;WeatherForecast[]&gt;(&quot;sample-data/weather.json&quot;);
+	}
+
+	public class WeatherForecast
+	{
+		public DateTime Date { get; set; }
+
+		public int TemperatureC { get; set; }
+
+		public string Summary { get; set; }
+
+		public int TemperatureF =&gt; 32 + (int)(TemperatureC / 0.5556);
+	}
+}
+</pre>
+
+	7. Edit Program.cs
+
+	<pre @ref="pre11">
+using System;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Smart.Blazor;
+
+namespace BlazorApp
+{
+    public class Program
+    {
+		public static async Task Main(string[] args)
+		{
+			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+			builder.RootComponents.Add&lt;App&gt;(&quot;#app&quot;);
+
+			builder.Services.AddSmart();
+			builder.Services.AddScoped(sp =&gt; new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+			await builder.Build().RunAsync();
+		}
+    }
+}
+</pre>
+
+	<br />
+	8. Start the app and check the result<br />
+<pre class="console">dotnet watch run</pre><br />
+	Wait for the app to display that it's listening on http://localhost:5000 and then, open a browser and navigate to that address.
+	<br />
+	Once you get to the following page, you have successfully run your first Blazor WebAssembly app using Smart UI for Blazor Components!
+	<br />
+
+	<h3>Output</h3>
+	<br />
+	<img style="max-width: 100%;" alt="Blazor WebAssembly" src="https://raw.githubusercontent.com/HTMLElements/smart-blazor/main/images/blazor-webassembly.png" />
+	<br />
+	<br />
+	<br />
+
+	<h3>Blazor Server (blazorserver) Example</h3>
+	<br />
+
+	1. Create a blazor application:
+	<br /><br />
+<pre class="console">dotnet new blazorserver -o BlazorServerApp</pre>
+	<br /><br />
+	2. Navigate to the application:
+	<br /><br />
+<pre class="console">cd BlazorServerApp</pre>
+	<br /><br />
+	3. Add the Smart.Blazor package:
+	<br /><br />
+<pre class="console">dotnet add package Smart.Blazor</pre>
+	<br /><br />
+	4. Open _Imports.razor and add the following at the bottom:<br />
+
+	<br />
+<pre @ref="pre12">
+@@using Smart.Blazor
+</pre>
+	<br />
+	5. Open Pages/_Host.cshtml and add the needed styles and scripts.
+	<pre @ref="pre13">
+@@page &quot;/&quot;
+@@namespace smart_blazor_app.Pages
+@@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@@{
+    Layout = null;
+}
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;smart-blazor-app&lt;/title&gt;
+    &lt;base href=&quot;~/&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap/bootstrap.min.css&quot; /&gt;
+    &lt;link href=&quot;css/site.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;link href=&quot;_content/smart-blazor-app/_framework/scoped.styles.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;link href=&quot;_content/Smart.Blazor/css/smart.default.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;script src=&quot;_content/Smart.Blazor/js/smart.blazor.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;_content/Smart.Blazor/js/smart.elements.js&quot;&gt;&lt;/script&gt;
+	
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;component type=&quot;typeof(App)&quot; render-mode=&quot;ServerPrerendered&quot; /&gt;
+
+    &lt;div id=&quot;blazor-error-ui&quot;&gt;
+        &lt;environment include=&quot;Staging,Production&quot;&gt;
+            An error has occurred. This application may no longer respond until reloaded.
+        &lt;/environment&gt;
+        &lt;environment include=&quot;Development&quot;&gt;
+            An unhandled exception has occurred. See browser dev tools for details.
+        &lt;/environment&gt;
+        &lt;a href=&quot;&quot; class=&quot;reload&quot;&gt;Reload&lt;/a&gt;
+        &lt;a class=&quot;dismiss&quot;&gt;🗙&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;script src=&quot;_framework/blazor.server.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre><br />
+	6. Open Pages/Index.razor and replace the code as follows:<br /><br />
+	<pre @ref="pre14">
+
+@@page &quot;/&quot;
+
+@@inject HttpClient Http
+
+&lt;h1&gt;Weather forecast&lt;/h1&gt;
+
+&lt;p&gt;This component demonstrates fetching data from the server.&lt;/p&gt;
+
+@@if (forecasts == null)
+{
+	&lt;p&gt;&lt;em&gt;Loading...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+	&lt;Table Selection=&quot;true&quot; SortMode=&quot;TableSortMode.One&quot; class=&quot;table&quot;&gt;
+		&lt;table&gt;
+			&lt;thead&gt;
+				&lt;tr&gt;
+					&lt;th&gt;Date&lt;/th&gt;
+					&lt;th&gt;Temp. (C)&lt;/th&gt;
+					&lt;th&gt;Temp. (F)&lt;/th&gt;
+					&lt;th&gt;Summary&lt;/th&gt;
+				&lt;/tr&gt;
+			&lt;/thead&gt;
+			&lt;tbody&gt;
+				@@foreach (var forecast in forecasts)
+				{
+					&lt;tr&gt;
+						&lt;td&gt;@@forecast.Date.ToShortDateString()&lt;/td&gt;
+						&lt;td&gt;@@forecast.TemperatureC&lt;/td&gt;
+						&lt;td&gt;@@forecast.TemperatureF&lt;/td&gt;
+						&lt;td&gt;@@forecast.Summary&lt;/td&gt;
+					&lt;/tr&gt;
+				}
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/Table&gt;
+}
+
+@@code {
+	private WeatherForecast[] forecasts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await Http.GetFromJsonAsync&lt;WeatherForecast[]&gt;(&quot;sample-data/weather.json&quot;);
+	}
+
+	public class WeatherForecast
+	{
+		public DateTime Date { get; set; }
+
+		public int TemperatureC { get; set; }
+
+		public string Summary { get; set; }
+
+		public int TemperatureF =&gt; 32 + (int)(TemperatureC / 0.5556);
+	}
+}
+</pre>
+	<br />
+	7. Edit Startup.cs
+	<br /><br />
+	You will need to add <code>services.AddSmart();</code> in the ConfigureServices method and <code>using Smart.Blazor;</code> in the using statements.
+	<br />
+	<pre @ref="pre15">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using BlazorServerApp.Data;
+using Smart.Blazor;
+
+namespace BlazorServerApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton&lt;WeatherForecastService&gt;();
+	    services.AddSmart();
+	   }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(&quot;/Error&quot;);
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =&gt;
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage(&quot;/_Host&quot;);
+            });
+        }
+    }
+}
+</pre>
+	8. Start the app and check the result<br />
+<pre class="console">dotnet watch run</pre><br /><br />
+
+	Wait for the app to display that it's listening on http://localhost:5000 and then, open a browser and navigate to that address.
+
+	Once you get to the following page, you have successfully run your first Blazor Server app using Smart UI for Blazor Components!
+	<br />
+
+	<h3>Output</h3>
+
+	<img src="https://raw.githubusercontent.com/HTMLElements/smart-blazor/main/images/blazor-server.png" alt="Blazor Server" />
+
+
+</div>
+
+
+@code {
+	private ElementReference pre0;
+	private ElementReference pre1;
+	private ElementReference pre2;
+	private ElementReference pre3;
+	private ElementReference pre4;
+	private ElementReference pre5;
+	private ElementReference pre6;
+	private ElementReference pre7;
+	private ElementReference pre8;
+	private ElementReference pre9;
+	private ElementReference pre10;
+	private ElementReference pre11;
+	private ElementReference pre12;
+	private ElementReference pre13;
+	private ElementReference pre14;
+	private ElementReference pre15;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre0);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre1);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre2);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre3);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre4);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre5);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre6);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre7);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre8);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre9);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre10);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre11);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre12);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre13);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre14);
+		await JSRuntime.InvokeAsync<object>("hljs.highlightBlock", pre15);
+	}
+
+	GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
+	GridSelection selection = new GridSelection()
+	{
+		Enabled = true,
+		CheckBoxes = new GridSelectionCheckBoxes()
+		{
+			Enabled = true
+		}
+	};
+
+	private WeatherForecast[] forecasts;
+
+	private void OnReady(Grid grid)
+	{
+
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
+
+
+	public class FitnessItem
+	{
+		public int George { get; set; }
+
+		public int Erica { get; set; }
+
+		public int Keith { get; set; }
+
+		public string Day { get; set; }
+	}
+
+	string caption = "Fitness & exercise weekly scorecard";
+	string description = "Time spent in vigorous exercise";
+	bool showLegend = true;
+	Padding padding = new Padding()
+	{
+		Left = 5,
+		Top = 5,
+		Right = 5,
+		Bottom = 5
+	};
+
+	IEnumerable<object> chartData = new List<object>(){
+	   new FitnessItem() {
+			Day = "Monday",
+			Keith= 30,
+			Erica = 15,
+			George = 25
+		},
+		new FitnessItem() {
+		 Day= "Tuesday", Keith= 25, Erica= 25, George= 30
+		},
+		new FitnessItem() {
+			  Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		   Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		   Day= "Thursday", Keith= 35, Erica= 25, George= 45
+		},
+		new FitnessItem() {
+		 Day= "Friday", Keith= 20, Erica= 20, George= 25
+		},
+		new FitnessItem() {
+		  Day= "Saturday", Keith= 30, Erica= 20, George= 30
+		},
+		new FitnessItem() {
+		  Day= "Sunday", Keith= 60, Erica= 45, George= 90
+		}
+	};
+
+
+	ChartXAxis xAxis = new ChartXAxis()
+	{
+		DataField = "Day"
+	};
+
+	List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>(){
+			new ChartSeriesGroup()
+		{
+			Type = ChartType.Column,
+			ValueAxis = new ChartValueAxis()
+			{
+				UnitInterval = 10,
+				MinValue = 0,
+				MaxValue = 100,
+				Description = "Time in Minutes"
+			},
+			Series = new List<ChartSeriesGroupSerie>()
+{
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "Keith",
+						DisplayText = "Keith"
+					},
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "Erica",
+						DisplayText = "Erica"
+					},
+					new ChartSeriesGroupSerie()
+					{
+						DataField = "George",
+						DisplayText = "George"
+					}
+				}
+			}
+	};
+
+	private void OnChartReady(Chart chart)
+	{
+		var seriesGroups = chart.SeriesGroups;
+		var description = chart.Description;
+		var xAxis = chart.XAxis;
+	}
+}
+

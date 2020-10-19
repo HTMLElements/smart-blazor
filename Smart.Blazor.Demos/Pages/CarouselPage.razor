@@ -1,0 +1,50 @@
+﻿@page "/carousel"
+
+<Example Name="Carousel">
+
+    <style>
+    </style>
+    <Carousel DataSource=@dataSource></Carousel>
+</Example>
+
+@code {
+    private List<object> dataSource = new List<object>
+{
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-1.jpg",
+            label = "Slide 1",
+            content = "content 1"
+        },
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-2.jpg",
+            label = "Slide 2",
+            content = "content 2"
+        },
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-1.jpg",
+            label = "Slide 1",
+            content = "content 1"
+        },   
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-1.jpg",
+            label = "Slide 1",
+            content = "content 1"
+        },               
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-1.jpg",
+            label = "Slide 1",
+            content = "content 1"
+        },
+        new
+        {
+            image = "https://www.htmlelements.com/demos/images/carousel-medium-1.jpg",
+            label = "Slide 1",
+            content = "content 1"
+        }
+    };
+}

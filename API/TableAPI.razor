@@ -94,6 +94,8 @@
       <tr><td>Changed</td><td>event TableChangedEventHandler</td><td>This event is triggered when the selection is changed.</td><td>TableChangedEventArgs</td></tr>
       <tr><td>OnColumnClick</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a column header cell has been clicked.</td><td>string dataField</td></tr>
       <tr><td>ColumnClicked</td><td>event TableColumnClickedEventHandler</td><td>This event is triggered when a column header cell has been clicked.</td><td>TableColumnClickedEventArgs</td></tr>
+      <tr><td>OnColumnResize</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a column has been resized via dragging or double-click.</td><td>string dataField, dynamic headerCellElement, string width</td></tr>
+      <tr><td>ColumnResized</td><td>event TableColumnResizedEventHandler</td><td>This event is triggered when a column has been resized via dragging or double-click.</td><td>TableColumnResizedEventArgs</td></tr>
       <tr><td>OnFilter</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a filtering-related action is made.</td><td>dynamic action, dynamic filters</td></tr>
       <tr><td>Filtered</td><td>event TableFilteredEventHandler</td><td>This event is triggered when a filtering-related action is made.</td><td>TableFilteredEventArgs</td></tr>
       <tr><td>OnGroup</td><td>EventCallback&lt;Event&gt;</td><td>This event is triggered when a grouping-related action is made.</td><td>dynamic action, string dataField, string label</td></tr>
