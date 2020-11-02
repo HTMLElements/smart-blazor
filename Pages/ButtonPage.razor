@@ -1,0 +1,100 @@
+﻿@page "/button"
+
+<Example Name="Button">
+
+    <style>
+        /* This is the CSS used in the demo */
+        .demo-horizontal-layout {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dark-mode .demo-icon {
+            background-image: none;
+        }
+
+        label {
+            font-size: 14px;
+        }
+
+        .demo-buttons-group {
+            margin: 8px;
+        }
+
+            .demo-buttons-group smart-button {
+                margin: 8px;
+            }
+
+        .button-demo-icon {
+            position: relative;
+            left: -5px;
+        }
+    </style>
+    <div>
+        <div class="demo-horizontal-layout">
+            <div>
+                <label>Default Buttons</label>
+                <div class="demo-buttons-group">
+                    <Button>Normal</Button>
+                    <Button Class="raised">Raised</Button>
+                    <Button Class="outlined">Outlined</Button>
+                    <Button Class="flat">Flat</Button>
+                    <Button Class="floating">
+                        <span class="button-demo-icon demo-icon demo-device-icon-phone-portrait demo-button-demo-icon"><i class="material-icons"></i></span>
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <label>Primary Buttons</label>
+                <div class="demo-buttons-group">
+                    <Button Class="primary">Normal</Button>
+                    <Button Class="raised primary">Raised</Button>
+                    <Button Class="outlined primary">Outlined</Button>
+                    <Button Class="flat primary">Flat</Button>
+                    <Button Class="floating primary">
+                        <span class="button-demo-icon demo-icon demo-device-icon-phone-portrait demo-button-demo-icon"><i class="material-icons"></i></span>
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <label>Secondary Buttons</label>
+                <div class="demo-buttons-group">
+                    <Button Class="secondary">Normal</Button>
+                    <Button Class="outlined secondary">Outlined</Button>
+                    <Button Class="flat secondary">Flat</Button>
+                    <Button Class="floating secondary">
+                        <span class="button-demo-icon demo-icon demo-device-icon-phone-portrait demo-button-demo-icon"><i class="material-icons"></i></span>
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <label>Success Buttons</label>
+                <div class="demo-buttons-group">
+                    <Button Class="success">Normal</Button>
+                    <Button Class="raised success">Raised</Button>
+                    <Button Class="outlined success">Outlined</Button>
+                    <Button Class="flat success">Flat</Button>
+                    <Button Class="floating success">
+                        <span class="button-demo-icon demo-icon demo-device-icon-phone-portrait demo-button-demo-icon"><i class="material-icons"></i></span>
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <label>Error Buttons</label>
+                <div class="demo-buttons-group">
+                    <Button class="error">Normal</Button>
+                    <Button class="raised error">Raised</Button>
+                    <Button class="outlined error">Outlined</Button>
+                    <Button class="flat error">Flat</Button>
+                    <Button class="floating error">
+                        <span class="button-demo-icon demo-icon demo-device-icon-phone-portrait demo-button-demo-icon"><i class="material-icons"></i></span>
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+
+}
