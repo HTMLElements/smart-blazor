@@ -146,7 +146,303 @@ namespace Smart.Blazor.Demos.Data
 
 	public class RandomDataService
 	{
+		public List<SchedulerDataSource> GenerateSchedulerData()
+        {
+			List<SchedulerDataSource> dataSource = new List<SchedulerDataSource>()
+			{
+				 new SchedulerDataSource() {
+					Label = "Google AdWords Strategy",
+					DateStart = new DateTime(2021, 1, 10, 9, 0, 0),
+					DateEnd = new DateTime(2021, 1, 11, 10, 30, 0),
+					AllDay = true,
+					BackgroundColor = "#EA80FC"
+				}, new SchedulerDataSource() {
+					Label = "New Brochures",
+					DateStart = new DateTime(2021, 1, 11, 11, 30, 0),
+					DateEnd = new DateTime(2021, 1, 12, 14, 15, 0),
+					BackgroundColor = "#FF9E80"
+				}, new SchedulerDataSource() {
+					Label = "Brochure Design Review",
+					DateStart = new DateTime(2021, 1, 12, 13, 15, 0),
+					DateEnd = new DateTime(2021, 1, 14, 16, 15, 0),
+					BackgroundColor = "#039BE5"
+				}, new SchedulerDataSource() {
+					Label = "Website Re-Design Plan",
+					DateStart = new DateTime(2021, 1, 16, 16, 45, 0),
+					DateEnd = new DateTime(2021, 1, 20, 11, 15, 0),
+					BackgroundColor = "#78909C"
+				},
+				new SchedulerDataSource() {
+					Label = "Rollout of New Website and Marketing Brochures",
+					DateStart = new DateTime(2021, 1, 2, 8, 15, 0),
+					DateEnd = new DateTime(2021, 1, 2, 10, 45, 0),
+					BackgroundColor = "#D500F9"
+				}, new SchedulerDataSource() {
+					Label = "UpDateTime Sales Strategy Documents",
+					DateStart = new DateTime(2021, 1, 2, 12, 0, 0),
+					DateEnd = new DateTime(2021, 1, 2, 13, 45, 0),
+					BackgroundColor = "#689F38"
+				}, new SchedulerDataSource() {
+					Label = "Non-Compete Agreements",
+					DateStart = new DateTime(2021, 1, 3, 8, 15, 0),
+					DateEnd = new DateTime(2021, 1, 3, 9, 0, 0),
+					BackgroundColor = "#9CCC65"
+				}, new SchedulerDataSource() {
+					Label = "Approve Hiring of John Jeffers",
+					DateStart = new DateTime(2021, 1, 3, 10, 0, 0),
+					DateEnd = new DateTime(2021, 1, 3, 11, 15, 0),
+					BackgroundColor = "#EF6C00"
+				}, new SchedulerDataSource() {
+					Label = "UpDateTime NDA Agreement",
+					DateStart = new DateTime(2021, 1, 3, 11, 45, 0),
+					DateEnd = new DateTime(2021, 1, 3, 13, 45, 0),
+					BackgroundColor = "#009688"
+				}, new SchedulerDataSource() {
+					Label = "UpDateTime Employee Files with New NDA",
+					DateStart = new DateTime(2021, 1, 3, 14, 0, 0),
+					DateEnd = new DateTime(2021, 1, 3, 16, 45, 0),
+					BackgroundColor = "#FF1744"
+				}, new SchedulerDataSource() {
+					Label = "Submit Questions Regarding New NDA",
+					DateStart = new DateTime(2021, 1, 6, 8, 0, 0),
+					DateEnd = new DateTime(2021, 1, 6, 9, 30, 0),
+					BackgroundColor = "#689F38"
+				}, new SchedulerDataSource() {
+					Label = "Submit Signed NDA",
+					DateStart = new DateTime(2021, 1, 6, 12, 45, 0),
+					DateEnd = new DateTime(2021, 1, 6, 14, 0, 0),
+					BackgroundColor = "#76FF03"
+				}, new SchedulerDataSource() {
+					Label = "Review Revenue Projections",
+					DateStart = new DateTime(2021, 1, 6, 17, 15, 0),
+					DateEnd = new DateTime(2021, 1, 6, 18, 0, 0),
+					BackgroundColor = "#F9A825"
+				}, new SchedulerDataSource() {
+					Label = "Comment on Revenue Projections",
+					DateStart = new DateTime(2021, 1, 5, 9, 15, 0),
+					DateEnd = new DateTime(2021, 1, 5, 11, 15, 0),
+					BackgroundColor = "#2962FF"
+				}, new SchedulerDataSource() {
+					Label = "Provide New Health Insurance Docs",
+					DateStart = new DateTime(2021, 1, 5, 12, 45, 0),
+					DateEnd = new DateTime(2021, 1, 5, 14, 15, 0),
+					BackgroundColor = "#FF6E40"
+				}, new SchedulerDataSource() {
+					Label = "Review Changes to Health Insurance Coverage",
+					DateStart = new DateTime(2021, 1, 5, 14, 15, 0),
+					DateEnd = new DateTime(2021, 1, 5, 15, 30, 0),
+					BackgroundColor = "#F06292"
+				}, new SchedulerDataSource() {
+					Label = "Review Training Course for any Ommissions",
+					DateStart = new DateTime(2021, 1, 8, 14, 0, 0),
+					DateEnd = new DateTime(2021, 1, 9, 12, 0, 0),
+					BackgroundColor = "#689F38"
+				}, new SchedulerDataSource() {
+					Label = "Recall Rebate Form",
+					DateStart = new DateTime(2021, 1, 8, 12, 45, 0),
+					DateEnd = new DateTime(2021, 1, 8, 13, 15, 0),
+					BackgroundColor = "#4A148C"
+				}, new SchedulerDataSource() {
+					Label = "Create Report on Customer Feedback",
+					DateStart = new DateTime(2021, 1, 9, 15, 15, 0),
+					DateEnd = new DateTime(2021, 1, 9, 17, 30, 0),
+					BackgroundColor = "#A1887F"
+				}, new SchedulerDataSource() {
+					Label = "Review Customer Feedback Report",
+					DateStart = new DateTime(2021, 1, 9, 16, 15, 0),
+					DateEnd = new DateTime(2021, 1, 9, 18, 30, 0),
+					BackgroundColor = "#BA68C8"
+				}, new SchedulerDataSource() {
+					Label = "Customer Feedback Report Analysis",
+					DateStart = new DateTime(2021, 1, 10, 9, 30, 0),
+					DateEnd = new DateTime(2021, 1, 10, 10, 30, 0),
+					BackgroundColor = "#C51162"
+				}, new SchedulerDataSource() {
+					Label = "Prepare Shipping Cost Analysis Report",
+					DateStart = new DateTime(2021, 1, 10, 12, 30, 0),
+					DateEnd = new DateTime(2021, 1, 10, 13, 30, 0),
+					BackgroundColor = "#0277BD"
+				}, new SchedulerDataSource() {
+					Label = "Provide Feedback on Shippers",
+					DateStart = new DateTime(2021, 1, 10, 14, 15, 0),
+					DateEnd = new DateTime(2021, 1, 10, 16, 0, 0),
+					BackgroundColor = "#8E24AA"
+				}, new SchedulerDataSource() {
+					Label = "Select Preferred Shipper",
+					DateStart = new DateTime(2021, 1, 10, 17, 30, 0),
+					DateEnd = new DateTime(2021, 1, 10, 20, 0, 0),
+					BackgroundColor = "#689F38"
+				}, new SchedulerDataSource() {
+					Label = "Complete Shipper Selection Form",
+					DateStart = new DateTime(2021, 1, 11, 8, 30, 0),
+					DateEnd = new DateTime(2021, 1, 11, 10, 0, 0),
+					BackgroundColor = "#388E3C"
+				}, new SchedulerDataSource() {
+					Label = "Upgrade Server Hardware",
+					DateStart = new DateTime(2021, 1, 11, 12, 0, 0),
+					DateEnd = new DateTime(2021, 1, 11, 14, 15, 0),
+					BackgroundColor = "#00C853"
+				}, new SchedulerDataSource() {
+					Label = "Upgrade Personal Computers",
+					DateStart = new DateTime(2021, 1, 11, 14, 45, 0),
+					DateEnd = new DateTime(2021, 1, 11, 16, 30, 0),
+					BackgroundColor = "#6200EA"
+				}, new SchedulerDataSource() {
+					Label = "Upgrade Apps to Windows RT or stay with WinForms",
+					DateStart = new DateTime(2021, 1, 12, 10, 30, 0),
+					DateEnd = new DateTime(2021, 1, 12, 13, 0, 0),
+					BackgroundColor = "#66BB6A"
+				}, new SchedulerDataSource() {
+					Label = "Estimate Time Required to Touch-Enable Apps",
+					DateStart = new DateTime(2021, 1, 12, 14, 45, 0),
+					DateEnd = new DateTime(2021, 1, 12, 16, 30, 0),
+					BackgroundColor = "#795548"
+				}, new SchedulerDataSource() {
+					Label = "Report on Tranistion to Touch-Based Apps",
+					DateStart = new DateTime(2021, 1, 12, 18, 30, 0),
+					DateEnd = new DateTime(2021, 1, 12, 19, 0, 0),
+					BackgroundColor = "#FBC02D"
+				}, new SchedulerDataSource() {
+					Label = "Submit New Website Design",
+					DateStart = new DateTime(2021, 1, 15, 8, 0, 0),
+					DateEnd = new DateTime(2021, 1, 15, 10, 0, 0),
+					BackgroundColor = "#26A69A"
+				}, new SchedulerDataSource() {
+					Label = "Create Icons for Website",
+					DateStart = new DateTime(2021, 1, 15, 11, 30, 0),
+					DateEnd = new DateTime(2021, 1, 15, 13, 15, 0),
+					BackgroundColor = "#4DB6AC"
+				}, new SchedulerDataSource() {
+					Label = "Create New Product Pages",
+					DateStart = new DateTime(2021, 1, 16, 9, 45, 0),
+					DateEnd = new DateTime(2021, 1, 16, 11, 45, 0),
+					BackgroundColor = "#FDD835"
+				}, new SchedulerDataSource() {
+					Label = "Approve Website Launch",
+					DateStart = new DateTime(2021, 1, 16, 12, 0, 0),
+					DateEnd = new DateTime(2021, 1, 16, 15, 15, 0),
+					BackgroundColor = "#FF6E40"
+				}, new SchedulerDataSource() {
+					Label = "UpDateTime Customer Shipping Profiles",
+					DateStart = new DateTime(2021, 1, 17, 9, 30, 0),
+					DateEnd = new DateTime(2021, 1, 17, 11, 0, 0),
+					BackgroundColor = "#388E3C"
+				}, new SchedulerDataSource() {
+					Label = "Create New Shipping Return Labels",
+					DateStart = new DateTime(2021, 1, 17, 12, 45, 0),
+					DateEnd = new DateTime(2021, 1, 17, 14, 0, 0),
+					BackgroundColor = "#3E2723"
+				}, new SchedulerDataSource() {
+					Label = "Get Design for Shipping Return Labels",
+					DateStart = new DateTime(2021, 1, 17, 15, 0, 0),
+					DateEnd = new DateTime(2021, 1, 17, 16, 30, 0),
+					BackgroundColor = "#AEEA00"
+				}, new SchedulerDataSource() {
+					Label = "PSD needed for Shipping Return Labels",
+					DateStart = new DateTime(2021, 1, 18, 8, 30, 0),
+					DateEnd = new DateTime(2021, 1, 18, 9, 15, 0),
+					BackgroundColor = "#FF80AB"
+				}, new SchedulerDataSource() {
+					Label = "Contact ISP and Discuss Payment Options",
+					DateStart = new DateTime(2021, 1, 18, 11, 30, 0),
+					DateEnd = new DateTime(2021, 1, 18, 16, 0, 0),
+					BackgroundColor = "#26C6DA"
+				}, new SchedulerDataSource() {
+					Label = "Prepare Year-End Support Summary Report",
+					DateStart = new DateTime(2021, 1, 18, 17, 0, 0),
+					DateEnd = new DateTime(2021, 1, 18, 20, 0, 0),
+					BackgroundColor = "#E57373"
+				}, new SchedulerDataSource() {
+					Label = "Review New Training Material",
+					DateStart = new DateTime(2021, 1, 19, 8, 0, 0),
+					DateEnd = new DateTime(2021, 1, 19, 9, 15, 0),
+					BackgroundColor = "#40C4FF"
+				}, new SchedulerDataSource() {
+					Label = "Distribute Training Material to Support Staff",
+					DateStart = new DateTime(2021, 1, 19, 12, 45, 0),
+					DateEnd = new DateTime(2021, 1, 19, 14, 0, 0),
+					BackgroundColor = "#6D4C41"
+				}, new SchedulerDataSource() {
+					Label = "Training Material Distribution Schedule",
+					DateStart = new DateTime(2021, 1, 19, 14, 15, 0),
+					DateEnd = new DateTime(2021, 1, 19, 16, 15, 0),
+					BackgroundColor = "#60BF96"
+				}, new SchedulerDataSource() {
+					Label = "Approval on Converting to New HDMI Specification",
+					DateStart = new DateTime(2021, 1, 22, 9, 30, 0),
+					DateEnd = new DateTime(2021, 1, 22, 10, 15, 0),
+					BackgroundColor = "#689F38"
+				}, new SchedulerDataSource() {
+					Label = "Create New Spike for Automation Server",
+					DateStart = new DateTime(2021, 1, 22, 10, 0, 0),
+					DateEnd = new DateTime(2021, 1, 22, 12, 30, 0),
+					BackgroundColor = "#BFA300"
+				}, new SchedulerDataSource() {
+					Label = "Code Review - New Automation Server",
+					DateStart = new DateTime(2021, 1, 22, 13, 0, 0),
+					DateEnd = new DateTime(2021, 1, 22, 15, 0, 0),
+					BackgroundColor = "#0095FF"
+				}, new SchedulerDataSource() {
+					Label = "Confirm Availability for Sales Meeting",
+					DateStart = new DateTime(2021, 1, 23, 10, 15, 0),
+					DateEnd = new DateTime(2021, 1, 23, 15, 15, 0),
+					BackgroundColor = "#B6B6B6"
+				}, new SchedulerDataSource() {
+					Label = "Reschedule Sales Team Meeting",
+					DateStart = new DateTime(2021, 1, 23, 16, 15, 0),
+					DateEnd = new DateTime(2021, 1, 23, 18, 0, 0),
+					BackgroundColor = "#800037"
+				}, new SchedulerDataSource() {
+					Label = "Send 2 Remotes for Giveaways",
+					DateStart = new DateTime(2021, 1, 24, 9, 30, 0),
+					DateEnd = new DateTime(2021, 1, 24, 11, 45, 0),
+					BackgroundColor = "#BF6060"
+				}, new SchedulerDataSource() {
+					Label = "Discuss Product Giveaways with Management",
+					DateStart = new DateTime(2021, 1, 24, 12, 15, 0),
+					DateEnd = new DateTime(2021, 1, 24, 16, 45, 0),
+					BackgroundColor = "#BF60B2"
+				}, new SchedulerDataSource() {
+					Label = "Replace Desktops on the 3rd Floor",
+					DateStart = new DateTime(2021, 1, 25, 9, 30, 0),
+					DateEnd = new DateTime(2021, 1, 25, 10, 45, 0),
+					BackgroundColor = "#BFB160"
+				}, new SchedulerDataSource() {
+					Label = "UpDateTime Database with New Leads",
+					DateStart = new DateTime(2021, 1, 25, 12, 0, 0),
+					DateEnd = new DateTime(2021, 1, 25, 14, 15, 0),
+					BackgroundColor = "#BF0000"
+				}, new SchedulerDataSource() {
+					Label = "Mail New Leads for Follow Up",
+					DateStart = new DateTime(2021, 1, 25, 14, 45, 0),
+					DateEnd = new DateTime(2021, 1, 25, 15, 30, 0),
+					BackgroundColor = "#7B60BF"
+				}, new SchedulerDataSource() {
+					Label = "Send Territory Sales Breakdown",
+					DateStart = new DateTime(2021, 1, 25, 18, 0, 0),
+					DateEnd = new DateTime(2021, 1, 25, 20, 0, 0),
+					BackgroundColor = "#39BF00"
+				}, new SchedulerDataSource() {
+					Label = "Territory Sales Breakdown Report",
+					DateStart = new DateTime(2021, 1, 26, 8, 45, 0),
+					DateEnd = new DateTime(2021, 1, 26, 9, 45, 0),
+					BackgroundColor = "#403600"
+				}, new SchedulerDataSource() {
+					Label = "Report on the State of Engineering Dept",
+					DateStart = new DateTime(2021, 1, 26, 14, 45, 0),
+					DateEnd = new DateTime(2021, 1, 26, 15, 30, 0),
+					BackgroundColor = "#3D8020"
+				},
+					new SchedulerDataSource() {
+					Label = "Staff Productivity Report",
+					DateStart = new DateTime(2021, 1, 26, 16, 15, 0),
+					DateEnd = new DateTime(2021, 1, 26, 19, 30, 0),
+					BackgroundColor = "#BF60B2"
+				}
+			};
 
+			return dataSource;
+		}
 		public List<KanbanDataRecord> GenerateKanbanData()
 		{
 			string[] text = new string[]{

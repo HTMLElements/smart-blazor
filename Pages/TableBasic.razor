@@ -1,0 +1,75 @@
+﻿@page "/table-basic"
+
+@using Smart.Blazor
+
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+</style>
+
+@if (dataRecords == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Table Columns="columns" DataSource="dataRecords" SortMode="TableSortMode.One" Selection="true"></Table>
+}
+
+@code {
+    public class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+
+        public Person() { }
+
+        public Person(string firstName, string lastName, int age)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Age = age;
+        }
+    }
+
+    private List<Person> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>{
+        new TableColumn() {
+            Label = "FirstName",
+            DataField = "FirstName"
+        },
+        new TableColumn() {
+            Label = "LastName",
+            DataField = "LastName"
+        },
+        new TableColumn() {
+            Label = "Age",
+            DataField = "Age"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        dataRecords = new List<Person>();
+        for (int i = 0; i < 100; i++)
+        {
+            dataRecords.Add(new Person { FirstName = $"Name {i}", LastName = $"Last Name {i}", Age = 45 });
+        }
+    }
+}
