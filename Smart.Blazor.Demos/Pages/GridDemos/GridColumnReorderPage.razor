@@ -1,0 +1,98 @@
+﻿@page "/grid-column-reorder"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        width: 60%;
+    }
+
+    #log {
+        font-size: 12px;
+    }
+
+    .demo-description {
+        width: 60%;
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        Grid Column Headers Reorder example. Move the pointer to a column header and start dragging it. When you drop it
+        over another column header,
+        columns are reordered. To enable column reorder, the behavior.allowColumnReorder is set to true. To disable the
+        reorder of a column, you can set its "allowReorder" property to false. To cancel dragging, pres 'Escape' while
+        you drag.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Behavior="@behavior" Paging="@paging" Pager="@pager"
+              OnColumnDragStart="OnColumnDragStart" OnColumnDragEnd="OnColumnDragEnd">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Width="150"></Column>
+                <Column DataField="LastName" Label="Last Name" Width="150"></Column>
+                <Column DataField="ProductName" Label="Product" Width="200"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Width="100"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" Width="100"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+        <div class="options">
+            <div class="caption">Event Log</div>
+            <div class="option" id="log">
+                @startLog <br/> @endLog
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private string startLog;
+    private string endLog;
+
+    GridBehavior behavior = new GridBehavior() { AllowColumnReorder = true };
+    GridPaging paging = new GridPaging() { Enabled = true };
+    GridPager pager = new GridPager() { Visible = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void OnColumnDragStart(Event eventObj)
+    {
+        GridColumnDragStartEventDetail detail = eventObj["Detail"];
+        startLog = "columnDragStart: " + detail.Column["label"] + ", index: " + detail.Index;
+    }
+
+    private void OnColumnDragEnd(Event eventObj)
+    {
+        GridColumnDragEndEventDetail detail = eventObj["Detail"];
+        endLog = "columnDragEnd: " + detail.Column["label"] + ", index: " +
+            detail.Index + ", new index: " + detail.NewIndex;
+    }
+}

@@ -1,0 +1,70 @@
+﻿@page "/grid-editing-cell"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Cells Editing</h1>
+    <p>
+        Click on any cell to begin edit its value. To confirm the changes, press 'Enter' or click on another cell or outside the Grid. To cancel the changes, press 'Escape'.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+<Grid DataSource="dataRecords" Editing="@editing">
+    <Columns>
+        <Column DataField="FirstName" Label="First Name"></Column>
+        <Column DataField="LastName" Label="Last Name"></Column>
+        <Column DataField="ProductName" Label="Product"></Column>
+        <Column DataField="Expired" Label="Expired" DataType="boolean" Template="@checkBoxEditor" Editor="@checkBoxEditor"></Column>
+        <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+    </Columns>
+</Grid>
+    }
+</Example>
+
+@code {
+    private string checkBoxEditor = "checkBox";
+    private string numberInputEditor = "numberInput";
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

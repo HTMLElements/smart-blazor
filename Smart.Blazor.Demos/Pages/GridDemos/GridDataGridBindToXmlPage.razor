@@ -1,0 +1,75 @@
+﻿@page "/grid-datagrid-bind-to-xml"
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Data binding to XML data</h1>
+    <p>The DataGrid component in this demo, displays data records imported from a XML file.</p>
+
+    <Grid DataSource="@tsvSource" DataSourceSettings="@dataSourceSettings"
+          Appearance="@appearance" Selection="@selection" Filtering="@filtering" Sorting="@sorting">
+        <Columns>
+            <Column DataField="CompanyName" Label="CompanyName" Width="250"></Column>
+            <Column DataField="ContactName" Label="ContactName" Width="150"></Column>
+            <Column DataField="ContactTitle" Label="ContactTitle" Width="180"></Column>
+            <Column DataField="City" Label="City" Width="120"></Column>
+            <Column DataField="PostalCode" Label="PostalCode" Width="90"></Column>
+            <Column DataField="Country" Label="Country"></Column>
+        </Columns>
+    </Grid>
+</Example>
+
+@code {
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        Id = "CustomerID",
+        DataFields = new List<IGridDataSourceSettingsDataField>()
+    {
+            new GridDataSourceSettingsDataField() { Name = "CompanyName", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "ContactName", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "ContactTitle", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "City", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "PostalCode", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "Country", DataType = GridDataSourceSettingsDataFieldDataType.String }
+        },
+        DataSourceType = GridDataSourceSettingsDataSourceType.Xml
+    };
+
+    string tsvSource = "./data/customers.xml";
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationStart = 0,
+        AlternationCount = 2
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        CheckBoxes = new GridSelectionCheckBoxes() { Enabled = true }
+    };
+
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+}

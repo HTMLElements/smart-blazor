@@ -1,0 +1,103 @@
+﻿@page "/grid-selection-mode-auto-show-checkbox"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+        height: auto;
+        max-width: 700px !important;
+        width: 100%;
+        border: none;
+        --smart-grid-freeze-splitter-size: 0px;
+        --smart-grid-row-height: 42px;
+        --smart-grid-column-header-background: var(--smart-grid-cell-background);
+        --smart-grid-row-header-background: var(--smart-grid-cell-background);
+        --smart-grid-column-header-background-freeze: var(--smart-grid-cell-background);
+    }
+
+    smart-grid-column[checkbox] .smart-input,
+    smart-grid-column[checkbox] .smart-input::after,
+    smart-grid-cell[checkbox] .smart-input {
+        border-radius: 50% !important;
+    }
+
+    smart-grid-cell {
+        transition: background ease-in-out 0.25s !important;
+    }
+
+    smart-grid-row[selected] smart-grid-cell {
+        background: #DADADA !important;
+        color: #333 !important;
+    }
+
+    smart-grid-row:hover smart-grid-cell {
+        background: #F4F4F4 !important;
+    }
+</style>
+<Example Name="Grid">
+    <p>Grid CheckBox Selection. Checkbox is used for row selection in this demo.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Selection="@selection" Sorting="@sorting" Appearance="@appearance">
+            <Columns>
+                <Column DataField="FirstName" Label="FirstName" Width="percentageWidth"></Column>
+                <Column DataField="LastName" Label="LastName" Width="percentageWidth"></Column>
+                <Column DataField="Title" Label="Title" Width="percentageWidth"></Column>
+                <Column DataField="BirthDate" Label="Birth Date" DataType="date" CellsFormat="d" Width="percentageWidth"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string percentageWidth = "25%";
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        CheckBoxes = new GridSelectionCheckBoxes()
+        {
+            Enabled = true,
+            AutoShow = true
+        }
+    };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        ShowColumnHeaderLines = false,
+        ShowColumnLines = false,
+        AllowSortAnimation = true
+    };
+
+    private List<EmployeeRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateEmployeesData();
+    }
+}

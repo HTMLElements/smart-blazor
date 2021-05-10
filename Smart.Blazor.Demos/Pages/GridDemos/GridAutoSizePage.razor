@@ -1,0 +1,56 @@
+﻿@page "/grid-auto-size"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: auto;
+        height: auto;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Auto Size. DataGrid Width and Height are set to 'auto'</h1>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords">
+            <Columns>
+                <Column DataField="Country" Label="Country"></Column>
+                <Column DataField="Area" Label="Area" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Population_Rural" Label="Population_Rural" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Population_Total" Label="Population_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="GDP_Total" Label="GDP_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {       
+    private List<CountryRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+}

@@ -1,0 +1,60 @@
+﻿@page "/grid-column-type-url"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 70%;
+        height: auto;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Data Export</h1>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Width="100"></Column>
+                <Column DataField="LastName" Label="Last Name" Width="100"></Column>
+                <Column DataField="Url" Label="Url" Width="200" Template="@urlTemplate"></Column>
+                <Column DataField="ProductName" Label="Product" Width="200"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Width="50" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Width="100" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Width="100" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    string urlTemplate = "url";
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(10);
+    }
+}

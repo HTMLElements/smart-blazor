@@ -8,33 +8,6 @@
 <h1>Smart.Blazor Component Library</h1>
 <p>Smart Blazor Components is a commercial set of 60+ Blazor UI controls. Both server-side and client-side (WASM) Blazor are supported.</p>
 
-<Grid OnReady="OnReady" Appearance="@appearance" Selection="@selection" Style="width: 80%; height: auto;">
-	<Columns>
-		<Column DataField="Date" Label="Date"></Column>
-		<Column DataField="TemperatureC" Label="TemperatureC"></Column>
-		<Column DataField="TemperatureF" Label="TemperatureF"></Column>
-		<Column DataField="Summary" Label="Summary"></Column>
-	</Columns>
-	<Rows>
-		@foreach (var forecast in forecasts)
-		{
-			<Row>
-				<Cell Content="@forecast.Date.ToShortDateString()"></Cell>
-				<Cell Content="@forecast.TemperatureC"></Cell>
-				<Cell Content="@forecast.TemperatureF"></Cell>
-				<Cell Content="@forecast.Summary"></Cell>
-			</Row>
-		}
-	</Rows>
-</Grid>
-
-<br />
-<br />
-
-<Chart Style="width: 80%;" ShowLegend="@showLegend" Padding="@padding" ColorScheme="ChartColorScheme.Scheme29" OnReady="OnChartReady" SeriesGroups="@seriesGroups" XAxis="@xAxis" Caption="@caption" Description="@description" DataSource="@chartData"></Chart>
-<br />
-<br />
-
 <div>
 
 
@@ -703,6 +676,7 @@ namespace BlazorServerApp
 			Enabled = true
 		}
 	};
+	VerticalAlignment verticalAlignment = VerticalAlignment.Top;
 
 	private WeatherForecast[] forecasts;
 

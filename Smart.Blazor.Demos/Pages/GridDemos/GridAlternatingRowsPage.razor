@@ -1,0 +1,119 @@
+﻿@page "/grid-alternating-rows"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+        height: auto;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Data Grid Alternating Rows</h1>
+
+    <p>
+        The Data Grid provides Alternating Rows options. It can render alternation by one or multiple rows. It can have custom alternation start and end. This is controlled by the
+        'appearance.alternationStart', 'appearance.alternationEnd', 'appearance.alternationCount' properties. In this demo, use the checkboxes to change the alternation style.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Behavior="@behavior" Appearance="@appearance">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="UnitPrice" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Appearance</div>
+            <div class="option">
+                <CheckBox OnChange="OnAlternationStartChange">AlternationStart = 1</CheckBox><br />
+                <CheckBox OnChange="OnAlternationEndChange">AlternationEnd = 10</CheckBox><br />
+                <CheckBox OnChange="OnAlternationCountChange">AlternationCount = 5</CheckBox>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridBehavior behavior = new GridBehavior()
+    {
+        ColumnResizeMode = GridResizeMode.GrowAndShrink
+    };
+
+    GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(15);
+    }
+
+    private void OnAlternationStartChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        if (args.Value)
+        {
+            grid.Appearance.AlternationStart = 1;
+        }
+        else
+        {
+            grid.Appearance.AlternationStart = 0;
+        }
+    }
+
+    private void OnAlternationEndChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        if (args.Value)
+        {
+            grid.Appearance.AlternationEnd = 10;
+        }
+        else
+        {
+            grid.Appearance.AlternationEnd = 0;
+        }
+    }
+
+    private void OnAlternationCountChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        if (args.Value)
+        {
+            grid.Appearance.AlternationCount = 5;
+        }
+        else
+        {
+            grid.Appearance.AlternationCount = 2;
+        }
+    }
+}

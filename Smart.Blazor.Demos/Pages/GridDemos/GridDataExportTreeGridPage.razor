@@ -1,0 +1,100 @@
+﻿@page "/grid-data-export-tree-grid"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        width: 60%;
+    }
+</style>
+<Example Name="Grid">
+    <p>Tree Grid Data Export. The Grid component supports Hierarchical Data Export. The data records in Excel(.xlsx) can be expanded/collapsed and also in HTML format.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" DataSourceSettings="@dataSourceSettings" OnRowInit="OnRowInit">
+            <Columns>
+                <Column DataField="FirstName" Label="FirstName" Width="200"></Column>
+                <Column DataField="LastName" Label="LastName" Width="200"></Column>
+                <Column DataField="Title" Label="Title" Width="160"></Column>
+                <Column DataField="BirthDate" Label="Birth Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="HireDate" Label="Hire Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="Address" Label="Address" Width="250"></Column>
+                <Column DataField="City" Label="City" Width="120"></Column>
+                <Column DataField="Country" Label="Country"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="exportXLSX">Export to Excel</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportPDF">Export to PDF</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportHTML">Export to HTML</Button>
+            </div>           
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        KeyDataField = "EmployeeID",
+        ParentDataField = "ReportsTo",
+        Id = "EmployeeID"
+    };
+
+    private List<EmployeeRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateEmployeesData();
+    }
+
+    private void OnRowInit(object eventObj)
+    {
+        // grid.Rows.ToList()[0].IsExpanded = true;
+    }
+
+    private void exportXLSX()
+    {
+        grid.ExportData("xlsx");
+    }
+
+    private void exportPDF()
+    {
+        grid.ExportData("pdf");
+    }
+
+    private void exportHTML()
+    {
+        grid.ExportData("html");
+    }
+}

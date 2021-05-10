@@ -1,0 +1,95 @@
+﻿@page "/grid-editing-cell-validation"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Cells Editing Validation</h1>
+    <p>
+        The 'validationRules' property determines the validation rules of the column values. The available set of rules are: 'min', 'max', 'minLength', 'maxLength', 'minDate', 'maxDate', 'null', 'email', 'required', 'requiredTrue' and 'pattern'.
+        A cell editor is active until a valid value is entered by the user. In this demo, 'First Name', 'Last Name' and 'Product Name' are with 'required' and 'minLength' validation rules. The 'Quantity' and 'Unit Price' columns are with 'min' and 'max' set to '1' and '20'.
+        validation rules.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Editing="@editing" Selection="@selection">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" ValidationRules="@stringValidationRules"></Column>
+                <Column DataField="LastName" Label="Last Name" ValidationRules="@stringValidationRules"></Column>
+                <Column DataField="ProductName" Label="Product" ValidationRules="@stringValidationRules"></Column>
+                <Column DataField="Expired" Label="Expired" DataType="boolean" Template="@checkBoxEditor" Editor="@checkBoxEditor" ValidationRules="@boolValidationRules"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" 
+                        CellsAlign="HorizontalAlignment.Right" ValidationRules="@numberValidationRules">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" 
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" ValidationRules="@numberValidationRules">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string checkBoxEditor = "checkBox";
+    private string numberInputEditor = "numberInput";
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    IList<IDictionary<string, object>> stringValidationRules = new List<IDictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "type", "required" } },
+        new Dictionary<string, object>() { { "type", "minLength"}, { "value", 5 } }
+    };
+
+    IList<IDictionary<string, object>> boolValidationRules = new List<IDictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "type", "requiredTrue" } }
+    };
+
+    IList<IDictionary<string, object>> numberValidationRules = new List<IDictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "type", "min" }, { "value", 1 } },
+        new Dictionary<string, object>() { { "type", "max"}, { "value", 20 } }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

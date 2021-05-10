@@ -1,0 +1,138 @@
+﻿@page "/grid-overview"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    body {
+        min-height: 700px;
+    }
+
+    smart-grid {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<Example Name="Grid">
+    <p>The Grid in this demo displays data in a series of rows and columns. This is the simplest case when the Grid is bound to a local data source.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <template id="priceTemplate">
+            <div style="width: 100%; height:100%;">
+                <div smart-if="value >= 4">
+                    <div style="padding: 4px; background-color: #00a45a; color: #fff;">{{value::c2}}</div>
+                </div>
+                <div smart-if="value < 2">
+                    <div style="padding: 4px; background-color: #df3800; color: #fff;">{{value::c2}}</div>
+                </div>
+                <div smart-else>
+                    <div style="padding: 4px; background-color: #fffde1; color: #333;">{{value::c2}}</div>
+                </div>
+            </div>
+        </template>
+
+        <template id="totalTemplate">
+            <div style="width: 100%; height:100%;">
+                <div smart-if="value >= 20">
+                    <div style="padding: 4px; background-color: #00a45a; color: #fff;">{{value::c2}}</div>
+                </div>
+                <div smart-if="value <= 5">
+                    <div style="padding: 4px; background-color: #df3800; color: #fff;">{{value::c2}}</div>
+                </div>
+                <div smart-else>
+                    <div style="padding: 4px; background-color: #fffde1; color: #333;">{{value::c2}}</div>
+                </div>
+            </div>
+        </template>
+
+        <Grid DataSource="dataRecords" Behavior="@behavior" Appearance="@appearance" Paging="@paging"
+              Pager="@pager" Sorting="@sorting" Editing="@editing" Selection="@selection" ColumnGroups="@columnGroups">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" ColumnGroup="Name"></Column>
+                <Column DataField="LastName" Label="Last Name" ColumnGroup="Name"></Column>
+                <Column DataField="ProductName" Label="Product Name" ColumnGroup="Order"></Column>
+                <Column DataField="Quantity" Label="Quantity" ColumnGroup="Order" DataType="number" Align="HorizontalAlignment.Right"
+                        CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right"
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" ColumnGroup="Order" Template="@priceTemplate">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right"
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" ColumnGroup="Order" Template="@totalTemplate">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    string priceTemplate = "#priceTemplate";
+    string totalTemplate = "#totalTemplate";
+
+    GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationCount = 2,
+        ShowRowHeader = true,
+        ShowRowHeaderSelectIcon = true,
+        ShowRowHeaderFocusIcon = true
+    };
+
+    GridPaging paging = new GridPaging() { Enabled = true };
+    GridPager pager = new GridPager() { Visible = true };
+    GridSorting sorting = new GridSorting() { Enabled = true };
+    GridEditing editing = new GridEditing() { Enabled = true };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    List<GridColumnGroup> columnGroups = new List<GridColumnGroup>()
+    {
+        new GridColumnGroup()
+        {
+            Label = "Customer Name",
+            Align = HorizontalAlignment.Center,
+            Name = "Name"
+        },
+        new GridColumnGroup()
+        {
+            Label = "Order Details",
+            Align = HorizontalAlignment.Center,
+            Name = "Order"
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(500);
+    }
+}

@@ -1,0 +1,80 @@
+﻿@page "/grid-cells-wrap-dynamic"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+    	smart-grid {
+    		width: 100%;
+    	}
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Dynamic Cells Wrap</h1>
+    <p>
+        Move the mouse cursor to a cell with ellipsis(...) and press Shift + Space to expand the cell or Click again on the cell holding down the Shift key. 
+        This behavior is controlled by the 'layout.allowCellsWrapShortcut' property.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Selection="@selection" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" Width="100"></Column>
+                <Column DataField="Expired" Label="Expired" DataType="boolean" Editor="@checkBoxEditor" Template="@checkBoxEditor"></Column>
+                <Column DataField="Quantity" Label="Quantity" Editor="@numberInputEditor"></Column>
+                <Column DataField="Price" Label="UnitPrice" DataType="number" Editor="@numberInputEditor" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    string checkBoxEditor = "checkBox";
+    string numberInputEditor = "numberInput";
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+}

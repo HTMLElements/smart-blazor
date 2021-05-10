@@ -1,0 +1,119 @@
+﻿@page "/grid-tree-grid-checkbox"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        width: 60%;
+    }
+
+    smart-grid-row {
+        height: 40px;
+        font-size: 16px;
+    }
+
+    smart-grid-column {
+        font-size: 14px;
+    }
+
+        smart-grid-column .smart-icon {
+            font-family: 'FontAwesome';
+            font-size: 16px;
+        }
+
+    smart-grid-cell .custom-icon {
+        margin-left: 4px;
+        margin-right: 4px;
+        font-family: 'FontAwesome';
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        The Tree Grid can display checkboxes in the cells by using the column's 'appearance.showRowHierarchyCheckBoxes' property. By using the
+        'appearance.allowRowHierarchyTriStateCheckBoxes', the checkboxes may appear in indeterminate state depending on the checked state of sub-rows.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" DataSourceSettings="@dataSourceSettings"
+              Behavior="@behavior" CheckBoxes="@checkboxes" Sorting="@sorting" Filtering="@filtering">
+            <Columns>
+                <Column DataField="FirstName" Label="FirstName" Width="200"></Column>
+                <Column DataField="LastName" Label="LastName" Width="200"></Column>
+                <Column DataField="Title" Label="Title" Width="160"></Column>
+                <Column DataField="BirthDate" Label="Birth Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="HireDate" Label="Hire Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="Address" Label="Address" Width="250"></Column>
+                <Column DataField="City" Label="City" Width="120"></Column>
+                <Column DataField="Country" Label="Country"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Settings</div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowCheckboxesChange">Show Checkboxes</CheckBox><br />
+                <CheckBox Checked="true" OnChange="OnHasThreeStatesChange">Has Three States</CheckBox>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        KeyDataField = "EmployeeID",
+        ParentDataField = "ReportsTo",
+        Id = "EmployeeID"
+    };
+
+    GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
+    GridCheckBoxes checkboxes = new GridCheckBoxes() { Visible = true };
+    GridSorting sorting = new GridSorting() { Enabled = true };
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    private List<EmployeeRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateEmployeesData();
+    }
+
+    private void OnShowCheckboxesChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.CheckBoxes.Visible = args.Value;
+    }
+
+    private void OnHasThreeStatesChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.CheckBoxes.HasThreeStates = args.Value;
+    }
+}

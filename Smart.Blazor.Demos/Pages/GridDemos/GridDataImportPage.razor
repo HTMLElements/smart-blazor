@@ -1,0 +1,66 @@
+﻿@page "/grid-data-import"
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        min-height: 300px;
+    }
+
+        smart-grid .smart-container {
+            min-height: 300px;
+        }
+
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <p>Excel Import. The Grid is data bound to ".xlsx" file.</p>
+
+    <Grid DataSource="@xlsxSource" DataSourceSettings="@dataSourceSettings">
+        <Columns>
+            <Column DataField="id" Label="Id" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+            <Column DataField="firstName" Label="First Name"></Column>
+            <Column DataField="lastName" Label="LastName"></Column>
+            <Column DataField="quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+            <Column DataField="price" Label="Unit Price" DataType="number" CellsFormat="c2" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+            <Column DataField="total" Label="Total" DataType="number" CellsFormat="c2" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        </Columns>
+    </Grid>
+</Example>
+
+@code {
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        DataFields = new List<IGridDataSourceSettingsDataField>()
+    {
+            new GridDataSourceSettingsDataField() { Name = "id", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "firstName", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "lastName", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "productName", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "quantity", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "price", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "total", DataType = GridDataSourceSettingsDataFieldDataType.Number }
+        },
+        DataSourceType = GridDataSourceSettingsDataSourceType.Json
+    };
+
+    string xlsxSource = "./data/data.xlsx";
+}

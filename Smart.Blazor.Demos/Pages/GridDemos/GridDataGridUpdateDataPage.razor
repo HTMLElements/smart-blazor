@@ -1,0 +1,98 @@
+﻿@page "/grid-datagrid-update-data"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+        body,
+        html,
+        app {
+            height: 100%;
+        }
+
+        app {
+            overflow: auto;
+        }
+
+        .content {
+            height: calc(100% - 70px);
+        }
+
+        /* This is the CSS used in the demo */
+        @@media only screen and (max-width: 700px) {
+            smart-grid
+            {
+                width: 100%;
+            }
+        }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Update Data</h1>
+    <p>This DataGrid example shows how to update the Grid's data, row or cell.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="OnUpdateSource">Update New DataSource</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnUpdateFirstRow">Update First Row Data</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnUpdateFirstCell">Update First Cell</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnClear">Clear Data</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void OnUpdateSource()
+    {
+        List<DataRecord> newDataRecords = dataService.GenerateData(100);
+        grid.DataSource = newDataRecords;
+    }
+
+    private void OnUpdateFirstRow()
+    {
+        grid.UpdateRow(0, dataService.GenerateData(1));
+    }
+
+    private void OnUpdateFirstCell()
+    {
+        //grid.DataSource[0]
+    }
+
+    private void OnClear()
+    {
+        grid.ClearRows();
+    }
+}

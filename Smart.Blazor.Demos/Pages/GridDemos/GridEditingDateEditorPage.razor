@@ -1,0 +1,86 @@
+﻿@page "/grid-editing-date-editor"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>DateTimePicker Editor in Smart.Grid</h1>
+    <p>
+        Click on any cell in the 'Order Date' column to display a DateTimePicker column editor. When the Grid Column's 'dataType' is set to 'dateTime', the editor will display Calendar and TimePicker popups. When the column's 'dataType' is 'time' the DateTimePicker displays
+        TimePicker component for editing. For 'date' column, the Calendar component is used for editing.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" Editor="@autoCompleteEditor"></Column>
+                <Column DataField="TimeOfPurchase" Label="Order Date" DataType="date" Editor="@dateEditor" Width="250"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string autoCompleteEditor = "autoComplete";
+    private string numberInputEditor = "numberInput";
+
+    IDictionary<string, object> dateEditor = new Dictionary<string, object>()
+    {
+        { "template", "dateTimePicker" },
+        { "formatString", "d" }
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+}

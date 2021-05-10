@@ -1,0 +1,72 @@
+﻿@page "/grid-datagrid-bind-to-tsv"
+
+<style>
+        body,
+        html,
+        app {
+            height: 100%;
+        }
+
+        app {
+            overflow: auto;
+        }
+
+        .content {
+            height: calc(100% - 70px);
+        }
+
+        /* This is the CSS used in the demo */
+        @@media only screen and (max-width: 700px) {
+            smart-grid {
+                width: 100%;
+            }
+        }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Data binding to TSV data</h1>
+    <p>The DataGrid component in this demo, displays data records imported from a TSV file.</p>
+
+    <Grid DataSource="@tsvSource" DataSourceSettings="@dataSourceSettings"
+          Appearance="@appearance" Selection="@selection" Filtering="@filtering" Sorting="@sorting">
+        <Columns>
+            <Column DataField="Year" Label="Year" DataType="number" Width="200"></Column>
+            <Column DataField="HPI" Label="HPI" DataType="number" CellsFormat="f2" Width="200"></Column>
+            <Column DataField="BuildCost" Label="Build Cost" DataType="number" CellsFormat="f2" Width="180"></Column>
+            <Column DataField="Population" Label="Population" DataType="number" CellsFormat="f2" Width="100"></Column>
+            <Column DataField="Rate" Label="Rate" DataType="number" CellsFormat="f5"></Column>
+        </Columns>
+</Grid>
+</Example>
+
+@code {
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        DataFields = new List<IGridDataSourceSettingsDataField>()
+        {
+            new GridDataSourceSettingsDataField() { Name = "Year", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "HPI", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "BuildCost", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "Population", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "Rate", DataType = GridDataSourceSettingsDataFieldDataType.Number }
+        },
+        DataSourceType = GridDataSourceSettingsDataSourceType.Tsv
+    };
+
+    string tsvSource = "./data/homeprices.tsv";
+
+    GridAppearance appearance = new GridAppearance()
+    {  
+        AlternationStart = 0,
+        AlternationCount = 2
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        CheckBoxes = new GridSelectionCheckBoxes() { Enabled = true }
+    };
+
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+}

@@ -1,0 +1,109 @@
+﻿@page "/grid-data-export"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Data Export</h1>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="exportXLSX">Export to Excel</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportPDF">Export to PDF</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportHTML">Export to HTML</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportCSV">Export to CSV</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportTSV">Export to TSV</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportXML">Export to XML</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void exportXLSX()
+    {
+        grid.ExportData("xlsx");
+    }
+
+    private void exportPDF()
+    {
+        grid.ExportData("pdf");
+    }
+
+    private void exportHTML()
+    {
+        grid.ExportData("html");
+    }
+
+    private void exportCSV()
+    {
+        grid.ExportData("csv");
+    }
+
+    private void exportTSV()
+    {
+        grid.ExportData("tsv");
+    }
+
+    private void exportXML() 
+    {
+        grid.ExportData("xml");
+    }
+}

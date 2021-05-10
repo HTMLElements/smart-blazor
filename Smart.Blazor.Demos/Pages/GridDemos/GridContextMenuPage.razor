@@ -1,0 +1,108 @@
+﻿@page "/grid-context-menu"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+   smart-grid {
+    	width:100%;
+    }
+    #menu {
+        height: auto;
+    	width: 150px;
+    }
+    
+    @@font-face {
+    	font-family: 'Material Icons';
+    	font-style: normal;
+    	font-weight: 400;
+    	src: url(https://fonts.gstatic.com/s/materialicons/v31/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+    }
+    
+    .material-icons {
+    	font-family: 'Material Icons';
+    	font-weight: normal;
+    	font-style: normal;
+    	font-size: 20px;
+    	line-height: 1;
+    	letter-spacing: normal;
+    	text-transform: none;
+    	display: inline-block;
+    	white-space: nowrap;
+    	word-wrap: normal;
+    	direction: ltr;
+    	-webkit-font-feature-settings: 'liga';
+    	-webkit-font-smoothing: antialiased;
+    	margin-right: 10px;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Context Menu in Grid Web Component</h1>
+    <p>
+        Right Click on a Grid row to show a Context Menu. The Context menu is Smart.Menu component with two items - 
+        'Edit' and 'Remove'. The 'Edit' item puts the clicked Grid row in edit mode. The 'Remove' item removes the clicked grid row.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" Editor="@autoCompleteEditor"></Column>
+                <Column DataField="Expired" Label="Expired" DataType="boolean" Editor="@checkBoxEditor" Template="@checkBoxEditor"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Editor="@numberInputEditor"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Editor="@numberInputEditor" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <Menu Mode="MenuMode.DropDown">
+            <MenuItem Label="@editLabel"></MenuItem>
+            <MenuItem Label="@removeLabel"></MenuItem>
+        </Menu>
+    }
+</Example>
+
+@code {
+    string editLabel = "<i class='material-icons'>edit</i>Edit";
+    string removeLabel = "<i class='material-icons'>delete</i> Remove";
+    string autoCompleteEditor = "autoComplete";
+    string checkBoxEditor = "checkBox";
+    string numberInputEditor = "numberInput";
+
+    GridAppearance appearance = new GridAppearance() { ShowRowHeaderNumber = true };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Action = GridEditingAction.None,
+        Mode = GridEditingMode.Row
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

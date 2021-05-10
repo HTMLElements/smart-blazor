@@ -1,0 +1,68 @@
+﻿@page "/grid-column-width-from-media-query"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+   smart-grid {
+        width: auto;
+    	height: auto;
+    	--smart-grid-template-columns:  250px 150px 150px 200px auto;
+   }
+
+    @@media only screen and (max-width: 800px) {
+    	smart-grid {
+    	  --smart-grid-template-columns:  150px 150px 150px 150px auto;
+    	}
+    }
+    @@media only screen and (max-width: 600px) {
+    	smart-grid {
+    	  --smart-grid-template-columns:  60px 60px 60px 60px auto;
+    	}
+    }
+</style>
+<Example Name="Grid">
+    <p>The demo demonstrates how to set column width with CSS Variable and how to dynamically update the CSS variable depending on Media Queries.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+<Grid DataSource="dataRecords">
+    <Columns>
+        <Column DataField="Country" Label="Country"></Column>
+        <Column DataField="Area" Label="Area" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        <Column DataField="Population_Rural" Label="Population_Rural" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        <Column DataField="Population_Total" Label="Population_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        <Column DataField="GDP_Total" Label="GDP_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+    </Columns>
+</Grid>
+    }
+</Example>
+
+@code {
+    private List<CountryRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+}

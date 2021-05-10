@@ -1,35 +1,36 @@
 ﻿@page "/querybuilder"
 
 <Example Name="QueryBuilder">
-	<QueryBuilder AllowDrag Fields=fields></QueryBuilder>
+    <QueryBuilder AllowDrag Fields=fields></QueryBuilder>
 </Example>
 
 @code {
-	private object[] fields = new object[] {
-		new {
-			label = "Id" ,
-			dataField = "id" ,
-			dataType = "number"
-		},
-		new {
-			label = "Product" ,
-			dataField = "productName" ,
-			dataType = "string"
-		},
-		new {
-			label = "Unit Price" ,
-			dataField = "price" ,
-			dataType = "number"
-		},
-		new {
-			label = "Purchased" ,
-			dataField = "purchased" ,
-			dataType = "datetime"
-		},
-		new  {
-			label = "Available" ,
-			dataField = "available" ,
-			dataType = "boolean"
-		}
-	};
+    private List<QueryBuilderField> fields = new List<QueryBuilderField>() {
+        new QueryBuilderField()
+        {
+            Label = "Id",
+            DataField = "id",
+            DataType = "number"
+        },
+        new QueryBuilderField(){
+            Label = "Product" ,
+            DataField = "productName" ,
+            DataType = "string"
+        },
+        new QueryBuilderField(){
+            Label = "Unit Price" ,
+            DataField = "price" ,
+            DataType =  "number"
+        },
+        new QueryBuilderField(){
+            Label = "Purchased" ,
+            DataField = "purchased" ,
+            DataType = "date"
+        },
+        new QueryBuilderField(){
+            Label = "Available" ,
+            DataField = "available" ,
+            DataType = "boolean"
+        }
+    };
 }

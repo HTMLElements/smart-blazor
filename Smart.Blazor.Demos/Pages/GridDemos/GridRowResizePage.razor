@@ -1,0 +1,99 @@
+﻿@page "/grid-row-resize"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 400px) {
+	    smart-grid {
+		    width: 100%;
+	    }
+    }
+
+    smart-grid {
+	    max-width: 600px;
+    }
+</style>
+<Example Name="Grid">
+    The Data grid component supports row resizing in two levels - Grid's 'rowResizeMode' property and optionally 'allowResize' Smart.Grid.Row property. To enable row resizing, you need to set the 'rowResizeMode' property to 'split' or 'growAndShrink'.<br /><br /> In the 'split' mode, when you resize a row, the next row's height is also affected and the total height of both rows remains constant.<br />In the 'growAndShrink' mode, the resized row grows or shrinks.
+    <br />Each row has 'minHeight' and 'maxHeight' properties which allow you to restrict the resizing of specific rows. You can disable the resize of specific row by setting its 'allowResize' property to false. Resizing requiest a visible Row header which is enabled by setting the 'appearance.showRowHeaderNumber' or 'appearance.showRowHeader' properties to 'true'.<br />To start row's resize, move the mouse cursor over the rows header and at the bottom of a header cell, the cursor is
+    changed to a row resize cursor. Press the mouse button and Drag to resize. When you release the mouse button, the row is resized.
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Behavior="@behavior" Appearance="@appearance"  Layout="@gridLayout" Selection="@selection">
+            <Columns>
+                <Column DataField="Id" Label="#" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Row Resize Mode</div>
+            <div class="option">
+                <RadioButton Checked="false" OnCheckValue="OnNoneChecked">None</RadioButton><br /><br />
+                <RadioButton Checked="false" OnCheckValue="OnSplitChecked">Split</RadioButton><br /><br />
+                <RadioButton Checked="true" OnCheckValue="OnGrowChecked">Grow and Shrink</RadioButton><br />
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridAppearance appearance = new GridAppearance() { ShowRowHeader = true };
+    GridBehavior behavior = new GridBehavior() { RowResizeMode = GridResizeMode.GrowAndShrink };
+    GridLayout gridLayout = new GridLayout() { RowHeight = 40 };
+    GridSelection selection = new GridSelection() 
+    { 
+        Enabled = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+
+    private void OnNoneChecked(Event eventObj)
+    {
+        grid.Behavior.RowResizeMode = GridResizeMode.None;
+    }
+
+    private void OnSplitChecked(Event eventObj)
+    {
+        grid.Behavior.RowResizeMode = GridResizeMode.Split;
+    }
+
+    private void OnGrowChecked(Event eventObj)
+    {
+        grid.Behavior.RowResizeMode = GridResizeMode.GrowAndShrink;
+    }
+}

@@ -1,0 +1,70 @@
+﻿@page "/grid-selection-mode"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+    
+    app {
+        overflow: auto;
+    }
+    
+    .content {
+        height: calc(100% - 70px);
+    }
+    
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <p>This demo page shows the Checkbox selection mode of the Grid web component</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Selection="@selection">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" 
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        CheckBoxes = new GridSelectionCheckBoxes() { Enabled = true }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(3000);
+    }
+}

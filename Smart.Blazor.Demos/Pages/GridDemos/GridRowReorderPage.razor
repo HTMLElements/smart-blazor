@@ -1,0 +1,73 @@
+﻿@page "/grid-row-reorder"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Row Reorder</h1>
+    <p>
+        The example demonstrates the row reorder feature of the grid component. Press the left mouse button or
+        Tap,
+        while you are on a row header and move it around to start drag. A feedback
+        and reorder line will be shown, while you are in the Grid's bounds. Drop it to the position you wish to
+        reorder the rows.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Behavior="@behavior" Sorting="@sorting">
+            <Columns>
+                <Column DataField="Id" Label="#" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Width="200"></Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {    
+    GridAppearance appearance = new GridAppearance()
+    {
+        ShowRowHeader = true,
+        ShowRowHeaderDragIcon = true
+    };
+
+    GridBehavior behavior = new GridBehavior() { AllowRowReorder = true };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(20);
+    }
+}

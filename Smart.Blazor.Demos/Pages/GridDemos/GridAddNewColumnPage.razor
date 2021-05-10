@@ -1,0 +1,84 @@
+﻿@page "/grid-add-new-column"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Add New Column</h1>
+
+    <p>DataGrid has built-in UI for Dynamically Adding a New Column. To enable it, you need to set the 'editing.addNewColumn.visible' property to true.</p>
+    <p>Press the '+' button to open the 'New Column Dialog'. On open and close, the 'openColumnDialog' and 'closeColumnDialog' events are fired.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Selection="@selection" Behavior="@behavior" Sorting="@sorting" 
+              Filtering="@filtering" Editing="@editing" Style="width: 80%; height:60%; margin-bottom: 50px;">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Editor="@inputEditor"></Column>
+                <Column DataField="LastName" Label="Last Name" Editor="@inputEditor"></Column>
+                <Column DataField="ProductName" Label="Product Name" Width="200" Editor="@dropDownEditor"></Column>
+                <Column DataField="Expired" Label="Expired" DataType="boolean" Width="200" Editor="@checkBoxEditor" Template="@checkBoxEditor"></Column>
+                <Column DataField="Quantity" Label="Quantity" Editor="@numberInputEditor"></Column>
+                <Column DataField="Price" Label="UnitPrice" DataType="number" Editor="@numberInputEditor" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    string inputEditor = "input";
+    string dropDownEditor = "dropDownList";
+    string checkBoxEditor = "checkBox";
+    string numberInputEditor = "numberInput";
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridBehavior behavior = new GridBehavior()
+    {
+        ColumnResizeMode = GridResizeMode.Split
+    };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    GridEditing editing = new GridEditing() {
+        Enabled = true,
+        AddNewColumn = new GridEditingAddNewColumn() { Visible = true },
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+}

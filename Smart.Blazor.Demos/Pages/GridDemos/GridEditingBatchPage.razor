@@ -1,0 +1,82 @@
+﻿@page "/grid-editing-batch"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>Batch Editing in Data Grid</h1>
+    <p>
+        The data grid allows you to edit and update multiple grid rows on the client side and send them with a single server request. To enable the Grid's batch editing, 
+        the 'editing.batch' property should be set to 'true' The 'editing.commandBar' setting allows you to display a toolbar or statusbar with tools for saving and reverting the edit made
+        by the users. This is done by setting 'editing.commandBar.visible' to 'true'.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" Editor="@autoCompleteEditor"></Column>
+                <Column DataField="Expired" DataType="boolean" Label="Expired" Template="@checkBoxEditor" Editor="@checkBoxEditor"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string autoCompleteEditor = "autoComplete";
+    private string checkBoxEditor = "checkBox";
+    private string numberInputEditor = "numberInput";
+
+    GridAppearance appearance = new GridAppearance() { ShowRowHeaderNumber = true };
+
+    GridEditing editing = new GridEditing()
+    {
+        Batch = true,
+        Enabled = true,
+        Action = GridEditingAction.Click,
+        AddDialog = new Dialog() { Enabled = true },
+        CommandBar = new GridEditingCommandBar()
+        {
+            Visible = true,
+            Position = LayoutPosition.Far
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

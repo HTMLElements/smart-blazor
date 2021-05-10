@@ -1,0 +1,66 @@
+﻿@page "/grid-sort-animation"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+    
+    app {
+        overflow: auto;
+    }
+    
+    .content {
+        height: calc(100% - 70px);
+    }
+    
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Sorting="@sorting">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" 
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridAppearance appearance = new GridAppearance() { AllowSortAnimation = true };
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(3000);
+    }
+}

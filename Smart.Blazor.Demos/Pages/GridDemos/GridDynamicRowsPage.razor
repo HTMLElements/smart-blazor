@@ -1,0 +1,147 @@
+﻿@page "/grid-dynamic-rows"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Dynamic Rows</h1>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Columns="@columns"></Grid>
+
+        <div class="options">
+            <div class="caption">Settings</div>
+            <div class="option">
+                <Button @ref="addRowBtn" OnClick="AddRow">Add Row</Button>
+            </div>
+            <div class="option">
+                <Button @ref="removeLastRowBtn" OnClick="RemoveLastRow">Remove Last Row</Button>
+            </div>
+            <div class="option">
+                <Button @ref="removeFirstRowBtn" OnClick="RemoveFirstRow">Remove First Row</Button>
+            </div>
+            <div class="option">
+                <Button @ref="updateFirstRowBtn" OnClick="UpdateFirstRow">Update First Row</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+    Button addRowBtn;
+    Button removeLastRowBtn;
+    Button removeFirstRowBtn;
+    Button updateFirstRowBtn;
+
+    List<GridColumn> columns = new List<GridColumn>()
+    {
+        new GridColumn()
+        {
+            DataField = "Country",
+            Label = "Country",
+
+        },
+        new GridColumn()
+        {
+            DataField = "Area",
+            Label = "Area"
+        },
+        new GridColumn()
+        {
+            DataField = "Population_Rural",
+            Label = "Population_Rural"
+        },
+        new GridColumn()
+        {
+            DataField = "Population_Total",
+            Label = "Population_Total"
+        },
+        new GridColumn()
+        {
+            DataField = "GDP_Total",
+            Label = "GDP_Total"
+        }
+    };
+
+    private List<CountryRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+
+
+
+    private void AddRow()
+    {
+        dataRecords = new List<CountryRecord>(dataRecords);
+        dataRecords.Add(dataService.GenerateCountry());
+        grid.DataSource = dataRecords;
+    }
+
+    private void RemoveLastRow()
+    {
+        dataRecords = new List<CountryRecord>(dataRecords);
+        dataRecords.RemoveAt(dataRecords.Count - 1);
+        grid.DataSource = dataRecords;
+
+        UpdateButtonsDisabledState();
+    }
+
+    private void RemoveFirstRow()
+    {
+        dataRecords = new List<CountryRecord>(dataRecords);
+        dataRecords.RemoveAt(0);
+        grid.DataSource = dataRecords;
+
+        UpdateButtonsDisabledState();
+    }
+
+    private void UpdateFirstRow()
+    {
+         grid.UpdateRow(0, dataService.GenerateCountry());
+
+    //    dataRecords = new List<CountryRecord>(dataRecords);
+  //      dataRecords[0] = dataService.GenerateCountry();
+  //      grid.DataSource = dataRecords;
+
+        UpdateButtonsDisabledState();
+    }
+
+    private void UpdateButtonsDisabledState()
+    {
+        if (dataRecords.Count == 0)
+        {
+            removeLastRowBtn.Disabled = true;
+            removeFirstRowBtn.Disabled = true;
+            updateFirstRowBtn.Disabled = true;
+        }
+    }
+}

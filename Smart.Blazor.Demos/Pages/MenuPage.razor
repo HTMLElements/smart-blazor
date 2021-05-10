@@ -1,7 +1,7 @@
 ﻿@page "/menu"
 
 <Example Name="Menu">
-	<Menu id="menu">
+	<Menu OnReady="OnReady" OnItemClick="OnItemClick" id="menu">
 		<MenuItemsGroup>
 			File
 			<MenuItem Shortcut="Ctrl+N">New</MenuItem>
@@ -62,5 +62,18 @@
 </Example>
 
 @code {
+    void OnReady(Menu menu)
+    {
+        menu.ItemClicked += delegate(object sender, MenuItemClickedEventArgs args)
+        {
+            Console.WriteLine(args.Label);
+        };
+    }
 
+    void OnItemClick(Event eventObj)
+    {
+        MenuItemClickEventDetail detail = eventObj["Detail"];
+
+        Console.WriteLine(detail.Label);
+    }
 }

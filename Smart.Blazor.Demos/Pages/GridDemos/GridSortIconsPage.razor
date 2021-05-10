@@ -1,0 +1,87 @@
+﻿@page "/grid-sort-icons"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
+
+    smart-grid-column .smart-sort-button.smart-grid-icon {
+    	font-family: 'FontAwesome';
+    	font-size: 13px;
+    	color: #9B9B9B;
+    }
+    
+    smart-grid-column .smart-sort-button.smart-icon-sort:before {
+    	content: "\f0dc";
+    }
+    
+    smart-grid-column .smart-sort-button.asc:before,
+    smart-grid-column .smart-sort-button.desc:before {
+    	content: "\f0dd";
+    }
+    
+    @@media only screen and (max-width: 700px) {
+    	smart-grid {
+    		width: 100%;
+    	}
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        This page shows how to customize the Sort Icons and also how to always show a sort icon which indicates that a datagrid column is sortable.
+        This is achieved by using the "autoShowColumnSortButton" property. The column's "allowSort" property determines whether a column is sortable.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Sorting="@sorting">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" AllowSort="false"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" AllowSort="false"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" 
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridAppearance appearance = new GridAppearance() { AutoShowColumnSortButton = false };
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(3000);
+    }
+}

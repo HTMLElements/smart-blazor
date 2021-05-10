@@ -1,0 +1,93 @@
+﻿@page "/grid-right-to-left"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid with Right to Left</h1>
+    Right to Left(RTL) is used for displaying languages that go from Right to Left, eg. Hebrew and Arabic. To get our Grid to display in RTL format, set the 'rightToLeft' boolean property or just add the attribute to the Grid's HTML tag..
+    <h2>Scroll Bars</h2>
+    Vertical scrollbar in Right to Left layout appears on left side. Horizontal scrollbars starts from right-to-left, too.
+    <h2>Frozen Columns</h2>
+    By default, when columns are frozen(pinned) to 'near', they will appear on 'left'. In RTL mode, they will appear on right side.
+    
+    <h2>Layout of Columns</h2>
+    The grid normally lays the columns out from left to right. In right to left layout, the columns lay out from the right to the left. Columns and Cells horizontal alignment is also reversed.
+    <h2>Column Popups and Action buttons</h2>
+    Column popup is opened after the action button is clicked. It appears with smooth animation with a transform origin setting equal to 'right'. The Filter Panel's components(dropdownlists, numerics, datetimepickers, inputs) in the column popup also take into account the Grid's right to left settings. Sort, Filter and Action buttons are displayed in the left side of the column header, when RTL is applied.
+    <h2>Column Resize</h2>
+    Column resizing begins when the user drags and drops the 'left' edge of the column. When the Grid is with normal layout, resize begins from the 'right' edge.
+    <h2>Paging</h2>
+    The Pager automatically aligns its buttons to the right side. All components in the pager are reversed.
+    <h2>Keyboard navigation</h2>
+    Left and Right arrow keys in 'right-to-left' layout are reversed.
+
+        @if (dataRecords == null)
+        {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Sorting="@sorting" Filtering="@filtering">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product Name"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+    </Example>
+
+@code {
+    GridSorting sorting = new GridSorting()
+    {
+        Enabled = true,
+        Mode = GridSortingMode.One
+    };
+
+    GridFiltering filtering = new GridFiltering()
+    {
+        Enabled = true,
+        Filter = new string[][]
+        {
+            new string[] { "FirstName", "contains Andrew or contains Nancy" },
+            new string[] { "Quantity", ">= 3 and >= 8" }
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(3000);
+    }
+}

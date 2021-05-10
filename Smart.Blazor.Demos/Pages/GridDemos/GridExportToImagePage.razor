@@ -1,0 +1,132 @@
+﻿@page "/grid-export-to-image"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Image Export</h1>
+    <p>
+        This page demonstrates the Export to Image feature of the Smart.Grid web component. The Grid can be exported to .png or .jpeg image.
+        You can specify whether to export all records or only part of the visible data by using the 'dataExport' property's 'view' boolean option.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <template id="totalTemplate">
+            <div style="width: 100%; height:100%;">
+                <div style="padding: 4px; color: #fff; background-color: #007ACC;">{{value::c2}}</div>
+            </div>
+        </template>
+
+        <Grid @ref="grid" DataSource="dataRecords" Appearance="@appearance" DataExport="@dataExport">
+            <Columns>
+                <Column DataField="Id" Label="Id" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" Template="@templateId"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="exportToPng">Export to PNG</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportToJpeg">Export to JPEG</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportAll">Export All</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="exportRestrict">Export 20-50</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+    private string templateId = "#totalTemplate";
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationStart = 0,
+        AlternationCount = 2
+    };
+
+    GridDataExport dataExport = new GridDataExport()
+    {
+        View = true,
+        ViewStart = 0,
+        ViewEnd = 50
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void exportToPng()
+    {
+        grid.ExportData("png");
+    }
+
+    private void exportToJpeg()
+    {
+        grid.ExportData("jpeg");
+    }
+
+    private void exportAll()
+    {
+        //grid.DataExport.ViewStart = null;
+        //grid.DataExport.ViewEnd = null;
+        grid.DataExport.View = false;
+
+        grid.ExportData("png");
+
+        grid.DataExport.ViewStart = 0;
+        grid.DataExport.ViewEnd = 50;
+    }
+
+    private void exportRestrict()
+    {
+        grid.DataExport.ViewStart = 25;
+        grid.DataExport.ViewEnd = 50;
+        grid.DataExport.View = true;
+
+        grid.ExportData("png");
+
+        grid.DataExport.ViewStart = 0;
+        grid.DataExport.ViewEnd = 50;
+    }
+}

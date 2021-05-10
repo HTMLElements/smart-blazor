@@ -1,0 +1,82 @@
+﻿@page "/grid-editing-add-new-row-auto"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Add New Row in Data Grid with Scroll Button Click and Keyboard</h1>
+    <p>
+        By enabling the 'editing.addNewRow.autoCreate' property, the Grid will automatically create new unbound rows when the bottom of the Grid is reached and the vertical scrollbar's down button is clickced, 'Enter' is pressed or 'Tab' is pressed when the last column cell is selected.
+        When an unbound row is edited, it becomes part of the Grid's rows collection and all unbound rows before it are also added to the rows collection. <br />
+    </p>
+    <p>
+        Scroll to the Bottom and press the ScrollBar's down arrow button to create a new row.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Selection="@selection" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product" Editor="@autoCompleteEditor"></Column>
+                <Column DataField="Expired" DataType="boolean" Label="Expired" Template="@checkBoxEditor" Editor="@checkBoxEditor"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string autoCompleteEditor = "autoComplete";
+    private string checkBoxEditor = "checkBox";
+    private string numberInputEditor = "numberInput";
+
+    GridAppearance appearance = new GridAppearance() { ShowRowHeaderNumber = true };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        AddNewRow = new GridEditingAddNewRow() {  }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(15);
+    }
+}

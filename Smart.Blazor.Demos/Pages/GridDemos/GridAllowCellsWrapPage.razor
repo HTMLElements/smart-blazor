@@ -1,0 +1,92 @@
+﻿@page "/grid-allow-cells-wrap"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    @@media only screen and (max-width: 400px) {
+	    smart-grid {
+		    width: 100%;
+	    }
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Cells Wrap enabled by setting the 'appearance.allowCellsWrap' property to <em>true</em>.</h1>
+
+    <p>Enabling cells wrap, wraps the cell values. Row height is automatically re-calculated, if the 'rowHeight' property is set to 'auto'.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Selection="@selection" Pager="@pager" Paging="@paging" Layout="@gridLayout">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="Expired" DataType="boolean" Label="Expired"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="UnitPrice" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationStart = 0,
+        AlternationCount = 2,
+        ShowRowHeader = true,
+        ShowRowHeaderFocusIcon = true,
+        ShowRowHeaderSelectIcon = true
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowRowHeaderSelection = true,
+        Mode = GridSelectionMode.One
+    };
+
+    GridPager pager = new GridPager() { Visible = true };
+    GridPaging paging = new GridPaging() { Enabled = true };
+
+    GridLayout gridLayout = new GridLayout()
+    {
+        RowHeight = "auto",
+        AllowCellsWrap = true
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

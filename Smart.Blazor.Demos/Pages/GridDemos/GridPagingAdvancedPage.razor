@@ -1,0 +1,300 @@
+﻿@page "/grid-paging-advanced"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+        height: 400px;
+    }
+</style>
+<Example Name="Grid">
+    <p>Paging in Smart Grid is highly customizable. Use the options on the right to dynamically customize the Grid pager.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Paging="@paging" Pager="@pager">
+            <Columns>
+                <Column DataField="Id" Label="Id" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product Name"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Settings</div>
+            <div class="option">
+                <CheckBox @ref="showBottomPager" Checked="true" OnChange="OnShowBottomPagerChange">Show Bottom Pager</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="pageSizeNearPosition" OnChange="OnPageSizeNearPositionChange">Page Size Near Position</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnPageIndexCountChange">Page Index Count to 3</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="navButtonsNearPosition" OnChange="OnNavButtonsNearPositionChange">Nav Buttons Near Position</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="navInputNearPosition" Disabled="true" OnChange="OnNavInputNearPositionChange">Nav Input Near Position</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="summaryNearPosition" Disabled="true" OnChange="OnSummaryNearPositionChange">Summary Near Position</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnShowPagerSummaryChange">Show Pager Summary</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="showTopPager" Checked="false" OnChange="OnShowTopPagerChange">Show Top Pager</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowPageSizeSelectorChange">Show Page Size Selector</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowPrevNextNavButtonsChange">Show Prev/Next Nav Buttons</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowFirstLastNavButtonsChange">Show First/Last Nav Buttons</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox @ref="showNavButtonsAsLabels" OnChange="OnShowNavButtonsAsLabelsChange">Show Nav Buttons as Labels</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnShowNavInputChange">Show Nav Input</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowPagerIndexSelectorsChange">Show Pager Index Selectors</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnShowPagerEllipsisChange">Show Pager Ellipsis</CheckBox>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    CheckBox pageSizeNearPosition;
+    CheckBox navButtonsNearPosition;
+    CheckBox navInputNearPosition;
+    CheckBox summaryNearPosition;
+    CheckBox showNavButtonsAsLabels;
+    CheckBox showTopPager;
+    CheckBox showBottomPager;
+
+    GridPaging paging = new GridPaging()
+    {
+        Enabled = true,
+        PageSize = 10,
+        PageIndex = 0
+    };
+
+    GridPager pager = new GridPager()
+    {
+        Visible = true,
+        PageSizeSelector = new GridPagerPageSizeSelector() { Visible = true },
+        PageIndexSelectors = new GridPagerPageIndexSelectors() { DataSource = 3 }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+
+    private void OnShowTopPagerChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        bool isTopPagerVisible = args.Value;
+        bool isBottomPagerVisible = showBottomPager.Checked;
+
+        grid.Pager.Visible = true;
+
+        if (isTopPagerVisible && isBottomPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Both;
+        }
+        else if (isTopPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Near;
+        }
+        else if (isBottomPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Far;
+        }
+        else
+        {
+            grid.Pager.Visible = false;
+        }
+    }
+
+    private void OnShowBottomPagerChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        bool isTopPagerVisible = showTopPager.Checked;
+        bool isBottomPagerVisible = args.Value;
+
+        grid.Pager.Visible = true;
+
+        if (isTopPagerVisible && isBottomPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Both;
+        }
+        else if (isTopPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Near;
+        }
+        else if (isBottomPagerVisible)
+        {
+            grid.Pager.Position = LayoutPosition.Far;
+        }
+        else
+        {
+            grid.Pager.Visible = false;
+        }
+    }
+
+
+    private void OnPageSizeNearPositionChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.PageSizeSelector.Position = args.Value ? Position.Near : Position.Far;
+    }
+
+    private void OnPageIndexCountChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.PageIndexSelectors.DataSource = args.Value ? 3 : 5;
+    }
+
+    private void OnNavButtonsNearPositionChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationButtons.Position = args.Value ? LayoutPosition.Near : LayoutPosition.Far;
+    }
+
+    private void OnNavInputNearPositionChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationInput.Position = args.Value ? Position.Near : Position.Far;
+    }
+
+    private void OnSummaryNearPositionChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.Summary.Position = args.Value ? Position.Near : Position.Far;
+    }
+
+    private void OnShowPagerSummaryChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.Summary.Visible = args.Value;
+        summaryNearPosition.Disabled = !args.Value;
+    }
+
+    private void OnShowPageSizeSelectorChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.PageSizeSelector.Visible = args.Value;
+        pageSizeNearPosition.Disabled = !args.Value;
+    }
+
+    private void OnShowPrevNextNavButtonsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationButtons.PrevNextButtons.Visible = args.Value;
+        if (!grid.Pager.NavigationButtons.PrevNextButtons.Visible && !grid.Pager.NavigationButtons.FirstLastButtons.Visible)
+        {
+            navButtonsNearPosition.Disabled = true;
+            showNavButtonsAsLabels.Disabled = true;
+        }
+        else
+        {
+            navButtonsNearPosition.Disabled = false;
+            showNavButtonsAsLabels.Disabled = false;
+        }
+    }
+
+    private void OnShowFirstLastNavButtonsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationButtons.FirstLastButtons.Visible = args.Value;
+        if (!grid.Pager.NavigationButtons.PrevNextButtons.Visible && !grid.Pager.NavigationButtons.FirstLastButtons.Visible)
+        {
+            navButtonsNearPosition.Disabled = true;
+            showNavButtonsAsLabels.Disabled = true;
+        }
+        else
+        {
+            navButtonsNearPosition.Disabled = false;
+            showNavButtonsAsLabels.Disabled = false;
+        }
+    }
+
+    private void OnShowNavButtonsAsLabelsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationButtons.Labels.Visible = args.Value;
+    }
+
+    private void OnShowNavInputChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.NavigationInput.Visible = args.Value;
+        navInputNearPosition.Disabled = !args.Value;
+    }
+
+    private void OnShowPagerIndexSelectorsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.PageIndexSelectors.Visible = args.Value;
+    }
+
+    private void OnShowPagerEllipsisChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Pager.AutoEllipsis = args.Value ? GridPagerAutoEllipsis.Both : GridPagerAutoEllipsis.None;
+    }
+}

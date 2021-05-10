@@ -1,0 +1,111 @@
+﻿@page "/grid-column-menu"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Column menu</h1>
+    <p>
+        Move the cursor over a column header and click the "hamburger" menu button to open the Datagrid column menu. With that menu, you can sort, filter, edit column description and name, customize column cells alignment, group by the column. The Column menu can be customized
+        to fit to your web application's needs.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Header="@header" ColumnMenu="@columnMenu" Selection="@selection" Grouping="@grouping" 
+              Sorting="@sorting" Filtering="@filtering" Editing="@editing" Behavior="@behavior" Layout="@gridLayout">
+            <Columns>
+                <Column DataField="Id" Label="Id" AllowSort="false" AllowHide="false" ShowDescriptionButton="true" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="FirstName" Label="First Name" ShowDescriptionButton="true"></Column>
+                <Column DataField="LastName" Label="Last Name" ShowDescriptionButton="true"></Column>
+                <Column DataField="ProductName" Label="Product" ShowDescriptionButton="true"></Column>
+                <Column DataField="TimeOfPurchase" Label="Purchase Date" DataType="date" Align="HorizontalAlignment.Right" 
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="d" ShowDescriptionButton="true">
+                </Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" 
+                        CellsAlign="HorizontalAlignment.Right" ShowDescriptionButton="true">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right"
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" ShowDescriptionButton="true">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right"
+                        CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" ShowDescriptionButton="true">
+                </Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridHeader header = new GridHeader()
+    {
+        Visible = true
+    };
+
+    GridColumnMenu columnMenu = new GridColumnMenu()
+    {
+        DataSource = new GridColumnMenuDataSource()
+        {
+            ColumnMenuItemRename = new GridCommand() { Visible = true },
+            ColumnMenuItemEditDescription = new GridCommand() { Visible = true },
+            ColumnMenuItemHide = new GridCommand() { Visible = true },
+            ColumnMenuItemDelete = new GridCommand() { Visible = true }
+        }
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridGrouping grouping = new GridGrouping() { Enabled = true };
+     
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    GridSorting sorting = new GridSorting()
+    {
+        Enabled = true,
+        Mode = GridSortingMode.Many
+    };
+
+    GridEditing editing = new GridEditing() { Enabled = true };
+
+    GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
+
+    GridLayout gridLayout = new GridLayout() { RowHeight = 50 };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(10);
+    }
+}

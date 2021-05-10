@@ -1,0 +1,155 @@
+﻿@page "/grid-conditional-formatting-panel"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Conditional Formatting Panel - Conditional Formatting UI</h1>
+    <p>
+        This example shows how to use the DataGrid formatting panel. Click on the 'Format' button in the Grid
+        header to open the conditional formatting panel.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Header="@header" ConditionalFormatting="@conditionalFormatting">
+            <Columns>
+                <Column DataField="Id" Label="id" DataType="number" Align="HorizontalAlignment.Right" 
+                        CellsAlign="HorizontalAlignment.Right" AllowSort="false" AllowHide="false">
+                </Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridHeader header = new GridHeader()
+    {
+        Visible = true,
+        Buttons = new string[] { "format" }
+    };
+
+    IList<GridConditionalFormatting> conditionalFormatting = new List<GridConditionalFormatting>()
+    {
+        new GridConditionalFormatting()
+        {
+            Column = "Quantity",
+            Condition = GridConditionalFormattingCondition.GreaterThan,
+            FirstValue = 8,
+            Text = "#FFFFFF",
+            Highlight = "#45D29A"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Quantity",
+            Condition = GridConditionalFormattingCondition.LessThan,
+            FirstValue = 3,
+            Text = "#FFFFFF",
+            Highlight = "#0984D9"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Quantity",
+            Condition = GridConditionalFormattingCondition.Between,
+            FirstValue = 3,
+            SecondValue = 8,
+            FontSize = "12px",
+            Text = "#FFFFFF",
+            Highlight = "#0C88DA"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Price",
+            Condition = GridConditionalFormattingCondition.LessThan,
+            FirstValue = 3,
+            FontFamily = "Courier New",
+            Text = "#FFFFFF",
+            Highlight = "#FF8F6B"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Price",
+            Condition = GridConditionalFormattingCondition.GreaterThan,
+            FirstValue = 4,
+            FontFamily = "Courier New",
+            Text = "#FFFFFF",
+            Highlight = "#C43E1C"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Price",
+            Condition = GridConditionalFormattingCondition.Between,
+            FirstValue = 3,
+            SecondValue = 4,
+            FontFamily = "Courier New",
+            Text = "#FFFFFF",
+            Highlight = "#D35230"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Total",
+            Condition = GridConditionalFormattingCondition.GreaterThan,
+            FirstValue = 25,
+            FontSize = "14px",
+            Text = "#FFFFFF",
+            Highlight = "#0D559D"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Total",
+            Condition = GridConditionalFormattingCondition.Between,
+            FirstValue = 10,
+            SecondValue = 25,
+            FontSize = "12px",
+            Text = "#FFFFFF",
+            Highlight = "#0883D8"
+        },
+        new GridConditionalFormatting()
+        {
+            Column = "Total",
+            Condition = GridConditionalFormattingCondition.LessThan,
+            FirstValue = 10,
+            FontSize = "10px",
+            Text = "#FFFFFF",
+            Highlight = "#31C1E7"
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

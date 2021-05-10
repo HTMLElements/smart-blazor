@@ -1,0 +1,119 @@
+﻿@page "/grid-column-resize"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 400px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+
+    smart-grid {
+        max-width: 600px;
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        Grid Column Headers Resize example. Move the pointer to the right border of a column header.
+        When the cursor is changed to a col-resize cursor, press the mouse button or tap to start resize.
+        The column is resized when you release the pressed buttton.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Behavior="@behavior">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Width="150"></Column>
+                <Column DataField="LastName" Label="Last Name" Width="150"></Column>
+                <Column DataField="ProductName" Label="Product" Width="200"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Width="100"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" Width="100"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">
+                Column Resize Mode
+            </div>
+            <div class="option">
+                <RadioButton @ref="noneRadioBtn" Checked="false" OnChange="OnChange">None</RadioButton><br />
+                <RadioButton @ref="splitRadioBtn" Checked="false" OnChange="OnChangeSplit">Split</RadioButton><br />
+                <RadioButton @ref="growShrinkRadioBtn" Checked="true" OnChange="OnChangeGrow">Grow and Shrink</RadioButton><br />
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+    private RadioButton noneRadioBtn;
+    private RadioButton splitRadioBtn;
+    private RadioButton growShrinkRadioBtn;
+
+    GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
+
+        if (detail.Value == false)
+        {
+            return;
+        }
+
+        grid.Behavior.ColumnResizeMode = GridResizeMode.None;
+    }
+
+    private void OnChangeSplit(Event eventObj)
+    {
+        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
+
+        if (detail.Value == false)
+        {
+            return;
+        }
+
+        grid.Behavior.ColumnResizeMode = GridResizeMode.Split;
+    }
+
+    private void OnChangeGrow(Event eventObj)
+    {
+        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
+
+        if (detail.Value == false)
+        {
+            return;
+        }
+
+        grid.Behavior.ColumnResizeMode = GridResizeMode.GrowAndShrink;
+    }
+}

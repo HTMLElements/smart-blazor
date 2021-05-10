@@ -1,0 +1,183 @@
+﻿@page "/grid-localization"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    body {
+    	min-height: 700px;
+    }
+    
+    smart-grid {
+      width: 60%;
+    }
+
+    @@media only screen and (max-width: 400px) {
+    	smart-grid {
+    		width: 100%;
+    	}
+    }
+</style>
+<Example Name="Grid">
+    <p>Localization</p>
+
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Sorting="@sorting" Messages="@messages">
+            <Columns>
+                <Column DataField="FirstName" Label="@columnLabels["de"]["firstName"]"></Column>
+                <Column DataField="LastName" Label="@columnLabels["de"]["lastName"]"></Column>
+                <Column DataField="TimeOfPurchase" Label="@columnLabels["de"]["date"]"
+                        DataType="date" CellsFormat="d">
+                    @*FormatSettings="@dateFormatSettings"*@
+                </Column>
+                <Column DataField="Quantity" Label="@columnLabels["de"]["quantity"]"></Column>
+                <Column DataField="Price" Label="@columnLabels["de"]["price"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
+                <Column DataField="Total" Label="@columnLabels["de"]["total"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">
+                Languange
+            </div>
+            <div class="option">
+                <RadioButton Checked="false" OnCheckValue="OnUKChecked">English (UK)</RadioButton><br />
+                <RadioButton Checked="false" OnCheckValue="OnUSAChecked">English (USA)</RadioButton><br />
+                <RadioButton Checked="true" OnCheckValue="OnDeutschChecked">Deutsch</RadioButton><br />
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    IDictionary<string, object> messages = new Dictionary<string, object>()
+    {
+        {
+            "en",
+            new Dictionary<string, string>()
+            {
+                { "columnMenuItemSortAsc", "Sort {{mode}}" },
+                { "columnMenuItemSortDesc", "Sort {{mode}}" }, //Sort A → Z
+                { "columnMenuItemRemoveSort", "Remove Sort" }
+            }
+        },
+        {
+            "de",
+            new Dictionary<string, string>()
+            {
+                { "columnMenuItemSortAsc", "Sortieren {{mode}}" },
+                { "columnMenuItemSortDesc", "Sortieren {{mode}}" }, //Sort A → Z
+                { "columnMenuItemRemoveSort", "Sortierung entfernen" }
+            }
+        }
+    };
+
+    IDictionary<string, IDictionary<string, string>> columnLabels = new Dictionary<string, IDictionary<string, string>>()
+    {
+        {
+            "en",
+            new Dictionary<string, string>()
+            {
+                { "firstName", "First Name" },
+                { "lastName", "Last Name" },
+                { "date", "Date" },
+                { "price", "Price" },
+                { "quantity", "Quantity" },
+                { "total", "Total" }
+            }
+        },
+        {
+            "de",
+            new Dictionary<string, string>()
+            {
+                { "firstName", "Vorname" },
+                { "lastName", "Familienname" },
+                { "price", "Preis" },
+                { "quantity", "Quantität" },
+                { "date", "Datum" },
+                { "total", "Gesamt" }
+            }
+        }
+    };
+
+    IDictionary<string, object> dateFormatSettings = new Dictionary<string, object>()
+    {
+        {
+            "Intl",
+            new Dictionary<string, object>()
+            {
+                {
+                    "DateTimeFormat",
+                    new Dictionary<string, object>()
+                    {
+                        { "dateStyle", "full" }
+                    }
+                }
+            }
+        }
+    };
+
+    IDictionary<string, object> currencyFormatSettings = new Dictionary<string, object>()
+    {
+        {
+            "Intl",
+            new Dictionary<string, object>()
+            {
+                {
+                    "NumberFormat",
+                    new Dictionary<string, object>()
+                    {
+                        { "style", "currency" },
+                        { "currency", "EUR" }
+                    }
+                }
+            }
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(50);
+    }
+
+    private void OnUKChecked(Event eventObj)
+    {
+        
+    }
+
+    private void OnUSAChecked(Event eventObj)
+    {
+
+    }
+
+    private void OnDeutschChecked(Event eventObj)
+    {
+
+    }
+}

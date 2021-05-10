@@ -1,0 +1,69 @@
+﻿@page "/grid-editing-textarea-editor"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>TextArea Editor within Smart.Grid</h1>
+    <p>
+        The first three columns in this demo are with 'textArea' editor. With this editor, text is edited within 'textarea' HTML Element. By clicking the expand button, users will view more space for editing within a small popup window.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Editor="@textAreaEditor"></Column>
+                <Column DataField="LastName" Label="Last Name" Editor="@textAreaEditor"></Column>
+                <Column DataField="ProductName" Label="Product" Editor="@textAreaEditor" Width="150"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private string textAreaEditor = "textArea";
+    private string numberInputEditor = "numberInput";
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

@@ -7,7 +7,7 @@
 		}
 	</style>
 	<Button id="openButton" OnClick="OnClick">Open/Close</Button>
-	<Window IsOpened="@opened" label="Window 1">
+	<Window @ref="window" IsOpened="@opened" label="Window 1">
 		<div id="article">
 			<section>
 				<h3>What is Lorem Ipsum?</h3>
@@ -48,9 +48,11 @@
 
 
 @code {
+	Window window;
+
 	private bool opened = true;
 
-	private void OnClick(Event eventArgs) {
+	private void OnClick(MouseEventArgs eventArgs) {
 		opened = !opened;
 	}
 }

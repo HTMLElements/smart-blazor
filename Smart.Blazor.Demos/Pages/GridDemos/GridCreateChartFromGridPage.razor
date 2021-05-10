@@ -1,0 +1,262 @@
+﻿@page "/grid-create-chart-from-grid"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+	    width: 60%;
+    }
+    @@media only screen and (max-width: 400px) {
+    	smart-grid {
+    		width: 100%;
+    	}
+    }
+    #toolbar {
+    	display: flex;
+    	height: 100%;
+    	padding: 0 1rem;
+    }
+
+    #toolbar.warning:after {
+        content: 'Selected data cannot be used to create a chart.';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: var(--smart-error);
+    }
+
+    #toolbar > div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        margin-right: 15px;
+		width: 35px;
+		height: 30px;
+        height: 100%;
+		font-size: 12px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        user-select: none;
+        cursor: pointer;
+    }
+
+        #toolbar > div:hover {
+            background-color: var(--smart-grid-column-header-background-hover);
+        }
+
+        #toolbar > div:active {
+            background-color: var(--smart-grid-column-header-background-active);
+        }
+
+        #toolbar > div.warning {
+            outline: 2px solid var(--smart-error);
+        }
+
+    #column {
+        background-image: url("./images/create-column.png");
+    }
+    
+    #line {
+        background-image: url("./images/create-line.png");
+    }
+    
+    #pie {
+        background-image: url("./images/create-pie.png");
+    }
+    
+    #bar {
+        background-image: url("./images/create-bar.png");
+    }
+    
+    #area {
+        background-image: url("./images/create-area.png");
+    }
+    
+    #scatter {
+        background-image: url("./images/create-scatter.png");
+    }
+    
+    [theme="dark"] #column {
+        background-image: url("./images/create-column-dark.png");
+    }
+    
+    [theme="dark"] #line {
+        background-image: url("./images/create-line-dark.png");
+    }
+    
+    [theme="dark"] #pie {
+        background-image: url("./images/create-pie-dark.png");
+    }
+    
+    [theme="dark"] #bar {
+        background-image: url("./images/create-bar-dark.png");
+    }
+    
+    [theme="dark"] #area {
+        background-image: url("./images/create-area-dark.png");
+    }
+    
+    [theme="dark"] #scatter {
+        background-image: url("./images/create-scatter-dark.png");
+    }
+</style>
+<Example Name="Grid">
+    <h1>Data Visualize Grid Data</h1>
+    <p>
+        Select a range of cells and press any of the toolbar buttons to create a Chart from the selection.
+        To create a chart from the entire data set, just click any of the chart buttons.
+    </p>
+
+    <p><em>Click an icon to generate a chart based on the grid's selection.</em></p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <template id="toolbarTemplate">
+            <div id="toolbar">
+                <div id="column">Column</div> @*@onclick="OnColumnClick"*@
+                <div id="line">Line</div>
+                <div id="pie">Pie</div>
+                <div id="bar">Bar</div>
+                <div id="area">Area</div>
+                <div id="scatter">Scatter</div>
+            </div>
+        </template>
+
+        <Grid @ref="grid" DataSource="dataRecords" Appearance="@appearance" Header="@header" Sorting="@sorting" Selection="@selection">
+            <Columns>
+                <Column DataField="Name" Label="Name"></Column>
+                <Column DataField="Income" Label="Income (2019)" DataType="number" CellsFormat="c0">></Column>
+                <Column DataField="Expenses" Label="Expenses (2019)" DataType="number" CellsFormat="c0"></Column>
+                <Column DataField="Debt" Label="Remaining Debt" DataType="number" CellsFormat="c0"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationCount = 2,
+        ShowRowHeaderNumber = true,
+        ShowRowHeader = true
+    };
+
+    GridHeader header = new GridHeader()
+    {
+        Visible = true,
+        Template = "#toolbarTemplate"
+    };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowCellSelection = true,
+        AllowRowHeaderSelection = true,
+        AllowColumnHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    private IList<IDictionary<string, object>> dataRecords = new List<IDictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "Name", "Zavier Vargas" },
+            { "Income", 59039 },
+            { "Expenses", 13303 },
+            { "Debt", 15000 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Mark Beasley" },
+            { "Income", 22468 },
+            { "Expenses", 7600 },
+            { "Debt", 0 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Skyla Khan" },
+            { "Income", 111459 },
+            { "Expenses", 101009 },
+            { "Debt", 7300 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Deandre Weber" },
+            { "Income", 28233 },
+            { "Expenses", 31045 },
+            { "Debt", 21000 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Isla Doyle" },
+            { "Income", 92030 },
+            { "Expenses", 90581 },
+            { "Debt", 160000 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Jaslyn Barron" },
+            { "Income", 112083 },
+            { "Expenses", 100322 },
+            { "Debt", 43500 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Monserrat Mccann" },
+            { "Income", 92510 },
+            { "Expenses", 28345 },
+            { "Debt", 17890 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Britney Fuller" },
+            { "Income", 55091 },
+            { "Expenses", 55020 },
+            { "Debt", 31000 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Bernard Munoz" },
+            { "Income", 10030 },
+            { "Expenses", 43012 },
+            { "Debt", 30000 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "Name", "Sherlyn Vincent" },
+            { "Income", 81209 },
+            { "Expenses", 14390 },
+            { "Debt", 3000 }
+        }
+    };
+
+    private void OnColumnClick()
+    {
+        grid.CreateChart("column");
+    }
+}

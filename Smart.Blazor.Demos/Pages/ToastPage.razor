@@ -1,10 +1,18 @@
 ﻿@page "/toast"
 
-<Example Name="Toast">
-	<Toast Position="ToastPosition.TopRight" AutoOpen="true" ShowCloseButton="true" Type="ToastType.Mail"
-		   Class="blink">You have 2 new messages.</Toast>
-</Example>
+<Button OnClick="Open">Open Toast</Button>
+<Toast @ref="@_toast"
+       Position="ToastPosition.BottomRight"
+       ShowCloseButton="true"
+       Type="ToastType.Success">
+    You have 1 new message!
+</Toast>
 
 @code {
+    private Toast _toast;
 
+    public void Open()
+    {
+        _toast.Open();
+    }
 }

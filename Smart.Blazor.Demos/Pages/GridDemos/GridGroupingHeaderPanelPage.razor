@@ -1,0 +1,129 @@
+﻿@page "/grid-grouping-header-panel"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 100%;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grouping Header Panel - DataGrid Grouping UI</h1>
+    <p>
+        This example shows how to use the DataGrid grouping header panel. Click on the Group button in the Grid
+        header to open the grouping panel.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSourceSettings="dataSourceSettings" DataSource="dataRecords" Grouping="@grouping" Sorting="@sorting" Header="header">
+            <Columns>
+                <Column DataField="Id" Label="Id" DataType="number" AllowSort="false" AllowHide="false"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Width="200">
+                </Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="TimeOfPurchase" Label="Purchase Date" DataType="date" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="d"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        GroupBy = new string[]
+        {
+            "ProductName"
+        },
+        DataFields = new List<GridDataSourceSettingsDataField>()
+        {
+             new GridDataSourceSettingsDataField()
+             {
+                Name = "Id",
+                DataType = GridDataSourceSettingsDataFieldDataType.Number
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "Total",
+                 DataType = GridDataSourceSettingsDataFieldDataType.Number
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "ProductName",
+                 DataType = GridDataSourceSettingsDataFieldDataType.String
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "FirstName",
+                 DataType = GridDataSourceSettingsDataFieldDataType.String
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "LastName",
+                 DataType = GridDataSourceSettingsDataFieldDataType.String
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "Quantity",
+                 DataType = GridDataSourceSettingsDataFieldDataType.Number
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "Price",
+                 DataType = GridDataSourceSettingsDataFieldDataType.Number
+             },
+             new GridDataSourceSettingsDataField()
+             {
+                 Name = "TimeOfPurchase",
+                 DataType = GridDataSourceSettingsDataFieldDataType.Date
+             }
+        }
+    };
+
+    GridGrouping grouping = new GridGrouping() {
+        Enabled = true,
+        RenderMode = GridGroupingRenderMode.Basic
+    };
+
+    GridSorting sorting = new GridSorting()
+    {
+        Enabled = true,
+        Mode = GridSortingMode.Many
+    };
+
+    GridHeader header = new GridHeader() { Visible = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

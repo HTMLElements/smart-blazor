@@ -1,0 +1,86 @@
+﻿@page "/grid-live-update"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        width: 60%;
+        height: auto;
+    }
+</style>
+
+<Example Name="Grid">
+    <p>Data is updated every 1 second. To update the data, we use the DataGrid's 'rows' array. Row object has 'cells' array and we set the cell's value.</p>
+
+    <template id="matchScoreTemplate">
+        <div style="width: 100%; height:100%;">
+            <div smart-if="value < 0.2">
+                <div style="padding: 4px; background-color: #FC3752; color: #fff">{{value}}</div>
+            </div>
+            <div smart-if="value > 0.8">
+                <div style="padding: 4px; background-color: #95FF00; color: #000;">{{value}}</div>
+            </div>
+            <div smart-else>
+                <div style="padding: 4px; background-color: #FF6800; color: #fff">{{value}}</div>
+            </div>
+        </div>
+    </template>
+
+    <Grid @ref="grid" DataSource="dataService.GenerateStocksData()" OnReady="OnGridReady">
+        <Columns>
+            <Column DataField="Symbol" Label="Symbol"></Column>
+            <Column DataField="Name" Label="Name"></Column>
+            <Column DataField="Region" Label="Region"></Column>
+            <Column DataField="MatchScore" Label="Match Score" DataType="number" CellsAlign="HorizontalAlignment.Right" Template="matchScoreTemplateID" CellsFormat="c2"></Column>
+        </Columns>
+    </Grid>
+</Example>
+
+@code {
+    Grid grid;
+
+    string matchScoreTemplateID = "#matchScoreTemplate";
+
+    private void OnGridReady(Grid grid)
+    {
+        SetInterval(updateData, TimeSpan.FromSeconds(1.2));
+    }
+
+    private void updateData()
+    {
+        Random random = new Random();
+
+        List<StockRecord> dataRecords = dataService.GenerateStocksData();
+
+        for (int i = 0; i < dataRecords.Count; i++)
+        {
+            double newValue = Math.Round(random.NextDouble(), 2);
+            dataRecords[i].MatchScore = newValue;
+        }
+
+        grid.DataSource = dataRecords;
+    }
+
+    public static async Task SetInterval(Action action, TimeSpan timeout)
+    {
+        await Task.Delay(timeout).ConfigureAwait(false);
+        action();
+        SetInterval(action, timeout);
+    }
+}

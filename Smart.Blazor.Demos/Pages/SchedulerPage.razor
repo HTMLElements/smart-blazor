@@ -9,11 +9,19 @@
     app {
         height: 100%;
     }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
 </style>
 <Example Name="Scheduler">
     <h1>Scheduler</h1>
 
-    <p>The Smart.Scheduler is a feature-complete Scheduler component. It can be used in any scenario, where a Scheduling is needed.</p>
+    <p>The Smart.Scheduler is a feature-complete Scheduler component.</p>
 
 
     @if (dataRecords == null)
@@ -22,7 +30,8 @@
     }
     else
     {
-        <Scheduler DateCurrent="dateCurrent" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" Views="@views" View="SchedulerViewType.Week" DataSource="dataRecords" Style="width: 100%; height:600px; margin-bottom: 50px;">
+
+        <Scheduler DateCurrent="dateCurrent" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" Views="@views" View="SchedulerViewType.Week" DataSource="dataRecords" Style="width: 80%; height:60%; margin-bottom: 50px;">
         </Scheduler>
     }
 </Example>

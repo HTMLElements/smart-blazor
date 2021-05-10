@@ -1,0 +1,130 @@
+﻿@page "/grid-selection-mode-checkboxes-config"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+    
+    app {
+        overflow: auto;
+    }
+    
+    .content {
+        height: calc(100% - 70px);
+    }
+    
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+
+    smart-grid {
+        width: 60%;
+        max-width: 600px;
+    }
+</style>
+<Example Name="Grid">
+    <p>This Data Grid demo illustrates difference settings of the Checkbox selection column.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Selection="@selection" Paging="@paging" Pager="@pager">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Settings</div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnEnabledChanged">Enabled</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnSelectAllChanged">Select All CheckBox</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox Checked="true" OnChange="OnPositionChanged">Position: Right</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnSelectOnCellClickChanged">Select on Cell Click</CheckBox>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        Mode = GridSelectionMode.Many,
+        CheckBoxes = new GridSelectionCheckBoxes()
+        {
+            SelectAllMode = GridSelectionCheckBoxesSelectAllMode.Page,
+            Enabled = true,
+            Position = Position.Far
+        }
+    };
+
+    GridPaging paging = new GridPaging() { Enabled = true };
+    GridPager pager = new GridPager() { Visible = true };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(3000);
+    }
+
+    private void OnEnabledChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.CheckBoxes.Enabled = args.Value;
+    }
+
+    private void OnSelectAllChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.CheckBoxes.SelectAllMode = args.Value ? GridSelectionCheckBoxesSelectAllMode.Page : GridSelectionCheckBoxesSelectAllMode.None;
+    }
+
+    private void OnPositionChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.CheckBoxes.Position = args.Value ? Position.Far : Position.Near;
+    }
+
+    private void OnSelectOnCellClickChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.Action = args.Value ? GridSelectionAction.Click : GridSelectionAction.None;
+    }
+}

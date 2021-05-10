@@ -1,0 +1,94 @@
+﻿@page "/grid-tree-grid-editing"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        width: 100%;
+    }
+</style>
+<Example Name="Grid">
+    <p>In this example, the editing functionality of the TreeGrid is enabled by setting the "editing: { enabled: true }" property.</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" DataSourceSettings="@dataSourceSettings" Appearance="@appearance" OnReady="onGridReady"
+              Editing="@editing" CheckBoxes="@checkBoxes" Behavior="@behavior" Sorting="@sorting" Filtering="@filtering">
+            <Columns>
+                <Column DataField="FirstName" Label="FirstName" Width="200"></Column>
+                <Column DataField="LastName" Label="LastName" Width="200"></Column>
+                <Column DataField="Title" Label="Title" Width="160"></Column>
+                <Column DataField="BirthDate" Label="Birth Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="HireDate" Label="Hire Date" DataType="date" CellsFormat="d" Width="120"></Column>
+                <Column DataField="Address" Label="Address" Width="250"></Column>
+                <Column DataField="City" Label="City" Width="120"></Column>
+                <Column DataField="Country" Label="Country"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        KeyDataField = "EmployeeID",
+        ParentDataField = "ReportsTo",
+        Id = "EmployeeID"
+    };
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationCount = 2,
+        AlternationStart = -1,
+        ShowRowHeader = true,
+        ShowRowHeaderSelectIcon = true,
+        ShowRowHeaderFocusIcon = true,
+        ShowRowHeaderEditIcon = true,
+        AutoShowColumnFilterButton = false,
+        ShowColumnLines = false,
+        ShowRowLines = false
+    };
+
+    GridEditing editing = new GridEditing() { Enabled = true };
+    GridCheckBoxes checkBoxes = new GridCheckBoxes() { Visible = true };
+    GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
+    GridSorting sorting = new GridSorting() { Enabled = true };
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    private List<EmployeeRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateEmployeesData();
+    }
+
+    private void onGridReady(Grid grid)
+    {
+        grid.CheckAllRows();
+        grid.ExpandAllRows();
+    }
+}

@@ -1,0 +1,76 @@
+﻿@page "/grid-editing-cell-auto-complete"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        Auto-Complete Editor is used in 'First Name', 'Last Name' and 'Product' Grid columns. Click on a cell to begin edit. Start typing and auto-complete popup will be displayed.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+<Grid DataSource="dataRecords" Editing="@editing">
+    <Columns>
+        <Column DataField="FirstName" Label="First Name" Editor="@autoCompleteEditor"></Column>
+        <Column DataField="LastName" Label="Last Name" Editor="@lastNameEditor"></Column>
+        <Column DataField="ProductName" Label="Product" Editor="@autoCompleteEditor"></Column>
+        <Column DataField="Expired" Label="Expired" DataType="boolean" Template="@checkBoxEditor" Editor="@checkBoxEditor"></Column>
+        <Column DataField="Quantity" Label="Quantity" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+        <Column DataField="Price" Label="Unit Price" DataType="number" Editor="@numberInputEditor" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+    </Columns>
+</Grid>
+    }
+</Example>
+
+@code {
+    private string autoCompleteEditor = "autoComplete";
+    private string checkBoxEditor = "checkBox";
+    private string numberInputEditor = "numberInput";
+    private Dictionary<string, object> lastNameEditor = new Dictionary<string, object>()
+    {
+        { "template", "autoComplete" },
+        { "autoOpen", true },
+        { "dropDownButtonPosition", "right" }
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

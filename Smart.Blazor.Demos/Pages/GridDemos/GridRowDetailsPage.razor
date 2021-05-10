@@ -1,0 +1,118 @@
+﻿@page "/grid-row-details"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid {
+        height: auto;
+        max-height: 700px;
+        width: 100%;
+    }
+
+    smart-tabs {
+        margin-left: 20px;
+        margin-top: 20px;
+        line-height: initial;
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+    }
+</style>
+<Example Name="Grid">
+    <p>
+        Smart.Grid has a feature called Row Detail. It allows you to show additional useful information for the user by expanding a row. The Detail could be HTMLTemplateElement or String. It can host other Custom Elements.
+        Click on any arrow to show the Row's Detail.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" RowDetail="@rowDetail">
+            <Columns>
+                <Column DataField="Country" Label="Country"></Column>
+                <Column DataField="Area" Label="Area" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Population_Rural" Label="Population_Rural" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Population_Total" Label="Population_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="GDP_Total" Label="GDP_Total" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {
+    GridAppearance appearance = new GridAppearance()
+    {
+        ShowRowHeaderNumber = true,
+        AllowRowDetailToggleAnimation = true
+    };
+
+    GridRowDetail rowDetail = new GridRowDetail()
+    {
+        Enabled = true,
+        Visible = true,
+        Template = @"<smart-tabs>
+                <smart-tab-item label='Population'>
+                    <table>
+                        <tr>
+                            <td><strong>Urban:</strong></td>
+                            <td>{{Population_Urban}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rural:</strong></td>
+                            <td>{{Population_Rural}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td>{{Population_Total}}</td>
+                        </tr>
+                    </table>
+                </smart-tab-item>
+                <smart-tab-item label='GDP'>
+                    <table>
+                        <tr>
+                            <td><strong>Agriculture:</strong></td>
+                            <td>{{GDP_Agriculture}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Industry:</strong></td>
+                            <td>{{GDP_Industry}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Services:</strong></td>
+                            <td>{{GDP_Services}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td>{{GDP_Total}}</td>
+                        </tr>
+                    </table>
+                </smart-tab-item>
+            </smart-tabs>"
+    };
+
+    private List<CountryRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+}

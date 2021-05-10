@@ -17,7 +17,7 @@
 	{
 		CalendarChangeEventDetail detail = eventObj["Detail"];
 
-		eventLog = detail.Value[0].ToString();
+		eventLog = (detail.Value as List<string>)[0].ToString();
 	}
 }
 

@@ -1,0 +1,116 @@
+﻿@page "/grid-print"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    smart-grid, .demo-description {
+        width: 60%;
+    }
+
+    @@media only screen and (max-width: 400px) {
+	    smart-grid, .demo-description {
+		    width: 100%;
+	    }
+    }
+</style>
+<Example Name="Grid">
+    <h1>Printing Grid Data</h1>
+    This page demonstrates how to Print the Grid data. The "dataExport" property allows you to specify the printing options.
+    "dataExport.view" determines whether only the visible rows will be printed. "dataExport.viewStart" and "dataExport.viewEnd" specify
+    the start and end row that will be printed. The "dataExport.header" property determines whether the Grid columns will be printed.
+    <br /><h2>Page Break</h2>
+    When Printing the Grid, all rows will have the CSS property "page-break-inside: avoid". We do that to ensure that a row is fully visible on one page and parts of it are not displayed on another page. For example: Part of the row on one printed page with the other part on the next printed page.
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <template id="totalTemplate">
+            <div style="width: 100%; height:100%;">
+                <div style="padding: 4px; color: #fff; background-color: #007ACC;">{{value::c2}}</div>
+            </div>
+        </template>
+
+        <Grid @ref="grid" DataSource="dataRecords" Appearance="@appearance" DataExport="@dataExport">
+            <Columns>
+                <Column DataField="Id" Label="Id" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" Template="@templateId"></Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="print">Print</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="printRestrict">Print 25-50</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Grid grid;
+    private string templateId = "#totalTemplate";
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationStart = 0,
+        AlternationCount = 2
+    };
+
+    GridDataExport dataExport = new GridDataExport()
+    {
+        View = true,
+        ViewStart = 0,
+        ViewEnd = 50
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(100);
+    }
+
+    private void print()
+    {
+        grid.Print();
+    }
+
+    private void printRestrict()
+    {
+        grid.DataExport.ViewStart = 25;
+        grid.DataExport.ViewEnd = 50;
+        grid.DataExport.View = true;
+
+        grid.Print();
+
+        grid.DataExport.ViewStart = 0;
+        grid.DataExport.ViewEnd = 50;
+    }
+}

@@ -1,0 +1,82 @@
+﻿@page "/grid-appearance-row-header-icons"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Row Header Icons</h1>
+    <p>
+        The following appearance settings can be applied to rows header:
+        <ul>
+            <li>showRowHeader - displays a row header.</li>
+            <li>showRowHeaderNumber - displays a row header number.</li>
+            <li>showRowHeaderEditIcon - displays an Edit icon, when the row is in <em>edit</em> state.</li>
+            <li>showRowHeaderFocusIcon - displays a Focus icon, when the row is in <em>focus</em> state.</li>
+            <li>showRowHeaderSelectIcon - displays a Select icon, when the pointer is over the row header. It indicated that the user can select the row.</li>
+        </ul>
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid DataSource="dataRecords" Appearance="@appearance" Selection="@selection" Editing="@editing">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name"></Column>
+                <Column DataField="LastName" Label="Last Name"></Column>
+                <Column DataField="ProductName" Label="Product"></Column>
+                <Column DataField="Quantity" Label="Quantity" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Price" Label="UnitPrice" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+            </Columns>
+        </Grid>
+    }
+</Example>
+
+@code {    
+    GridAppearance appearance = new GridAppearance()
+    {
+        ShowRowHeader = true,
+        ShowRowHeaderSelectIcon = true,
+        ShowRowHeaderFocusIcon = true,
+        ShowRowHeaderEditIcon = true
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        AllowRowHeaderSelection = true,
+        Mode = GridSelectionMode.Extended
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Row
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+}

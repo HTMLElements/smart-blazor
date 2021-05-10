@@ -1,0 +1,72 @@
+﻿@page "/grid-datagrid-bind-to-json"
+
+<style>
+        body,
+        html,
+        app {
+            height: 100%;
+        }
+
+        app {
+            overflow: auto;
+        }
+
+        .content {
+            height: calc(100% - 70px);
+        }
+
+        /* This is the CSS used in the demo */
+        @@media only screen and (max-width: 700px) {
+            smart-grid {
+                width: 100%;
+            }
+        }
+</style>
+<Example Name="Grid">
+    <h1>DataGrid Data binding to JSON data</h1>
+    <p>The DataGrid component in this demo, displays data records imported from a JSON file.</p>
+
+        <Grid DataSource="@jsonSource" DataSourceSettings="@dataSourceSettings" 
+              Appearance="@appearance" Selection="@selection" Filtering="@filtering" Sorting="@sorting">
+            <Columns>
+                <Column DataField="name" Label="Name" Width="250"></Column>
+                <Column DataField="type" Label="Beverage Type" Width="250"></Column>
+                <Column DataField="calories" Label="Calories" Width="180"></Column>
+                <Column DataField="totalfat" Label="Total fat" Width="120"></Column>
+                <Column DataField="protein" Label="Protein"></Column>
+            </Columns>
+        </Grid>
+</Example>
+
+@code {
+    GridDataSourceSettings dataSourceSettings = new GridDataSourceSettings()
+    {
+        DataFields = new List<IGridDataSourceSettingsDataField>()
+        {
+            new GridDataSourceSettingsDataField() { Name = "name", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "type", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "calories", DataType = GridDataSourceSettingsDataFieldDataType.Number },
+            new GridDataSourceSettingsDataField() { Name = "totalfat", DataType = GridDataSourceSettingsDataFieldDataType.String },
+            new GridDataSourceSettingsDataField() { Name = "protein", DataType = GridDataSourceSettingsDataFieldDataType.String }
+        },
+        DataSourceType = GridDataSourceSettingsDataSourceType.Json
+    };
+
+    string jsonSource = "./data/beverages.json";
+
+    GridAppearance appearance = new GridAppearance()
+    {
+        AlternationStart = 0,
+        AlternationEnd = 2
+    };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        CheckBoxes = new GridSelectionCheckBoxes() { Enabled = true }
+    };
+
+    GridFiltering filtering = new GridFiltering() { Enabled = true };
+
+    GridSorting sorting = new GridSorting() { Enabled = true };
+}

@@ -1,0 +1,138 @@
+﻿@page "/grid-selection-mode-row"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+    
+    app {
+        overflow: auto;
+    }
+    
+    .content {
+        height: calc(100% - 70px);
+    }
+    
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+
+    smart-grid {
+        width: 60%;
+        max-width: 600px;
+    }
+</style>
+<Example Name="Grid">
+    <h1>Grid Row Selection</h1>
+    <p>
+        The data grid component supports different configurations for selection. You can choose to select/unselect rows with API only or on single or double click by setting the 'selection.action' property to 'none', 'click' or 'dblclick'.
+        Clicking on a Grid Row or Column header can also be used for selection just like in Microsoft Excel. The 'selection.mode' property determines whether we will have Single or Multi-Row selection. The allowed values for that property are 'one', 'many' and 'extended'.
+        'one' allows only single row selection, while 'many' and 'extended' allow multi-row selection. The difference between 'many' and 'extended' Grid selection modes is that in 'extended', users will have to click 'Ctrl' or 'Shift' keyboard keys to perform multiple selection.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Grid @ref="grid" DataSource="dataRecords" Appearance="@appearance" Selection="@selection">
+            <Columns>
+                <Column DataField="FirstName" Label="First Name" Width="300"></Column>
+                <Column DataField="LastName" Label="Last Name" Width="300"></Column>
+                <Column DataField="ProductName" Label="Product" Width="300"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Width="300"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right">
+                </Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Width="300"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+                <Column DataField="Total" Label="Total" DataType="number" Width="300"
+                        Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2">
+                </Column>
+            </Columns>
+        </Grid>
+
+        <div class="options">
+            <div class="caption">Settings</div>
+            <div class="option">
+                <CheckBox OnChange="OnSelectOnDblClickChanged">Select on Double Click</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnAllowRowHeaderSelectionChanged">Allow Row Header Selection</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnAllowColHeaderSelectionChanged">Allow Column Header Selection</CheckBox>
+            </div>
+            <div class="option">
+                <RadioButton Checked="false" OnCheckValue="OnSingleChecked">Single Selection</RadioButton><br />
+                <RadioButton Checked="true" OnCheckValue="OnMultipleChecked">Multiple Selection</RadioButton><br />
+                <RadioButton Checked="false" OnCheckValue="OnExtendedChecked">Extended Selection</RadioButton><br />
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Grid grid;
+
+    GridAppearance appearance = new GridAppearance() { ShowRowHeader = true };
+
+    GridSelection selection = new GridSelection()
+    {
+        Enabled = true,
+        Action = GridSelectionAction.Click
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(1000);
+    }
+
+    private void OnSelectOnDblClickChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.Action = args.Value ? GridSelectionAction.DoubleClick : GridSelectionAction.Click;
+    }
+
+    private void OnAllowRowHeaderSelectionChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.AllowRowHeaderSelection = args.Value;
+    }
+
+    private void OnAllowColHeaderSelectionChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        grid.Selection.AllowColumnHeaderSelection = args.Value;
+    }
+
+    private void OnSingleChecked(Event eventObj)
+    {
+        grid.Selection.Mode = GridSelectionMode.One;
+    }
+
+    private void OnMultipleChecked(Event eventObj)
+    {
+        grid.Selection.Mode = GridSelectionMode.Many;
+    }
+
+    private void OnExtendedChecked(Event eventObj)
+    {
+        grid.Selection.Mode = GridSelectionMode.Extended;
+    }
+}
