@@ -1,0 +1,172 @@
+﻿@page "/scheduler-event-notifications"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: 100%;
+        height: 800px;
+        --smart-scheduler-toast-default-width: 350px;
+    }   
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Month" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" FirstDayOfWeek="1" />
+    }
+</Example>
+
+@code {
+    private List<SchedulerDataSource> dataRecords;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+             new SchedulerDataSource() 
+             {
+                Label = "Bryan's Birthday",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1),
+                AllDay = true,
+                BackgroundColor = "#880E4F",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 1,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute },
+                        Message = "Bryan's birthday is tomorrow! By him a present !",
+                        IconType = "warning"
+                    }
+                }
+            },
+            new SchedulerDataSource() 
+            {
+                Label = "Stand up meeting with the team",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, today.Hour + 1, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, today.Hour + 2, 45, 0),
+                BackgroundColor = "#039BE5",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Message = "Stand up meeting with the team early"
+                    },
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Weeks,
+                        Time = new List<object>() { today.Hour, today.Minute + 2 },
+                        Message = "Stand up meeting with the team late",
+                        IconType = "warning"
+                    }
+                }
+            },
+            new SchedulerDataSource() 
+            {
+                Label = "Vehicle maintenance",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0).AddDays(2),
+                BackgroundColor = "#8E24AA",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 1,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Message = "Get the brake pads of the car repalced."
+                    }
+                }
+            },
+            new SchedulerDataSource() 
+            {
+                Label = "Payday",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(3),
+                BackgroundColor = "#7986CB",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 3,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute },
+                        Message = "Payday in 3 days!! Wohoo $$!",
+                        IconType = "success"
+                    }
+                }
+            },
+            new SchedulerDataSource() 
+            {
+                Label = "Yoanna's Birthday",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(4),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(4),
+                BackgroundColor = "#F4511E",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 4,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 3 },
+                        Message = "Yoanna's birthday is in 4 days!"
+                    }
+                }
+            },
+            new SchedulerDataSource() 
+            {
+                Label = "Job interview at Google",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1),
+                BackgroundColor = "#616161",
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 1,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 5 },
+                        Message = "Don't forget the job interview tomorrow at Google!"
+                    }
+                }
+            }
+        };
+
+        return data;
+    }
+}

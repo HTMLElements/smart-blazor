@@ -1,0 +1,132 @@
+﻿@page "/tabs-label-settings"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-tabs {
+        width: 60%;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        smart-tabs {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Tabs">
+	<Tabs class="demoTabs" SelectedIndex=3 TabPosition="@tabPosition" TabTextOrientation="@tabTextOrientation" SelectionMode="@selectionMode">
+        <TabItem Label="New York">
+            The City of New York, usually known as either New York City (NYC), or simply New York (NY), is the most populous
+            city in the United States.
+        </TabItem>
+        <TabItem Label="Hong Kong">
+            Hong Kong, officially the Hong Kong Special Administrative Region of the People's Republic of China (HKSAR), is
+            a city and special administrative region of China in the eastern Pearl River Delta by the South China Sea.
+        </TabItem>
+        <TabItem Label="Troyan">
+            Troyan is a town remembering the name of Roman Emperor Trajan, in Lovech Province in central Bulgaria.
+        </TabItem>
+        <TabItem Label="Bali">
+            Bali is a province of Indonesia and the westernmost of the Lesser Sunda Islands.
+        </TabItem>
+	</Tabs>
+
+    <div class="option">
+        <div class="caption">Settings</div>
+        <div class="option">
+            <p>Tab position</p>
+            <RadioButton GroupName="tabPosition" OnCheckValue="OnTopChecked">top</RadioButton>
+            <br />
+            <RadioButton GroupName="tabPosition" OnCheckValue="OnBottomChecked">bottom</RadioButton>
+            <br />
+            <RadioButton GroupName="tabPosition" Checked="leftChecked" OnCheckValue="OnLeftChecked">left</RadioButton>
+            <br />
+            <RadioButton GroupName="tabPosition" OnCheckValue="OnRightChecked">right</RadioButton>
+        </div>
+        <div class="option">
+            <p>Tab text orientation</p>
+            <RadioButton GroupName="tabTextOrientation" OnCheckValue="OnHorizontalChecked">horizontal</RadioButton>
+            <br />
+            <RadioButton GroupName="tabTextOrientation" Checked="verticalChecked" OnCheckValue="OnVerticalChecked">vertical</RadioButton>
+        </div>
+        <div class="option">
+            <p>Selection mode</p>
+            <RadioButton GroupName="selectionMode" Checked="clickChecked" OnCheckValue="OnClickChecked">click</RadioButton>
+            <br />
+            <RadioButton GroupName="selectionMode" OnCheckValue="OnDblClickChecked">dblclick</RadioButton>
+            <br />
+            <RadioButton GroupName="selectionMode" OnCheckValue="OnMouseenterChecked">mouseenter</RadioButton>
+            <br />
+            <RadioButton GroupName="selectionMode" OnCheckValue="OnNoneChecked">none</RadioButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    TabPosition tabPosition = TabPosition.Left;
+    Orientation tabTextOrientation = Orientation.Vertical;
+    TabSelectionMode selectionMode = TabSelectionMode.Click;
+    bool verticalChecked = true;
+    bool leftChecked = true;
+    bool clickChecked = true;
+
+    private void OnTopChecked()
+    {
+        tabPosition = TabPosition.Top;
+        leftChecked = false;
+    }
+
+    private void OnBottomChecked()
+    {
+        tabPosition = TabPosition.Bottom;
+        leftChecked = false;
+    }
+
+    private void OnLeftChecked()
+    {
+        tabPosition = TabPosition.Left;
+        leftChecked = true;
+    }
+
+    private void OnRightChecked()
+    {
+        tabPosition = TabPosition.Right;
+        leftChecked = false;
+    }
+
+    private void OnHorizontalChecked()
+    {
+        tabTextOrientation = Orientation.Horizontal;
+        verticalChecked = false;
+    }
+
+    private void OnVerticalChecked()
+    {
+        tabTextOrientation = Orientation.Vertical;
+        verticalChecked = true;
+    }
+
+    private void OnClickChecked()
+    {
+        selectionMode = TabSelectionMode.Click;
+        clickChecked = true;
+    }
+
+    private void OnDblClickChecked()
+    {
+        selectionMode = TabSelectionMode.Dblclick;
+        clickChecked = false;
+    }
+
+    private void OnMouseenterChecked()
+    {
+        selectionMode = TabSelectionMode.Mouseenter;
+        clickChecked = false;
+    }
+
+    private void OnNoneChecked()
+    {
+        selectionMode = TabSelectionMode.None;
+        clickChecked = false;
+    }
+}

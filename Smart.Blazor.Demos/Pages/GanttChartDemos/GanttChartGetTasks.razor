@@ -1,0 +1,157 @@
+﻿@page "/gantt-chart-get-tasks"
+
+@using Smart.Blazor.Demos.Data
+@using System.Linq;
+@using System.Text.Json;
+@inject RandomDataService RandomDataService
+
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <GanttChart @ref="ganttChart" DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Day" View="GanttChartView.Month" TreeSize="treeSize" />
+    <Button OnClick="GetTasks">Get Tasks</Button>
+</Example>
+
+@code {
+    GanttChart ganttChart;
+    string treeSize = "25%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+{
+        new GanttChartTaskColumn() {
+            Label = "Book Plan",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Duration (hours)",
+            Value = "duration"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+    {
+            new GanttDataRecord()
+            {
+                Label = "Chapter 1",
+                Synchronized = true,
+                Expanded = true,
+                Id = "1",
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+            {
+                    new GanttDataRecord()
+                    {
+                        Label = "Section 1.1",
+                     Id = "1.1",
+                            DateStart = "2021-01-01",
+                        Duration = 30,
+                        Progress = 35,
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Section 1.2",
+                      Id = "1.2",
+                           DateStart = "2021-02-01",
+                        Duration = 25,
+                        Progress = 30,
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Section 1.3",
+                         Id = "1.3",
+                         DateStart = "2021-02-01",
+                        Duration = 10,
+                        Progress = 30,
+                        Type = "task"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "End of Chapter 1",
+                DateStart = "2021-03-01",
+                Type = "milestone"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Chapter 2",
+                Synchronized = true,
+                Expanded = true,
+                DateStart = "2021-03-01",
+                Type = "project",
+                Id ="2",
+                Tasks = new List<GanttDataRecord>()
+            {
+                    new GanttDataRecord() {
+                        Label = "Section 2.1",
+                        DateStart = "2021-03-01",
+                        Duration = 30,
+                        Id = "2.1",
+                        Progress = 15,
+                        Type = "task"
+                    },
+                    new GanttDataRecord() {
+                        Label = "Section 2.2",
+                        DateStart = "2021-04-01",
+                        Duration = 10,
+                        Id = "2.2",
+                        Progress = 30,
+                        Type = "task"
+                    },
+                    new GanttDataRecord() {
+                        Label = "Section 2.3",
+                        Id = "2.3",
+                        DateStart = "2021-05-01",
+                        Duration = 20,
+                        Progress = 30,
+                        Type = "task"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "End of Chapter 2",
+                DateStart = "2021-06-01",
+                Type = "milestone"
+            }
+        };
+    }
+
+    private async void GetTasks()
+    {
+        IEnumerable<object> tasks = await ganttChart.GetProperty<IEnumerable<object>>("tasks");
+        List<object> tasksList = tasks.ToList();
+
+
+        for (int i = 0; i < tasksList.Count; i++)
+        {
+            Dictionary<string, object> taskItem = JsonSerializer.Deserialize<Dictionary<string, object>>(tasksList[i].ToString());
+            
+            string id = Convert.ToString(taskItem["id"]);
+
+            GanttChartTask task = new GanttChartTask()
+            {
+                Id = id,
+                DateStart = taskItem["dateStart"],
+                DateEnd = taskItem["dateEnd"],
+                Label = taskItem["label"].ToString()
+            };
+
+            Console.WriteLine(task.Id);
+        }
+    }
+}

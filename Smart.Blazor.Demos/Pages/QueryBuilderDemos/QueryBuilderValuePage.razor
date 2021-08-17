@@ -1,0 +1,105 @@
+﻿@page "/querybuilder-value"
+@using System.Text.Json
+
+<style>
+    smart-query-builder {
+        max-width: 60%;
+        margin-top: 50px;
+    }
+</style>
+<Example Name="QueryBuilder">
+    <QueryBuilder @ref="queryBuilder" Fields="@fields" AllowDrag="@allowDrag" ShowIcons="@showIcons" Value="@value" OnReady="OnQueryBuilderReady" OnChange="OnQueryBuilderChange"></QueryBuilder>
+
+    <div class="options">
+        <div class="option">
+            <CheckBox @bind-Checked="allowDrag">Allow drag</CheckBox>
+        </div>
+        <div class="option">
+            <CheckBox @bind-Checked="showIcons">Show icons in "Equals"</CheckBox>
+        </div>
+    </div>
+
+    <div>@filterQueryValue</div>
+</Example>
+
+@code {
+    private QueryBuilder queryBuilder;
+    private string filterQueryValue;
+    bool allowDrag = true;
+    bool showIcons = true;
+
+    private List<QueryBuilderField> fields = new List<QueryBuilderField>() {
+        new QueryBuilderField()
+        {
+            Label = "Id",
+            DataField = "id",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Product",
+            DataField = "productName",
+            DataType = "string"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Unit Price",
+            DataField = "price",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Purchased",
+            DataField = "purchased",
+            DataType = "date"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Available",
+            DataField = "available",
+            DataType = "boolean"
+        }
+    };
+
+    private List<object> value = new List<object>()
+    {
+        new List<object>()
+        {
+            new List<object>() { "purchased", "=", new DateTime(2019, 1, 4) },
+            "and",
+            new List<object>() { "productName", "<>", "Monitors" },
+            "or",
+            new List<object>() { "productName", "isblank" }
+        },
+        "and",
+        new List<object>()
+        {
+            new List<object>() { "available", "=", true },
+            "and",
+            new List<object>() { "price", "<", 1300 }
+        },
+        "or",
+        new List<object>()
+        {
+            new List<object>() { "productName", "=", "Televisions" },
+            "and",
+            new List<object>() { "price", "<", 4000 }
+        }
+    };
+
+    private void OnQueryBuilderReady(QueryBuilder queryBuilder)
+    {
+        UpdateLog();
+    }
+
+    private void OnQueryBuilderChange(Event eventObj)
+    {
+        UpdateLog();
+    }
+
+    private void UpdateLog()
+    {
+        filterQueryValue = JsonSerializer.Serialize(queryBuilder.Value);
+        StateHasChanged();
+    }
+}

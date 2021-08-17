@@ -18,7 +18,7 @@
         height: calc(100% - 70px);
     }
 </style>
-<Example Name="Scheduler">
+
     <h1>Scheduler</h1>
 
     <p>The Smart.Scheduler is a feature-complete Scheduler component.</p>
@@ -34,10 +34,10 @@
         <Scheduler DateCurrent="dateCurrent" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" Views="@views" View="SchedulerViewType.Week" DataSource="dataRecords" Style="width: 80%; height:60%; margin-bottom: 50px;">
         </Scheduler>
     }
-</Example>
+
    
 @code {
-    private List<SchedulerDataSource> dataRecords;
+    private List<SchedulerDataSource> dataRecords = new List<SchedulerDataSource>();
     private DateTime dateCurrent = new DateTime(2021, 1, 25);
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
@@ -50,6 +50,19 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        dataRecords = dataService.GenerateSchedulerData();
+
+        dataService.GenerateSchedulerData().ForEach((SchedulerDataRecord record) =>
+        {
+            SchedulerDataSource schedulerDataItem = new SchedulerDataSource()
+            {
+                Label = record.Label,
+                DateStart = record.DateStart,
+                DateEnd = record.DateEnd,
+                BackgroundColor = record.BackgroundColor,
+                AllDay = record.AllDay
+            };
+
+            dataRecords.Add(schedulerDataItem);
+        });
     }
 }

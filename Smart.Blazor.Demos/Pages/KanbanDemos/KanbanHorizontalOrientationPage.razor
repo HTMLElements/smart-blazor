@@ -1,0 +1,57 @@
+﻿@page "/kanban-horizontal-orientation"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+ 
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    <p>
+        Kanban Cards in the "Done" column are displayed horizontally.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban DataSource="dataRecords" Columns="@columns" Collapsible />
+    }
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done",
+            Orientation = KanbanColumnOrientation.Horizontal
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+}

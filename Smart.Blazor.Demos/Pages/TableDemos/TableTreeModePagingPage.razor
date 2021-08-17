@@ -1,0 +1,85 @@
+﻿@page "/table-tree-mode-paging"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        height: auto;
+        max-height: 500px;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases the tree mode functionality of smart-table with paging.
+    </p>
+
+    <Table DataSource="dataRecords" DataSourceSettings="dataSourceSettings" KeyboardNavigation="true" Paging="true" Columns="@columns"></Table>    
+</Example>
+
+@code {
+    private List<OrderRecord> dataRecords;
+
+    TableDataSourceSettings dataSourceSettings = new TableDataSourceSettings()
+    {
+        Id = "Id",
+        KeyDataField = "Id",
+        ParentDataField = "ParentId",
+        DataFields = new List<ITableDataSourceSettingsDataField>()
+        {
+            new TableDataSourceSettingsDataField() { Name = "Id", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "Name", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "Customer", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "Price", DataType = TableDataSourceSettingsDataFieldDataType.Number },
+            new TableDataSourceSettingsDataField() { Name = "Date", DataType = TableDataSourceSettingsDataFieldDataType.Date }
+        }
+    };
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Name",
+            Label = "Order Name",
+
+        },
+        new TableColumn()
+        {
+            DataField = "Customer",
+            Label = "Customer"
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Date",
+            Label = "Order Date",
+            DataType = TableColumnDataType.Date
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateOrdersData(50);
+    }
+}

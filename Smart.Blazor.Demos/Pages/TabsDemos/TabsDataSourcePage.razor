@@ -1,0 +1,100 @@
+﻿@page "/tabs-data-source"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-tabs {
+        width: 60%;
+    }
+
+    @@media only screen and (max-width: 600px) {
+	    smart-tabs {
+		    width: 100%;
+	    }
+    }
+</style>
+
+<Example Name="Tabs">
+    <Tabs @ref="tabs" class="demoTabs" DataSource="@dataSource"></Tabs>
+
+    <div class="options">
+        <div class="caption">Settings</div>
+        <div class="option">
+            <Button class="demoButton" OnClick="OnClick">Load a different dataSource</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Tabs tabs;
+    List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Group 1" },
+            {
+                "items",
+                new List<Dictionary<string, string>>()
+                {
+                    new Dictionary<string, string>()
+                    {
+                        { "label", "Item 1.1" },
+                        { "content", "Content 1.1" }
+                    },
+                    new Dictionary<string, string>()
+                    {
+                        { "label", "Item 1.2" },
+                        { "content", "Content 1.2" }
+                    },
+                    new Dictionary<string, string>()
+                    {
+                        { "label", "Item 1.3" },
+                        { "content", "Content 1.3" }
+                    }
+                }
+            }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Item 2" },
+            { "content", "Content 2" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Item 3" },
+            { "content", "Content 3" },
+            { "selected", true }
+        }
+    };
+
+    private void OnClick()
+    {
+        dataSource = new List<Dictionary<string, object>>()
+        {
+            new Dictionary<string, object>()
+            {
+                { "label", "Item A" },
+                { "content", "Content A" },
+                { "index", 3 }
+            },
+            new Dictionary<string, object>()
+            {
+                { "label", "Item B" },
+                { "content", "Content B" },
+                { "index", 2 }
+            },
+            new Dictionary<string, object>()
+            {
+                { "label", "Item C" },
+                { "content", "Content C" },
+                { "index", 1 }
+            },
+            new Dictionary<string, object>()
+            {
+                { "label", "Item D" },
+                { "labelSize", 80 },
+                { "content", "Content D" },
+                { "index", 0 }
+            }
+        };
+    }
+}

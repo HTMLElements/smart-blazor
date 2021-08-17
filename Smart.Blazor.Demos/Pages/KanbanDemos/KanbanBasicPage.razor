@@ -1,0 +1,67 @@
+﻿@page "/kanban-overview"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    <p>
+        Kanban represents a UI component for mapping and visualizing each step of your process as a flow. The Kanban is usually named after the project you are assigned to work on.
+        Every Kanban has three main sections that show the state of your tasks in the flow:
+        <br /><br />
+        - To Do - the area where you place the work that you plan to work on next.
+        <br />- In Progress: when you start working on a particular task/card, you have to move it to "In Progress".
+        <br />- Done: when the task is completed -> move it to Done.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban DataSource="dataRecords" Columns="@columns" Collapsible />
+    }
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"           
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+}

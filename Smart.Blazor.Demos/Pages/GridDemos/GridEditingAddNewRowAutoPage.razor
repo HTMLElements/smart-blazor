@@ -69,7 +69,10 @@
     GridEditing editing = new GridEditing()
     {
         Enabled = true,
-        AddNewRow = new GridEditingAddNewRow() {  }
+        AddNewRow = new GridEditingAddNewRow()
+        {
+            AutoCreate = true
+        }
     };
 
     private List<DataRecord> dataRecords;

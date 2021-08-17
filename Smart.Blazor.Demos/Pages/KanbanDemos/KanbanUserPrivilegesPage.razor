@@ -1,0 +1,262 @@
+﻿@page "/kanban-user-privileges"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+
+
+    html,
+    body {
+        margin: 0;
+    }
+
+    app-root {
+        display: block;
+    }
+
+    #header {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+        width: 100%;
+        height: 40px;
+        padding: 5px;
+        background-color: var(--smart-primary);
+        color: var(--smart-primary-color);
+        font-family: var(--smart-font-family);
+        font-size: var(--smart-font-size);
+    }
+
+    #loginInfo,
+    #loginAgain {
+        margin-right: 20px;
+    }
+
+    #loginAgain {
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    #pic {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+        #pic.anne {
+            background-image: url('../../images/people/anne.png');
+        }
+
+        #pic.robert {
+            background-image: url('../../images/people/robert.png');
+        }
+
+    smart-kanban {
+        width: 100% !important;
+        height: calc(100% - 50px) !important;
+    }
+
+        smart-kanban .smart-kanban-list .item[data-id="6"] {
+            display: none;
+        }
+
+    #prompt {
+        --smart-window-default-height: 320px;
+        --smart-window-footer-height: 70px;
+    }
+
+        #prompt .smart-content {
+            display: block;
+            align-items: unset;
+        }
+
+        #prompt #confirm {
+            height: 34px !important;
+        }
+
+        #prompt smart-input,
+        #prompt smart-password-text-box {
+            width: 100%;
+        }
+
+        #prompt .smart-footer {
+            border: 2px solid transparent;
+        }
+</style>
+
+<Example Name="Kanban">
+    <h1>Kanban Card Editing</h1>
+    <p>
+        To edit the card's details -> double click on the kanban card itself.
+        The Details Dialog opens automatically and here you can edit or change any of the card parameters.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div id="header">
+            <div id="loginInfo">@loginInfo</div>
+            <div id="loginAgain" @onclick="OnLoginAgainClick">Log in as another user</div>
+            <div id="pic" class="@picClass"></div>
+        </div>
+
+        <Kanban DataSource="dataRecords" Columns="@columns" Users="@users" AddNewButton Collapsible
+                CurrentUser="@currentUser" Editable TaskActions TaskComments UserList />
+
+        <Window @ref="window" id="prompt" Modal @bind-IsOpened="isOpened" Label="Log in" FooterTemplate="@footerTemplateId">
+            <form>
+                <div>User name</div>
+                <Input @bind-Value="@usernameValue" @ref="username" />
+                <br />
+                <br />
+                <div>Password</div>
+                <PasswordTextBox @bind-Value="@passwordValue" @ref="password" />
+                <br />
+                <Button id="confirm" class="primary" OnClick="OnConfirmClick">Log in</Button>
+            </form>
+        </Window>
+
+        <template id="footerTemplate">
+            You can log in as two different users - Anne (with full privileges) and Robert (with only privilege for adding and dragging tasks). The password for both users is 123.
+        </template>
+    }
+</Example>
+
+@code {
+    Input username;
+    PasswordTextBox password;
+    Window window;
+
+    bool isOpened = true;
+    int currentUser = 6;
+    string loginInfo = "Logged in as Guest";
+    string picClass = "";
+    string footerTemplateId = "footerTemplate";
+    string usernameValue = "Anne";
+    string passwordValue = "123";
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+{
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    List<KanbanUser> users = new List<KanbanUser>()
+{
+        new KanbanUser()
+        {
+            Id = 0,
+            Name = "Andrew",
+            Image = "../../images/people/andrew.png"
+        },
+        new KanbanUser()
+        {
+            Id = 1,
+            Name = "Anne",
+            Image = "../../images/people/anne.png",
+            AllowAdd = true, AllowComment = true, AllowDrag = true, AllowEdit = true, AllowRemove = true
+        },
+        new KanbanUser()
+        {
+            Id = 2,
+            Name = "Janet",
+            Image = "../../images/people/janet.png"
+        },
+        new KanbanUser()
+        {
+            Id = 3,
+            Name = "John",
+            Image = "../../images/people/john.png"
+        },
+        new KanbanUser()
+        {
+            Id = 4,
+            Name = "Laura",
+            Image = "../../images/people/laura.png"
+        },
+        new KanbanUser()
+        {
+            Id = 5,
+            Name = "Robert",
+            Image = "../../images/people/robert.png",
+            AllowAdd = true, AllowComment = false, AllowDrag = true, AllowEdit = false, AllowRemove = false
+        },
+        new KanbanUser()
+        {
+            Id = 6,
+            Name = "Guest",
+            AllowAdd = false, AllowComment = false, AllowDrag = false, AllowEdit = false, AllowRemove = false
+        },
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+
+    private void OnLoginAgainClick()
+    {
+        isOpened = true;
+
+        usernameValue = "";
+        passwordValue = "";
+        window.StateHasChanged();
+    }
+
+    private void OnConfirmClick()
+    {
+        if (username.Value == "Anne" && password.Value == "123")
+        {
+            currentUser = 1;
+            isOpened = false;
+            loginInfo = "Logged in as Anne";
+            picClass = "anne";
+        }
+        else if (username.Value == "Robert" && password.Value == "123")
+        {
+            currentUser = 5;
+            isOpened = false;
+            loginInfo = "Logged in as Robert";
+            picClass = "robert";
+        }
+        else
+        {
+            usernameValue = "";
+            passwordValue = "";
+            window.StateHasChanged();
+        }
+    }
+}

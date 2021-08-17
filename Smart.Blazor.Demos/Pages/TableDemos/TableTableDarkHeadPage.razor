@@ -1,0 +1,76 @@
+﻿@page "/table-table-dark-head"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+</style>
+<Example Name="Table">
+    <p>
+        Similar to tables and dark tables, use the modifier classes .thead-primary, .thead-secondary, .thead-surface, .thead-light or .thead-dark to make thead-s appear in primary, light or dark gray.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table class="table-hover table-striped thead-dark" DataSource="dataRecords" Columns="@columns"></Table>
+    }
+</Example>
+
+@code {
+    private List<CountryRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Country",
+            Label = "Country",
+
+        },
+        new TableColumn()
+        {
+            DataField = "Area",
+            Label = "Area"
+        },
+        new TableColumn()
+        {
+            DataField = "Population_Rural",
+            Label = "Population_Rural"
+        },
+        new TableColumn()
+        {
+            DataField = "Population_Total",
+            Label = "Population_Total"
+        },
+        new TableColumn()
+        {
+            DataField = "GDP_Total",
+            Label = "GDP_Total"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+}

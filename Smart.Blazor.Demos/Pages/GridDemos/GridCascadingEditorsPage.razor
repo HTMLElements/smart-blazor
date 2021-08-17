@@ -1,0 +1,144 @@
+﻿@page "/grid-cascading-editors"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    smart-grid{
+        height: 169px;
+    }
+
+    /* This is the CSS used in the demo */
+    @@media only screen and (max-width: 700px) {
+        smart-grid {
+            width: 100%;
+        }
+    }
+</style>
+<Example Name="Grid">
+    <h1>
+        Grid Cascading Cell Editors
+    </h1>
+    <p>
+        This example demonstrates how to implement cascading cell editors in Grid using custom column editors.
+    </p>
+
+    <Grid @ref="@grid" Editing="@editing">
+        <Columns>
+            <Column DataField="Country" Label="City" Editor="@countryEditor"></Column>
+            <Column DataField="City" Label="Last Name" Editor="@cityEditor"></Column>
+        </Columns>
+        <Rows>
+            @foreach (DataRecord record in data)
+            {
+                <Row>
+                    <Cell Text="@record.Country"></Cell>
+                    <Cell Text="@record.City"></Cell>
+                </Row>
+            }
+        </Rows>
+    </Grid>
+</Example>
+
+@code {
+    private Grid grid;
+    public class DataRecord
+    {
+        public string Country
+        {
+            get; set;
+        }
+
+        public string City
+        {
+            get; set;
+        }
+
+        public DataRecord(string country, string city)
+        {
+            Country = country;
+            City = city;
+        }
+    }
+
+    public List<DataRecord> data = new List<DataRecord>()
+    {
+        new DataRecord("Belgium", "Brussels"),
+        new DataRecord("France", "Paris"),
+        new DataRecord("USA", "Washington"),
+        new DataRecord("Lebanon", "Beirut")
+    };
+
+    private static Dictionary<string, string[]> cities = new Dictionary<string, string[]>()
+        {
+            { "Belgium",  new string[3]{"Bruges", "Brussels", "Ghent"} },
+            { "France",  new string[3]{ "Bordeaux", "Lille", "Paris" } },
+            { "USA",  new string[3]{ "Los Angeles", "Minneapolis", "Washington" } },
+            { "Lebanon",  new string[3]{ "Beirut", "Sidon", "Byblos" } },
+        };
+
+    private GridEditor countryEditor = new GridEditor()
+    {
+        Template = "autoComplete",
+        Settings = new Dictionary<string, object>()
+        {
+            { "autoOpen", true },
+            {"dropDownButtonPosition", "right" }
+        },
+        OnInit = (int row, string column, object editorName, object rowData) => {
+            return new Dictionary<string, object>()
+            {
+                {"dataSource", new List<string>() { "Belgium", "France" ,"USA", "Bulgaria" } }
+            };
+        }
+    };
+
+    private GridEditor cityEditor = new GridEditor()
+    {
+        Template = "<smart-drop-down-list></smart-drop-down-list>",
+        Settings = new Dictionary<string, object>()
+        {
+            { "autoOpen", true },
+            { "valueProperty", "label" },
+            { "dropDownAppendTo", "body" }
+        },
+        OnInit = (int row, string column, object editor, object rowData) =>
+        {
+            return new Dictionary<string, object>()
+                {
+                   {"placeholder", "Select a city..." },
+                   {"dataSource", new List<string>() { "Belgium", "France" ,"USA", "Bulgaria" } }
+                };
+        },
+        OnRender = (int row, string column, object value, object rowData) =>
+        {
+            Dictionary<string, object> data = rowData as Dictionary<string, object>;
+            string[] editorDataSource = cities.GetValueOrDefault(data["Country"].ToString());
+
+            return new Dictionary<string, object>()
+                {
+                     {"selectedValues", new List<string>() },
+                     {"dataSource", editorDataSource }
+                };
+        }
+    };
+
+    GridEditing editing = new GridEditing()
+    {
+        Enabled = true,
+        Mode = GridEditingMode.Cell
+    };
+}

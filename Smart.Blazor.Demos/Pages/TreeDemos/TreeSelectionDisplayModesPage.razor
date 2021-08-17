@@ -1,0 +1,111 @@
+﻿@page "/tree-selection-display-modes"
+
+<style>
+	smart-tree {
+		width: 300px;
+	}
+
+	@@media only screen and (max-width: 700px) {
+		smart-tree {
+			width: 100%;
+		}
+	}
+</style>
+
+<Example Name="Tree">
+    <Tree SelectionDisplayMode="@selectionDisplayMode">
+        <TreeItem>Home</TreeItem>
+        <TreeItemsGroup>
+            Solutions
+            <TreeItem Selected>Education</TreeItem>
+            <TreeItem>Financial services</TreeItem>
+            <TreeItem>Government</TreeItem>
+            <TreeItem Disabled>Manufacturing</TreeItem>
+            <TreeItemsGroup>
+                Solutions
+                <TreeItem>Consumer photo and video</TreeItem>
+                <TreeItem>Mobile</TreeItem>
+                <TreeItem>Rich Internet applications</TreeItem>
+                <TreeItem>Technical communication</TreeItem>
+                <TreeItem>Training and eLearning</TreeItem>
+                <TreeItem>Web conferencing</TreeItem>
+            </TreeItemsGroup>
+            <TreeItem>All industries and solutions</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Disabled>
+            Products
+            <TreeItem>PC products</TreeItem>
+            <TreeItem>Mobile products</TreeItem>
+            <TreeItem>All products</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Support
+            <TreeItem>Support home</TreeItem>
+            <TreeItem>Customer Service</TreeItem>
+            <TreeItem>Knowledge base</TreeItem>
+            <TreeItem>Books</TreeItem>
+            <TreeItem>Training and certification</TreeItem>
+            <TreeItem>Support programs</TreeItem>
+            <TreeItem>Forums</TreeItem>
+            <TreeItem>Documentation</TreeItem>
+            <TreeItem>Updates</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Communities
+            <TreeItem>Designers</TreeItem>
+            <TreeItem>Developers</TreeItem>
+            <TreeItem>Educators and students</TreeItem>
+            <TreeItem>Partners</TreeItem>
+            <TreeItemsGroup>
+                By resource
+                <TreeItem>Labs</TreeItem>
+                <TreeItem>TV</TreeItem>
+                <TreeItem>Forums</TreeItem>
+                <TreeItem>Exchange</TreeItem>
+                <TreeItem>Blogs</TreeItem>
+                <TreeItem>Experience Design</TreeItem>
+            </TreeItemsGroup>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Company
+            <TreeItem>About Us</TreeItem>
+            <TreeItem>Press</TreeItem>
+            <TreeItem>Investor Relations</TreeItem>
+            <TreeItem>Corporate Affairs</TreeItem>
+            <TreeItem>Careers</TreeItem>
+            <TreeItem>Showcase</TreeItem>
+            <TreeItem>Events</TreeItem>
+            <TreeItem>Contact Us</TreeItem>
+            <TreeItem>Become an affiliate</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+
+    <div class="options">
+        <div class="caption"></div>
+        <div class="options">
+            <p>Selection display mode:</p>
+            <RadioButton OnCheckValue="OnRowChecked">Row</RadioButton><br />
+            <RadioButton Checked="labelChecked" OnCheckValue="OnLabelChecked">Label</RadioButton>
+        </div>
+    </div>
+
+</Example>
+
+@code {
+    bool labelChecked = true;
+
+    TreeSelectionDisplayMode selectionDisplayMode = TreeSelectionDisplayMode.Label;
+
+    private void OnRowChecked(Event eventObj)
+    {
+        selectionDisplayMode = TreeSelectionDisplayMode.Row;
+        labelChecked = false;
+    }
+
+    private void OnLabelChecked(Event eventObj)
+    {
+        selectionDisplayMode = TreeSelectionDisplayMode.Label;
+        labelChecked = true;
+    }
+}
+ 

@@ -57,9 +57,9 @@
                 Column Resize Mode
             </div>
             <div class="option">
-                <RadioButton @ref="noneRadioBtn" Checked="false" OnChange="OnChange">None</RadioButton><br />
-                <RadioButton @ref="splitRadioBtn" Checked="false" OnChange="OnChangeSplit">Split</RadioButton><br />
-                <RadioButton @ref="growShrinkRadioBtn" Checked="true" OnChange="OnChangeGrow">Grow and Shrink</RadioButton><br />
+                <RadioButton @ref="noneRadioBtn" Checked="resizeNone" OnCheckValue="OnChange">None</RadioButton><br />
+                <RadioButton @ref="splitRadioBtn" Checked="resizeSplit" OnCheckValue="OnChangeSplit">Split</RadioButton><br />
+                <RadioButton @ref="growShrinkRadioBtn" Checked="resizeGrow" OnCheckValue="OnChangeGrow">Grow and Shrink</RadioButton><br />
             </div>
         </div>
     }
@@ -70,6 +70,9 @@
     private RadioButton noneRadioBtn;
     private RadioButton splitRadioBtn;
     private RadioButton growShrinkRadioBtn;
+    private bool resizeNone;
+    private bool resizeSplit;
+    private bool resizeGrow = true;
 
     GridBehavior behavior = new GridBehavior() { ColumnResizeMode = GridResizeMode.GrowAndShrink };
 
@@ -81,39 +84,43 @@
         dataRecords = dataService.GenerateData(100);
     }
 
+    private void UpdateState(string state)
+    {
+        switch(state)
+        {
+            case "none":
+                resizeNone = true;
+                resizeSplit = false;
+                resizeGrow = false;
+                break;
+            case "grow":
+                resizeNone = false;
+                resizeSplit = false;
+                resizeGrow = true;
+                break;
+            case "split":
+                resizeNone = false;
+                resizeSplit = true;
+                resizeGrow = false;
+                break;
+        }
+    }
+
     private void OnChange(Event eventObj)
     {
-        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
-
-        if (detail.Value == false)
-        {
-            return;
-        }
-
-        grid.Behavior.ColumnResizeMode = GridResizeMode.None;
+        behavior.ColumnResizeMode = GridResizeMode.None;
+        UpdateState("none");
     }
 
     private void OnChangeSplit(Event eventObj)
     {
-        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
-
-        if (detail.Value == false)
-        {
-            return;
-        }
-
-        grid.Behavior.ColumnResizeMode = GridResizeMode.Split;
+        behavior.ColumnResizeMode = GridResizeMode.Split;
+        UpdateState("split");
     }
 
     private void OnChangeGrow(Event eventObj)
     {
-        RadioButtonChangeEventDetail detail = eventObj["Detail"] as RadioButtonChangeEventDetail;
-
-        if (detail.Value == false)
-        {
-            return;
-        }
-
-        grid.Behavior.ColumnResizeMode = GridResizeMode.GrowAndShrink;
+        behavior.ColumnResizeMode = GridResizeMode.GrowAndShrink;
+        UpdateState("grow");
     }
 }

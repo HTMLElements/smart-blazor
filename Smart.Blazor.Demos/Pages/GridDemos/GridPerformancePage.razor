@@ -19,10 +19,7 @@
     }
 
     /* This is the CSS used in the demo */
-    smart-grid {
-        width: 60%;
-        height: auto;
-    }
+
 </style>
 <Example Name="Grid">
     <p>DataGrid's Data is updated every 10ms. The View is with 10 columns and 20 rows.</p>
@@ -47,7 +44,7 @@
             </div>
         </template>
 
-        <Grid @ref="grid" DataSource="dataRecords" OnReady="OnGridReady">
+        <Grid @ref="grid" DataSource="@dataRecords" OnReady="OnGridReady">
             <Columns>
                 <Column DataField="A" Label="A" Template="templateId"></Column>
                 <Column DataField="B" Label="B" Template="templateId"></Column>
@@ -76,9 +73,9 @@
         dataRecords = dataService.GenerateNumbersData();
     }
 
-    private void OnGridReady(Grid grid)
+    private async void OnGridReady(Grid grid)
     {
-        SetInterval(updateData, TimeSpan.FromSeconds(0.01));
+        await SetInterval(updateData, TimeSpan.FromSeconds(0.01));
     }
 
     private void updateData()
@@ -90,6 +87,6 @@
     {
         await Task.Delay(timeout).ConfigureAwait(false);
         action();
-        SetInterval(action, timeout);
+        await SetInterval(action, timeout);
     }
 }

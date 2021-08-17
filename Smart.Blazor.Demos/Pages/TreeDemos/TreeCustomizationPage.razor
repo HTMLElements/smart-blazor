@@ -1,0 +1,142 @@
+﻿@page "/tree-logs"
+@using Smart.Blazor;
+
+@inject IJSRuntime JSRuntime
+<style>
+    .custom,
+    .custom .smart-tree-item,
+    .custom .smart-tree-items-group {
+        background: aquamarine;
+        color: rebeccapurple;
+    }
+</style>
+<h3>Tree</h3>
+<Tree @ref="treeView" OnReady="OnReady" Id="tree">
+    <TreeItem>Labs</TreeItem>
+    <TreeItemsGroup @bind-IsExpanded="groupExpanded" @ref="group" Id="group">
+        Solutions
+        <TreeItem @ref="item" @bind-Selected="itemSelected" Id="item">Education</TreeItem>
+        <TreeItem>Financial services</TreeItem>
+        <TreeItem>Government</TreeItem>
+        <TreeItem>Manufacturing</TreeItem>
+        <TreeItemsGroup>
+            Solutions
+            <TreeItem>Consumer photo and video</TreeItem>
+            <TreeItem>Mobile</TreeItem>
+            <TreeItem>Rich Internet applications</TreeItem>
+            <TreeItem>Technical communication</TreeItem>
+            <TreeItem>Training and eLearning</TreeItem>
+            <TreeItem>Web conferencing</TreeItem>
+        </TreeItemsGroup>
+        <TreeItem>All industries and solutions</TreeItem>
+    </TreeItemsGroup>
+    <TreeItemsGroup>
+        Products
+        <TreeItem>PC products</TreeItem>
+        <TreeItem>Mobile products</TreeItem>
+        <TreeItem>All products</TreeItem>
+    </TreeItemsGroup>
+    <TreeItemsGroup>
+        Support
+        <TreeItem>Support home</TreeItem>
+        <TreeItem>Customer Service</TreeItem>
+        <TreeItem>Knowledge base</TreeItem>
+        <TreeItem>Books</TreeItem>
+        <TreeItem>Training and certification</TreeItem>
+        <TreeItem>Support programs</TreeItem>
+        <TreeItem>Forums</TreeItem>
+        <TreeItem>Documentation</TreeItem>
+        <TreeItem>Updates</TreeItem>
+    </TreeItemsGroup>
+    <TreeItemsGroup Disabled="true">
+        Communities
+        <TreeItem>Designers</TreeItem>
+        <TreeItem>Developers</TreeItem>
+        <TreeItem>Educators and students</TreeItem>
+        <TreeItem>Partners</TreeItem>
+        <TreeItemsGroup>
+            By resource
+            <TreeItem>Labs</TreeItem>
+            <TreeItem>TV</TreeItem>
+            <TreeItem>Forums</TreeItem>
+            <TreeItem>Exchange</TreeItem>
+            <TreeItem>Blogs</TreeItem>
+            <TreeItem>Experience Design</TreeItem>
+        </TreeItemsGroup>
+    </TreeItemsGroup>
+    <TreeItemsGroup>
+        Company
+        <TreeItem>About Us</TreeItem>
+        <TreeItem>Press</TreeItem>
+        <TreeItem>Investor Relations</TreeItem>
+        <TreeItem>Corporate Affairs</TreeItem>
+        <TreeItem>Careers</TreeItem>
+        <TreeItem>Showcase</TreeItem>
+        <TreeItem>Events</TreeItem>
+        <TreeItem>Contact Us</TreeItem>
+        <TreeItem>Become an affiliate</TreeItem>
+    </TreeItemsGroup>
+</Tree>
+<br />
+<h3>Options</h3>
+
+<Button OnClick="OnCheckExpandedClick">Log Solutions Expanded</Button>
+<Button OnClick="OnCheckSelectedClick">Log Education Selected</Button>
+<Button OnClick="OnAddClassClick">Add CSS Class</Button>
+<Button OnClick="OnRemoveClassClick">Remove CSS Class</Button>
+<Button OnClick="ExpandItemClick">Expand Item</Button>
+<Button OnClick="CollapseItemClick">Collapse Item</Button>
+
+
+<div>
+    Group Expanded: @groupExpanded
+</div>
+
+<div>
+    Education Selected: @itemSelected
+</div>
+
+@code {
+    TreeItemsGroup group;
+    TreeItem item;
+    Tree treeView;
+    bool groupExpanded;
+    bool itemSelected;
+
+    private void OnCheckExpandedClick()
+    {
+        groupExpanded = this.group.IsExpanded;
+    }
+
+    private void OnCheckSelectedClick()
+    {
+        itemSelected = this.item.Selected;
+    }
+
+    private void ExpandItemClick()
+    {
+        groupExpanded = true;
+        treeView.StateHasChanged();
+    }
+
+    private void CollapseItemClick()
+    {
+        groupExpanded = false;
+        treeView.StateHasChanged();
+    }
+
+    private void OnAddClassClick()
+    {
+        this.group.AddClass("custom");
+    }
+
+    private void OnRemoveClassClick()
+    {
+        this.group.RemoveClass("custom");
+    }
+
+    private void OnReady(Tree tree)
+    {
+        tree.ExpandAll();
+    }
+}

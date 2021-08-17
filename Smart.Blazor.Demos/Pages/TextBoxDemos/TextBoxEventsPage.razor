@@ -1,0 +1,26 @@
+﻿@page "/textbox-events"
+
+
+<TextBox @ref="textBox" OnChanging="OnValueChange"></TextBox>
+<Button @ref="button" Disabled="_disabled">Not in a window</Button>
+
+Button is: <div>@_disabled</div>
+
+<label>We are disabling the button, when the Text is empty</label>
+
+@code {
+    TextBox textBox;
+    Button button;
+
+    private bool _disabled = true;
+
+    private async void OnValueChange(Event changeEvent)
+    {
+        TextBoxChangingEventDetail detail = changeEvent["Detail"] as TextBoxChangingEventDetail;
+
+        button.IsDirty = true;
+        _disabled = string.IsNullOrEmpty(detail.Value);
+
+        StateHasChanged();
+    }
+}

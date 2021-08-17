@@ -1,0 +1,118 @@
+﻿@page "/tree-add-remove-items"
+
+<style>
+    smart-tree {
+        width: 60%;
+        height: 450px;
+    }
+
+    @@media only screen and (max-width: 700px) {
+        smart-tree {
+            width: 100%;
+            height: 100%;
+        }
+    }
+</style>
+
+<Example Name="Tree">
+    <Tree @ref="tree" Filterable FilterInputPlaceholder="Filter query..." FilterMode="FilterMode.Contains" ShowLines ShowRootLines ToggleElementPosition="Position.Near" Sorted="@sorted" AutoSort="@autoSort">
+        <TreeItemsGroup IsExpanded>
+            Numbers
+            <TreeItem Id="three">3</TreeItem>
+            <TreeItem>2</TreeItem>
+            <TreeItem Id="one">1</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="letters" IsExpanded>
+            Letters
+            <TreeItem>A</TreeItem>
+            <TreeItem>C</TreeItem>
+            <TreeItem Id="zed">Z</TreeItem>
+            <TreeItem>B</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="greekLetters" IsExpanded>
+            Greek letters
+            <TreeItem>β</TreeItem>
+            <TreeItem>δ</TreeItem>
+            <TreeItem>α</TreeItem>
+            <TreeItem>γ</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+
+    <div class="options">
+        <div class="caption">Settings</div>
+        <Button Disabled="@addBeforeBtnDisabled" OnClick="AddBefore">Add before "Z"</Button><br /><br />
+        <Button Disabled="@addAfterBtnDisabled" OnClick="AddAfter">Add after "3"</Button><br /><br />
+        <Button Disabled="@addToBtnDisabled" OnClick="AddTo">Add to "Letters"</Button><br /><br />
+        <Button Disabled="@addGroupToDisabled" OnClick="AddGroupTo">Add to<br />"Greek letters"</Button><br /><br />
+        <Button Disabled="@removeBtnDisabled" OnClick="RemoveItem">Remove "1"</Button><br /><br />
+        <CheckBox OnChange="OnSortedChange">Sorted</CheckBox><br /><br />
+        <CheckBox OnChange="OnAutoSortChange">Auto sort</CheckBox><br /><br />
+        <em>Note: Items can also be removed by swiping left or right.</em>
+    </div>
+</Example>
+
+@code {
+    private Tree tree;
+
+    bool sorted = false;
+    bool autoSort = true;
+
+    bool addBeforeBtnDisabled = false;
+    bool addAfterBtnDisabled = false;
+    bool addToBtnDisabled = false;
+    bool addGroupToDisabled = false;
+    bool removeBtnDisabled = false;
+
+    private void AddBefore()
+    {
+        var newItem = new { label = "Y" };
+        tree.AddBefore(newItem, "zed");
+        addBeforeBtnDisabled = true;
+    }
+
+    private void AddAfter()
+    {
+        var newItem = new { label = "0" };
+        tree.AddAfter(newItem, "three");
+        addAfterBtnDisabled = true;
+    }
+
+    private void AddTo()
+    {
+        var newItem = new { label = "D" };
+        tree.AddTo(newItem, "letters");
+        addToBtnDisabled = true;
+    }
+
+    private void AddGroupTo()
+    {
+        var newItemsGroup = new { id = "capitalLetters", label = "Capital letters", expanded = true };
+        tree.AddTo(newItemsGroup, "greekLetters");
+
+        tree.AddTo(new { label = "Α" }, "capitalLetters");
+        tree.AddTo(new { label = "Γ" }, "capitalLetters");
+        tree.AddTo(new { label = "Δ" }, "capitalLetters");
+        tree.AddTo(new { label = "Σ" }, "capitalLetters");
+        tree.AddTo(new { label = "Β" }, "capitalLetters");
+
+        addGroupToDisabled = true;
+    }
+
+    private void RemoveItem()
+    {
+        tree.RemoveItem("one");
+        removeBtnDisabled = true;
+    }
+
+    private void OnSortedChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        sorted = args.Value;
+    }
+
+    private void OnAutoSortChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        autoSort = args.Value;
+    }
+}

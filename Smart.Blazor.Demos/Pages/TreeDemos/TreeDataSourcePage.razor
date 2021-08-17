@@ -1,0 +1,44 @@
+﻿@page "/tree-data-source"
+
+<Example Name="Tree">
+    <Tree DataSource="@treeDataSource" ScrollMode="TreeScrollMode.Scrollbar" SelectionMode="TreeSelectionMode.OneOrMany" ShowLines></Tree>
+</Example>
+
+@code {
+    private List<Dictionary<string, object>> treeDataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Cats" },
+            { "selected", true },
+            {
+                "items",
+                new List<Dictionary<string, object>>()
+                {
+                    new Dictionary<string, object>() { { "label", "Tiger" }, { "selected", true } },
+                    new Dictionary<string, object>() { { "label", "Lion" } },
+                    new Dictionary<string, object>() { { "label", "Jaguar" } },
+                    new Dictionary<string, object>() { { "label", "Leopard" } },
+                    new Dictionary<string, object>() { { "label", "Serval" } },
+                    new Dictionary<string, object>() { { "label", "Domestic cat" } }
+                }
+            }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Dogs" },
+            { "expanded", true },
+            {
+                "items",
+                new List<Dictionary<string, object>>()
+                {
+                    new Dictionary<string, object>() { { "label", "Gray wolf" } },
+                    new Dictionary<string, object>() { { "label", "Ethiopian wolf" }, { "selected", true } },
+                    new Dictionary<string, object>() { { "label", "Arctic fox" }, { "selected", true } },
+                    new Dictionary<string, object>() { { "label", "Dingo" } },
+                    new Dictionary<string, object>() { { "label", "Domestic dog" }, { "selected", true } }
+                }
+            }
+        }
+    };
+}

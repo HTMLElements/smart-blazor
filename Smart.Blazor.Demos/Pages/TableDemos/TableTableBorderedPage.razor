@@ -1,0 +1,76 @@
+﻿@page "/table-table-bordered"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+</style>
+<Example Name="Table">
+    <p>
+        Add .table-bordered for borders on all sides of the table and cells.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table class="table-hover table-bordered table-striped" DataSource="dataRecords" Columns="@columns"></Table>
+    }
+</Example>
+
+@code {
+    private List<CountryRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Country",
+            Label = "Country",
+
+        },
+        new TableColumn()
+        {
+            DataField = "Area",
+            Label = "Area"
+        },
+        new TableColumn()
+        {
+            DataField = "Population_Rural",
+            Label = "Population_Rural"
+        },
+        new TableColumn()
+        {
+            DataField = "Population_Total",
+            Label = "Population_Total"
+        },
+        new TableColumn()
+        {
+            DataField = "GDP_Total",
+            Label = "GDP_Total"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateCountriesData();
+    }
+}

@@ -31,7 +31,7 @@
     else
     {
         <Grid DataSource="dataRecords" Selection="@selection" Behavior="@behavior" Sorting="@sorting" 
-              Filtering="@filtering" Editing="@editing" Style="width: 80%; height:60%; margin-bottom: 50px;">
+              Filtering="@filtering" Editing="@editing" >
             <Columns>
                 <Column DataField="FirstName" Label="First Name" Editor="@inputEditor"></Column>
                 <Column DataField="LastName" Label="Last Name" Editor="@inputEditor"></Column>

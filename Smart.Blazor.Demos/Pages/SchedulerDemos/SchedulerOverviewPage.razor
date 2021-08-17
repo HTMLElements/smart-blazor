@@ -1,0 +1,639 @@
+﻿@page "/scheduler-overview"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        --smart-scheduler-timeline-cell-min-width: 40px;
+        --smart-scheduler-event-border-radius: 4px;
+        --smart-scheduler-timeline-nonworking-color: var(--smart-background);
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+        border-radius: initial;
+    }
+
+    #primaryContainer,
+    #primaryContainer .content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    #primaryContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+    }
+
+        #primaryContainer .content {
+            height: calc(100% - 50px);
+        }
+
+        #primaryContainer.collapse #sideA {
+            width: 0;
+        }
+
+        #primaryContainer #sideA {
+            width: 280px;
+            transition: width 0.2s ease-in-out;
+        }
+
+        #primaryContainer.collapse #sideB {
+            width: 100%;
+            transition: width 0.2s ease-in-out;
+        }
+
+        #primaryContainer #sideB {
+            width: calc(100% - 280px);
+            transition: width 0.2s ease-in-out;
+        }
+
+    #sideA,
+    #sideB {
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    #header {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background-color: var(--smart-background);
+        color: var(--smart-background-color);
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    #sideA {
+        border-top: var(--smart-border-width) solid var(--smart-border);
+    }
+
+        #sideA .controls-container {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 20px;
+            max-height: calc(100% - 150px);
+            display: grid;
+            grid-template-rows: repeat(3, auto);
+            grid-template-columns: 100%;
+            grid-row-gap: 20px;
+            overflow: auto;
+        }
+
+    .button-container {
+        height: 150px;
+    }
+
+    #sideA .smart-calendar {
+        min-width: initial;
+        max-width: 100%;
+        height: 250px;
+        min-height: initial;
+        --smart-font-size: 12px;
+        --smart-calendar-cell-size: 26px;
+        --smart-calendar-cell-spacing: 4px;
+        border: initial;
+        --smart-surface: transparent;
+    }
+
+    .smart-input,
+    .smart-tree {
+        width: 100%;
+    }
+
+    .smart-tree {
+        height: 200px;
+        border: initial;
+    }
+
+    #primaryContainer.collapse #addNew {
+        width: 45px;
+        border-radius: 50%;
+    }
+
+        #primaryContainer.collapse #addNew::after {
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #primaryContainer.collapse #addNew span {
+            display: none;
+        }
+
+    #addNew {
+        top: 100%;
+        left: 20px;
+        margin-top: 100px;
+        position: absolute;
+        cursor: pointer;
+        width: 120px;
+        height: 45px;
+        border-radius: 25px;
+        box-shadow: var(--smart-elevation-2);
+        z-index: 1;
+    }
+
+        #addNew button {
+            padding-left: 45px;
+        }
+
+        #addNew::after {
+            content: '+';
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 30px;
+            height: 100%;
+            font-family: var(--smart-font-family-icon);
+            font-size: 40px;
+            color: inherit;
+            background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%), linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%), linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+    #toggleButton {
+        position: relative;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: initial;
+        background: transparent;
+        margin-right: 10px;
+    }
+
+        #toggleButton::after {
+            content: var(--smart-icon-align-left);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: var(--smart-font-family-icon);
+            font-size: 25px;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+    #title {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        font-size: 20px;
+        position: relative;
+    }
+
+    #logo {
+        content: '';
+        position: relative;
+        width: 100%;
+        height: 90px;
+        background: url(https://www.htmlelements.com/wp-content/design/assets/images/csssprites.png) -465px -400px;
+        filter: invert(0.8);
+        box-sizing: border-box;
+    }
+
+    .smart-tree[selection-mode="checkBox"] smart-tree-items-group > .smart-tree-item-label-container::before,
+    .smart-tree[selection-mode="checkBox"] smart-tree-items-group > .smart-tree-item-label-container::after {
+        content: initial !important;
+    }
+
+    .smart-tree .smart-tree-item[value="birthday"] {
+        --smart-primary: green;
+    }
+
+    .smart-tree .smart-tree-item[value="holiday"] {
+        --smart-primary: cornflowerblue;
+    }
+
+    .smart-tree .smart-tree-item[value="event"] {
+        --smart-primary: purple;
+    }
+
+    .birthday {
+        --smart-scheduler-event-background-rgb: 0, 129, 0;
+        --smart-scheduler-event-background: rgba(var(--smart-scheduler-event-background-rgb), 1);
+        --smart-scheduler-event-focus: rgba(var(--smart-scheduler-event-background-rgb), .9);
+        --smart-scheduler-event-hover: rgba(var(--smart-scheduler-event-background-rgb), .8);
+    }
+
+    .holiday {
+        --smart-scheduler-event-background-rgb: 100, 149, 237;
+        --smart-scheduler-event-background: rgba(var(--smart-scheduler-event-background-rgb), 1);
+        --smart-scheduler-event-focus: rgba(var(--smart-scheduler-event-background-rgb), .9);
+        --smart-scheduler-event-hover: rgba(var(--smart-scheduler-event-background-rgb), .8);
+    }
+
+    .event {
+        --smart-scheduler-event-background-rgb: 128, 0, 128;
+        --smart-scheduler-event-background: rgba(var(--smart-scheduler-event-background-rgb), 1);
+        --smart-scheduler-event-focus: rgba(var(--smart-scheduler-event-background-rgb), .9);
+        --smart-scheduler-event-hover: rgba(var(--smart-scheduler-event-background-rgb), .8);
+    }  
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+
+        <div id="primaryContainer" class="@primaryClass">
+            <div id="header">
+                <Button id="toggleButton" OnClick="HandleToggle" />
+                <div id="title">Scheduler</div>
+                <Button id="addNew" class="floating" OnClick="AddNew">
+                    <span>Create</span>
+                </Button>
+            </div>
+            <div class="content">
+                <section id="sideA">
+                    <div class="button-container">
+                        <div id="logo"></div>
+                    </div>
+                    <div class="controls-container">
+                        <Calendar ScrollButtonsPosition="LayoutPosition.Far" OnChange="HandleCalendarChange" />
+                        <Input id="searchBar" class="underlined" Placeholder="Search for people" />
+
+                        <Tree @ref="tree" SelectionMode="TreeSelectionMode.CheckBox" ToggleElementPosition="Position.Far" OnChange="HandleTreeChange">
+                            <TreeItemsGroup IsExpanded>My calendars
+                                <TreeItem Value="birthdayValue" Selected>Birthdays</TreeItem>
+                                <TreeItem Value="holidayValue" Selected>Holidays</TreeItem>
+                                <TreeItem Value="eventValue" Selected>Events</TreeItem>
+                            </TreeItemsGroup>
+                        </Tree>
+                    </div>
+                </section>
+                <section id="sideB">
+                    <Scheduler @ref="scheduler" DataSource="@dataRecords" Views="@views" View="SchedulerViewType.Day" NonworkingDays="@nonWorkingDays"
+                               DateCurrent="@dateCurrent" FirstDayOfWeek="1" DisableDateMenu="@disableDateMenu" CurrentTimeIndicator="@currentTimeIndicator" />
+                </section>
+            </div>
+        </div>
+    }
+    </Example>
+
+@code {
+    Scheduler scheduler;
+    Tree tree;
+
+    private string primaryClass = "";
+
+    private bool disableDateMenu = true;
+    private bool currentTimeIndicator = true;
+    private List<object> nonWorkingDays;
+    private string birthdayValue = "Birthday";
+    private string holidayValue = "Holiday";
+    private string eventValue = "Event";
+
+    private List<SchedulerDataSource> dataRecords;
+
+    private object dateCurrent = DateTime.Today;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Week,
+        SchedulerViewType.Month
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+        nonWorkingDays = GetPastThreeWeekDays(DateTime.Today.Day);
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, 10, 13, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 12, 16, 15, 0),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Website Re-Design Plan",
+                DateStart = new DateTime(today.Year, today.Month, 16, 16, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 18, 11, 15, 0),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Sales Strategy Documents",
+                DateStart = new DateTime(today.Year, today.Month, 2, 12, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 2, 13, 45, 0),
+                Class = "event",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Daily,
+                    RepeatInterval = 2,
+                    RepeatEnd = 5,
+                    Exceptions = new List<Dictionary<string, object>>()
+                    {
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 4, 12, 0, 0) },
+                            { "label", "Employee on sick leave. Reschedule for next day" },
+                            { "dateStart", new DateTime(today.Year, today.Month, 5) },
+                            { "dateEnd", new DateTime(today.Year, today.Month, 6) },
+                            { "status", "outOfOffice" },
+                            { "backgroundColor", "#F06292" }
+                        },
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 8, 12, 0, 0) },
+                            { "label", "Employee on sick leave. Reschedule for next day" },
+                            { "dateStart", new DateTime(today.Year, today.Month, 9) },
+                            { "dateEnd", new DateTime(today.Year, today.Month, 10) },
+                            { "status", "outOfOffice" },
+                            { "backgroundColor", "#FFA000" }
+                        },
+                    }
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Non-Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(-1),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of John Jeffers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0).AddDays(1),
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 1,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute },
+                        Message = "Approve Hiring of John Jeffers tomorrow",
+                        IconType = "success"
+                    }
+                },
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Update NDA Agreement",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0).AddDays(-2),
+                BackgroundColor = "#7986CB"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employee Files with New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0).AddDays(2),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, today.Hour, today.Minute + 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, today.Hour + 1, 45, 0),
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Message = "Compete Agreements in 15 minutes",
+                        IconType = "time"
+                    },
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Message = "Compete Agreements in 14 minutes",
+                        IconType = "warning"
+                    }
+                },
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of Mark Waterberg",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0).AddDays(3),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employees Information",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0),
+                Class = "event",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Weekly,
+                    RepeatInterval = 2,
+                    RepeatOn = new int[] { 2, 4 },
+                    RepeatEnd = new DateTime(today.Year, today.Month, 24)
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Prepare Shipping Cost Analysis Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(1),
+                Class = "event",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Monthly,
+                    RepeatInterval = 1,
+                    RepeatOn = new DateTime[] { new DateTime(today.Year, today.Month, today.Day).AddDays(1) }
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Provide Feedback on Shippers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 0, 0).AddDays(1),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Complete Shipper Selection Form",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Server Hardware",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                Class = "event"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Apps to Windows RT or stay with WinForms",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, today.Hour, today.Minute + 5, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, today.Hour + 2, 0, 0).AddDays(2),
+                Class = "event",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Daily,
+                    RepeatInterval = 1,
+                    RepeatOn = today.Day + 1,
+                    RepeatEnd = new DateTime(today.Year, today.Month, today.Day).AddDays(7),
+                    Exceptions = new List<Dictionary<string, object>>()
+                    {
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(4) },
+                            { "label", "A day off work" },
+                            { "status", "busy" },
+                            { "backgroundColor", "#64DD17" }
+                        }
+                    }
+                },
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 2,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute },
+                        Message = "Upgrade Apps to Windows RT in 5 minutes",
+                        IconType = "time"
+                    }
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Peter's Birthday",
+                DateStart = new DateTime(today.Year, today.Month, 5),
+                DateEnd = new DateTime(today.Year, today.Month, 6),
+                Class = "birthday"
+            },
+            new SchedulerDataSource() {
+                Label = "Michael's Birthday",
+                DateStart = new DateTime(today.Year, today.Month, 10),
+                DateEnd = new DateTime(today.Year, today.Month, 11),
+                Class = "birthday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Christina's Birthday",
+                DateStart = new DateTime(today.Year, today.Month, 20),
+                DateEnd = new DateTime(today.Year, today.Month, 21),
+                Class = "birthday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Halloween",
+                DateStart = new DateTime(today.Year, 10, 30),
+                DateEnd = new DateTime(today.Year, 10, 31),
+                Class = "holiday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Merry Christmas",
+                DateStart = new DateTime(today.Year, 12, 24),
+                DateEnd = new DateTime(today.Year, 12, 26, 23, 59, 59),
+                Class = "holiday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Thanksgiving",
+                DateStart = new DateTime(today.Year, 11, 25),
+                DateEnd = new DateTime(today.Year, 11, 26),
+                Class = "holiday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Day after Thanksgiving",
+                DateStart = new DateTime(today.Year, 11, 26),
+                DateEnd = new DateTime(today.Year, 11, 27),
+                Class = "holiday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "Independence Day",
+                DateStart = new DateTime(today.Year, 7, 4),
+                DateEnd = new DateTime(today.Year, 7, 4),
+                Class = "holiday"
+            },
+            new SchedulerDataSource()
+            {
+                Label = "New Year's Eve",
+                DateStart = new DateTime(today.Year, 12, 31),
+                DateEnd = new DateTime(today.Year + 1, 1, 1),
+                Class = "holiday"
+            }
+        };
+
+        return data;
+    }
+
+    private void HandleToggle()
+    { 
+        if (primaryClass == "")
+        {
+            primaryClass = "collapse";
+        }
+        else
+        {
+            primaryClass = "";
+        }
+
+        disableDateMenu = (primaryClass == "") ? true : false;
+    }
+
+    private void AddNew()
+    {
+        scheduler.OpenWindow(new Dictionary<string, string>() { { "class", "event" } });
+    }
+
+    private void HandleCalendarChange(Event eventObj)
+    {
+        CalendarChangeEventDetail args = eventObj["Detail"];
+
+        dateCurrent = args.Value;
+    }
+
+    private void HandleTreeChange(Event eventObj)
+    {
+        string[] selectedIndexes = tree.SelectedIndexes;
+        List<string> types = new List<string>();
+        for (int i = 0; i < selectedIndexes.Length; i++)
+        {
+            object type = tree.GetItem(selectedIndexes[i]);
+            //Console.WriteLine(type);
+        }
+    }
+
+    private List<object> GetPastThreeWeekDays(int weekday)
+    {
+        List<object> weekdays = new List<object>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            weekdays.Add((weekday - i + 7) % 7);
+        }
+
+        return weekdays;
+    }
+}

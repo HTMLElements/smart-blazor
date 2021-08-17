@@ -1,0 +1,434 @@
+﻿@page "/scheduler-events-firing"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+    }
+
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }
+
+    .options {
+        height: 300px;
+    }
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler DataSource="dataRecords" View="SchedulerViewType.Week"
+                   OnChange="OnChangeHandler" OnViewChange="OnViewChangeHandler" OnDragStart="OnDragStartHandler" OnDragEnd="OnDragEndHandler"
+                   OnResizeStart="OnResizeStartHandler" OnResizeEnd="OnResizeEndHandler" OnEditDialogOpening="OnEditDialogOpeningHandler"
+                   OnEditDialogOpen="OnEditDialogOpenHandler" OnEditDialogClose="OnEditDialogCloseHandler" OnEditDialogClosing="OnEditDialogClosingHandler"
+                   OnContextMenuOpen="OnContextMenuOpenHandler" OnContextMenuOpening="OnContextMenuOpeningHandler" OnContextMenuClose="OnContextMenuCloseHandler"
+                   OnContextMenuClosing="OnContextMenuClosingHandler" OnEventMenuOpen="OnEventMenuOpenHandler" OnEventMenuOpening="OnEventMenuOpeningHandler"
+                   OnEventMenuClose="OnEventMenuCloseHandler" OnEventMenuClosing="OnEventMenuClosingHandler" OnDateMenuOpen="OnDateMenuOpenHandler"
+                   OnDateMenuClose="OnDateMenuCloseHandler" OnViewMenuOpen="OnViewMenuOpenHandler" OnViewMenuClose="OnViewMenuCloseHandler"
+                   OnNotificationOpen="OnNotificationOpenHandler" OnNotificationClose="OnNotificationCloseHandler" OnItemRemove="OnItemRemoveHandler"
+                   OnItemInsert="OnItemInsertHandler" OnItemUpdate="OnItemUpdateHandler" OnItemClick="OnItemClickHandler"
+                   OnEventShortcutKey="OnEventShortcutKeyHandler" OnDateChange="OnDateChangeHandler" />
+
+        <div class="options">
+            <h3>Events:</h3>
+            <div class="demo-description">
+                <p>Scheduler fires the following events:</p>
+                <ul>
+                    <li>change - fired when selection is changed</li>
+                    <li>viewChange - fired when the view is changed</li>
+                    <li>editDialogOpening - fired when the editor window is opening</li>
+                    <li>editDialogOpen - fired when the editor window is opened</li>
+                    <li>editDialogClosing - fired when the editor window is closing</li>
+                    <li>editDialogClose - fired when the editor window is closed</li>
+                    <li>dragStart - fired when an event dragging is started</li>
+                    <li>dragEnd - fired when an event dragging is finished</li>
+                    <li>resizeStart - fired when an event resizing is started</li>
+                    <li>resizeEnd - fired when an event resizing is finished</li>
+                    <li>contextMenuOpen - fired when the context menu is opened</li>
+                    <li>contextMenuOpening - fired when the context menu is opening</li>
+                    <li>contextMenuClose - fired when the context menu is closed</li>
+                    <li>contextMenuClosing - fired when the context menu is closing</li>
+                    <li>eventMenuOpen - fired when the event menu is opened</li>
+                    <li>eventMenuOpening - fired when the event menu is opening</li>
+                    <li>eventMenuClose - fired when the event menu is closed</li>
+                    <li>eventMenuClosing - fired when the event menu is closing</li>
+                    <li>dateMenuOpen - fired when the date selection menu is opened</li>
+                    <li>dateMenuClose - fired when the date selection menu is closed</li>
+                    <li>viewMenuOpen - fired when the view selection menu is opened</li>
+                    <li>viewMenuClose - fired when the view selection menu is closed.</li>
+                    <li>notificationOpen - fired when a notification is opened</li>
+                    <li>notificationClose - fired when a notification is closed.</li>
+                    <li>itemRemove - fired when an event is removed.</li>
+                    <li>itemInsert - fired when an event is inserted.</li>
+                    <li>itemUpdate - fired when an event is updated.</li>
+                    <li>itemClick - fired when an eventis clicked.</li>
+                    <li>eventShortcutKey - fired when an event shortcut key is pressed.</li>
+                    <li>
+                        dateChange - fired when the current visible date is changed(e.g. using
+                        the date navigation keys).
+                    </li>
+                </ul>
+            </div>
+            <div class="option" id="eventLog">
+                <h3>Event Log:</h3>
+                <div id="log">@((MarkupString)log)</div>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private string log = "";
+    private int logsCount = 0;
+
+    private List<SchedulerDataSource> dataRecords;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month,
+        SchedulerViewType.TimelineDay,
+        SchedulerViewType.TimelineWeek
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(4),
+                BackgroundColor = "#00C853"
+            },
+            new SchedulerDataSource() {
+                Label = "Website Re-Design Plan",
+                DateStart = new DateTime(today.Year, today.Month, 16, 16, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 20, 11, 15, 0),
+                BackgroundColor = "#00ACC1"
+            },
+            new SchedulerDataSource() {
+                Label = "Rollout of New Website and Marketing Brochures",
+                DateStart = new DateTime(today.Year, today.Month, 2, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 2, 10, 45, 0),
+                BackgroundColor = "#FFA000"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Sales Strategy Documents",
+                DateStart = new DateTime(today.Year, today.Month, 2, 12, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 2, 13, 45, 0),
+                BackgroundColor = "#7986CB"
+            },
+            new SchedulerDataSource() {
+                Label = "Non-Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                BackgroundColor = "#9575CD"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of John Jeffers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0),
+                BackgroundColor = "#EF5350"
+            },
+            new SchedulerDataSource() {
+                Label = "Update NDA Agreement",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0),
+                BackgroundColor = "#5D4037"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employee Files with New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0),
+                BackgroundColor = "#E040FB"
+            },
+            new SchedulerDataSource() {
+                Label = "Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                BackgroundColor = "#FB8C00"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of Mark Waterberg",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0),
+                BackgroundColor = "#BF360C"
+            },
+            new SchedulerDataSource() {
+                Label = "Update NDA Contracts",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0),
+                BackgroundColor = "#00897B"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employees Information",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0),
+                BackgroundColor = "#9575CD"
+            },
+            new SchedulerDataSource() {
+                Label = "Customer Feedback Report Analysis",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1),
+                BackgroundColor = "#9C27B0"
+            },
+            new SchedulerDataSource() {
+                Label = "Prepare Shipping Cost Analysis Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(1),
+                BackgroundColor = "#00C853"
+            },
+            new SchedulerDataSource() {
+                Label = "Provide Feedback on Shippers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 0, 0).AddDays(1),
+                BackgroundColor = "#FFA726"
+            },
+            new SchedulerDataSource() {
+                Label = "Select Preferred Shipper",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 17, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 20, 0, 0).AddDays(1),
+                BackgroundColor = "#9575CD"
+            },
+            new SchedulerDataSource() {
+                Label = "Complete Shipper Selection Form",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                BackgroundColor = "#00B8D4"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Server Hardware",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                BackgroundColor = "#0097A7"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Personal Computers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(1),
+                BackgroundColor = "#9575CD"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Apps to Windows RT or stay with WinForms",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(2),
+                BackgroundColor = "#00ACC1"
+            },
+            new SchedulerDataSource() {
+                Label = "Estimate Time Required to Touch-Enable Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(2),
+                BackgroundColor = "#EF6C00"
+            },
+            new SchedulerDataSource() {
+                Label = "Report on Tranistion to Touch-Based Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 18, 30, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 19, 0, 0).AddDays(2),
+                BackgroundColor = "#3F51B5"
+            },
+            new SchedulerDataSource() {
+                Label = "Submit New Website Design",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(5),
+                BackgroundColor = "#E57373"
+            },
+            new SchedulerDataSource() {
+                Label = "Create Icons for Website",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(5),
+                BackgroundColor = "#C51162"
+            }
+        };
+
+        return data;
+    }
+
+    private void OnChangeHandler(Event eventObj)
+    {
+        logEvent("change, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnViewChangeHandler(Event eventObj)
+    {
+        logEvent("viewChange, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnDragStartHandler(Event eventObj)
+    {
+        logEvent("dragStart, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnDragEndHandler(Event eventObj)
+    {
+        logEvent("dragEnd, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnResizeStartHandler(Event eventObj)
+    {
+        logEvent("resizeStart, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnResizeEndHandler(Event eventObj)
+    {
+        logEvent("resizeEnd, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnEditDialogOpeningHandler(Event eventObj)
+    {
+        logEvent("editDialogOpening, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEditDialogOpenHandler(Event eventObj)
+    {
+        logEvent("editDialogOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEditDialogCloseHandler(Event eventObj)
+    {
+        logEvent("editDialogClose, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnEditDialogClosingHandler(Event eventObj)
+    {
+        logEvent("editDialogClosing, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnContextMenuOpenHandler(Event eventObj)
+    {
+        logEvent("contextMenuOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnContextMenuOpeningHandler(Event eventObj)
+    {
+        logEvent("contextMenuOpening, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnContextMenuCloseHandler(Event eventObj)
+    {
+        logEvent("contextMenuClose, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnContextMenuClosingHandler(Event eventObj)
+    {
+        logEvent("contextMenuClosing, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEventMenuOpenHandler(Event eventObj)
+    {
+        logEvent("eventMenuOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEventMenuOpeningHandler(Event eventObj)
+    {
+        logEvent("eventMeneOpening, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEventMenuCloseHandler(Event eventObj)
+    {
+        logEvent("eventMenuClose, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnEventMenuClosingHandler(Event eventObj)
+    {
+        logEvent("eventMenuClosing, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnDateMenuOpenHandler(Event eventObj)
+    {
+        logEvent("dateMenuOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnDateMenuCloseHandler(Event eventObj)
+    {
+        logEvent("dateMenuClose, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnViewMenuOpenHandler(Event eventObj)
+    {
+        logEvent("viewMenuOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnViewMenuCloseHandler(Event eventObj)
+    {
+        logEvent("viewMenuClose, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnNotificationOpenHandler(Event eventObj)
+    {
+        logEvent("notificationOpen, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnNotificationCloseHandler(Event eventObj)
+    {
+        logEvent("notificationClose, at: " + DateTime.Now.ToString("hh:mm:ss tt"));
+    }
+
+    private void OnItemRemoveHandler(Event eventObj)
+    {
+        logEvent("itemRemove, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnItemInsertHandler(Event eventObj)
+    {
+        logEvent("itemInsert, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnItemUpdateHandler(Event eventObj)
+    {
+        logEvent("itemUpdate, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnItemClickHandler(Event eventObj)
+    {
+        logEvent("itemClick, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnEventShortcutKeyHandler(Event eventObj)
+    {
+        logEvent("eventShortcutKey, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void OnDateChangeHandler(Event eventObj)
+    {
+        logEvent("dateChange, at: " + DateTime.Now.ToString("HH:mm:ss tt"));
+    }
+
+    private void logEvent(string logDetail)
+    {
+        if (logsCount >= 3)
+        {
+            log = "";
+            logsCount = 0;
+        }
+        log += logDetail + "<br />";
+        logsCount++;
+    }
+}

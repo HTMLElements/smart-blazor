@@ -19,13 +19,13 @@
     }
     /* This is the CSS used in the demo */
     @@media only screen and (max-width: 400px) {
-	    smart-grid {
-		    width: 100%;
-	    }
+        smart-grid {
+            width: 100%;
+        }
     }
 
     smart-grid {
-	    max-width: 600px;
+        max-width: 600px;
     }
 </style>
 <Example Name="Grid">
@@ -39,61 +39,88 @@
     }
     else
     {
-        <Grid @ref="grid" DataSource="dataRecords" Behavior="@behavior" Appearance="@appearance"  Layout="@gridLayout" Selection="@selection">
+        <Grid @ref="grid" Appearance="@appearance" Layout="@gridLayout" DataSource="@dataRecords" Behavior="@behavior">
             <Columns>
-                <Column DataField="Id" Label="#" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
-                <Column DataField="FirstName" Label="First Name"></Column>
-                <Column DataField="LastName" Label="Last Name"></Column>
-                <Column DataField="ProductName" Label="Product"></Column>
-                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
-                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="FirstName" Label="First Name" Width="150"></Column>
+                <Column DataField="LastName" Label="Last Name" Width="150"></Column>
+                <Column DataField="ProductName" Label="Product" Width="200"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" Width="100"></Column>
+                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2" Width="100"></Column>
                 <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
             </Columns>
         </Grid>
 
         <div class="options">
-            <div class="caption">Row Resize Mode</div>
+            <div class="caption">
+                Row Resize Mode
+            </div>
             <div class="option">
-                <RadioButton Checked="false" OnCheckValue="OnNoneChecked">None</RadioButton><br /><br />
-                <RadioButton Checked="false" OnCheckValue="OnSplitChecked">Split</RadioButton><br /><br />
-                <RadioButton Checked="true" OnCheckValue="OnGrowChecked">Grow and Shrink</RadioButton><br />
+                <RadioButton @ref="noneRadioBtn" Checked="resizeNone" OnCheckValue="OnChange">None</RadioButton><br />
+                <RadioButton @ref="splitRadioBtn" Checked="resizeSplit" OnCheckValue="OnChangeSplit">Split</RadioButton><br />
+                <RadioButton @ref="growShrinkRadioBtn" Checked="resizeGrow" OnCheckValue="OnChangeGrow">Grow and Shrink</RadioButton><br />
             </div>
         </div>
     }
 </Example>
 
 @code {
-    Grid grid;
+    private Grid grid;
+    private RadioButton noneRadioBtn;
+    private RadioButton splitRadioBtn;
+    private RadioButton growShrinkRadioBtn;
+    private bool resizeNone;
+    private bool resizeSplit;
+    private bool resizeGrow = true;
 
-    GridAppearance appearance = new GridAppearance() { ShowRowHeader = true };
     GridBehavior behavior = new GridBehavior() { RowResizeMode = GridResizeMode.GrowAndShrink };
+    GridAppearance appearance = new GridAppearance() { ShowRowHeader = true };
     GridLayout gridLayout = new GridLayout() { RowHeight = 40 };
-    GridSelection selection = new GridSelection() 
-    { 
-        Enabled = true,
-        Mode = GridSelectionMode.Extended
-    };
 
     private List<DataRecord> dataRecords;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        dataRecords = dataService.GenerateData(1000);
+        dataRecords = dataService.GenerateData(100);
     }
 
-    private void OnNoneChecked(Event eventObj)
+    private void UpdateState(string state)
     {
-        grid.Behavior.RowResizeMode = GridResizeMode.None;
+        switch (state)
+        {
+            case "none":
+                resizeNone = true;
+                resizeSplit = false;
+                resizeGrow = false;
+                break;
+            case "grow":
+                resizeNone = false;
+                resizeSplit = false;
+                resizeGrow = true;
+                break;
+            case "split":
+                resizeNone = false;
+                resizeSplit = true;
+                resizeGrow = false;
+                break;
+        }
     }
 
-    private void OnSplitChecked(Event eventObj)
+    private void OnChange(Event eventObj)
     {
-        grid.Behavior.RowResizeMode = GridResizeMode.Split;
+        behavior.RowResizeMode = GridResizeMode.None;
+        UpdateState("none");
     }
 
-    private void OnGrowChecked(Event eventObj)
+    private void OnChangeSplit(Event eventObj)
     {
-        grid.Behavior.RowResizeMode = GridResizeMode.GrowAndShrink;
+        behavior.RowResizeMode = GridResizeMode.Split;
+        UpdateState("split");
+    }
+
+    private void OnChangeGrow(Event eventObj)
+    {
+        behavior.RowResizeMode = GridResizeMode.GrowAndShrink;
+        UpdateState("grow");
     }
 }

@@ -40,9 +40,8 @@
                 <Column DataField="FirstName" Label="First Name"></Column>
                 <Column DataField="LastName" Label="Last Name"></Column>
                 <Column DataField="ProductName" Label="Product"></Column>
-                <Column DataField="Quantity" Label="Quantity" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
-                <Column DataField="Price" Label="Unit Price" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
-                <Column DataField="Total" Label="Total" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
+                <Column DataField="Quantity" Label="Quantity" DataType="number" Summary="quantitySummary" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
+                <Column DataField="Total" Label="Total" DataType="number" Summary="totalSummary" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right" CellsFormat="c2"></Column>
             </Columns>
         </Grid>
     }
@@ -51,6 +50,9 @@
 @code {
     GridSorting sorting = new GridSorting() { Enabled = true };
     GridSummaryRow summaryRow = new GridSummaryRow() { Visible = true };
+    string[] quantitySummary = new string[] { "min", "max" };
+    string[] totalSummary = new string[] { "sum" };
+
 
     private List<DataRecord> dataRecords;
 

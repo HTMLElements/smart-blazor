@@ -1,0 +1,373 @@
+﻿@page "/ganttchart-resource-management"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService RandomDataService
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        Resouces can be assigned to tasks via the <b>dataSource</b> property on initialization or the API methods.
+    </p>
+
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" TreeSize="treeSize" HideResourcePanel />
+
+    <div class="options">
+        <h3>Manage Resources:</h3>
+        <div class="option">
+            <Button OnClick="OnInsertClick" Disabled="@insertDisabled">Insert</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnUpdateClick" Disabled="@updateDisabled">Update</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnRemoveClick" Disabled="@removeDisabled">Remove</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+
+    bool insertDisabled = false;
+    bool updateDisabled = false;
+    bool removeDisabled = false;
+
+    List<int> resourcesIds = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+
+    string treeSize = "25%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() {
+            Label = "Assignee",
+            Value = "resources",
+            Size = "35%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Task Name",
+            Value = "label"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Resource",
+                Synchronized = true,
+                Expanded = true,
+                Type = "task",
+                DisableResources = true,
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Concept Formation",
+                        DateStart = "2020-08-01",
+                        DateEnd = "2020-08-31",
+                        Class = "concept-formation",
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 11 }, { "label", "Will" }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Proposals",
+                        Synchronized = true,
+                        Expanded = true,
+                        DisableResources = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Proposal Development",
+                                DateStart = "2020-09-01",
+                                DateEnd = "2020-10-31",
+                                Class = "proposal-development",
+                                Type = "task",
+                                Resources = new Dictionary<string, object>()
+                                {
+                                    { "id", 12 }, { "label", "Taylor" }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Proposal Review & Submission",
+                                DateStart = "2020-11-01",
+                                DateEnd = "2020-11-31",
+                                Class = "proposal-review",
+                                Type = "task",
+                                Resources = new Dictionary<string, object>()
+                                {
+                                    { "id", 13 }, { "label", "Leo" }
+                                }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Commercialization",
+                        DateStart = "2020-11-01",
+                        DateEnd = "2020-11-20",
+                        Type = "task",
+                        Class = "commercialization",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 14 }, { "label", "Veronica" }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Planning",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Resource planning",
+                        DateStart = "2020-10-01",
+                        DateEnd = "2020-10-15",
+                        Class = "resource-planning",
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 8 }, { "label", "Jessica" }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Target group & Usability",
+                        DateStart = "2020-10-15",
+                        DateEnd = "2020-11-31",
+                        Class = "target-group-usability",
+                        Type = "task",
+                        Resources = new List<object>()
+                        {
+                            8,
+                            new Dictionary<string, object>()
+                            {
+                                { "id", 9 }, { "label", "Anna" }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Marketing Strategy",
+                        DateStart = "2020-12-01",
+                        DateEnd = "2020-12-31",
+                        Class = "marketing-strategy",
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 10 }, { "label", "Christina" }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Class = "development",
+                Progress = 50,
+                Resources = 4,
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Design",
+                        DateStart = "2021-01-01T08:30:00",
+                        DateEnd = "2021-02-28",
+                        Class = "marketing-strategy",
+                        Type = "design",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 1 }, { "label", "Mia" }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Coding",
+                        DateStart = "2021-03-01",
+                        DateEnd = "2021-06-01",
+                        Class = "coding",
+                        Type = "task",
+                        Resources = new List<object>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                { "id", 2 }, { "label", "Anthony" }
+                            },
+                            0
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Debugging",
+                        DateStart = "2021-06-02",
+                        DateEnd = "2021-06-31",
+                        Class = "debugging",
+                        Type = "task",
+                        Resources = new List<object>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                { "id", 0 }, { "label", "Jonathan" }
+                            },
+                            2
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Dev Stage Completed",
+                DateStart = "2021-06-01",
+                Type = "milestone",
+                Resources = 3
+            },
+            new GanttDataRecord()
+            {
+                Label = "Testing",
+                DateStart = "2021-06-02",
+                DateEnd = "2021-06-31",
+                Class = "testing",
+                Type = "task",
+                Resources = new List<object>()
+                {
+                    new Dictionary<string, object>()
+                    {
+                        { "id", 3 }, { "label", "Peter" }
+                    },
+                    new Dictionary<string, object>()
+                    {
+                        { "id", 4 }, { "label", "Liam" }
+                    },
+                    1
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Documentation",
+                DateStart = "2021-07-01",
+                DateEnd = "2021-07-31",
+                Class = "documentation",
+                Type = "task",
+                Resources = 1
+            },
+            new GanttDataRecord()
+            {
+                Id = "release",
+                Class = "release",
+                Label = "Release & Maintenance",
+                DateStart = "2021-08-01",
+                Type = "milestone"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Evaluation",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Development strategy",
+                        DateStart = "2021-08-01",
+                        DateEnd = "2021-08-31",
+                        Class = "development-strategy",
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", 5 }, { "label", "Nelson" }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Productivity",
+                        DateStart = "2021-09-01",
+                        DateEnd = "2021-09-31",
+                        Class = "productivity",
+                        Type = "task",
+                        Resources = new List<object>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                { "id", 6 }, { "label", "Philip" }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Completion cost",
+                        DateStart = "2021-10-01",
+                        DateEnd = "2021-10-31",
+                        Class = "completion-cost",
+                        Type = "task",
+                        Resources = new List<object>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                { "id", 7 }, { "label", "Jenna" }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private void OnInsertClick()
+    {
+        Dictionary<string, string> resource = new Dictionary<string, string>()
+        {
+            { "id", "new-resource" },
+            { "label", "New Resource" },
+            { "assignedTo", "release" }
+        };
+
+        gantt.InsertResource(0, resource);
+        insertDisabled = true;
+    }
+
+    private void OnUpdateClick()
+    {
+        gantt.UpdateResource(0, new Dictionary<string, string>() { { "label", "Updated resource" } });
+        updateDisabled = true;
+    }
+
+    private void OnRemoveClick()
+    {
+        gantt.RemoveResource(resourcesIds[resourcesIds.Count - 1]);
+        resourcesIds.RemoveAt(resourcesIds.Count - 1);
+
+        if(resourcesIds.Count < 1)
+        {
+            removeDisabled = true;
+        }
+    }
+}

@@ -1,0 +1,96 @@
+﻿@page "/table-filtering"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 800px;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases the filtering functionality of smart-table.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table DataSource="dataRecords" Filtering="true" Tooltip="true" Columns="@columns"></Table>
+    }
+</Example>
+
+@code {   
+    private List<DataRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+            
+        },
+        new TableColumn()
+        {
+            DataField = "Total",
+            Label = "Total",
+            DataType = TableColumnDataType.Number
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(50);
+    }
+}

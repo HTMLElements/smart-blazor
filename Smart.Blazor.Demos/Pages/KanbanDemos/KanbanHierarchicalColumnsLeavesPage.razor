@@ -1,0 +1,91 @@
+﻿@page "/kanban-hierarchical-columns-leaves"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+  
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban DataSource="dataRecords" Columns="@columns" Collapsible TaskPosition="KanbanTaskPosition.Leaf" />
+    }
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing",
+            Orientation = KanbanColumnOrientation.Horizontal,
+            Columns = new List<KanbanColumn>()
+            {
+                new KanbanColumn()
+                {
+                    Label = "Manual testing",
+                    DataField = "ManualTesting",
+                    Columns = new List<KanbanColumn>()
+                    {
+                        new KanbanColumn()
+                        {
+                            Label = "Desktop devices",
+                            DataField = "Desktop"
+                        },
+                        new KanbanColumn()
+                        {
+                            Label = "Mobile devices",
+                            DataField = "Mobile"
+                        }
+                    }
+                },
+                new KanbanColumn()
+                {
+                    Label = "Unit testing",
+                    DataField = "UnitTesting"
+                }
+            }
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        List<KanbanDataRecord> data = dataService.GenerateKanbanHierarchicalData();
+        data[3].Status = "Desktop";
+        data[12].Status = "Mobile";
+        data[13].Status = "UnitTesting";
+        data[14].Status = "Desktop";
+
+        dataRecords = data;
+    }
+}

@@ -1,0 +1,59 @@
+﻿@page "/tabs-integration"
+
+<style>
+    smart-tabs {
+        width: 100%;
+        height: 400px;
+    }
+
+    smart-gauge,
+    smart-list-box,
+    smart-tank {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<Example Name="Tabs">
+	<Tabs class="demoTabs" SelectedIndex=1>
+		<TabItem Label="Gauge">
+			<Gauge AnalogDisplayType="GaugeAnalogDisplayType.Fill" DigitalDisplay="true" 
+				   StartAngle="-30" EndAngle="210" Min="0" Max="100" Value="30">
+			</Gauge>
+		</TabItem>
+		<TabItem Label="ListBox">
+            <ListBox>
+                <ListItemsGroup Label="Swedish Cars">
+                    <ListItem Selected="true" Value="volvo">Volvo</ListItem>
+                    <ListItem Value="saab">Saab</ListItem>
+                    <ListItem Value="scania">Scania</ListItem>
+                </ListItemsGroup>
+                <ListItemsGroup Label="German Cars">
+                    <ListItem Value="mercedes">Mercedes</ListItem>
+                    <ListItem Value="vw">VW</ListItem>
+                    <ListItem Value="audi">Audi</ListItem>
+                    <ListItem Value="porsche">Porsche</ListItem>
+                </ListItemsGroup>
+                <ListItemsGroup Label="Japanese Cars">
+                    <ListItem Value="mazda">Mazda</ListItem>
+                    <ListItem Value="honda">Honda</ListItem>
+                    <ListItem Value="infinity">Infinity</ListItem>
+                    <ListItem Value="mitsubishi">Mitsubishi</ListItem>
+                    <ListItem Value="toyota">Toyota</ListItem>
+                </ListItemsGroup>
+            </ListBox>
+		</TabItem>
+		<TabItem Label="Tank">
+            <Tank Orientation="Orientation.Vertical" Value="90"></Tank>
+        </TabItem>
+		<TabItem Label="SwitchButton">
+            <SwitchButton Checked="true"></SwitchButton>
+            <br />
+            <SwitchButton></SwitchButton>
+        </TabItem>
+	</Tabs>
+</Example>
+
+@code {
+
+}

@@ -43,17 +43,14 @@
     }
     else
     {
-        <Grid DataSource="dataRecords" Sorting="@sorting" Messages="@messages">
+        <Grid @ref="grid" DataSource="dataRecords" Sorting="@sorting" Locale="@locale" Messages="@messages">
             <Columns>
-                <Column DataField="FirstName" Label="@columnLabels["de"]["firstName"]"></Column>
-                <Column DataField="LastName" Label="@columnLabels["de"]["lastName"]"></Column>
-                <Column DataField="TimeOfPurchase" Label="@columnLabels["de"]["date"]"
-                        DataType="date" CellsFormat="d">
-                    @*FormatSettings="@dateFormatSettings"*@
-                </Column>
-                <Column DataField="Quantity" Label="@columnLabels["de"]["quantity"]"></Column>
-                <Column DataField="Price" Label="@columnLabels["de"]["price"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
-                <Column DataField="Total" Label="@columnLabels["de"]["total"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
+                <Column DataField="FirstName" Label="@columnLabels[@locale]["firstName"]"></Column>
+                <Column DataField="LastName" Label="@columnLabels[@locale]["lastName"]"></Column>
+                <Column DataField="TimeOfPurchase" Label="@columnLabels[@locale]["date"]" DataType="date" CellsFormat="d" FormatSettings="@dateFormatSettings"></Column>
+                <Column DataField="Quantity" Label="@columnLabels[@locale]["quantity"]"></Column>
+                <Column DataField="Price" Label="@columnLabels[@locale]["price"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
+                <Column DataField="Total" Label="@columnLabels[@locale]["total"]" DataType="number" CellsFormat="c2" FormatSettings="@currencyFormatSettings"></Column>
             </Columns>
         </Grid>
 
@@ -62,17 +59,18 @@
                 Languange
             </div>
             <div class="option">
-                <RadioButton Checked="false" OnCheckValue="OnUKChecked">English (UK)</RadioButton><br />
-                <RadioButton Checked="false" OnCheckValue="OnUSAChecked">English (USA)</RadioButton><br />
-                <RadioButton Checked="true" OnCheckValue="OnDeutschChecked">Deutsch</RadioButton><br />
+                <RadioButton OnCheckValue="OnEnglishChecked">English</RadioButton><br />
+                <RadioButton Checked="IsDeutsch" OnCheckValue="OnDeutschChecked">Deutsch</RadioButton><br />
             </div>
         </div>
     }
 </Example>
 
 @code {
+    Grid grid;
     GridSorting sorting = new GridSorting() { Enabled = true };
-
+    string locale = "de";
+    bool IsDeutsch = true;
     IDictionary<string, object> messages = new Dictionary<string, object>()
     {
         {
@@ -140,7 +138,7 @@
         }
     };
 
-    IDictionary<string, object> currencyFormatSettings = new Dictionary<string, object>()
+    IDictionary<string, object> currencyFormatDESettings = new Dictionary<string, object>()
     {
         {
             "Intl",
@@ -158,26 +156,47 @@
         }
     };
 
+    IDictionary<string, object> currencyFormatUSSettings = new Dictionary<string, object>()
+    {
+        {
+            "Intl",
+            new Dictionary<string, object>()
+            {
+                {
+                    "NumberFormat",
+                    new Dictionary<string, object>()
+                    {
+                        { "style", "currency" },
+                        { "currency", "USD" }
+                    }
+                }
+            }
+        }
+    };
+
+    IDictionary<string, object> currencyFormatSettings;
     private List<DataRecord> dataRecords;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        currencyFormatSettings = currencyFormatDESettings;
         dataRecords = dataService.GenerateData(50);
     }
 
-    private void OnUKChecked(Event eventObj)
+    private void OnEnglishChecked(Event eventObj)
     {
-        
-    }
-
-    private void OnUSAChecked(Event eventObj)
-    {
-
+        IsDeutsch = false;
+        locale = "en";
+        currencyFormatSettings = currencyFormatUSSettings;
+        grid.StateHasChanged();
     }
 
     private void OnDeutschChecked(Event eventObj)
     {
-
+        IsDeutsch = true;
+        locale = "de";
+        currencyFormatSettings = currencyFormatDESettings;
+        grid.StateHasChanged();
     }
 }

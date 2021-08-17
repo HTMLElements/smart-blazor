@@ -1,0 +1,258 @@
+﻿@page "/scheduler-export"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%; 
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+    }
+    
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }    
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler @ref="scheduler" DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" HourStart="7" HourEnd="19" FirstDayOfWeek="1" Resources="@resources" />
+
+        <div class="options">
+            <div class="demo-description">
+                Scheduler's events can be exported to a PDF or XLSX file via the <b>exportData</b>
+                method
+                by clicking on the corresponding button.
+            </div>
+            <div class="option">
+                <Button OnClick="OnXlsxClick">Export to XLSX</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnPdfClick">Export to PDF</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnHtmlClick">Export to HTML</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnIcalClick">Export to iCal</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnPrintClick">Print</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    private Scheduler scheduler;
+    private IEnumerable<ISchedulerDataSource> dataRecords;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month,
+        SchedulerViewType.TimelineDay,
+        SchedulerViewType.TimelineWeek,
+        SchedulerViewType.TimelineMonth,
+        SchedulerViewType.Agenda
+    };
+
+    private IEnumerable<ISchedulerResource> resources = new List<SchedulerResource>()
+    {
+        new SchedulerResource()
+        {
+            Label = "Priority",
+            Value = "PriorityId",
+            DataSource = new object[]
+            {
+                new Dictionary<string, object>()
+                {
+                    { "label", "Low Priority" },
+                    { "id", 1 },
+                    { "backgroundColor", "#1e90ff" }
+                },
+                new Dictionary<string, object>()
+                {
+                    { "label", "Medium Priority" },
+                    { "id", 2 },
+                    { "backgroundColor", "#ff9747" }
+                }
+            }
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSourceWithResource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSourceWithResource> data = new List<SchedulerDataSourceWithResource>()
+        {
+            new SchedulerDataSourceWithResource() {
+                Label = "Website Re-Design Plan",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Book Flights to San Fran for Sales Trip",
+                PriorityId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, today.Hour + 1, 0, 0).AddDays(3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, today.Hour + 3, 0, 0).AddDays(3),
+                Notifications = new List<SchedulerDataSourceNotification>()
+                {
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Days,
+                        Time = new List<object>() { today.Hour, today.Minute + 4 },
+                        Message = "Book Flights to San Fran for Sales Trip Early"
+                    },
+                    new SchedulerDataSourceNotification()
+                    {
+                        Interval = 0,
+                        Type = SchedulerNotificationType.Weeks,
+                        Time = new List<object>() { today.Hour, today.Minute + 5 },
+                        Message = "Book Flights to San Fran for Sales Trip Late",
+                        IconType = "warning"
+                    }
+                }
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Install New Router in Dev Room",
+                PriorityId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0),
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Monthly,
+                    RepeatInterval = 1,
+                    RepeatOn = today.Day
+                }
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, 10),
+                DateEnd = new DateTime(today.Year, today.Month, 11),
+                AllDay = true,
+                BackgroundColor = "#F57F17",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Weekly,
+                    RepeatInterval = 5,
+                    RepeatOn = new int[] { 0, 2, 5 },
+                    RepeatEnd = new DateTime(today.Year, today.Month + 2, 24),
+                    Exceptions = new List<Dictionary<string, object>>()
+                    {
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 13) },
+                            { "dateStart", new DateTime(today.Year, today.Month, 14) },
+                            { "label", "Google AdWords Strategy" },
+                            { "backgroundColor", "#F57F17" }
+                        },
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month + 1, 12) },
+                            { "label", "Google AdWords Strategy" },
+                            { "backgroundColor", "#F57F17" }
+                        }
+                    }
+                }
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Approve Personal Computer Upgrade Plan",
+                PriorityId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Final Budget Review",
+                PriorityId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 35, 0).AddDays(1),
+                BackgroundColor = "#2E7D32"
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "New Brochures",
+                PriorityId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0),
+                BackgroundColor = "#9575CD"
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Install New Database",
+                PriorityId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 15, 0).AddDays(1),
+                BackgroundColor = "#F57F17"
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Approve New Online Marketing Strategy",
+                PriorityId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2),
+                BackgroundColor = "#E57373"
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Upgrade Personal Computers",
+                PriorityId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0),
+                BackgroundColor = "#1976D2"
+            }
+        };
+
+        return data;
+    }
+
+    private void OnXlsxClick()
+    {
+        scheduler.ExportData("xlsx");
+    }
+
+    private void OnPdfClick()
+    {
+        scheduler.ExportData("pdf");
+    }
+
+    private void OnHtmlClick()
+    {
+        scheduler.ExportData("html");
+    }
+
+    private void OnIcalClick()
+    {
+        scheduler.ExportData("ical");
+    }
+
+    private void OnPrintClick()
+    {
+        scheduler.Print();
+    }
+
+    private class SchedulerDataSourceWithResource: SchedulerDataSource
+    {
+        public int PriorityId;
+    };
+}

@@ -1,0 +1,32 @@
+﻿@page "/listbox-select-detail"
+
+<div>
+    <ListBox @ref="_listBox"
+                OnReady="OnListBoxReady"
+                SelectionMode="ListSelectionMode.ZeroOrMany"
+                DataSource="Items">
+    </ListBox>
+    <p>Selected Indexes: @SelectedIndexes</p>
+    <p>Selected Values: @SelectedValues</p>
+</div>
+
+@code {
+    private ListBox _listBox;
+    public string[] Items = new[] { "1", "2", "3", "4" };
+
+    public string SelectedIndexes =>
+        $"[{string.Join(",", _listBox?.SelectedIndexes ?? System.Array.Empty<int>())}]";
+
+    public string SelectedValues =>
+        $"[{string.Join(",", _listBox?.SelectedValues ?? System.Array.Empty<string>())}]";
+
+    private void OnListBoxReady(ListBox listbox)
+    {
+        _listBox.Changed += ListBox_Changed;
+    }
+
+    private void ListBox_Changed(object sender, ListBoxChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+}

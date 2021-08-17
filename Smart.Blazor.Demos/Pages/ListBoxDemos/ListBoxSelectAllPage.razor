@@ -1,0 +1,46 @@
+﻿@page "/listbox-selectall"
+
+<div>
+    <span id="list-count">Items: (@ListCount)</span>
+    <ListBox @ref="_listBox"
+             OnReady="OnListBoxReady"
+             SelectionMode="ListSelectionMode.CheckBox"
+             DataSource="Items">
+    </ListBox>
+    <span id="list-selected">Currently selected: @SelectedCount</span>
+	<br/>
+    <Button OnClick="OnClick">Select All</Button>
+</div>
+
+
+@code {
+    private ListBox _listBox;
+
+    public string[] Items = new[]
+    {
+            "One",
+            "Two",
+            "Three",
+            "Four"
+        };
+
+    public int ListCount => Items.Length;
+
+    public int SelectedCount => _listBox?.SelectedIndexes?.Length ?? 0;
+
+    private void OnListBoxReady(ListBox listbox)
+    {
+        _listBox.ItemClicked += (s, e) => StateHasChanged();
+    }
+
+    public void OnClick(MouseEventArgs args)
+    {
+        SelectAll();
+    }
+
+    public void SelectAll()
+    {
+        _listBox.SelectedIndexes = Enumerable.Range(0, Items.Length).ToArray();
+        StateHasChanged();
+    }
+}

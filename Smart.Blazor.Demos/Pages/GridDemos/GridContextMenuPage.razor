@@ -19,8 +19,9 @@
     }
 
     /* This is the CSS used in the demo */
-   smart-grid {
-    	width:100%;
+    smart-grid {
+        width: 100%;
+        user-select: none;
     }
     #menu {
         height: auto;
@@ -64,7 +65,7 @@
     }
     else
     {
-        <Grid DataSource="dataRecords" Appearance="@appearance" Editing="@editing">
+        <Grid @oncontextmenu="ContextMenu" @ref="grid" DataSource="dataRecords" OnCellClick="CellClick" Appearance="@appearance" Editing="@editing">
             <Columns>
                 <Column DataField="FirstName" Label="First Name"></Column>
                 <Column DataField="LastName" Label="Last Name"></Column>
@@ -75,34 +76,60 @@
             </Columns>
         </Grid>
 
-        <Menu Mode="MenuMode.DropDown">
-            <MenuItem Label="@editLabel"></MenuItem>
-            <MenuItem Label="@removeLabel"></MenuItem>
+        <Menu Style="height: auto;" @ref="menu" Mode="MenuMode.DropDown">
+            <MenuItem @onclick="Edit">Edit</MenuItem>
+            <MenuItem @onclick="Remove">Remove</MenuItem>
         </Menu>
     }
 </Example>
 
 @code {
-    string editLabel = "<i class='material-icons'>edit</i>Edit";
-    string removeLabel = "<i class='material-icons'>delete</i> Remove";
-    string autoCompleteEditor = "autoComplete";
-    string checkBoxEditor = "checkBox";
-    string numberInputEditor = "numberInput";
+        string autoCompleteEditor = "autoComplete";
+        string checkBoxEditor = "checkBox";
+        string numberInputEditor = "numberInput";
+        string clickedRowId;
+        List<DataRecord> dataRecords;
+        Menu menu;
+        Grid grid;
 
-    GridAppearance appearance = new GridAppearance() { ShowRowHeaderNumber = true };
+        GridAppearance appearance = new GridAppearance() { ShowRowHeaderNumber = true };
 
-    GridEditing editing = new GridEditing()
-    {
-        Enabled = true,
-        Action = GridEditingAction.None,
-        Mode = GridEditingMode.Row
-    };
+        GridEditing editing = new GridEditing()
+        {
+            Enabled = true,
+            Action = GridEditingAction.None,
+            Mode = GridEditingMode.Row
+        };
 
-    private List<DataRecord> dataRecords;
+        private void ContextMenu(MouseEventArgs args)
+        {
+
+        }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         dataRecords = dataService.GenerateData(1000);
+    }
+
+    private void Edit()
+    {
+        grid.BeginEdit(this.clickedRowId);
+    }
+
+    private void Remove()
+    {
+        grid.DeleteRow(this.clickedRowId);
+    }
+
+    private void CellClick(Event args)
+    {
+        GridCellClickEventDetail detail = args["Detail"] as GridCellClickEventDetail;
+
+        if (detail.IsRightClick)
+        {
+            clickedRowId = detail.Id;
+            menu.Open(detail.PageX, detail.PageY);
+        }
     }
 }

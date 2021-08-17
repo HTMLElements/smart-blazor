@@ -1,0 +1,56 @@
+﻿@page "/menu-items-layout"
+
+<style>
+    #help {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+        #help .smart-menu-items-group-arrow {
+            display: none;
+        }
+
+    #helpIcon {
+        width: 30px;
+        height: 30px;
+    }
+
+    smart-menu {
+        margin-left: 5%;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu DropDownAppendTo="body">
+        <MenuItemsGroup>
+            File
+            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+            <MenuItemsGroup>
+                Open Containing Folder
+                <MenuItem>Explorer</MenuItem>
+                <MenuItem>cmd</MenuItem>
+            </MenuItemsGroup>
+            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+        </MenuItemsGroup>
+        <MenuItemsGroup>
+            Edit
+            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+        </MenuItemsGroup>
+        <MenuItemsGroup Id="help">            
+            <img id="helpIcon" src="../../images/help-icon.png" title="help" />
+            <MenuItem>About</MenuItem>
+            <MenuItem>Help center</MenuItem>
+            <MenuItem>Feedback</MenuItem>
+        </MenuItemsGroup>
+    </Menu>
+</Example>
+
+@code {
+}

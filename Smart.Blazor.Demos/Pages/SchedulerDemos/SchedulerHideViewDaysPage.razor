@@ -1,0 +1,128 @@
+﻿@page "/scheduler-hide-view-days"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+    }
+    
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }    
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" NonworkingDays="@nonWorkingDays" 
+                   HideNonworkingWeekdays="@hideNonWorkingDays" HideWeekend="@hideWeekend" HideAllDay="@hideAllDay" />
+
+        <div class="options">
+            <div class="description">Tuesday and Thursday have been set as nonworking days.</div>
+            <div class="option">
+                <CheckBox OnChange="OnHideNonWorkingDaysChange">Hide Nonworking weekdays</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnHideWeekendChange">Hide Weekend</CheckBox>
+            </div>
+            <div class="option">
+                <CheckBox OnChange="OnHideAllDayChange">Hide All day</CheckBox>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {   
+    private List<SchedulerDataSource> dataRecords;
+
+    private bool hideNonWorkingDays = false;
+    private bool hideWeekend = false;
+    private bool hideAllDay = false;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Week,
+        SchedulerViewType.Month
+    };
+
+    private List<object> nonWorkingDays = new List<object>() { 2, 4 };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Apple Marketing Strategy",
+                DateStart = new DateTime(today.Year, today.Month, today.Day).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day).AddDays(1),
+                BackgroundColor = "#FF5722"
+            },
+            new SchedulerDataSource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0),
+                BackgroundColor = "#7CB342"
+            },
+            new SchedulerDataSource() {
+                Label = "New Brochures",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-1),
+                BackgroundColor = "#2196F3"
+            },
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(2),
+                BackgroundColor = "#FFD600"
+            }
+        };
+
+        return data;
+    }
+
+    private void OnHideNonWorkingDaysChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        hideNonWorkingDays = args.Value;
+    }
+
+    private void OnHideWeekendChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        hideWeekend = args.Value;
+    }
+
+    private void OnHideAllDayChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        hideAllDay = args.Value;
+    }
+}

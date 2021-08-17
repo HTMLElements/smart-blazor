@@ -1,0 +1,162 @@
+﻿@page "/table-responsive-columns"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 100%;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases a smart-table with responsive columns.
+    </p>
+
+    <Table DataSource="shareData" Columns="@columns"></Table>    
+</Example>
+
+@code {   
+    private List<Dictionary<string, object>> shareData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "code", "AAC" }, { "company", "AUSTRALIAN AGRICULTURAL COMPANY LIMITED." }, { "price", 1.38 }, { "change", -0.01 },
+            { "changePercentage", -0.36 }, { "open", 1.39 }, { "high", 1.39 }, { "low", 1.38 }, { "volume", 9395 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "AAD" }, { "company", "ARDENT LEISURE GROUP" }, { "price", 1.15 }, { "change", 0.02 },
+            { "changePercentage", 1.32 }, { "open", 1.14 }, { "high", 1.15 }, { "low", 1.13 }, { "volume", 56431 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "AAX" }, { "company", "AUSENCO LIMITED" }, { "price", 4 }, { "change", -0.04 },
+            { "changePercentage", -0.99 }, { "open", 4.01 }, { "high", 4.05 }, { "low", 4 }, { "volume", 90641 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "ABC" }, { "company", "ADELAIDE BRIGHTON LIMITED" }, { "price", 3 }, { "change", 0.06 },
+            { "changePercentage", 2.04 }, { "open", 2.98 }, { "high", 3 }, { "low", 2.96 }, { "volume", 862518 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "ABP" }, { "company", "ABACUS PROPERTY GROUP" }, { "price", 1.91 }, { "change", 0 },
+            { "changePercentage", 0 }, { "open", 1.91 }, { "high", 1.93 }, { "low", 1.9 }, { "volume", 595701 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "ABY" }, { "company", "ADITYA BIRLA MINERALS LIMITED" }, { "price", 0.77 }, { "change", 0.02 },
+            { "changePercentage", 2 }, { "open", 0.76 }, { "high", 0.77 }, { "low", 0.76 }, { "volume", 54567 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "ACR" }, { "company", "ACRUX LIMITED" }, { "price", 3.71 }, { "change", 0.01 },
+            { "changePercentage", 0.14 }, { "open", 3.7 }, { "high", 3.72 }, { "low", 3.68 }, { "volume", 191373 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "ADU" }, { "company", "ADAMUS RESOURCES LIMITED" }, { "price", 0.72 }, { "change", 0 },
+            { "changePercentage", 0 }, { "open", 0.73 }, { "high", 0.74 }, { "low", 0.72 }, { "volume", 8602291 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "AGG" }, { "company", "ANGLOGOLD ASHANTI LIMITED" }, { "price", 7.81 }, { "change", -0.22 },
+            { "changePercentage", -2.74 }, { "open", 7.82 }, { "high", 7.82 }, { "low", 7.81 }, { "volume", 148 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "AGK" }, { "company", "AGL ENERGY LIMITED" }, { "price", 13.82 }, { "change", 0.02 },
+            { "changePercentage", 0.14 }, { "open", 13.83 }, { "high", 13.83 }, { "low", 13.67 }, { "volume", 846403 }
+        },
+        new Dictionary<string, object>()
+        {
+            { "code", "AGO" }, { "company", "ATLAS IRON LIMITED" }, { "price", 3.17 }, { "change", -0.02 },
+            { "changePercentage", -0.47 }, { "open", 3.11 }, { "high", 3.22 }, { "low", 3.10 }, { "volume", 5416303 }
+        }
+    };
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "code",
+            Label = "Code",
+            DataType = TableColumnDataType.String,
+            Width = 100,
+            ResponsivePriority = 1
+        },
+        new TableColumn()
+        {
+            DataField = "company",
+            Label = "Company",
+            DataType = TableColumnDataType.String,
+            Width = 400,
+            ResponsivePriority = 4
+        },
+        new TableColumn()
+        {
+            DataField = "price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 1
+        },
+        new TableColumn()
+        {
+            DataField = "change",
+            Label = "Change",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 2
+        },
+        new TableColumn()
+        {
+            DataField = "changePercentage",
+            Label = "Change %",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 1
+        },
+        new TableColumn()
+        {
+            DataField = "open",
+            Label = "Open",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 1
+        },
+        new TableColumn()
+        {
+            DataField = "high",
+            Label = "High",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 2
+        },
+        new TableColumn()
+        {
+            DataField = "low",
+            Label = "Low",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 2
+        },
+        new TableColumn()
+        {
+            DataField = "volume",
+            Label = "Volume",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 1
+        }
+    };
+}

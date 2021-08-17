@@ -1,0 +1,58 @@
+﻿@page "/kanban-task-progress"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban DataSource="dataRecords" Columns="@columns" Collapsible TaskDue TaskProgress />
+    }
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"           
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+}

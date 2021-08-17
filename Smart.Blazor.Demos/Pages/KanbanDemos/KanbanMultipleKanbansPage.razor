@@ -1,0 +1,69 @@
+﻿@page "/kanban-multiple-kanbans"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+ 
+
+    smart-kanban {
+        width: 800px !important;
+        height: 400px !important;
+    }
+</style>
+<Example Name="Kanban">
+    <h1>Kanban Boards</h1>
+    <p>
+        This page shows two Kanban boards. You can drag and drop Kanban cards between Phase 1 and Phase 2. You can also move multiple cards by selecting with Shift + Click.
+    </p>
+
+    <h2>Phase 1</h2>
+    <Kanban DataSource="dataPhaseOne" Columns="@columns" Collapsible AddNewButton SelectionMode="KanbanSelectionMode.ZeroOrManyExtended" />
+
+    <h2>Phase 2</h2>
+    <Kanban DataSource="dataPhaseTwo" Columns="@columns" Collapsible AddNewButton SelectionMode="KanbanSelectionMode.ZeroOrManyExtended" />
+</Example>
+
+@code {
+    List<Dictionary<string, object>> dataPhaseOne = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "id", 0 }, { "status", "Done" }, { "text", "Research" } },
+        new Dictionary<string, object>() { { "id", 1 }, { "status", "Done" }, { "text", "Displaying data from data source" } },
+        new Dictionary<string, object>() { { "id", 2 }, { "status", "Done" }, { "text", "Showing cover and title" } },
+        new Dictionary<string, object>() { { "id", 3 }, { "status", "Done" }, { "text", "Property validation" } },
+        new Dictionary<string, object>() { { "id", 4 }, { "status", "Done" }, { "text", "formatFunction and formatSettings" } },
+        new Dictionary<string, object>() { { "id", 5 }, { "status", "InProgress" }, { "text", "Expand/collapse arrow" } },
+        new Dictionary<string, object>() { { "id", 6 }, { "status", "InProgress" }, { "text", "Deferred scrolling" } },
+        new Dictionary<string, object>() { { "id", 7 }, { "status", "InProgress" }, { "text", "Virtual scrolling" } },
+        new Dictionary<string, object>() { { "id", 8 }, { "status", "InProgress" }, { "text", "Infinite scrolling" } },
+        new Dictionary<string, object>() { { "id", 9 }, { "status", "ToDo" }, { "text", "Visible/hidden columns" } },
+        new Dictionary<string, object>() { { "id", 10 }, { "status", "ToDo" }, { "text", "Editing" } }
+    };
+
+    List<Dictionary<string, object>> dataPhaseTwo = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "id", 11 }, { "status", "ToDo" }, { "text", "Header" } },
+        new Dictionary<string, object>() { { "id", 12 }, { "status", "ToDo" }, { "text", "Public methods" } },
+        new Dictionary<string, object>() { { "id", 13 }, { "status", "ToDo" }, { "text", "Dragging with feedback" } },
+        new Dictionary<string, object>() { { "id", 14 }, { "status", "ToDo" }, { "text", "Vertical virtualization" } }
+    };
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+}

@@ -1,0 +1,163 @@
+﻿@page "/scheduler-drag-and-drop"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .scheduler-container {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-column-gap: 20px;
+    }
+
+    smart-scheduler {
+        height: 100vh;
+        --smart-scheduler-view-item-size: 100px;
+    }
+
+    @@media (max-width: 750px) {
+        .scheduler-container {
+            grid-template-columns: initial;
+            grid-row-gap: 20px;
+        }
+
+        smart-scheduler {
+            height: 100vh;
+            --smart-scheduler-view-item-size: 100px;
+        }
+    }
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="scheduler-container">
+            <Scheduler DataSource="dataRecords" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
+            <Scheduler DataSource="dataRecords2" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
+        </div>
+    }
+</Example>
+
+@code {
+    private List<SchedulerDataSource> dataRecords;
+    private List<SchedulerDataSource> dataRecords2;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+{
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month
+    };
+    private SchedulerViewType view = SchedulerViewType.Week;
+    private int hourStart = 9;
+    private SchedulerTimelineDayScale timelineDayScale = SchedulerTimelineDayScale.HalfHour;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData("scheduler");
+        dataRecords2 = GetData("scheduler2");
+    }
+
+    private List<SchedulerDataSource> GetData(string scheduler)
+    {
+        DateTime today = DateTime.Today;
+
+        if (scheduler == "scheduler")
+        {
+            List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+            {
+                new SchedulerDataSource() {
+                    Label = "Google AdWords Strategy",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1),
+                    AllDay = true,
+                    BackgroundColor = "#3F51B5"
+                },
+                new SchedulerDataSource() {
+                    Label = "New Brochures",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(1),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                    BackgroundColor = "#F4511E"
+                },
+                new SchedulerDataSource() {
+                    Label = "Brochure Design Review",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(2),
+                    BackgroundColor = "#7986CB"
+                },
+                new SchedulerDataSource() {
+                    Label = "Rollout of New Website and Marketing Brochures",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-2),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 45, 0).AddDays(-1),
+                    BackgroundColor = "#7986CB"
+                },
+                new SchedulerDataSource() {
+                    Label = "Update Sales Strategy Documents",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0),
+                    BackgroundColor = "#616161"
+                },
+                new SchedulerDataSource() {
+                    Label = "Non-Compete Agreements",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-3),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(-2),
+                    BackgroundColor = "#E67C73"
+                }
+            };
+
+            return data;
+        } else {
+
+            List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+            {
+                new SchedulerDataSource() {
+                    Label = "Update Website Marketing Brochures",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-1),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 45, 0),
+                    BackgroundColor = "#880E4F"
+                },
+                new SchedulerDataSource() {
+                    Label = "Prepare Sales Strategy Papers",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0),
+                    BackgroundColor = "#3F51B5"
+                },
+                new SchedulerDataSource() {
+                    Label = "Complete Agreements",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(1),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                    BackgroundColor = "#558B2F"
+                },
+                new SchedulerDataSource() {
+                    Label = "Approve Hiring of Mark Waterberg",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(2),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                    BackgroundColor = "#00BFA5"
+                },
+                new SchedulerDataSource() {
+                    Label = "Reach NDA Agreement",
+                    DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0).AddDays(-2),
+                    DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0).AddDays(1),
+                    BackgroundColor = "#004D40"
+                }
+            };
+
+            return data;
+        }
+    }
+}

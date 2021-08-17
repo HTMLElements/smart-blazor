@@ -37,7 +37,7 @@
     }
     else
     {
-        <Grid DataSource="dataRecords" Editing="@editing">
+        <Grid OnEndEdit="OnEndEdit" DataSource="dataRecords" Editing="@editing">
             <Columns>
                 <Column DataField="FirstName" Label="First Name" Editor="@firstNameEditor"></Column>
                 <Column DataField="LastName" Label="Last Name" Editor="@lastNameEditor"></Column>
@@ -48,6 +48,13 @@
 </Example>
 
 @code {
+    private void OnEndEdit(Event args)
+    {
+        GridEndEditEventDetail detail = args["Detail"] as GridEndEditEventDetail;
+
+        Console.WriteLine(detail.Row["data"]);
+    }
+
     Dictionary<string, object> firstNameEditor = new Dictionary<string, object>()
     {
         { "template", "autoComplete" },

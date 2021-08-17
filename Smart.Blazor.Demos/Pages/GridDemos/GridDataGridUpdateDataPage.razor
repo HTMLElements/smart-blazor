@@ -36,7 +36,7 @@
     }
     else
     {
-        <Grid @ref="grid" DataSource="dataRecords">
+        <Grid @ref="grid" DataSource="@dataRecords">
             <Columns>
                 <Column DataField="FirstName" Label="First Name"></Column>
                 <Column DataField="LastName" Label="Last Name"></Column>
@@ -77,18 +77,17 @@
 
     private void OnUpdateSource()
     {
-        List<DataRecord> newDataRecords = dataService.GenerateData(100);
-        grid.DataSource = newDataRecords;
+        dataRecords = dataService.GenerateData(100);
     }
 
     private void OnUpdateFirstRow()
     {
-        grid.UpdateRow(0, dataService.GenerateData(1));
+        grid.UpdateRow(0, dataService.GenerateData(1)[0]);
     }
 
     private void OnUpdateFirstCell()
     {
-        //grid.DataSource[0]
+        grid.SetCellValue(0, "FirstName", "New Value");
     }
 
     private void OnClear()

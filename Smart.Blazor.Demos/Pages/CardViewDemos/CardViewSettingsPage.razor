@@ -1,0 +1,248 @@
+﻿@page "/cardview-settings"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-card-view {
+        width: 800px;
+    }
+
+        smart-card-view.disabled-icons .smart-card-view-label {
+            padding-left: 0 !important;
+        }
+
+            smart-card-view.disabled-icons .smart-card-view-label:after {
+                content: none !important;
+            }
+
+    .firstName:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/user-filled.png");
+    }
+
+    .lastName:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/signature-filled.png");
+    }
+
+    .birthday:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/birthday-filled.png");
+    }
+
+    .petName:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/pet-commands-follow-filled.png");
+    }
+
+    .productName:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/box-filled.png");
+    }
+
+    .price:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/price-tag-euro-filled.png");
+    }
+
+    .quantity:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/negative-dynamic-filled.png");
+    }
+
+    .country:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/country-filled.png");
+    }
+
+    .timeOfPurchase:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/alarm-clock-filled.png");
+    }
+
+    .expired:after {
+        background-image: url("https://img.icons8.com/ios/16/000000/expired-filled.png");
+    }
+</style>
+<Example Name="CardView">
+    <p>
+        In Card View, data source records are represented as cards. Each Card contain content and actions about a single subject.
+        Smart.CardView supports data sort, data filtering, data editing, data grouping and data searching.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="options">
+            <CheckBox @bind-Checked="@IsCollapsible" OnChange="OnCollapsibleChange">Collapsible cards</CheckBox>
+            <CheckBox Checked="@IsIcons" OnChange="OnIconsChange">Icons</CheckBox>
+            <div>
+                <p>Cell orientation:</p>
+                <RadioButton Checked="@isHorizontal" OnCheckValue="OnHorizontalCheck">horizontal</RadioButton>
+                <RadioButton OnCheckValue="OnVerticalCheck">vertical</RadioButton>
+            </div>
+            <div>
+                <p>Cover mode:</p>
+                <RadioButton Checked="@IsCrop" OnCheckValue="OnCropCheck">crop</RadioButton>
+                <RadioButton OnCheckValue="OnFitCheck">fit</RadioButton>
+            </div>
+            <p>Title:</p>
+            <DropDownList DataSource="@titleFieldSource" @bind-SelectedIndexes="@selectedIndexes" OnChange="OnDropDownChange"></DropDownList>
+        </div>
+
+        <CardView Class="@cardViewClass" DataSource="dataRecords" TitleField="@titleField" CoverField="Attachments"
+                  Columns="@columns" CellOrientation="@cellOrientation" Collapsible="@IsCollapsible" CoverMode="@coverMode">
+        </CardView>
+    }
+</Example>
+
+@code {
+    string cardViewClass = "";
+    string titleField = "FirstName";
+    Orientation cellOrientation = Orientation.Horizontal;
+    CardViewCoverMode coverMode = CardViewCoverMode.Crop;
+    bool IsCollapsible = true;
+    bool isHorizontal = true;
+    bool IsIcons = true;
+    bool IsCrop = true;
+
+    string[] titleFieldSource = new string[] { "First name", "Last name", "Pet name" };
+    int[] selectedIndexes = new int[] { 0 };
+
+    List<CardViewColumn> columns = new List<CardViewColumn>()
+    {
+        new CardViewColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            Icon = "firstName"
+        },
+        new CardViewColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            Icon = "lastName"
+        },
+        new CardViewColumn()
+        {
+            DataField = "Birthday",
+            Label = "Birthday",
+            Icon = "birthday",
+            FormatSettings = new Dictionary<string, string>() { { "formatString", "d" } }
+        },
+        new CardViewColumn()
+        {
+            DataField = "PetName",
+            Label = "Pet Name",
+            Icon = "petName"
+        },
+        new CardViewColumn()
+        {
+            DataField = "Country",
+            Label = "Country",
+            Icon = "country"
+        },
+        new CardViewColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            Icon = "productName"
+        },
+        new CardViewColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            Icon = "price",
+            FormatSettings = new Dictionary<string, string>() { { "formatString", "c2" } }
+        },
+        new CardViewColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            Icon = "quantity"
+        },
+        new CardViewColumn()
+        {
+            DataField = "TimeOfPurchase",
+            Label = "Time of Purchase",
+            Icon = "timeOfPurchase",
+            FormatSettings = new Dictionary<string, string>() { { "formatString", "hh:mm tt" } }
+        },
+        new CardViewColumn()
+        {
+            DataField = "Expired",
+            Label = "Expired",
+            Icon = "expired"
+        },
+        new CardViewColumn()
+        {
+            DataField = "Attachments",
+            Label = "Attachments",
+            Image = true
+        }
+    };
+
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(20);
+    }
+
+    private void OnCollapsibleChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+    }
+
+    private void OnIconsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        if (args.Value)
+        {
+            cardViewClass = "";
+        }
+        else
+        {
+            cardViewClass = "disabled-icons";
+        }
+
+        IsIcons = args.Value;
+    }
+
+    private void OnHorizontalCheck()
+    {
+        cellOrientation = Orientation.Horizontal;
+        isHorizontal = true;
+    }
+
+    private void OnVerticalCheck()
+    {
+        cellOrientation = Orientation.Vertical;
+        isHorizontal = false;
+    }
+
+    private void OnCropCheck()
+    {
+        coverMode = CardViewCoverMode.Crop;
+        IsCrop = true;
+    }
+
+    private void OnFitCheck()
+    {
+        coverMode = CardViewCoverMode.Fit;
+        IsCrop = false;
+    }
+
+    private void OnDropDownChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Index)
+        {
+            case 0: titleField = "FirstName";
+                break;
+            case 1: titleField = "LastName";
+                break;
+            case 2: titleField = "PetName";
+                break;
+        }
+    }
+}

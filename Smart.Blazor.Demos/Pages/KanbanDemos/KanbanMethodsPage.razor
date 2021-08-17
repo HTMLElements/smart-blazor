@@ -1,0 +1,159 @@
+﻿@page "/kanban-methods"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+ 
+
+    smart-button,
+    #status,
+    #idSelector {
+        width: 100%;
+    }
+
+    smart-button {
+        margin-bottom: 10px;
+    }
+
+    .smart-badge {
+        margin-right: 5px;
+    }
+</style>
+<Example Name="Kanban">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban @ref="kanban" DataSource="dataRecords" Columns="@columns" Collapsible Editable />
+
+        <div class="options">
+            Manupulate column with status:
+            <Input @ref="input" id="status" DataSource="inputSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="ToDo"/>
+            <br />
+            <br />
+            <Button OnClick="CollapseOnClick">Collapse column</Button>
+            <Button OnClick="ExpandOnClick">Expand column</Button>
+            <Button OnClick="ExpandAllOnClick">Expand all columns</Button>
+            <br />
+            <br />
+            Manipulate task with ID:
+            <NumericTextBox @ref="numbericTextBox" id="idSelector" InputFormat="NumericTextBoxInputFormat.Integer"/>
+            <br />
+            <Button OnClick="BeginEditOnClick">Begin edit</Button>
+            <Button OnClick="EndEditOnClick">End edit</Button>
+            <Button OnClick="CancelEditOnClick">Cancel edit</Button>
+            <Button OnClick="AddTaskOnClick">Add task</Button>
+            <Button OnClick="CopyTaskOnClick">Copy task</Button>
+            <Button OnClick="MoveTaskOnClick">Move task</Button>
+            <Button OnClick="RemoveTaskOnClick">Remove task</Button>
+            <Button OnClick="UpdateTaskOnClick">Update task</Button>
+            <Button OnClick="EnsureVisibleOnClick">Ensure visible</Button>
+        </div>
+    }
+</Example>
+
+@code {
+    Kanban kanban;
+    Input input;
+    NumericTextBox numbericTextBox;
+    int counter = 1;
+
+    string[] inputSource = new string[] { "ToDo", "InProgress", "Testing", "Done" };
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+
+    private void CollapseOnClick()
+    {
+        kanban.Collapse(input.Value);
+    }
+
+    private void ExpandOnClick()
+    {
+        kanban.Expand(input.Value);
+    }
+
+    private void ExpandAllOnClick()
+    {
+        kanban.ExpandAll();
+    }
+
+    private void BeginEditOnClick()
+    {
+        kanban.BeginEdit(numbericTextBox.Value);
+    }
+
+    private void EndEditOnClick()
+    {
+        kanban.EndEdit();
+    }
+
+    private void CancelEditOnClick()
+    {
+        kanban.CancelEdit();
+    }
+
+    private void AddTaskOnClick()
+    {
+        kanban.AddTask(new Dictionary<string, object>() { { "id", 15 + counter }, { "text", "New task " + counter }, { "status", input.Value } });
+
+        counter++;
+    }
+
+    private void CopyTaskOnClick()
+    {
+        kanban.CopyTask(numbericTextBox.Value);
+    }
+
+    private void MoveTaskOnClick()
+    {
+        kanban.MoveTask(numbericTextBox.Value, input.Value);
+    }
+
+    private void RemoveTaskOnClick()
+    {
+        kanban.RemoveTask(numbericTextBox.Value);
+    }
+
+    private void UpdateTaskOnClick()
+    {
+        kanban.UpdateTask(numbericTextBox.Value, new Dictionary<string, string>() { { "text", "Updated task" } });
+    }
+
+    private async void EnsureVisibleOnClick()
+    {
+        await kanban.EnsureVisible(numbericTextBox.Value);
+    }
+}

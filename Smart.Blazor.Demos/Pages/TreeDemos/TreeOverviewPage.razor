@@ -1,0 +1,125 @@
+﻿@page "/tree-overview"
+
+<style>
+	/* fallback */
+	@@font-face {
+		font-family: 'Material Icons';
+		font-style: normal;
+		font-weight: 400;
+		src: url(https://fonts.gstatic.com/s/materialicons/v31/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+	}
+	
+	.material-icons {
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: inherit;
+		line-height: 1;
+		letter-spacing: normal;
+		text-transform: none;
+		display: inline-block;
+		white-space: nowrap;
+		word-wrap: normal;
+		direction: ltr;
+		-webkit-font-feature-settings: 'liga';
+		-webkit-font-smoothing: antialiased;
+	}
+	smart-tree {
+		width: 60%;
+		height: auto;
+	}
+	smart-tree  i {
+		margin-right: 8px;
+	}
+	@@media only screen and (max-width: 700px) {
+	  smart-tree {
+		 width: 100%;
+		 height: 100%;
+	  }
+	  body, html {
+		width:100%;
+		height: 100%;
+	  }
+	}
+</style>
+
+<Example Name="Tree">
+    <Tree>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE53F;</i> Attractions
+            <TreeItem>Movies</TreeItem>
+            <TreeItem>Circus</TreeItem>
+            <TreeItem>Concerts</TreeItem>
+            <TreeItem>Monuments</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE56C;</i> Dining
+            <TreeItem>Restaurants</TreeItem>
+            <TreeItem>Caf&eacute;s</TreeItem>
+            <TreeItem>Bars</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE80C;</i> Education
+            <TreeItem>Schools</TreeItem>
+            <TreeItem>Colleges</TreeItem>
+            <TreeItem>Universities</TreeItem>
+            <TreeItem>Educational courses</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xEB41;</i> Family
+            <TreeItem>Babysitting</TreeItem>
+            <TreeItem>Family trips</TreeItem>
+            <TreeItem>Theme parks</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE87D;</i> Health
+            <TreeItem>Hospitals</TreeItem>
+            <TreeItem>Family physicians</TreeItem>
+            <TreeItem>Optics</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE30A;</i> Office
+            <TreeItem>Offices for rent</TreeItem>
+            <TreeItem>Office equipment</TreeItem>
+            <TreeItem>Repair works</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE25C;</i> Promotions
+            <TreeItem>Sales</TreeItem>
+            <TreeItem>Malls</TreeItem>
+            <TreeItem>Collective buying</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE03E;</i> Radio
+            <TreeItem>Available stations</TreeItem>
+            <TreeItem>Search</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE7E9;</i> Recipes
+            <TreeItem>With meat</TreeItem>
+            <TreeItem>With fish</TreeItem>
+            <TreeItem>Vegetarian recipes</TreeItem>
+            <TreeItem>Vegan recipes</TreeItem>
+            <TreeItem>Desserts</TreeItem>
+            <TreeItem>Chef's recommendations</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE52F;</i> Sports
+            <TreeItem>Football</TreeItem>
+            <TreeItem>Basketball</TreeItem>
+            <TreeItem>Tennis</TreeItem>
+            <TreeItem>Baseball</TreeItem>
+            <TreeItem>Cycling</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            <i class="material-icons">&#xE53D;</i> Travel
+            <TreeItem>Local destinations</TreeItem>
+            <TreeItem>Book tickets</TreeItem>
+            <TreeItem>Organised travel</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+</Example>
+
+@code {
+
+}

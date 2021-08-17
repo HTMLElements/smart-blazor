@@ -1,0 +1,28 @@
+﻿@page "/listbox-basic"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h2>Forecasts Summary</h2>
+    <ListBox SelectionMode="ListSelectionMode.CheckBox" SelectedIndexes="new int[] { 0 }">
+        @foreach (var forecast in forecasts)
+        {
+            <ListItem Label="@forecast.Summary.Trim()"></ListItem>
+        }
+    </ListBox>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}

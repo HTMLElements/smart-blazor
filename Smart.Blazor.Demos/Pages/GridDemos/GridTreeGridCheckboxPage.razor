@@ -73,8 +73,8 @@
         <div class="options">
             <div class="caption">Settings</div>
             <div class="option">
-                <CheckBox Checked="true" OnChange="OnShowCheckboxesChange">Show Checkboxes</CheckBox><br />
-                <CheckBox Checked="true" OnChange="OnHasThreeStatesChange">Has Three States</CheckBox>
+                <CheckBox @bind-Checked="showCheckBox" OnChange="OnShowCheckboxesChange">Show Checkboxes</CheckBox><br />
+                <CheckBox @bind-Checked="hasThreeState" OnChange="OnHasThreeStatesChange">Has Three States</CheckBox>
             </div>
         </div>
     }
@@ -96,6 +96,8 @@
     GridFiltering filtering = new GridFiltering() { Enabled = true };
 
     private List<EmployeeRecord> dataRecords;
+    private bool showCheckBox = true;
+    private bool hasThreeState = true;
 
     protected override void OnInitialized()
     {
@@ -107,13 +109,13 @@
     {
         CheckBoxChangeEventDetail args = eventObj["Detail"];
 
-        grid.CheckBoxes.Visible = args.Value;
+        checkboxes.Visible = args.Value;
     }
 
     private void OnHasThreeStatesChange(Event eventObj)
     {
         CheckBoxChangeEventDetail args = eventObj["Detail"];
 
-        grid.CheckBoxes.HasThreeStates = args.Value;
+        checkboxes.HasThreeStates = args.Value;
     }
 }

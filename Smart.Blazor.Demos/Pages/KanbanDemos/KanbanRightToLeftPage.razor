@@ -1,0 +1,93 @@
+﻿@page "/kanban-right-to-left"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+  
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban RightToLeft="true" DataSource="dataRecords" Columns="@columns" Users="@users" Collapsible CurrentUser="2"
+                Editable HeaderPosition="KanbanHeaderPosition.Top" TaskActions TaskComments
+                TaskDue TaskPriority TaskProgress TaskTags TaskUserIcon UserList />
+    }
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    List<KanbanUser> users = new List<KanbanUser>()
+    {
+        new KanbanUser()
+        {
+            Id = 0,
+            Name = "Andrew",
+            Image = "../../images/people/andrew.png"
+        },
+        new KanbanUser()
+        {
+            Id = 1,
+            Name = "Anne",
+            Image = "../../images/people/anne.png"
+        },
+        new KanbanUser()
+        {
+            Id = 2,
+            Name = "Janet",
+            Image = "../../images/people/janet.png"
+        },
+        new KanbanUser()
+        {
+            Id = 3,
+            Name = "John",
+            Image = "../../images/people/john.png"
+        },
+        new KanbanUser()
+        {
+            Id = 4,
+            Name = "Laura",
+            Image = "../../images/people/laura.png"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+}

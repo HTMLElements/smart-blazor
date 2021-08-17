@@ -1,0 +1,215 @@
+﻿@page "/ganttchart-export"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService RandomDataService
+
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: auto;
+        width: calc(100% - 300px);
+    }
+
+        smart-gantt-chart .product-team {
+            --smart-gantt-chart-task-color: rgb(94, 99, 181);
+            --smart-gantt-chart-task-label-color: white;
+            --smart-gantt-chart-task-label-color-selected: white;
+        }
+
+        smart-gantt-chart .marketing-team {
+            --smart-gantt-chart-task-color: rgb(43, 195, 190);
+        }
+
+        smart-gantt-chart .dev-team {
+            --smart-gantt-chart-task-color: rgb(242, 115, 112);
+            --smart-gantt-chart-task-label-color: white;
+            --smart-gantt-chart-task-label-color-selected: white;
+        }
+
+        smart-gantt-chart .design-team {
+            --smart-gantt-chart-task-color: rgb(255, 197, 53);
+        }
+
+        smart-gantt-chart .qa-team {
+            --smart-gantt-chart-task-color: rgb(99, 181, 144);
+        }
+
+        smart-gantt-chart .release-team {
+            --smart-gantt-chart-task-color: rgb(188, 150, 223);
+            --smart-gantt-chart-task-label-color: white;
+        }
+
+    smart-button {
+        width: 100%;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <div class="demo-description">
+        GanttChart's can be exported to a PDF or XLSX file via the <b>exportData</b> method by clicking on the corresponding button.
+    </div>
+
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Hour" 
+                TreeSize="treeSize" NonworkingHours="nonworkingHours" NonworkingDays="nonworkingDays" />
+
+    <div class="options">
+        <div class="option">
+            <Button OnClick="ExportToXLSX">Export to XLSX</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ExportToPDF">Export to PDF</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ExportToHTML">Export to HTML</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+
+    string treeSize = "30%";
+    IEnumerable<object> nonworkingHours = new List<object> { 0, 1, 2, 3, 4, 5, 6, 7, 18, 19, 20, 21, 22, 23 };
+    int[] nonworkingDays = new int[] { 0, 6 };
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() {
+            Label = "Tasks",
+            Value = "label",
+            Size = "50%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Date Start",
+            Value = "dateStart",
+            Size = "25%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Date End",
+            Value = "dateEnd"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Market Research",
+                DateStart = "2021-01-10",
+                DateEnd = "2021-03-10",
+                Class = "product-team",
+                Type = "project",
+                Expanded = true,
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Questions and Answers",
+                        DateStart = "2021-01-10",
+                        DateEnd= "2021-02-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Data Analysis",
+                        DateStart = "2021-02-11",
+                        DateEnd= "2021-03-09",
+                        Type = "task"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Architecture & Planning",
+                DateStart = "2021-03-10",
+                DateEnd = "2021-03-31",
+                Class = "marketing-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                DateStart = "2021-04-01",
+                DateEnd = "2021-10-31",
+                Class = "product-team",
+                Type = "project",
+                Expanded = true,
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "UI Designing",
+                        DateStart = "2021-04-01",
+                        DateEnd = "2021-08-31",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Business Logic Coding",
+                        DateStart = "2021-04-01",
+                        DateEnd = "2021-10-01",
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Data Transfer and Security",
+                                Duration = 200,
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Data Manipulation",
+                                Duration = 400,
+                                Type = "task"
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Database Connectivity",
+                        DateStart = "2021-04-01",
+                        DateEnd = "2021-05-30",
+                        Type = "task"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Quality Assurance",
+                DateStart = "2021-11-01",
+                DateEnd = "2021-12-31",
+                Class = "dev-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Release v1",
+                DateStart = "2021-01-01",
+                DateEnd = "2021-01-31",
+                Class = "design-team",
+                Type = "task"
+            }
+        };
+    }
+
+    private void ExportToXLSX()
+    {
+        gantt.ExportData("xlsx");
+    }
+
+    private void ExportToPDF()
+    {
+        gantt.ExportData("pdf");
+    }
+
+    private void ExportToHTML()
+    {
+        gantt.ExportData("html");
+    }
+}

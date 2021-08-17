@@ -32,21 +32,21 @@
     }
     else
     {
-        <Grid @ref="grid" DataSource="dataRecords" Columns="@columns"></Grid>
+        <Grid @ref="grid" DataSource="@dataRecords" Columns="@columns"></Grid>
 
         <div class="options">
             <div class="caption">Settings</div>
             <div class="option">
-                <Button @ref="addRowBtn" OnClick="AddRow">Add Row</Button>
+                <Button OnClick="AddRow">Add Row</Button>
             </div>
             <div class="option">
-                <Button @ref="removeLastRowBtn" OnClick="RemoveLastRow">Remove Last Row</Button>
+                <Button Disabled="@removeLastRowBtnDisabled" OnClick="RemoveLastRow">Remove Last Row</Button>
             </div>
             <div class="option">
-                <Button @ref="removeFirstRowBtn" OnClick="RemoveFirstRow">Remove First Row</Button>
+                <Button Disabled="@removeFirstRowBtnDisabled" OnClick="RemoveFirstRow">Remove First Row</Button>
             </div>
             <div class="option">
-                <Button @ref="updateFirstRowBtn" OnClick="UpdateFirstRow">Update First Row</Button>
+                <Button Disabled="@updateFirstRowBtnDisabled" OnClick="UpdateFirstRow">Update First Row</Button>
             </div>
         </div>
     }
@@ -54,10 +54,9 @@
 
 @code {
     Grid grid;
-    Button addRowBtn;
-    Button removeLastRowBtn;
-    Button removeFirstRowBtn;
-    Button updateFirstRowBtn;
+    bool removeLastRowBtnDisabled;
+    bool removeFirstRowBtnDisabled;
+    bool updateFirstRowBtnDisabled;
 
     List<GridColumn> columns = new List<GridColumn>()
     {
@@ -97,20 +96,16 @@
         dataRecords = dataService.GenerateCountriesData();
     }
 
-
-
     private void AddRow()
     {
         dataRecords = new List<CountryRecord>(dataRecords);
         dataRecords.Add(dataService.GenerateCountry());
-        grid.DataSource = dataRecords;
     }
 
     private void RemoveLastRow()
     {
         dataRecords = new List<CountryRecord>(dataRecords);
         dataRecords.RemoveAt(dataRecords.Count - 1);
-        grid.DataSource = dataRecords;
 
         UpdateButtonsDisabledState();
     }
@@ -119,18 +114,13 @@
     {
         dataRecords = new List<CountryRecord>(dataRecords);
         dataRecords.RemoveAt(0);
-        grid.DataSource = dataRecords;
 
         UpdateButtonsDisabledState();
     }
 
     private void UpdateFirstRow()
     {
-         grid.UpdateRow(0, dataService.GenerateCountry());
-
-    //    dataRecords = new List<CountryRecord>(dataRecords);
-  //      dataRecords[0] = dataService.GenerateCountry();
-  //      grid.DataSource = dataRecords;
+        grid.UpdateRow(0, dataService.GenerateCountry());
 
         UpdateButtonsDisabledState();
     }
@@ -139,9 +129,9 @@
     {
         if (dataRecords.Count == 0)
         {
-            removeLastRowBtn.Disabled = true;
-            removeFirstRowBtn.Disabled = true;
-            updateFirstRowBtn.Disabled = true;
+            removeLastRowBtnDisabled = true;
+            removeFirstRowBtnDisabled = true;
+            updateFirstRowBtnDisabled = true;
         }
     }
 }

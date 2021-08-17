@@ -1,0 +1,786 @@
+﻿@page "/menu-overview"
+
+<style>
+    /* This is the CSS used in the demo */
+     /* ------------ Google fonts ------------ */
+
+        /* fallback */
+        @@font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/materialicons/v31/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            margin-right: 10px;
+        }
+        #listMenu4 td {
+            padding: 0;
+        }
+        /* ------------ */
+
+        .smart-demo-container {
+            font-family: var(--smart-material-font-family);
+            /*line-height: 24px;*/
+            font-size: 13px;
+            margin-left: 0;
+            padding-top: 50px;
+			margin: 5% 10%;
+        }
+
+            .smart-demo-container section h2 {
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 40px;
+                margin-bottom: 30px;
+                color: #3949ab;
+            }
+
+            .smart-demo-container section:first-of-type h2 {
+                font-size: 34px;
+            }
+
+            .smart-demo-container section:first-of-type div h2 {
+                font-size: 20px;
+            }
+
+            .smart-demo-container section > h2:first-of-type {
+                padding-top: 80px;
+                border-top: 1px solid rgba(0,0,0,.12);
+            }
+
+        #overviewHeading,
+        #usageHeading {
+            border-top: none !important;
+        }
+
+        .smart-demo-container section {
+            margin-top: 80px;
+        }
+
+            .smart-demo-container section:first-of-type {
+                margin-top: 0;
+            }
+
+            .smart-demo-container section div h2 {
+                color: #212121;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 32px;
+                margin-bottom: 20px;
+                max-width: 940px;
+            }
+
+        .smart-demo-container nav {
+            display: block;
+            border-left: 5px #3949ab solid;
+            padding-left: 20px;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            -webkit-font-smoothing: antialiased;
+            font: inherit;
+            margin-top: 60px;
+        }
+
+            .smart-demo-container nav ul {
+                list-style: none;
+                margin-top: 0;
+                padding-left: 0;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                display: block;
+                list-style-type: disc;
+            }
+
+            .smart-demo-container nav li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+                font-size: 20px;
+                line-height: 40px;
+            }
+
+                .smart-demo-container nav li a {
+                    text-decoration: none;
+                }
+
+            .smart-demo-container nav h2 {
+                font-size: 15px;
+                line-height: 16px;
+                padding-bottom: 12px;
+                font-weight: 400;
+                color: #757575;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                -webkit-margin-before: 1em;
+                -webkit-margin-after: 1em;
+                -webkit-margin-start: 0px;
+                -webkit-margin-end: 0px;
+            }
+
+        .module {
+            width: 90%;
+            height: auto;
+            display: block;
+            font: inherit;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .smart-demo-container .raised-demo-start {
+            background-image: url(https://htmlelements.com/demos/images/raised-button-demo.png);
+        }
+
+        section .light-theme {
+            background-color: #EEEEEE;
+            padding: 120px 60px 120px 60px;
+        }
+
+        section .dark-theme {
+            background-color: #333333;
+            padding: 120px 60px 120px 60px;
+        }
+
+        .module h3 {
+            margin-top: 30px;
+        }
+
+        .module p {
+            margin-bottom: 20px;
+        }
+
+        .module img {
+            width: 100%;
+        }
+
+        .module > div:nth-child(odd) {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 360px;
+            height: 640px;
+            background-size: 100%;
+            position: relative;
+        }
+
+        /* current demo-specific styles */
+        .module-wide {
+            width: calc(100% / 2);
+        }
+
+        #menu1Container,
+        #menu2Container,
+        #menu2,
+        #menu4,
+        #listMenu1Container,
+        #listMenu1,
+        #listMenu2Container,
+        #listMenu2,
+        #listMenu3Container,
+        #listMenu3,
+        #listMenu4 {
+            position: relative;
+        }
+
+        #menu5,
+        smart-button.material.menu-token {
+            position: absolute;
+        }
+
+        #menu1Container {
+            background-image: url(https://htmlelements.com/demos/images/components-menus-usage1.png);
+        }
+
+        smart-button.material.menu-token {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+            smart-button.material.menu-token:not(#menu1Token):not(#menu7Token) {
+                right: 15px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(1) {
+                top: 248px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(2) {
+                top: 312px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(3) {
+                top: 376px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(4) {
+                top: 440px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(5) {
+                top: 504px;
+            }
+
+            smart-button.material.menu-token:nth-of-type(6) {
+                top: 568px;
+            }
+
+            smart-button.material.menu-token > button {
+                padding: 3px;
+            }
+
+        #menu1Token,
+        #menu7Token {
+            left: 322px;
+            top: 36px;
+        }
+
+            #menu1Token > button:not(.hover),
+            #menu7Token > button:not(.hover) {
+                color: white;
+            }
+
+        #menu1,
+        #menu3,
+        #menu7 {
+            height: auto;
+            transform-origin: 100% 0;
+        }
+
+		.module-wide {
+			overflow: visible;
+		}
+        #menu2Container {
+            background-image: url(https://htmlelements.com/demos/images/components-menus-usage3do.png);
+            width: 743px;
+            height: 434px;
+        }
+
+        #menu2 {
+			top: 77px;
+			left: 71px;
+			background: transparent;
+        }
+
+        #menu3Container {
+            height: 621px;
+            background-image: url(https://htmlelements.com/demos/images/components-menus-usage4a.png);
+        }
+
+        #menu-items .vertical-menu-container,
+        #tree-menu .vertical-menu-container {
+            width: 100%;
+			position: relative;
+			left:50px;
+            background-color: #EEEEEE;
+        }
+
+        #menu-items .vertical-menu-container {
+            height: 800px;
+        }
+
+        #tree-menu .vertical-menu-container {
+            padding: 50px;
+            height: 400px;
+        }
+
+        #menu4,
+        #menu5,
+        #menu6 {
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+        }
+
+        #menu4 {
+            top: 50px;
+            left: 50px;
+        }
+
+        #menu5 {
+            bottom: 50px;
+            right: 50px;
+        }
+
+        #menu6 {
+            width: 300px;
+            height: 300px;
+        }
+
+        #listMenu1Container {
+            background-image: url(https://htmlelements.com/demos/images/components-menus-usage2.png);
+        }
+
+        #listMenu1,
+        #listMenu2,
+        #listMenu3,
+        #listMenu4 {
+            --smart-list-menu-filter-input-size: 40px;
+            top: 80px;
+            width: 360px;
+            height: 512px;
+        }
+
+        #listMenu2Container {
+            background-image: url(https://htmlelements.com/demos/images/components-menus-usage3.png);
+        }
+
+        #listMenu3Container {
+            background-image: url(https://htmlelements.com/demos/images/components-listcontrols-expand1.png);
+        }
+
+        #listMenu4Container {
+            background-image: url(https://htmlelements.com/demos/images/components-listcontrols-leave1.png);
+        }
+
+        #listMenu4 {
+            height: 560px;
+        }
+
+        #plusButton {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: cyan;
+            font-size: 33px;
+        }
+
+            #plusButton > button {
+                background-color: inherit;
+            }
+
+        button > i.material-icons {
+            margin-left: 9px;
+        }
+
+        #listMenu4 .mail-name,
+        #listMenu4 .mail-title {
+            font-weight: bold;
+        }
+
+        #listMenu4 .mail-name {
+            font-size: medium;
+        }
+
+        #listMenu4 .mail-title {
+            width: 180px;
+        }
+
+        #listMenu4 .mail-time {
+            font-size: small;
+        }
+
+        #listMenu4 .mail-preview {
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #listMenu4 i.material-icons {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            width: 50px;
+        }
+
+        table {
+            white-space: initial;
+        }
+</style>
+
+<Example Name="Menu">
+    <div class="smart-demo-container">
+        <section>
+            <div>
+                <h2>Menus display a list of choices on a transient sheet of material.</h2>
+                <div class="module">
+                    <p>Menus appear upon interaction with a button, action, or other control. They display a list of choices, with one choice per line.</p>
+                    <p>Menu items may be disabled if not applicable to a certain context. Contextual menus dynamically change their available menu items based on the current state of the app.</p>
+                </div>
+                <div class="module">
+                    <h3>Types</h3>
+                    <p>
+                        Simple menus (mobile and tablet)
+                        <br />
+                        Cascading menus (desktop)
+                        <br />
+                        Tree menus
+                        <br />
+                        List menus
+                    </p>
+                    <h3>Elevation</h3>
+                    <p>Menus dropdowns appear above other in-app elements.</p>
+                    <h3>Behavior</h3>
+                    <p>
+                        Scrollable
+                        <br />
+                        Minimizable
+                    </p>
+                </div>
+                <div class="module">
+
+                </div>
+            </div>
+        </section>
+
+        <section id="menu-usage">
+            <h2>Usage</h2>
+
+            <div class="module module-wide">
+                <p>A menu is a temporary piece of material that appears upon interaction with a button, action, pointer, or other control. It contains at least two menu items.</p>
+                <p>Each menu item consists of a discrete option or action that can affect the app, the view, or selected elements within a view.</p>
+            </div>
+
+            <div class="module">
+                <div id="menu1Container">
+                    <Button Id="menu1Token" class="material flat menu-token" OnClick="OnMenu1TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Menu @ref="menu1" Id="menu1" class="material animation" Mode="MenuMode.DropDown" OnReady="OnMenuReady">
+                        <MenuItem>Refresh</MenuItem>
+                        <MenuItem>Settings</MenuItem>
+                        <MenuItem>Send feedback</MenuItem>
+                        <MenuItem>Help</MenuItem>
+                        <MenuItem>Signout</MenuItem>
+                    </Menu>
+                </div>
+                <div>The action overflow in the app bar will emit a menu. It contains five menu items: “Refresh”, “Settings”, “Send feedback”,“Help,” and “Signout”.</div>
+            </div>
+
+            <div class="module">
+                <h3>Menu labels</h3>
+                <p>The label of a button or control should concisely and accurately reflect the items within the menu. Menu bars typically use single words as labels, like “file,” “view,” and “edit.” Other contexts may require longer labels.</p>
+                <h3>Disabled menu options</h3>
+                <p>Menus display a consistent set of menu items. A menu item may be enabled or disabled based on the current state of the application.</p>
+            </div>
+
+            <div class="module module-wide">
+                <div id="menu2Container">
+                    <Menu Id="menu2" class="material animation" Checkboxes>
+                        <MenuItemsGroup>
+                            File
+                            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+                            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+                            <MenuItemsGroup>
+                                Open Containing Folder
+                                <MenuItem>Explorer</MenuItem>
+                                <MenuItem>cmd</MenuItem>
+                            </MenuItemsGroup>
+                            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+                            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Edit
+                            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+                            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+                            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            View
+                            <MenuItem Shortcut="Ctrl+W, S" Checked>Solution Explorer</MenuItem>
+                            <MenuItem Shortcut="Ctrl+\, Ctrl+M" Checked>Team Explorer</MenuItem>
+                            <MenuItem Shortcut="Ctrl+W, L">Server Explorer</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup Checkable CheckMode="MenuCheckMode.RadioButton">
+                            Encoding
+                            <MenuItem>Encode in ANSI</MenuItem>
+                            <MenuItem>Encode in UTF-8</MenuItem>
+                            <MenuItem>Encode in UTF-8-BOM</MenuItem>
+                            <MenuItem>Encode in UTCS-2 BE BOM</MenuItem>
+                            <MenuItem>Encode in UTCS-2 LE BOM</MenuItem>                            
+                        </MenuItemsGroup>
+                    </Menu>
+                </div>
+                <div>The title “View” accurately describes the unifying characteristic of the menu items it contains.</div>
+            </div>
+
+            <div class="module module-wide">
+                <h3>Contextual menus</h3>
+                <p>Contextual menus dynamically change their available menu items based on the current state of the application.</p>
+                <ul>
+                    <li>Menu items that are irrelevant to the current context may be removed</li>
+                    <li>Menu items which are relevant but need certain conditions to be met may be disabled. For example, the Copy menu option becomes enabled when text is selected.</li>
+                </ul>
+                <h3>Single menu-item states</h3>
+                <p>Some app states may result in a contextual menu with only a single menu item. For example, when highlighting text on a web page, Android display only the Copy menu item, as users cannot cut or paste text.</p>
+            </div>
+
+            <div class="module">
+                <div id="menu3Container">
+                    <Button class="material flat menu-token" OnClick="OnMenu2TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Button class="material flat menu-token" OnClick="OnMenu3TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Button class="material flat menu-token" OnClick="OnMenu4TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Button class="material flat menu-token" OnClick="OnMenu5TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Button class="material flat menu-token" OnClick="OnMenu6TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Button class="material flat menu-token" OnClick="OnMenu7TokenClick"><i class="material-icons">&#xE5D4;</i></Button>
+                    <Menu @ref="menu3" Id="menu3" class="material animation" Mode="MenuMode.DropDown">
+                        <MenuItem><i class='material-icons'>&#xE417;</i> Preview</MenuItem>
+                        <MenuItem><i class='material-icons'>&#xE80D;</i> Share</MenuItem>
+                        <MenuItem Separator><i class='material-icons'>&#xE157;</i> Get link</MenuItem>
+                        <MenuItem><i class='material-icons'>&#xE14D;</i> Make a copy</MenuItem>
+                        <MenuItem Separator><i class='material-icons'>&#xE2C4;</i> Download</MenuItem>
+                        <MenuItem><i class='material-icons'>&#xE872;</i> Remove</MenuItem>
+                    </Menu>
+                </div>
+                <div>Contextual menu</div>
+            </div>
+        </section>
+
+        <section id="menu-items">
+            <h2>Menu items</h2>
+
+            <div class="module">
+                <h3>Single-line display</h3>
+                <p>Each menu item is limited to a single line of text (a single word or short phrase) that describes the action it will perform when selected.</p>
+                <p>Menu items may also contain:</p>
+                <ul>
+                    <li>Icons and helper text, like keyboard shortcuts</li>
+                    <li>Controls like checkmarks to indicate multiple selected items or states</li>
+                </ul>
+                <h3>Menu ordering</h3>
+                <p>Menus with static content should have the most frequently used menu items placed at the top of the menu.</p>
+                <p>Menus with dynamic content may have other behavior, such as placing previously used fonts at the top of the menu. The order can change based on user actions.</p>
+                <h3>Menu nesting</h3>
+                <p>Menu items can reveal nested submenus. Ideally, limit nesting to one level deep, as it can be difficult to navigate multiple nested submenus.</p>
+                <h3>Open direction</h3>
+                <p>Submenu open direction (dropdown position) can be also specified. Available options are: 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'overlay-left', 'overlay-right', and 'auto' (behaves like 'bottom-right', but also has browser bounds detection).</p>
+                <h3>Disabled actions</h3>
+                <p>Displaying actions as disabled, rather than removing them, lets the user know they exist under the right conditions.</p>
+                <p>For example, Redo is disabled when there is nothing to redo. Cut and Copy are disabled until content is selected.</p>
+                <h3>Scrollable content</h3>
+                <p>If the height of the main Menu or a submenu is specified and the content overflows, the content becomes scrollable.</p>
+            </div>
+
+            <div class="module">
+                <div class="vertical-menu-container">
+                    <Menu Id="menu4" class="material animation" Mode="MenuMode.Vertical" Checkboxes>
+                        <MenuItemsGroup>
+                            File
+                            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+                            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+                            <MenuItemsGroup>
+                                Open Containing Folder
+                                <MenuItem>Explorer</MenuItem>
+                                <MenuItem>cmd</MenuItem>
+                            </MenuItemsGroup>
+                            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+                            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Edit
+                            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+                            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+                            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Encoding
+                            <MenuItem>Encode in ANSI</MenuItem>
+                            <MenuItem>Encode in UTF-8</MenuItem>
+                            <MenuItem>Encode in UTF-8-BOM</MenuItem>
+                            <MenuItem>Encode in UTCS-2 BE BOM</MenuItem>
+                            <MenuItem Separator>Encode in UTCS-2 LE BOM</MenuItem>
+                            <MenuItemsGroup>
+                                Character sets
+                                <MenuItemsGroup>
+                                    Cyrillic
+                                    <MenuItem>ISO 8859-5</MenuItem>
+                                    <MenuItem>KOI8-R</MenuItem>
+                                    <MenuItem>KOI8-U</MenuItem>
+                                    <MenuItem>Windows-1251</MenuItem>
+                                </MenuItemsGroup>
+                                <MenuItemsGroup>
+                                    Chinese
+                                    <MenuItem>Big5 (Traditional)</MenuItem>
+                                    <MenuItem>GB2312 (Simplified)</MenuItem>
+                                </MenuItemsGroup>
+                                <MenuItemsGroup>
+                                    Western European
+                                    <MenuItem>ISO 8859-1</MenuItem>
+                                    <MenuItem>ISO 8859-15</MenuItem>
+                                    <MenuItem>OEM 850</MenuItem>
+                                    <MenuItem>Windows-1252</MenuItem>
+                                </MenuItemsGroup>
+                            </MenuItemsGroup>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup Checkable CheckMode="MenuCheckMode.Checkbox">
+                            Show
+                            <MenuItem Checked>Grid lines</MenuItem>
+                            <MenuItem>Page breaks</MenuItem>
+                            <MenuItem Checked>Rules</MenuItem>
+                        </MenuItemsGroup>
+                    </Menu>
+                </div>
+                <div>Vertical Menu with nested items and auto/bottom-right open direction</div>
+            </div>
+
+            <div class="module">
+            </div>
+
+            <div class="module module-wide">
+                <div class="vertical-menu-container">
+                    <Menu Id="menu5" class="material animation" Mode="MenuMode.Vertical" Checkboxes DropDownPosition="MenuDropDownPosition.TopLeft">
+                        <MenuItemsGroup>
+                            File
+                            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+                            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+                            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+                            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Edit
+                            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+                            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+                            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Encoding
+                            <MenuItem>Encode in ANSI</MenuItem>
+                            <MenuItem>Encode in UTF-8</MenuItem>
+                            <MenuItem>Encode in UTF-8-BOM</MenuItem>
+                            <MenuItem>Encode in UTCS-2 BE BOM</MenuItem>
+                            <MenuItem Separator>Encode in UTCS-2 LE BOM</MenuItem>
+                        </MenuItemsGroup>
+                    </Menu>
+                </div>
+                <div>Vertical Menu with nested items and top-left open direction</div>
+            </div>
+        </section>
+
+        <section id="tree-menu">
+            <h2>Tree menu</h2>
+
+            <div class="module">A tree menu is a vertical menu that shows submenus with indentation under the parent item, akin to a tree view.</div>
+
+            <div class="module module-wide">
+                <div class="vertical-menu-container">
+                    <Menu Id="menu6" class="material animation" Mode=MenuMode.Tree>
+                        <MenuItemsGroup>
+                            File
+                            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+                            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+                            <MenuItemsGroup>
+                                Open Containing Folder
+                                <MenuItem>Explorer</MenuItem>
+                                <MenuItem>cmd</MenuItem>
+                            </MenuItemsGroup>
+                            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+                            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Edit
+                            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+                            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+                            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+                            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+                        </MenuItemsGroup>
+                        <MenuItemsGroup>
+                            Encoding
+                            <MenuItem>Encode in ANSI</MenuItem>
+                            <MenuItem>Encode in UTF-8</MenuItem>
+                            <MenuItem>Encode in UTF-8-BOM</MenuItem>
+                            <MenuItem>Encode in UTCS-2 BE BOM</MenuItem>
+                            <MenuItem Separator>Encode in UTCS-2 LE BOM</MenuItem>
+                            <MenuItemsGroup>
+                                Character sets
+                                <MenuItemsGroup>
+                                    Cyrillic
+                                    <MenuItem>ISO 8859-5</MenuItem>
+                                    <MenuItem>KOI8-R</MenuItem>
+                                    <MenuItem>KOI8-U</MenuItem>
+                                    <MenuItem>Windows-1251</MenuItem>
+                                </MenuItemsGroup>
+                                <MenuItemsGroup>
+                                    Chinese
+                                    <MenuItem>Big5 (Traditional)</MenuItem>
+                                    <MenuItem>GB2312 (Simplified)</MenuItem>
+                                </MenuItemsGroup>
+                                <MenuItemsGroup>
+                                    Western European
+                                    <MenuItem>ISO 8859-1</MenuItem>
+                                    <MenuItem>ISO 8859-15</MenuItem>
+                                    <MenuItem>OEM 850</MenuItem>
+                                    <MenuItem>Windows-1252</MenuItem>
+                                </MenuItemsGroup>
+                            </MenuItemsGroup>
+                        </MenuItemsGroup>
+                    </Menu>
+                </div>
+            </div>
+        </section>
+    </div>
+</Example>
+
+@code {
+    Menu menu1;
+    Menu menu3;
+
+    private void OnMenuReady(Menu menu)
+    {
+        menu1.Open(202, 35);
+    }
+
+    private void OnMenu1TokenClick()
+    {
+        menu1.Open(202, 35);
+    }
+
+    private void OnMenu2TokenClick()
+    {
+        menu3.Open(194, 248);
+    }
+    private void OnMenu3TokenClick()
+    {
+        menu3.Open(194, 312);
+    }
+    private void OnMenu4TokenClick()
+    {
+        menu3.Open(194, 376);
+    }
+    private void OnMenu5TokenClick()
+    {
+        menu3.Open(194, 440);
+    }
+    private void OnMenu6TokenClick()
+    {
+        menu3.Open(194, 504);
+    }
+    private void OnMenu7TokenClick()
+    {
+        menu3.Open(194, 568);
+    }
+}

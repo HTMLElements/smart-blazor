@@ -1,0 +1,117 @@
+﻿@page "/kanban-swimlanes-partial"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+
+    html,
+    body {
+        margin: 0;
+    }
+</style>
+<Example Name="Kanban">
+    <h1>Kanban Board with partial Swimlanes</h1>
+    <p>
+        Kanban swimlanes divide the board horizontally, representing parts of the process that run in parallel: tasks in one lane should not depend on tasks from other lanes, and tasks should not move from one swimlane to another
+        In this page, the swimlanes partially divide the board.
+    </p>
+    
+    <Kanban DataSource="dataRecords" Columns="@columns" Users="@users" Collapsible 
+            Editable UserList Swimlanes="@swimlanes" SwimlanesFrom="0" SwimlanesTo="2"/>    
+</Example>
+
+@code {
+    List<Dictionary<string, object>> dataRecords = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "text", "Research of energy business" }, { "userId", 3 }, { "status", "Done" }, { "swimlane", "Client1"} },
+        new Dictionary<string, object>() { { "text", "Create Gannt chart" }, { "userId", 2 }, { "status", "InProgress" }, { "swimlane", "Client1"} },
+        new Dictionary<string, object>() { { "text", "Develop prototype" }, { "userId", 4 }, { "status", "Testing" }, { "swimlane", "Client1"} },
+        new Dictionary<string, object>() { { "text", "Data extrapolation" }, { "userId", 3 }, { "status", "InProgress" }, { "swimlane", "Client1"} },
+        new Dictionary<string, object>() { { "text", "Prepare requirements" }, { "userId", 1 }, { "status", "Done" }, { "swimlane", "Client2"} },
+        new Dictionary<string, object>() { { "text", "Try out new simulation" }, { "userId", 1 }, { "status", "Testing" }, { "swimlane", "Client2"} },
+        new Dictionary<string, object>() { { "text", "Create blueprints for new product" }, { "userId", 1 }, { "status", "ToDo" }, { "swimlane", "Other"} },
+        new Dictionary<string, object>() { { "text", "Calculate hours necessary for \"EMV\" project" }, { "userId", 2 }, { "status", "ToDo" }, { "swimlane", "Other"} },
+        new Dictionary<string, object>() { { "text", "Distribute final product" }, { "userId", 4 }, { "status", "Done" }, { "swimlane", "Client1"} }
+    };
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    List<KanbanUser> users = new List<KanbanUser>()
+    {
+        new KanbanUser()
+        {
+            Id = 0,
+            Name = "Andrew",
+            Image = "../../images/people/andrew.png"
+        },
+        new KanbanUser()
+        {
+            Id = 1,
+            Name = "Anne",
+            Image = "../../images/people/anne.png"
+        },
+        new KanbanUser()
+        {
+            Id = 2,
+            Name = "Janet",
+            Image = "../../images/people/janet.png"
+        },
+        new KanbanUser()
+        {
+            Id = 3,
+            Name = "John",
+            Image = "../../images/people/john.png"
+        },
+        new KanbanUser()
+        {
+            Id = 4,
+            Name = "Laura",
+            Image = "../../images/people/laura.png"
+        }
+    };
+
+    List<KanbanSwimlane> swimlanes = new List<KanbanSwimlane>()
+    {
+        new KanbanSwimlane()
+        {
+            Label = "Client \"Energo\"",
+            DataField = "Client1"
+        },
+        new KanbanSwimlane()
+        {
+            Label = "Client \"Sim-Prod Ltd.\"",
+            DataField = "Client2",
+            Color = "#C90086"
+        },
+        new KanbanSwimlane()
+        {
+            Label = "Other clients",
+            DataField = "Other",
+            Color = "#03C7C0"
+        }
+    };
+}

@@ -1,9 +1,14 @@
-﻿@page "/scrollbar"
+﻿@page "/"
 
 <Example Name="ScrollBar">
-	<ScrollBar Value="50"></ScrollBar>
+	<ScrollBar @ref="scrollbar" OnChange="ChangeHandler"></ScrollBar>
 </Example>
 
 @code {
+    ScrollBar scrollbar;
 
+    private void ChangeHandler(Event args) {
+        ScrollBarChangeEventDetail detail = args["Detail"] as ScrollBarChangeEventDetail;
+        Console.WriteLine(detail.OldValue + "/" + detail.Value);
+    }
 }

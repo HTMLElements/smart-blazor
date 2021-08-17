@@ -1,0 +1,106 @@
+﻿@page "/table-state-maintenance"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 60%;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases state maintenance in smart-table.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table @ref="table" DataSource="dataRecords" ColumnReorder="true" Selection="true" SortMode="TableSortMode.Many" Columns="@columns"></Table>
+
+        <div class="options">
+            <div class="option">
+                <Button OnClick="saveState">Save state</Button>
+            </div>
+            <div class="option">
+                <Button @ref="loadBtn" OnClick="loadState">Load state</Button>
+            </div>
+        </div>
+    }
+    </Example>
+
+@code {
+    Table table;
+    Button loadBtn;
+
+    private List<DataRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+
+        },
+        new TableColumn()
+        {
+            DataField = "TimeOfPurchase",
+            Label = "Date Purchased",
+            DataType = TableColumnDataType.Date
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(15);
+    }
+
+    private void saveState()
+    {
+        table.SaveState();
+    }
+
+    private async void loadState()
+    {
+        //table.LoadState();
+    }
+}

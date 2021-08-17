@@ -1,0 +1,204 @@
+﻿@page "/tabs-overview"
+
+<style>
+	/* This is the CSS used in the demo */
+	smart-tabs {
+		width: 60%;
+		margin-top: 30px;
+		height: 250px;
+	}
+	
+	smart-tabs.albums {
+		width: 380px;
+		height:420px;
+	}
+	
+	@@media only screen and (max-width: 700px) {
+		smart-tabs, smart-tabs.albums {
+			width: 100%;
+		}
+	}
+</style>
+
+<Example Name="Tabs">
+    <div class="smart-demo-container">
+        <section>
+            <h2>Tabs make it easy to explore and switch between different views.</h2>
+            <div class="module">
+                <p>
+                    Tabs enable content organization at a high level, such as switching between
+                    views, data sets, or functional aspects of an app.
+                </p>
+                <h3>Types of Tabs Layouts</h3>
+                <p>
+                    Fixed
+                    <br />Scrollable
+                    <br />Overflow with DropDown
+                    <br />Shrink
+                    <br />Wrap
+                </p>
+                <h3>Tab labels</h3>
+                <p>Tab labels may include icons and text.</p>
+            </div>
+        </section>
+        <section id="tabs-usage">
+            <h2 id="usageHeading">Usage</h2>
+            <div>
+                <p>
+                    A tab provides the affordance for displaying grouped content. A tab label
+                    succinctly describes the tab’s associated grouping of content.
+                </p>
+            </div>
+        </section>
+        <Tabs class="animation mobile">
+            <TabItem Label="Tab One">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the
+                1500s, when an unknown printer took a galley of type and scrambled it to
+                make a type specimen book. It has survived not only five centuries, but
+                also the leap into electronic typesetting, remaining essentially unchanged.
+                It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more recently with desktop publishing software
+                like Aldus PageMaker including versions of Lorem Ipsum
+            </TabItem>
+            <TabItem Label="Tab Two">
+                Contrary to popular belief, Lorem Ipsum is not simply random text. It
+                has roots in a piece of classical Latin literature from 45 BC, making it
+                over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+                College in Virginia, looked up one of the more obscure Latin words, consectetur,
+                from a Lorem Ipsum passage, and going through the cites of the word in
+                classical literature, discovered the undoubtable source. Lorem Ipsum comes
+                from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The
+                Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
+                treatise on the theory of ethics.
+            </TabItem>
+            <TabItem Label="Tab Three">
+                It is a long established fact that a reader will be distracted by the
+                readable content of a page when looking at its layout. The point of using
+                Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+                as opposed to using 'Content here, content here', making it look like readable
+                English. Many desktop publishing packages and web page editors now use
+                Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
+                will uncover many web sites still in their infancy. Various versions have
+                evolved over the years, sometimes by accident, sometimes on purpose (injected
+                humour and the like).
+            </TabItem>
+        </Tabs>
+
+            
+        <div>Fixed tab bar pinned to top</div>
+        <Tabs>
+            <TabItem Label="<i class='material-icons'>phone</i>">Calls</TabItem>
+            <TabItem Label="<i class='material-icons'>favorite</i>">Favorites</TabItem>
+            <TabItem Label="<i class='material-icons'>perm_contact_calendar</i>">Contacts</TabItem>
+        </Tabs>
+        <div>Default app bar and fixed tab bar with icons</div>
+        <Tabs class="animation desktop padding" TabLayout="TabsTabLayout.DropDown">
+            <TabItem Label="Web">Web Content</TabItem>
+            <TabItem Label="Shopping">Shopping Content</TabItem>
+            <TabItem Label="Videos">Videos Content</TabItem>
+            <TabItem Label="Images">Images Content</TabItem>
+            <TabItem Label="News">News Content</TabItem>
+            <TabItem Label="Maps">Maps Content</TabItem>
+            <TabItem Label="Books">Books Content</TabItem>
+            <TabItem Label="Flights">Flights Content</TabItem>
+            <TabItem Label="Apps">Apps Content</TabItem>
+        </Tabs>
+        <div>Tabs with a dropdown menu</div>
+        <Tabs>
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+            <TabItem Label="Item Five">Content Five</TabItem>
+            <TabItem Label="Item Six">Content Six</TabItem>
+            <TabItem Label="Item Seven">Content Seven</TabItem>
+            <TabItem Label="Item Eight">Content Eight</TabItem>
+            <TabItem Label="Item Nine">Content Nine</TabItem>
+            <TabItem Label="Item Ten">Content Ten</TabItem>
+            <TabItem Label="Item Eleven">Content Eleven</TabItem>
+        </Tabs>
+        <div>Tabs with overflow pagination</div>
+        <Tabs TabPosition="TabPosition.Left">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the left</div>
+        <Tabs TabPosition="TabPosition.Right">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the right</div>
+        <Tabs TabPosition="TabPosition.Bottom">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the bottom</div>
+        <Tabs TabTextOrientation="Orientation.Vertical">
+            <TabItem Label="One">Content One</TabItem>
+            <TabItem Label="Two">Content Two</TabItem>
+            <TabItem Label="Three">Content Three</TabItem>
+            <TabItem Label="Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab labels with vertical text</div>
+        <Tabs class="animation desktop" TabPosition="TabPosition.Left" TabTextOrientation="Orientation.Vertical">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the left with vertical labels</div>
+        <Tabs class="animation desktop" TabPosition="TabPosition.Right" TabTextOrientation="Orientation.Vertical">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the right with vertical labels</div>
+        <Tabs class="animation desktop" TabPosition="TabPosition.Bottom" TabTextOrientation="Orientation.Vertical">
+            <TabItem Label="Item One">Content One</TabItem>
+            <TabItem Label="Item Two">Content Two</TabItem>
+            <TabItem Label="Item Three">Content Three</TabItem>
+            <TabItem Label="Item Four">Content Four</TabItem>
+        </Tabs>
+        <div>Tab bar on the bottom with vertical labels</div>
+        <Tabs class="animation desktop">
+            <TabItemsGroup Label="Fruits">
+                <TabItem Label="Apple">Apple information</TabItem>
+                <TabItem Label="Lime">Lime information</TabItem>
+                <TabItem Label="Orange">Orange information</TabItem>
+            </TabItemsGroup>
+            <TabItemsGroup Label="Vegetables">
+                <TabItem Label="Carrot">Carrot information</TabItem>
+                <TabItem Label="Raddish">Raddish information</TabItem>
+            </TabItemsGroup>
+            <TabItem Label="Meat">Meat information</TabItem>
+            <TabItem Label="Fish">Fish information</TabItem>
+        </Tabs>
+        <div>Tabs with grouping</div>
+        <Tabs class="albums">
+            <TabItem Label="Pop">
+                <img src="./images/albums_pop.png" />
+            </TabItem>
+            <TabItem Label="Alternative">
+                <img src="./images/albums_alternative.png" />
+            </TabItem>
+            <TabItem Label="Rock">
+                <img src="./images/albums_rock.png" />
+            </TabItem>
+            <TabItem Label="R & B">
+                <img src="./images/albums_rnb.png" />
+            </TabItem>
+        </Tabs>
+    </div>
+</Example>
+
+@code {
+
+}

@@ -1,0 +1,251 @@
+﻿@page "/ganttchart-methods"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+smart-gantt-chart {
+    width: 60%;
+    height: auto;
+}
+    @@media (max-width: 700px)
+    {
+	    smart-gantt-chart {
+		    width: 95%;
+		    margin-left:2%;
+	    }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description:</b> <b>Update</b> method updates the task with index 9 ( if there's one). <b>Insert</b> method insert's a Project Task with two sub-tasks at position 8. <b>Remove</b> method removes the first Task.
+    </p>
+
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" TreeSize="treeSize" HideResourcePanel />
+
+    <div class="options">
+        <h3>Settings</h3>
+        <div class="option">
+            <Button OnClick="OnUpdateClick" Disabled="@updateDisabled">Update</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnInsertClick" Disabled="@insertDisabled">Insert</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnRemoveClick" Disabled="@removeDisabled">Remove</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+
+    bool insertDisabled = false;
+    bool updateDisabled = false;
+    bool removeDisabled = false;
+
+    string treeSize = "45%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() {
+            Label = "Tasks",
+            Value = "label",
+            Size = "40%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Date Start",
+            Value = "dateStart"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Date End",
+            Value = "dateEnd",
+            Size = "30%"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                DateStart = "2020-03-10T12:30:00",
+                DateEnd = "2021-06-10T3:59:00",
+                Expanded = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-02-10",
+                        DateEnd = "2021-01-10",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }
+                            },
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-10-10",
+                        DateEnd = "2021-02-31",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 3 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project 1.1",
+                        DateStart = "2020-03-10T12:30:00",
+                        DateEnd = "2021-06-10T3:59:00",
+                        Expanded = true,
+                        Type = "project",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 1 }, { "type", 0 }
+                            }
+                        },
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 1.1.1",
+                                DateStart = "2020-02-10",
+                                DateEnd = "2021-01-10",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 2 }, { "type", 1 }
+                                    },
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 4 }, { "type", 1 }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 1.1.2",
+                                DateStart = "2020-10-10",
+                                DateEnd = "2021-02-31",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 3 }, { "type", 1 }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2020-03-10T15:30:00",
+                DateEnd = "2021-08-10",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Milestone 1",
+                DateEnd = "2021-05-24",
+                Type = "milestone",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 5 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2021-02-05",
+                DateEnd = "2021-07-08",
+                Progress = 50,
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 4",
+                DateStart = "2020-03-10T15:30:00",
+                DateEnd = "2021-08-10"
+            }
+        };
+    }
+
+    private void OnInsertClick()
+    {
+        GanttDataRecord task = new GanttDataRecord()
+        {
+            Label = "Inserted Task 1",
+            DateStart = "2020-08-10",
+            DateEnd = "2020-12-23",
+            Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Inserted Sub-Task 1.1",
+                        DateStart = "2020-09-01",
+                        DateEnd = "2020-10-30"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Inserted Sub-Task 1.2",
+                        DateStart = "2020-11-01",
+                        DateEnd = "2020-12-23"
+                    }
+                }
+        };
+
+        gantt.InsertTask(task);
+        insertDisabled = true;
+    }
+
+    private void OnUpdateClick()
+    {
+        gantt.UpdateTask(0, new Dictionary<string, string>() { { "label", "Task Updated Successfully" }, { "dateEnd", "2021-1-1" } });
+
+        updateDisabled = true;
+    }
+
+    private void OnRemoveClick()
+    {
+        gantt.RemoveTask(0);
+        insertDisabled = false;
+    }
+}

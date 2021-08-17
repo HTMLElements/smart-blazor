@@ -1,0 +1,26 @@
+﻿@page "/menu-items-with-icons"
+
+<style>
+    img {
+        margin-right: 7px;
+    }
+
+    smart-menu {
+        height: 70px;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu>
+        <MenuItem><img src="../../images/sun.png" title="Sun" />Sun</MenuItem>
+        <MenuItemsGroup>
+            <img src="../../images/earth.png" title="Planets" /> Planets
+            <MenuItem><img src="../../images/earth.png" title="Earth" />Earth</MenuItem>
+            <MenuItem><img src="./../images/mars.png" title="Mars" />Mars</MenuItem>
+        </MenuItemsGroup>
+        <MenuItem><img src="../../images/moon.png" title="Moon" />Moon</MenuItem>        
+    </Menu>
+</Example>
+
+@code {
+}

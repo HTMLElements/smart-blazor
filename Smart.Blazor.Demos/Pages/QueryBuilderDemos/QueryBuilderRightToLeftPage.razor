@@ -1,0 +1,133 @@
+﻿@page "/querybuilder-right-to-left"
+
+<style>
+    smart-query-builder {
+        display: inline-block;
+    }
+</style>
+<Example Name="QueryBuilder">
+    <QueryBuilder @ref="queryBuilder" RightToLeft Fields="@fields" AllowDrag="@allowDrag" 
+                  ShowIcons="@showIcons" Value="@value" Messages="@messages" Locale="he">
+    </QueryBuilder>
+
+    <div class="options">
+        <div class="option">
+            <CheckBox Checked OnChange="OnAllowDragChange">Allow drag</CheckBox>
+        </div>
+        <div class="option">
+            <CheckBox Checked OnChange="OnShowIconsChange">Show icons in "Equals"</CheckBox>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private QueryBuilder queryBuilder;
+
+    bool allowDrag = true;
+    bool showIcons = true;
+
+    private List<QueryBuilderField> fields = new List<QueryBuilderField>() {
+        new QueryBuilderField()
+        {
+            Label = "מזהה",
+            DataField = "id",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "מוצר",
+            DataField = "productName",
+            DataType = "string"
+        },
+        new QueryBuilderField()
+        {
+            Label = "מחיר ליחידה",
+            DataField = "price",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "נקנה",
+            DataField = "purchased",
+            DataType = "date"
+        },
+        new QueryBuilderField()
+        {
+            Label = "זמין",
+            DataField = "available",
+            DataType = "boolean"
+        }
+    };
+
+    private List<object> value = new List<object>()
+    {
+        new List<object>()
+        {
+            new List<object>() { "purchased", "=", new DateTime(2019, 1, 4) },
+            "and",
+            new List<object>() { "productName", "<>", "צגים" },
+            "or",
+            new List<object>() { "productName", "isblank" }
+        },
+        "and",
+        new List<object>()
+        {
+            new List<object>() { "available", "=", true },
+            "and",
+            new List<object>() { "price", "<", 1300 }
+        },
+        "or",
+        new List<object>()
+        {
+            new List<object>() { "productName", "=", "טלוויזיות" },
+            "and",
+            new List<object>() { "price", "<", 4000 }
+        }
+    };
+
+    private IDictionary<string, object> messages = new Dictionary<string, object>()
+    {
+        { 
+            "he", 
+            new Dictionary<string, string>()
+            {
+                 { "add", "הוסף" },
+                 { "addCondition", "הוסף תנאי" },
+                 { "addGroup", "הוסף קבוצה" },
+                 { "and", "ו" },
+                 { "notand", "לא וגם" },
+                 { "or", "או" },
+                 { "notor", "לא אור" },
+                 { "=", "שווים" },
+                 { "<>", "לא שווה" },
+                 { ">", "גדול מ" },
+                 { ">=", "גדול מ או שווה ל" },
+                 { "<", "פחות מ" },
+                 { "<=", "פחות מ או שווה ל" },
+                 { "startswith", "מתחיל עם" },
+                 { "endswith", "נגמר עם" },
+                 { "contains", "מכיל" },
+                 { "notcontains", "לא מכיל" },
+                 { "isblank", "ריק" },
+                 { "isnotblank", "אינו ריק" },
+                 { "dateTabLabel", "תאריך" },
+                 { "timeTabLabel", "זמן" },
+                 { "queryLabel", "שאילתא" }
+            }
+        }
+    };
+
+    private void OnAllowDragChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail detail = eventObj["Detail"];
+        allowDrag = detail.Value;
+        StateHasChanged();
+    }
+
+    private void OnShowIconsChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail detail = eventObj["Detail"];
+        showIcons = detail.Value;
+        StateHasChanged();
+    }
+}

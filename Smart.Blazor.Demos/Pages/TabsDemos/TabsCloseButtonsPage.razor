@@ -1,0 +1,79 @@
+﻿@page "/tabs-close-buttons"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-tabs {
+    	width: 60%;
+    	height: 200px;
+    }
+    
+    @@media only screen and (max-width: 700px) {
+    	smart-tabs {
+    		width: 100%;
+    	}
+    }
+</style>
+
+<Example Name="Tabs">
+    <p>closeButtonMode 'default'</p>
+    <Tabs @ref="tabs" class="demoTabsShort" CloseButtons="@tabs1CloseButtons">
+        <TabItem Label="TAB 1">Content 1</TabItem>
+        <TabItem Label="TAB 2" Selected>Content 2</TabItem>
+        <TabItem @ref="thirdTab" Label="TAB 3" CloseButtonHidden="@closeBtnHidden">Content 3</TabItem>
+    </Tabs>
+    <br />
+
+    <p>closeButtonMode 'selected'</p>
+    <Tabs class="demoTabsShort" CloseButtons CloseButtonMode="TabsCloseButtonMode.Selected" AddNewTab>
+        <TabItem Label="TAB 1">Content 1</TabItem>
+        <TabItem Label="TAB 2">Content 2</TabItem>
+        <TabItem Label="TAB 3" Selected>Content 3</TabItem>
+    </Tabs>
+
+    <div class="options">
+        <div class="caption">Settings</div>
+        <div class="option">
+            <ToggleButton class="demoButton" Checked="@toggleBtnChecked" OnChange="OnToggleChange">Toggle close buttons</ToggleButton><br /><br />
+            <Button class="demoButton" Disabled="@showBtnDisabled" OnClick="OnShowClick">Show third close button</Button><br /><br />
+            <Button class="demoButton" Disabled="@hideBtnDisabled" OnClick="OnHideClick">Hide third close button</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    TabItem thirdTab;
+    Tabs tabs;
+    bool toggleBtnChecked = true;
+    bool tabs1CloseButtons = true;
+    bool showBtnDisabled = false;
+    bool hideBtnDisabled = true;
+    bool closeBtnHidden = true;
+
+    private void OnToggleChange(Event eventObj)
+    {
+        ToggleButtonChangeEventDetail args = eventObj["Detail"];
+
+        tabs1CloseButtons = args.Value;
+        toggleBtnChecked = args.Value;
+    }
+
+    private void OnShowClick()
+    {
+        showBtnDisabled = true;
+        hideBtnDisabled = false;
+
+        closeBtnHidden = false;
+
+        tabs.StateHasChanged();
+    }
+
+    private void OnHideClick()
+    {
+        showBtnDisabled = false;
+        hideBtnDisabled = true;
+
+        closeBtnHidden = true;
+
+        tabs.StateHasChanged();
+    }
+}

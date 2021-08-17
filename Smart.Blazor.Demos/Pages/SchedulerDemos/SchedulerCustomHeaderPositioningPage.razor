@@ -1,0 +1,76 @@
+﻿@page "/scheduler-custom-header-positioning"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+    }
+    
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }    
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler DataSource="dataRecords" HeaderDatePosition="SchedulerHeaderDatePosition.Far" 
+                   HeaderViewPosition="SchedulerHeaderViewPosition.Near" ScrollButtonsPosition="SchedulerScrollButtonsPosition.Far" />
+    }
+</Example>
+
+@code {
+    private List<SchedulerDataSource> dataRecords;
+   
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+             new SchedulerDataSource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0),
+                BackgroundColor = "#E67C73"
+            },
+            new SchedulerDataSource() {
+                Label = "New Brochures",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-1),
+                BackgroundColor = "#8E24AA"
+            },
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(2),
+                BackgroundColor = "#039BE5"
+            }
+        };
+
+        return data;
+    }
+}

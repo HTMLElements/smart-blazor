@@ -1,0 +1,474 @@
+﻿@page "/scheduler-event-render-mode"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+        --smart-scheduler-event-size: 50px;
+    }
+    
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }
+
+    .options {
+        height: 300px;
+    }
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" HourStart="9" 
+                   TimelineDayScale="SchedulerTimelineDayScale.HalfHour" EventRenderMode="@eventRenderMode" />
+
+        <div class="options">
+            <div class="description">
+                <h4>Description</h4>
+                <b>eventRenderMode</b> determines how the events are rendered inside the
+                cells:
+                <ul>
+                    <li>
+                        classic - the events are fitted inside the target cell. No event collector
+                        is used.
+                    </li>
+                    <li>
+                        modern - the events are fitted according to their size set via the CSS
+                        variable. Events that overflow will be placed inside a collector. On Mobile
+                        all events are placed inside collectors.
+                    </li>
+                </ul>
+            </div>
+            <div class="option">
+                <h4>Select Event Render Mode:</h4>
+                <Input DataSource="inputDataSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="@inputValue" Readonly OnChange="handleInputChange"/>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    SchedulerEventRenderMode eventRenderMode = SchedulerEventRenderMode.Modern;
+
+    private List<SchedulerDataSource> dataRecords;
+    private string[] inputDataSource = new string[] { "classic", "modern" };
+    private string inputValue = "modern";
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month,
+        SchedulerViewType.TimelineDay,
+        SchedulerViewType.TimelineWeek
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(-10),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(-11),
+                AllDay = true,
+                BackgroundColor = "#616161"
+            },
+            new SchedulerDataSource() {
+                Label = "New Brochures",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-11),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-12),
+                BackgroundColor = "#0B8043"
+            },
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(-12),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(-4),
+                BackgroundColor = "#F6BF26"
+            },
+            new SchedulerDataSource() {
+                Label = "Website Re-Design Plan",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0).AddDays(3),
+                BackgroundColor = "#F4511E"
+            },
+            new SchedulerDataSource() {
+                Label = "Rollout of New Website and Marketing Brochures",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 45, 0).AddDays(-1),
+                BackgroundColor = "#F6BF26"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Sales Strategy Documents",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0).AddDays(-2),
+                BackgroundColor = "#E67C73"
+            },
+            new SchedulerDataSource() {
+                Label = "Non-Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-3),
+                BackgroundColor = "#616161"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of John Jeffers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0).AddDays(-3),
+                BackgroundColor = "#F6BF26"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Update NDA Agreement",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0).AddDays(-3),
+                BackgroundColor = "#7986CB"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Update Employee Files with New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0).AddDays(-3),
+                BackgroundColor = "#33B679"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Submit Questions Regarding New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(-6),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-6),
+                BackgroundColor = "#039BE5"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Submit Signed NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 45, 0).AddDays(-6),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(-6),
+                BackgroundColor = "#7986CB"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Review Revenue Projections",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 17, 15, 0).AddDays(-6),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 18, 0, 0).AddDays(-6),
+                BackgroundColor = "#F4511E"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Comment on Revenue Projections",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 15, 0).AddDays(-5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0).AddDays(-5),
+                BackgroundColor = "#FFAB00"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Provide New Health Insurance Docs",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 45, 0).AddDays(-5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-5),
+                BackgroundColor = "#039BE5"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Review Changes to Health Insurance Coverage",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0).AddDays(-5),
+                BackgroundColor = "#388E3C"
+            },
+            new SchedulerDataSource() {
+                Label = "Review Training Course for any Ommissions",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(-8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-9),
+                BackgroundColor = "#E67C73"
+            },
+            new SchedulerDataSource() {
+                Label = "Recall Rebate Form",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 45, 0).AddDays(-8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(-8),
+                BackgroundColor = "#388E3C"
+            },
+            new SchedulerDataSource() {
+                Label = "Create Report on Customer Feedback",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(-9),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 17, 30, 0).AddDays(-9),
+                BackgroundColor = "#388E3C"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Review Customer Feedback Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(-9),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 18, 30, 0).AddDays(-9),
+                BackgroundColor = "#D500F9"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Customer Feedback Report Analysis",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-10),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(-10),
+                BackgroundColor = "#D81B60"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Prepare Shipping Cost Analysis Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(-10),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(-10),
+                BackgroundColor = "#00ACC1"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Provide Feedback on Shippers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-10),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 0, 0).AddDays(-10),
+                BackgroundColor = "#00838F"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Select Preferred Shipper",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 17, 30, 0).AddDays(-10),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 20, 0, 0).AddDays(-10),
+                BackgroundColor = "#64DD17"
+            },
+            new SchedulerDataSource() {
+                Label = "Complete Shipper Selection Form",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(-11),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-11),
+                BackgroundColor = "#F57C00"
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Server Hardware",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-11),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(-11),
+                BackgroundColor = "#2962FF"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Upgrade Personal Computers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(-11),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(-11),
+                BackgroundColor = "#536DFE"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Upgrade Apps to Windows RT or stay with WinForms",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(-12),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(-12),
+                BackgroundColor = "#512DA8"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Estimate Time Required to Touch-Enable Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(-12),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(-12),
+                BackgroundColor = "#388E3C"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Report on Tranistion to Touch-Based Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 18, 30, 0).AddDays(-12),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 19, 0, 0).AddDays(-12),
+                BackgroundColor = "#C62828"
+            },
+            new SchedulerDataSource() {
+                Label = "Submit New Website Design",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-3),
+                BackgroundColor = "#AB47BC"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Create Icons for Website",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(-3),
+                BackgroundColor = "#FF5722"
+            },
+            new SchedulerDataSource() {
+                Label = "Create New Product Pages",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0).AddDays(-2),
+                BackgroundColor = "#FF6E40"
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Website Launch",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(-2),
+                BackgroundColor = "#1B5E20"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Update Customer Shipping Profiles",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(-1),
+                BackgroundColor = "#795548"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Create New Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 45, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(-1),
+                BackgroundColor = "#F50057"
+            },
+            new SchedulerDataSource() {
+                Label = "Get Design for Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 15, 0, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(-1),
+                BackgroundColor = "#0091EA"
+            },
+            new SchedulerDataSource() {
+                Label = "PSD needed for Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 15, 0).AddDays(1),
+                BackgroundColor = "#FF6D00"
+            },
+            new SchedulerDataSource() {
+                Label = "Contact ISP and Discuss Payment Options",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 0, 0).AddDays(1),
+                BackgroundColor = "#AB47BC"
+            },
+            new SchedulerDataSource() {
+                Label = "Prepare Year-End Support Summary Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 17, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 20, 0, 0).AddDays(1),
+                BackgroundColor = "#8D6E63"
+            },
+            new SchedulerDataSource() {
+                Label = "Review New Training Material",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 15, 0).AddDays(2),
+                BackgroundColor = "#FF9800"
+            },
+            new SchedulerDataSource() {
+                Label = "Distribute Training Material to Support Staff",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 45, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2),
+                BackgroundColor = "#00838F"
+            },
+            new SchedulerDataSource() {
+                Label = "Training Material Distribution Schedule",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(2),
+                BackgroundColor = "#43A047"
+            },
+            new SchedulerDataSource() {
+                Label = "Approval on Converting to New HDMI Specification",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 15, 0).AddDays(5),
+                BackgroundColor = "#00C853"
+            },
+            new SchedulerDataSource() {
+                Label = "Create New Spike for Automation Server",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(5),
+                BackgroundColor = "#FB8C00"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Code Review - New Automation Server",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 0, 0).AddDays(5),
+                BackgroundColor = "#0D47A1"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Confirm Availability for Sales Meeting",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 15, 0).AddDays(6),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(6),
+                BackgroundColor = "#FF8F00"
+            },
+            new SchedulerDataSource() {
+                Label = "Reschedule Sales Team Meeting",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(6),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 18, 0, 0).AddDays(6),
+                BackgroundColor = "#D500F9"
+            },
+            new SchedulerDataSource() {
+                Label = "Send 2 Remotes for Giveaways",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(7),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0).AddDays(7),
+                BackgroundColor = "#03A9F4"
+            }, 
+            new SchedulerDataSource() {
+                Label = "Discuss Product Giveaways with Management",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 15, 0).AddDays(7),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0).AddDays(7),
+                BackgroundColor = "#2E7D32"
+            },
+            new SchedulerDataSource() {
+                Label = "Replace Desktops on the 3rd Floor",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 45, 0).AddDays(8),
+                BackgroundColor = "#8BC34A"
+            },
+            new SchedulerDataSource() {
+                Label = "Update Database with New Leads",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(8),
+                BackgroundColor = "#BF360C"
+            },
+            new SchedulerDataSource() {
+                Label = "Mail New Leads for Follow Up",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0).AddDays(8),
+                BackgroundColor = "#A1887F"
+            },
+            new SchedulerDataSource() {
+                Label = "Send Territory Sales Breakdown",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 18, 0, 0).AddDays(8),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 20, 0, 0).AddDays(8),
+                BackgroundColor = "#FF5722"
+            },
+            new SchedulerDataSource() {
+                Label = "Territory Sales Breakdown Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0),
+                BackgroundColor = "#F57F17"
+            },
+            new SchedulerDataSource() {
+                Label = "Territory Sales Breakdown Report 2",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 50, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0),
+                BackgroundColor = "#880E4F"
+            },
+            new SchedulerDataSource() {
+                Label = "Territory Sales Breakdown Report 3",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 55, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0),
+                BackgroundColor = "#5D4037"
+            },
+            new SchedulerDataSource() {
+                Label = "Territory Sales Breakdown Report 4",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0),
+                BackgroundColor = "#1565C0"
+            },
+            new SchedulerDataSource() {
+                Label = "Report on the State of Engineering Dept",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0),
+                BackgroundColor = "#43A047"
+            },
+            new SchedulerDataSource() {
+                Label = "Staff Productivity Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 19, 30, 0),
+                BackgroundColor = "#880E4F"
+            }
+        };
+
+        return data;
+    }
+
+    private void handleInputChange(Event eventObj)
+    {
+        InputChangeEventDetail args = eventObj["Detail"];
+        
+        if (args.Value == "modern")
+        {
+            eventRenderMode = SchedulerEventRenderMode.Modern;
+        }
+        else
+        {
+            eventRenderMode = SchedulerEventRenderMode.Classic;
+        }
+    }
+}

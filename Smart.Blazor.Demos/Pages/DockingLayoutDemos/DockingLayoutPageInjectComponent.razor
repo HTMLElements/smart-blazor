@@ -1,0 +1,125 @@
+﻿@page "/dockinglayout-inject"
+
+<Example Name="DockingLayout">
+    <style>
+        smart-docking-layout {
+            width: 100%;
+            height: 500px;
+            max-width: 1000px;
+            background-color: #EEEDF3;
+        }
+
+            smart-docking-layout .smart-items-container smart-splitter-item.smart-element,
+            smart-docking-layout .smart-items-container > .smart-container > smart-splitter-item.smart-element {
+                width: 50%;
+                height: 50%;
+            }
+
+            smart-docking-layout smart-tabs-window smart-slider.smart-element,
+            smart-docking-layout smart-tabs-window smart-multiline-text-box.smart-element {
+                height: 100%;
+                width: 100%;
+            }
+
+            smart-docking-layout smart-tabs-window smart-multiline-text-box.smart-element {
+                display: block;
+            }
+    </style>
+    <DockingLayout OnReady="OnReady" Layout=@layoutStructure>
+    </DockingLayout>
+
+    <div id="Input">
+        <br />
+        <br />
+        <TextArea Value="What is Lorem Ipsum?"></TextArea>
+    </div>
+
+    <div id="Slider">
+        <br />
+        <br />
+        <Slider Value="50" ShowButtons="true" TicksVisibility="TicksVisibility.Major" TicksPosition="TicksPosition.Track"></Slider>
+    </div>
+
+    <div id="Custom">
+        @DynamicRender
+    </div>
+
+    <Button @onclick="InjectBlazorComponent">Inject Component</Button>
+</Example>
+
+@code {
+
+    private object[] layoutStructure = new object[] {
+        new {
+            type = "LayoutGroup",
+            orientation = "horizontal",
+            items = new object[] {
+                new {
+                    type = "LayoutGroup",
+                    size = 200,
+                    items = new object[] {
+                        new {
+                            type = "LayoutPanel",
+                            label = "Input",
+                            id = "tabPanel",
+                            items = new object[] {
+                                new {
+                                    type = "LayoutPanel",
+                                    label = "TextBox Tab",
+                                    content = "#Input"
+                                },
+                                new {
+                                    type = "LayoutPanel",
+                                    label = "Slider Tab",
+                                    content = "#Slider"
+                                }
+                            }
+                        }
+                    }
+                },
+                new {
+                    type = "LayoutPanel",
+                    label = "Output",
+                    items = new object[]{
+                        new {
+                            id="outputTab",
+                            label = "Output",
+                            headerPosition = "none",
+                            content = "Write more text here..."
+                        }
+                    }
+                }
+            }
+        },
+        new {
+            id = "item0",
+            label = "Tabs 0",
+            items = new object[]{
+                new {
+                    label = "Tab A",
+                    selected = true,
+                    content = "#Custom"
+                }
+            }
+        }
+    };
+
+    private RenderFragment DynamicRender { get; set; }
+
+    private void OnReady(DockingLayout dockingLayout)
+    {
+
+    }
+
+    private RenderFragment CreateDynamicComponent() => builder =>
+    {
+        builder.OpenComponent(0, typeof(SurveyPrompt));
+        builder.AddAttribute(1, "Title", "Some title");
+        builder.CloseComponent();
+    };
+
+    private void InjectBlazorComponent(MouseEventArgs args)
+    {
+        DynamicRender = CreateDynamicComponent();
+    }
+}

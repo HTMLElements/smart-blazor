@@ -1,0 +1,69 @@
+﻿@page "/tree-sorting"
+
+<style>
+	smart-tree {
+	    width: 300px;
+    }
+
+    @@media only screen and (max-width: 700px) {
+      smart-tree {
+    	 width: 100%;
+      }
+    }   
+</style>
+
+<Example Name="Tree">
+    <Tree Filterable ShowLines ShowRootLines SortDirection="TreeSortDirection.Ascending" Sorted ToggleElementPosition="Position.Near">
+        <TreeItemsGroup Id="numbers" IsExpanded>
+            Numbers
+            <TreeItem>3</TreeItem>
+            <TreeItem>2</TreeItem>
+            <TreeItem>1</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="letters" IsExpanded>
+            Letters
+            <TreeItem>A</TreeItem>
+            <TreeItem>C</TreeItem>
+            <TreeItem>D</TreeItem>
+            <TreeItem>B</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="greekLetters" IsExpanded>
+            Greek letters
+            <TreeItem>β</TreeItem>
+            <TreeItem>δ</TreeItem>
+            <TreeItem>α</TreeItem>
+            <TreeItem>γ</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+
+    <p>Sort direction: ascending</p>
+    <br /><br />
+
+    <Tree Filterable ShowLines ShowRootLines SortDirection="TreeSortDirection.Descending" Sorted ToggleElementPosition="Position.Near">
+        <TreeItemsGroup Id="numbers" IsExpanded>
+            Numbers
+            <TreeItem>3</TreeItem>
+            <TreeItem>2</TreeItem>
+            <TreeItem>1</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="letters" IsExpanded>
+            Letters
+            <TreeItem>A</TreeItem>
+            <TreeItem>C</TreeItem>
+            <TreeItem>D</TreeItem>
+            <TreeItem>B</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Id="greekLetters" IsExpanded>
+            Greek letters
+            <TreeItem>β</TreeItem>
+            <TreeItem>δ</TreeItem>
+            <TreeItem>α</TreeItem>
+            <TreeItem>γ</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+
+    <p>Sort direction: descending</p>
+</Example>
+
+@code {
+}

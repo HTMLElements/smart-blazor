@@ -1,0 +1,66 @@
+﻿@page "/tabs-insert-remove-update"
+
+<style>
+    /* This is the CSS used in the demo */
+    #index {
+        border: 1px solid #ddd;
+        height: 30px;
+        width: 60px;
+    }
+
+    smart-tabs {
+        width: 60%;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        smart-tabs {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Tabs">
+	<Tabs @ref="tabs" class="demoTabs" SelectedIndex=0>
+		<TabItem Label="TAB 1">Content 1</TabItem>
+		<TabItem Label="TAB 2">Content 2</TabItem>
+		<TabItem Label="TAB 3">Content 3</TabItem>
+		<TabItem Label="TAB 4">Content 4</TabItem>
+	</Tabs>
+
+    <div class="option">
+        <div class="caption">Choose tab index</div>
+        <div class="option">
+            <input @ref="index" id="index" type="number" @bind="@inputValue"/>
+        </div>
+        <div class="option">
+            <Button class="demoButton" OnClick="OnInsertClick">Insert at index</Button>
+        </div>
+        <div class="option">
+            <Button class="demoButton" OnClick="OnRemoveClick">Remove at index</Button>
+        </div>
+        <div class="option">
+            <Button class="demoButton" OnClick="OnUpdateClick">Update at index</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Tabs tabs;
+    ElementReference index;
+    int inputValue;
+
+    private void OnInsertClick()
+    {
+        tabs.Insert(inputValue, new Dictionary<string, string>() { { "label", "New TAB" }, { "content", "New content" } });
+    }
+
+    private void OnRemoveClick()
+    {
+        tabs.RemoveAt(inputValue);
+    }
+
+    private void OnUpdateClick()
+    {
+        tabs.Update(inputValue, "Updated TAB", "Updated content");
+    }
+}

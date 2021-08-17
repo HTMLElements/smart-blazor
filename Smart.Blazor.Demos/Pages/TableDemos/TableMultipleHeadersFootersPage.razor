@@ -1,0 +1,116 @@
+﻿@page "/table-multiple-headers-footers"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        height: 650px;
+    }
+
+    #totalLabel {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    #customHeaderRow > th {
+        font-size: 11px;
+        font-style: italic;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases how to show multiple header and footer rows in smart-table.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table DataSource="dataRecords" FooterRow="@footerTemplateId" HeaderRow="@headerTemplateId" FreezeHeader="true" FreezeFooter="true" Columns="@columns"></Table>
+
+        <template id="customHeaderRowTemplate">
+            <tr id="customHeaderRow">
+                <th>The user's id</th>
+                <th>The user's first name</th>
+                <th>The user's last name</th>
+                <th>Official product name</th>
+                <th>The number of purchased items</th>
+            </tr>
+        </template>
+
+        <template id="customFooterRowTemplate">
+            <tr>
+                <td>id</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Product Name</td>
+                <td>Quantity</td>
+            </tr>
+        </template>
+    }
+</Example>
+
+@code {
+    private string footerTemplateId = "customFooterRowTemplate";
+    private string headerTemplateId = "customHeaderRowTemplate";
+
+    private List<DataRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(15);
+    }
+}

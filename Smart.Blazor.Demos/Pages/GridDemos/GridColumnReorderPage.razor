@@ -61,7 +61,12 @@
         <div class="options">
             <div class="caption">Event Log</div>
             <div class="option" id="log">
-                @startLog <br/> @endLog
+                <div>
+                    @startLog
+                </div>
+                <div>
+                    @endLog
+                </div>
             </div>
         </div>
     }
@@ -86,13 +91,18 @@
     private void OnColumnDragStart(Event eventObj)
     {
         GridColumnDragStartEventDetail detail = eventObj["Detail"];
-        startLog = "columnDragStart: " + detail.Column["label"] + ", index: " + detail.Index;
+
+        if (detail != null && detail.Column != null) {
+            startLog = "columnDragStart: index: " + detail.Index;
+        }
     }
 
     private void OnColumnDragEnd(Event eventObj)
     {
         GridColumnDragEndEventDetail detail = eventObj["Detail"];
-        endLog = "columnDragEnd: " + detail.Column["label"] + ", index: " +
-            detail.Index + ", new index: " + detail.NewIndex;
+        if (detail != null && detail.Column != null)
+        {
+            startLog = "columnDragEnd: index: " + detail.Index;
+        }
     }
 }

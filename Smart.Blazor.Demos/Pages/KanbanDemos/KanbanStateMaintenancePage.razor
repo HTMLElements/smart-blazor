@@ -1,0 +1,80 @@
+﻿@page "/kanban-state-maintenance"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-kanban {
+        width: 80% !important;
+        height: 600px !important;
+    }
+</style>
+
+<Example Name="Kanban">
+    <h1>Kanban State Maintenance</h1>
+    <p>This page shows how to Save and Load the state of a Kanban</p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban @ref="kanban" DataSource="dataRecords" Columns="@columns" AutoLoadState Collapsible Editable
+                HeaderPosition="KanbanHeaderPosition.Top" SelectionMode="KanbanSelectionMode.ZeroOrManyExtended" />
+
+        <div class="options">
+            <Button OnClick="OnSaveStateClick">Save state</Button><br /><br />
+            <Button OnClick="OnLoadStateClick" Disabled="@loadStateDisabled">Load state</Button>
+        </div>
+    }
+</Example>
+
+@code {
+    Kanban kanban;
+    bool loadStateDisabled = true;
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+
+    private void OnSaveStateClick()
+    {
+        kanban.SaveState();
+        loadStateDisabled = false;
+    }
+
+    private void OnLoadStateClick()
+    {
+        kanban.LoadState();
+    }
+}

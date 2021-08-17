@@ -59,13 +59,13 @@
         <div class="options">
             <div class="caption">Settings</div>
             <div class="option">
-                <CheckBox Checked="true" OnChange="OnEnabledChanged">Enabled</CheckBox>
+                <CheckBox @bind-Checked="enabled" OnChange="OnEnabledChanged">Enabled</CheckBox>
             </div>
             <div class="option">
-                <CheckBox Checked="true" OnChange="OnSelectAllChanged">Select All CheckBox</CheckBox>
+                <CheckBox @bind-Checked="selectAll" OnChange="OnSelectAllChanged">Select All CheckBox</CheckBox>
             </div>
             <div class="option">
-                <CheckBox Checked="true" OnChange="OnPositionChanged">Position: Right</CheckBox>
+                <CheckBox @bind-Checked="positionRight" OnChange="OnPositionChanged">Position: Right</CheckBox>
             </div>
             <div class="option">
                 <CheckBox OnChange="OnSelectOnCellClickChanged">Select on Cell Click</CheckBox>
@@ -76,6 +76,9 @@
 
 @code {
     Grid grid;
+    bool enabled = true;
+    bool selectAll = true;
+    bool positionRight = true;
 
     GridSelection selection = new GridSelection()
     {

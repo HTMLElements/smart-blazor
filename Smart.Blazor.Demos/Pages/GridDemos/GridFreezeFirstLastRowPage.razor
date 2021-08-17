@@ -34,7 +34,7 @@
     }
     else
     {
-        <Grid DataSource="dataRecords" OnRowInit="OnRowInit">
+        <Grid DataSource="dataRecords" OnReady="OnReady">
             <Columns>
                 <Column DataField="Id" Label="Id" DataType="number" Align="HorizontalAlignment.Right" CellsAlign="HorizontalAlignment.Right"></Column>
                 <Column DataField="FirstName" Label="First Name"></Column>
@@ -57,15 +57,9 @@
         dataRecords = dataService.GenerateData(3000);
     }
 
-    private void OnRowInit(object eventObj)
+    private void OnReady(Grid grid)
     {
-        //if (index === 2999)
-        //{
-        //    row.freeze = 'far';
-        //}
-        //else if (index === 0)
-        //{
-        //    row.freeze = 'near';
-        //}
+        grid.SetRowProperty(0, "freeze", "near");
+        grid.SetRowProperty(dataRecords.Count - 1, "freeze", "far");
     }
 }

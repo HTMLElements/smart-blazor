@@ -1,0 +1,109 @@
+﻿@page "/kanban-export"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-kanban {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    smart-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+</style>
+<Example Name="Kanban">
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Kanban @ref="kanban" DataSource="dataRecords" Columns="@columns" Collapsible />
+
+        <div class="options">
+            <Button OnClick="CsvClick">Export to CSV</Button>
+            <Button OnClick="HtmlClick">Export to HTML</Button>
+            <Button OnClick="JsonClick">Export to JSON</Button>
+            <Button OnClick="PdfClick">Export to PDF</Button>
+            <Button OnClick="TsvClick">Export to TSV</Button>
+            <Button OnClick="XlsxClick">Export to XLSX</Button>
+            <Button OnClick="XmlClick">Export to XML</Button>
+        </div>
+    }
+</Example>
+
+@code {
+    Kanban kanban;
+
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+
+    private async void CsvClick()
+    {
+        await kanban.ExportData("csv");
+    }
+
+    private async void HtmlClick()
+    {
+        await kanban.ExportData("html");
+    }
+
+    private async void JsonClick()
+    {
+        await kanban.ExportData("json");
+    }
+
+    private async void PdfClick()
+    {
+        await kanban.ExportData("pdf");
+    }
+
+    private async void TsvClick()
+    {
+        await kanban.ExportData("tsv");
+    }
+
+    private async void XlsxClick()
+    {
+        await kanban.ExportData("xlsx");
+    }
+
+    private async void XmlClick()
+    {
+        await kanban.ExportData("xml");
+    }
+}

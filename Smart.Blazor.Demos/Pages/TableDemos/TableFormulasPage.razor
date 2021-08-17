@@ -1,0 +1,80 @@
+﻿@page "/table-formulas"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 800px;
+        height: 800px;
+    }
+
+        .smart-table thead th:not(:last-child),
+        .smart-table tbody td:not(:last-child) {
+            border-right: var(--smart-border-width) solid var(--smart-border);
+        }
+
+        .smart-table th > .wrapper {
+            justify-content: center;
+        }
+</style>
+<Example Name="Table">
+    <p>
+        This demo shows how to apply formulas as smart-table cell values. Formulas applied on initialization are:
+    </p>
+    <ul>
+        <li><strong>A2</strong> <em>=A1+1</em></li>
+        <li><strong>A3</strong> <em>=A2+1</em></li>
+        <li><strong>C4</strong> <em>=SUM(C1:C3)</em></li>
+        <li><strong>D3</strong> <em>=D1&" "&D2&"!"</em></li>
+        <li><strong>F8</strong> <em>=8+2</em></li>
+        <li><strong>F9</strong> <em>=PI()</em></li>
+        <li><strong>G10</strong> <em>=MAX(A10:E10)</em></li>
+    </ul>
+
+    <Table DataSource="dataRecords" Editing="true" Formulas="true" KeyboardNavigation="true" Columns="@columns"></Table>
+</Example>
+
+@code {   
+    private List<Dictionary<string, object>> dataRecords = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "A", 10 }, { "B", 5 }, { "C", 1 }, { "D", "Hello" } },
+        new Dictionary<string, object>() { { "A", "=A1+1" }, { "B", 4 }, { "C", 2 }, { "D", "world" } },
+        new Dictionary<string, object>() { { "A", "=A2+1" }, { "C", 3 }, { "D", "=D1&' '&D2&'!'" } },
+        new Dictionary<string, object>() { { "C", "=SUM(C1:C3)" } },
+
+        new Dictionary<string, object>() { },
+        new Dictionary<string, object>() { },
+        new Dictionary<string, object>() { },
+
+        new Dictionary<string, object>() { { "F", "=8+2" } },
+        new Dictionary<string, object>() { { "F", "=PI()" } },
+        new Dictionary<string, object>() { { "A", 10 }, { "B", 20 }, { "C", 30 }, { "D", 11 }, { "E", 21 }, { "G", "=MAX(A10:E10)" } }
+    };
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn() { DataField = "A", Label = "A", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "B", Label = "B", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "C", Label = "C", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "D", Label = "D", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "E", Label = "E", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "F", Label = "F", DataType = TableColumnDataType.String },
+        new TableColumn() { DataField = "G", Label = "G", DataType = TableColumnDataType.String }
+    };
+}

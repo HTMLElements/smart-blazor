@@ -1,0 +1,81 @@
+﻿@page "/menu-drop-down-position"
+
+<style>
+    smart-menu {
+        margin-left: 200px;
+        margin-top: 310px;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu class="material animation" DropDownPosition="@dropDownPosition">
+        <MenuItemsGroup>
+            File
+            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+        </MenuItemsGroup>
+        <MenuItemsGroup>
+            Edit
+            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+        </MenuItemsGroup>
+    </Menu>
+
+    <div class="options">
+        <div class="caption">Dropdown Position</div>
+        <div class="option">
+            <RadioButton OnCheckValue="OnAutoChecked">Auto (browser bounds detection)</RadioButton><br />
+            <RadioButton OnCheckValue="OnBottomLeftChecked">Bottom left</RadioButton><br />
+            <RadioButton OnCheckValue="OnBottomRightChecked">Bottom right</RadioButton><br />
+            <RadioButton OnCheckValue="OnTopLeftChecked">Top left</RadioButton><br />
+            <RadioButton OnCheckValue="OnTopRightChecked">Top right</RadioButton><br />
+            <RadioButton OnCheckValue="OnOverlayLeftChecked">Overlay left</RadioButton><br />
+            <RadioButton OnCheckValue="OnOverlayRightChecked">Overlay right</RadioButton><br />
+        </div>
+    </div>
+</Example>
+
+@code {
+    MenuDropDownPosition dropDownPosition = MenuDropDownPosition.Auto;
+
+    private void OnAutoChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.Auto;
+    }
+
+    private void OnBottomLeftChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.BottomLeft;
+    }
+
+    private void OnBottomRightChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.BottomRight;
+    }
+
+    private void OnTopLeftChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.TopLeft;
+    }
+
+    private void OnTopRightChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.TopRight;
+    }
+
+    private void OnOverlayLeftChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.OverlayLeft;
+    }
+
+    private void OnOverlayRightChecked()
+    {
+        this.dropDownPosition = MenuDropDownPosition.OverlayRight;
+    }
+}

@@ -1,0 +1,132 @@
+﻿@page "/table-export"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 800px;
+        height: 600px;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases the cell editing functionality of smart-table. Double-click a cell to start an edit operation.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table @ref="table" DataSource="dataRecords" Columns="@columns"></Table>
+
+        <div class="options">
+            <Button OnClick="exportCSV">Export to CSV</Button>
+            <Button OnClick="exportHTML">Export to HTML</Button>
+            <Button OnClick="exportJSON">Export to JSON</Button>
+            <Button OnClick="exportPDF">Export to PDF</Button>
+            <Button OnClick="exportTSV">Export to TSV</Button>
+            <Button OnClick="exportXLSX">Export to XLSX</Button>
+            <Button OnClick="exportXML">Export to XML</Button>
+        </div>
+    }
+</Example>
+
+@code {  
+    Table table;
+
+    private List<DataRecord> dataRecords;
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+
+        },
+        new TableColumn()
+        {
+            DataField = "TimeOfPurchase",
+            Label = "Date Purchased",
+            DataType = TableColumnDataType.Date
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(50);
+    }
+
+    private void exportCSV()
+    {
+        table.ExportData("csv", "table", true, null);
+    }
+
+    private void exportHTML()
+    {
+        table.ExportData("html", "table", true, null);
+    }
+
+    private void exportJSON()
+    {
+        table.ExportData("json", "table", true, null);
+    }
+
+    private void exportPDF()
+    {
+        table.ExportData("pdf", "table", true, null);
+    }
+
+    private void exportTSV()
+    {
+        table.ExportData("tsv", "table", true, null);
+    }
+
+    private void exportXLSX()
+    {
+        table.ExportData("xlsx", "table", true, null);
+    }
+
+    private void exportXML()
+    {
+        table.ExportData("xml", "table", true, null);
+    }
+}

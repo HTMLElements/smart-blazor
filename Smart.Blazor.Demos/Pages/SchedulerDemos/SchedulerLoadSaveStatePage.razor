@@ -1,0 +1,419 @@
+﻿@page "/scheduler-load-save-state"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: calc(100% - 300px);
+        height: 800px;
+    }
+
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Scheduler @ref="scheduler" DataSource="dataRecords" View="SchedulerViewType.Month" HourStart="9" HourEnd="18" FirstDayOfWeek="1" />
+
+        <div class="options">
+            <div class="option">
+                <b>Save State</b>
+                Button saves the current state of the Scheduler to LocalStorage.
+                <b>Load State</b> Button
+                reloads a previously saved state. <b>Reset</b> Button will erase any cache
+                and will restore the Scheduler to it's initial state.
+                <p>Previously saved states of the element are pre-loade on page refresh.</p>
+                <p>Notice that the element must have an 'id' in order to save/load it's state.</p>
+            </div>
+            <div class="option">
+                <Button OnClick="OnSaveStateClick">Save State</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnLoadStateClick">Load State</Button>
+            </div>
+            <div class="option">
+                <Button OnClick="OnClearStateClick">Clear State</Button>
+            </div>
+        </div>
+    }
+</Example>
+
+@code {
+    Scheduler scheduler;
+    private List<SchedulerDataSource> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "New Brochures",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(2)
+            },
+            new SchedulerDataSource() {
+                Label = "Brochure Design Review",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 15, 0).AddDays(4)
+            },
+            new SchedulerDataSource() {
+                Label = "Website Re-Design Plan",
+                DateStart = new DateTime(today.Year, today.Month, 16, 16, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 20, 11, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Rollout of New Website and Marketing Brochures",
+                DateStart = new DateTime(today.Year, today.Month, 2, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 2, 10, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update Sales Strategy Documents",
+                DateStart = new DateTime(today.Year, today.Month, 2, 12, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 2, 13, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Non-Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of John Jeffers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update NDA Agreement",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employee Files with New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Compete Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Hiring of Mark Waterberg",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update NDA Contracts",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update Employees Information",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Agreements",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Fire John Jeffers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Close The NDA Agreement",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Erase Fired Employee Files From NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Questions Regarding New NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 6, 8, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 6, 9, 30)
+            },
+            new SchedulerDataSource() {
+                Label = "Submit Signed NDA",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 6, 12, 45),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 6, 14, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Revenue Projections",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 6, 17, 15),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 6, 18, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Comment on Revenue Projections",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 5, 9, 15),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 5, 11, 15)
+            },
+            new SchedulerDataSource() {
+                Label = "Provide New Health Insurance Docs",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 5, 12, 45),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 5, 14, 15)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Changes to Health Insurance Coverage",
+                DateStart = new DateTime(today.Year, today.Month, 5, 14, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 5, 15, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Training Course for any Ommissions",
+                DateStart = new DateTime(today.Year, today.Month, 8, 14, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 9, 12, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Recall Rebate Form",
+                DateStart = new DateTime(today.Year, today.Month, 8, 12, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 8, 13, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Create Report on Customer Feedback",
+                DateStart = new DateTime(today.Year, today.Month, 9, 15, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 9, 17, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review Customer Feedback Report",
+                DateStart = new DateTime(today.Year, today.Month, 9, 16, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 9, 18, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Customer Feedback Report Analysis",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Prepare Shipping Cost Analysis Report",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Provide Feedback on Shippers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 0, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Select Preferred Shipper",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 17, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 20, 0, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Complete Shipper Selection Form",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Server Hardware",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 15, 0).AddDays(1)
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Personal Computers",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(-11),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(-11)
+            },
+            new SchedulerDataSource() {
+                Label = "Upgrade Apps to Windows RT or stay with WinForms",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(2)
+            },
+            new SchedulerDataSource() {
+                Label = "Estimate Time Required to Touch-Enable Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 16, 30, 0).AddDays(2)
+            },
+            new SchedulerDataSource() {
+                Label = "Report on Tranistion to Touch-Based Apps",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 18, 30, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 19, 0, 0).AddDays(2)
+            },
+            new SchedulerDataSource() {
+                Label = "Submit New Website Design",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 0, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(5)
+            },
+            new SchedulerDataSource() {
+                Label = "Create Icons for Website",
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(5),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 15, 0).AddDays(5)
+            },
+            new SchedulerDataSource() {
+                Label = "Create New Product Pages",
+                DateStart = new DateTime(today.Year, today.Month, 16, 9, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 16, 11, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Approve Website Launch",
+                DateStart = new DateTime(today.Year, today.Month, 16, 12, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 16, 15, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update Customer Shipping Profiles",
+                DateStart = new DateTime(today.Year, today.Month, 17, 9, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 17, 11, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Create New Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, 17, 12, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 17, 14, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Get Design for Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, 17, 15, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 17, 16, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "PSD needed for Shipping Return Labels",
+                DateStart = new DateTime(today.Year, today.Month, 18, 8, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 18, 9, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Contact ISP and Discuss Payment Options",
+                DateStart = new DateTime(today.Year, today.Month, 18, 11, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 18, 16, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Prepare Year-End Support Summary Report",
+                DateStart = new DateTime(today.Year, today.Month, 18, 17, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 18, 20, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Review New Training Material",
+                DateStart = new DateTime(today.Year, today.Month, 19, 8, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 19, 9, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Distribute Training Material to Support Staff",
+                DateStart = new DateTime(today.Year, today.Month, 19, 12, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 19, 14, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Training Material Distribution Schedule",
+                DateStart = new DateTime(today.Year, today.Month, 19, 14, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 19, 16, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Approval on Converting to New HDMI Specification",
+                DateStart = new DateTime(today.Year, today.Month, 22, 9, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 22, 10, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Create New Spike for Automation Server",
+                DateStart = new DateTime(today.Year, today.Month, 22, 10, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 22, 12, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Code Review - New Automation Server",
+                DateStart = new DateTime(today.Year, today.Month, 22, 13, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 22, 15, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Confirm Availability for Sales Meeting",
+                DateStart = new DateTime(today.Year, today.Month, 23, 10, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 23, 15, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Reschedule Sales Team Meeting",
+                DateStart = new DateTime(today.Year, today.Month, 23, 16, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 23, 18, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Send 2 Remotes for Giveaways",
+                DateStart = new DateTime(today.Year, today.Month, 24, 9, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 24, 11, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Discuss Product Giveaways with Management",
+                DateStart = new DateTime(today.Year, today.Month, 24, 12, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 24, 16, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Replace Desktops on the 3rd Floor",
+                DateStart = new DateTime(today.Year, today.Month, 25, 9, 30, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 25, 10, 45, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Update Database with New Leads",
+                DateStart = new DateTime(today.Year, today.Month, 25, 12, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 25, 14, 15, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Mail New Leads for Follow Up",
+                DateStart = new DateTime(today.Year, today.Month, 25, 14, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 25, 15, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Send Territory Sales Breakdown",
+                DateStart = new DateTime(today.Year, today.Month, 25, 18, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 25, 20, 0, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Territory Sales Breakdown Report",
+                DateStart = new DateTime(today.Year, today.Month, 26, 8, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 26, 9, 45, 0)
+            },           
+            new SchedulerDataSource() {
+                Label = "Report on the State of Engineering Dept",
+                DateStart = new DateTime(today.Year, today.Month, 26, 14, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 26, 15, 30, 0)
+            },
+            new SchedulerDataSource() {
+                Label = "Staff Productivity Report",
+                DateStart = new DateTime(today.Year, today.Month, 26, 16, 15, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 26, 19, 30, 0)
+            }
+        };
+
+        return data;
+    }
+
+    private void OnSaveStateClick()
+    {
+        scheduler.SaveState();
+    }
+
+    private void OnLoadStateClick()
+    {
+        scheduler.LoadState();
+    }
+
+    private void OnClearStateClick()
+    {
+        scheduler.ClearState();
+    }
+}

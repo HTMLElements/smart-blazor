@@ -1,0 +1,93 @@
+﻿@page "/table-tree-mode"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases the tree mode functionality of smart-table.
+    </p>
+
+    <Table DataSource="dataRecords" DataSourceSettings="dataSourceSettings" KeyboardNavigation="true" Columns="@columns"></Table>    
+</Example>
+
+@code {
+    private List<EmployeeRecord> dataRecords;
+
+    TableDataSourceSettings dataSourceSettings = new TableDataSourceSettings()
+    {        
+        KeyDataField = "EmployeeID",
+        ParentDataField = "ReportsTo",
+        Id = "EmployeeID"
+    };
+
+    List<TableColumn> columns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name"
+        },
+        new TableColumn()
+        {
+            DataField = "Title",
+            Label = "Title"
+        },
+        new TableColumn()
+        {
+            DataField = "BirthDate",
+            Label = "Birth Date",
+            DataType = TableColumnDataType.Date
+        },
+        new TableColumn()
+        {
+            DataField = "HireDate",
+            Label = "Hire Date",
+            DataType = TableColumnDataType.Date
+        },
+        new TableColumn()
+        {
+            DataField = "Address",
+            Label = "Address"
+        },
+        new TableColumn()
+        {
+            DataField = "City",
+            Label = "City"
+        },
+        new TableColumn()
+        {
+            DataField = "Country",
+            Label = "Country"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateEmployeesData();
+    }
+}

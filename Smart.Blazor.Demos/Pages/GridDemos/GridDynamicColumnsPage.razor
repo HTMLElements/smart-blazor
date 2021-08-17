@@ -50,16 +50,16 @@
         <div class="options">
             <div class="caption">Settings</div>
             <div class="option">
-                <Button @ref="addColumnBtn" OnClick="AddColumn">Add Column</Button>
+                <Button Disabled="@addColumnBtnDisabled" OnClick="AddColumn">Add Column</Button>
             </div>
             <div class="option">
-                <Button @ref="removeLastColumnBtn" OnClick="RemoveLastColumn">Remove Last Column</Button>
+                <Button Disabled="@removeLastColumnBtnDisabled" OnClick="RemoveLastColumn">Remove Last Column</Button>
             </div>
             <div class="option">
-                <Button @ref="removeFirstColumnBtn" OnClick="RemoveFirstColumn">Remove First Column</Button>
+                <Button Disabled="@removeFirstColumnBtnDisabled" OnClick="RemoveFirstColumn">Remove First Column</Button>
             </div>
             <div class="option">
-                <Button @ref="updateFirstColumnBtn" OnClick="UpdateFirstColumn">Update First Column Header</Button>
+                <Button Disabled="@updateFirstColumnBtnDisabled" OnClick="UpdateFirstColumn">Update First Column Header</Button>
             </div>
         </div>
     }
@@ -67,10 +67,10 @@
 
 @code {
     Grid grid;
-    Button addColumnBtn;
-    Button removeLastColumnBtn;
-    Button removeFirstColumnBtn;
-    Button updateFirstColumnBtn;
+    bool addColumnBtnDisabled;
+    bool removeLastColumnBtnDisabled;
+    bool removeFirstColumnBtnDisabled;
+    bool updateFirstColumnBtnDisabled;
 
     List<GridColumn> columns = new List<GridColumn>()
 {
@@ -174,14 +174,14 @@
     private void UpdateFirstColumn()
     {
         columns[0].Label = "New " + columns[0].Label;
-        updateFirstColumnBtn.Disabled = true;
+        updateFirstColumnBtnDisabled = true;
     }
 
     private void UpdateButtonsDisabledState()
     {
-        addColumnBtn.Disabled = columns.Count == columnsList.Length;
-        removeLastColumnBtn.Disabled = columns.Count == 0;
-        removeFirstColumnBtn.Disabled = columns.Count == 0;
-        updateFirstColumnBtn.Disabled = columns.Count == 0 || (columns.Count > 0 && columns[0].Label.Contains("New"));
+        addColumnBtnDisabled = columns.Count == columnsList.Length;
+        removeLastColumnBtnDisabled = columns.Count == 0;
+        removeFirstColumnBtnDisabled = columns.Count == 0;
+        updateFirstColumnBtnDisabled = columns.Count == 0 || (columns.Count > 0 && columns[0].Label.Contains("New"));
     }
 }

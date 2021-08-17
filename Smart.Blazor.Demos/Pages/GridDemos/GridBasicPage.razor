@@ -30,26 +30,26 @@
     }
     else
     {
-        <template id="firstNameTemplate">
+        <template id="quantityTemplate">
             <div style="width: 100%; height:100%;">
-                <div smart-if="value >= 30">
-                    <div style="padding: 4px; color: green;">{{value}}</div>
+                <div smart-if="value >= 7">
+                    <div style="padding-left: 4px; color: green;">{{value}}</div>
                 </div>
-                <div smart-if="value >= 20">
-                    <div style="padding: 4px; color: purple;">{{value}}</div>
+                <div smart-if="value >= 5">
+                    <div style="padding-left: 4px; color: purple;">{{value}}</div>
                 </div>
-                <div smart-if="value <= 10">
-                    <div style="padding: 4px; color: red;">{{value}}</div>
+                <div smart-if="value <= 3">
+                    <div style="padding-left: 4px; color: red;">{{value}}</div>
                 </div>
                 <div smart-else>
-                    <div style="padding: 4px; color: blue;">{{value}}</div>
+                    <div style="padding-left: 4px; color: blue;">{{value}}</div>
                 </div>
             </div>
         </template>
 
-        <Grid DataSource="dataRecords" Sorting="@sorting" Appearance="@appearance" Selection="@selection" Style="width: 80%; height:60%; margin-bottom: 50px;">
+        <Grid DataSource="dataRecords" Sorting="@sorting" Appearance="@appearance" Selection="@selection">
             <Columns>
-                <Column DataField="FirstName" Label="First Name" >
+                <Column SortOrder="GridColumnSortOrder.Asc" DataField="FirstName" Label="First Name" >
 
                 </Column>
                 <Column DataField="LastName" Label="Last Name"></Column>
@@ -63,7 +63,7 @@
 </Example>
 
 @code {
-    string templateID = "#firstNameTemplate";
+    string templateID = "#quantityTemplate";
     GridSorting sorting = new GridSorting() { Enabled = true };
     GridAppearance appearance = new GridAppearance() { AlternationCount = 2 };
     GridSelection selection = new GridSelection()
@@ -75,8 +75,6 @@
             Enabled = true
         }
     };
-
-    //  private string template = "<div style=\"background: blue; width: 50%; height:20px; margin-top: 5px; margin-left: 25%;\"></div>";
 
     private List<DataRecord> dataRecords;
 

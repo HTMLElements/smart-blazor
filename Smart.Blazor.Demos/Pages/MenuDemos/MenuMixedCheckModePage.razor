@@ -1,0 +1,47 @@
+﻿@page "/menu-mixed-check-mode"
+
+
+<style>
+    smart-menu {
+        margin-left: 5%;
+        height: auto;
+        margin-bottom: 100px;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu Checkboxes>
+        <MenuItemsGroup>
+            File
+            <MenuItem Shortcut="Ctrl+N">New</MenuItem>
+            <MenuItem Shortcut="Ctrl+0">Open</MenuItem>
+            <MenuItemsGroup>
+                Open Containing Folder
+                <MenuItem>Explorer</MenuItem>
+                <MenuItem>cmd</MenuItem>
+            </MenuItemsGroup>
+            <MenuItem Shortcut="Ctrl+S" Disabled>Save</MenuItem>
+            <MenuItem Shortcut="Ctrl+Alt+S" Separator>Save As...</MenuItem>
+            <MenuItem Shortcut="Alt+F4">Exit</MenuItem>
+        </MenuItemsGroup>
+        <MenuItemsGroup>
+            Edit
+            <MenuItem Shortcut="Ctrl+Z">Undo</MenuItem>
+            <MenuItem Shortcut="Ctrl+Y" Separator>Redo</MenuItem>
+            <MenuItem Shortcut="Ctrl+X">Cut</MenuItem>
+            <MenuItem Shortcut="Ctrl+C">Copy</MenuItem>
+            <MenuItem Shortcut="Ctrl+V" Disabled>Paste</MenuItem>
+        </MenuItemsGroup>
+        <MenuItemsGroup Checkable @*CheckMode="MenuCheckMode.Checkbox, MenuCheckMode.RadioButton, MenuCheckMode.RadioButton"*@>
+            Encoding
+            <MenuItem>Encode in ANSI</MenuItem>
+            <MenuItem>Encode in UTF-8</MenuItem>
+            <MenuItem>Encode in UTF-8-BOM</MenuItem>
+            <MenuItem>Encode in UTCS-2 BE BOM</MenuItem>
+            <MenuItem Separator">Encode in UTCS-2 LE BOM</MenuItem>
+        </MenuItemsGroup>
+    </Menu>
+</Example>
+
+@code {
+}

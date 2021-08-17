@@ -1,0 +1,115 @@
+﻿@page "/dockinglayout-dynamic"
+
+    <Example Name="DockingLayout">
+
+        <div class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
+            <div class="flex items-center">
+                <!-- Title section -->
+                <h1 class="flex-1 text-lg leading-7 font-medium">Docking Layout Dynamic Layout Panel Insert with Blazor Components</h1>
+                <!-- Search section -->
+                <div class="flex-1 flex justify-center lg:justify-end">
+                    <Button @onclick="OnClick">Add New Layout Panel</Button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content section -->
+        <div id="layout" Name="DockingLayout">
+            <DockingLayout @ref="_dockingLayout"
+                           OnReady="OnReady" Layout=@layoutStructure>
+
+            </DockingLayout>
+            @foreach (var widget in _widgets)
+            {
+                @(widget.Value.RenderedComponent)
+            }
+        </div>
+    </Example>
+@code
+{
+        DockingLayout _dockingLayout;
+        string label;
+        string componentKey;
+
+        private object[] layoutStructure = new object[] {
+            new {
+
+            }
+        };
+
+        readonly Dictionary<string, RenderType> _widgets = new Dictionary<string, RenderType>();
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (!firstRender)
+            {
+                InjectNewComponentItem();
+            }
+            base.OnAfterRender(firstRender);
+        }
+
+        private void InjectNewComponentItem()
+        {
+            if (String.IsNullOrEmpty(componentKey))
+            {
+                return;
+            }
+
+            var newItem = new
+            {
+                label = label,
+                size = "50%",
+                items = new object[]{
+                   new {
+                        label = label,
+                        type = "LayoutPanel",
+                        headerPosition = "none",
+                        content = $"#{componentKey}"
+                   }
+                }
+            };
+
+            _dockingLayout.InsertOutsideTargetGroupBottom(0, newItem);
+            componentKey = null;
+        }
+
+        private void OnClick()
+        {
+            componentKey = $"testcomponentid{_widgets.Count + 1}";
+            label = $"Component {componentKey}";
+
+            if (_widgets.Count % 2 == 0)
+            {
+                _widgets.Add(componentKey, new RenderType(componentKey, typeof(DockingLayoutDynamicPageTestComponent1)));
+            }
+            else
+            {
+                _widgets.Add(componentKey, new RenderType(componentKey, typeof(DockingLayoutDynamicPageTestComponent2)));
+            }
+
+            StateHasChanged();
+        }
+
+        private void OnReady(DockingLayout dockingLayout)
+        {
+
+        }
+
+        public class RenderType
+        {
+            private RenderFragment RenderWidget(Type t, string key) => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "id", $"{key}");
+                builder.OpenComponent(2, t);
+                builder.CloseComponent();
+                builder.CloseElement();
+            };
+
+            public RenderType(string id, Type componentType)
+            {
+                RenderedComponent = RenderWidget(componentType, id);
+            }
+            public RenderFragment RenderedComponent { get; set; }
+        }
+    } 

@@ -1,6 +1,7 @@
 ﻿@page "/grid-create-chart-from-grid"
 
 @using Smart.Blazor.Demos.Data
+@using Smart.Blazor 
 @inject RandomDataService dataService
 
 <style>
@@ -70,51 +71,51 @@
         }
 
     #column {
-        background-image: url("./images/create-column.png");
+        background-image: url("../../images/create-column.png");
     }
     
     #line {
-        background-image: url("./images/create-line.png");
+        background-image: url("../../images/create-line.png");
     }
     
     #pie {
-        background-image: url("./images/create-pie.png");
+        background-image: url("../../images/create-pie.png");
     }
     
     #bar {
-        background-image: url("./images/create-bar.png");
+        background-image: url("../../images/create-bar.png");
     }
     
     #area {
-        background-image: url("./images/create-area.png");
+        background-image: url("../../images/create-area.png");
     }
     
     #scatter {
-        background-image: url("./images/create-scatter.png");
+        background-image: url("../../images/create-scatter.png");
     }
     
     [theme="dark"] #column {
-        background-image: url("./images/create-column-dark.png");
+        background-image: url("../../images/create-column-dark.png");
     }
     
     [theme="dark"] #line {
-        background-image: url("./images/create-line-dark.png");
+        background-image: url("../../images/create-line-dark.png");
     }
     
     [theme="dark"] #pie {
-        background-image: url("./images/create-pie-dark.png");
+        background-image: url("../../images/create-pie-dark.png");
     }
     
     [theme="dark"] #bar {
-        background-image: url("./images/create-bar-dark.png");
+        background-image: url("../../images/create-bar-dark.png");
     }
     
     [theme="dark"] #area {
-        background-image: url("./images/create-area-dark.png");
+        background-image: url("../../images/create-area-dark.png");
     }
     
     [theme="dark"] #scatter {
-        background-image: url("./images/create-scatter-dark.png");
+        background-image: url("../../images/create-scatter-dark.png");
     }
 </style>
 <Example Name="Grid">
@@ -132,17 +133,12 @@
     }
     else
     {
-        <template id="toolbarTemplate">
-            <div id="toolbar">
-                <div id="column">Column</div> @*@onclick="OnColumnClick"*@
-                <div id="line">Line</div>
-                <div id="pie">Pie</div>
-                <div id="bar">Bar</div>
-                <div id="area">Area</div>
-                <div id="scatter">Scatter</div>
-            </div>
-        </template>
-
+        <div id="toolbarTemplate">
+            <ToolBar Context="item" Items="toolbarItems">
+                <ItemTemplate><div @onclick="args => OnClick(item, args)" style="background-image: url(@item.Image);" id="@item.Value">@item.Name</div></ItemTemplate>
+            </ToolBar>
+        </div>
+       
         <Grid @ref="grid" DataSource="dataRecords" Appearance="@appearance" Header="@header" Sorting="@sorting" Selection="@selection">
             <Columns>
                 <Column DataField="Name" Label="Name"></Column>
@@ -155,6 +151,53 @@
 </Example>
 
 @code {
+    private ToolBarItem[] toolbarItems = new ToolBarItem[]
+    {
+        new ToolBarItem()
+        {
+            Name = "Column",
+            Image = "../../images/create-column.png",
+            Value = "column"
+        },
+        new ToolBarItem()
+        {
+            Name = "Line",
+            Image = "../../images/create-line.png",
+            Value = "line"
+        },
+        new ToolBarItem()
+        {
+            Name = "Pie",
+            Image = "../../images/create-pie.png",
+            Value = "pie"
+        },
+        new ToolBarItem()
+        {
+            Name = "Bar",
+            Image = "../../images/create-bar.png",
+            Value = "bar"
+        },
+        new ToolBarItem()
+        {
+            Name = "Area",
+            Image = "../../images/create-area.png",
+            Value = "area"
+        },
+        new ToolBarItem()
+        {
+            Name = "Scatter",
+            Image = "../../images/create-scatter.png",
+            Value = "scatter"
+        }
+    };
+
+    public class ToolBarItem
+    {
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string Value { get; set; }
+    }
+
     private Grid grid;
 
     GridAppearance appearance = new GridAppearance()
@@ -255,8 +298,8 @@
         }
     };
 
-    private void OnColumnClick()
+    private void OnClick(ToolBarItem item, MouseEventArgs args)
     {
-        grid.CreateChart("column");
+        grid.CreateChart(item.Value);
     }
 }

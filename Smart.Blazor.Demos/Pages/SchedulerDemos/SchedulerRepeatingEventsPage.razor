@@ -1,0 +1,138 @@
+﻿@page "/scheduler-repeating-events"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    /* This is the CSS used in the demo */
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    smart-scheduler {
+        width: 100%;
+        height: 800px;
+    }
+</style>
+
+<Example Name="Scheduler">
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else { 
+        <Scheduler DataSource="@dataRecords" Views="@views" View="SchedulerViewType.Month" FirstDayOfWeek="1"/>
+    }
+    </Example>
+
+@code {
+
+    private List<SchedulerDataSource> dataRecords;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Week,
+        SchedulerViewType.Month,
+        SchedulerViewType.Agenda
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSource> GetData()
+    {
+        DateTime today = DateTime.Today;
+
+        List<SchedulerDataSource> data = new List<SchedulerDataSource>()
+        {
+            new SchedulerDataSource() {
+                Label = "Design Review",
+                DateStart = new DateTime(today.Year, today.Month, 1),
+                DateEnd = new DateTime(today.Year, today.Month, 2),
+                AllDay = true,
+                BackgroundColor = "#388E3C",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Daily,
+                    RepeatInterval = 2,
+                    RepeatEnd = 10,
+                    Exceptions = new List<Dictionary<string, object>>()
+                    {
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 5) },
+                            { "label", "Official Holiday" },
+                            { "backgroundColor", "#64DD17" }
+                        },
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 7) },
+                            { "label", "Day off" },
+                            { "hidden", true }
+                        },
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 15) },
+                            { "label", "Day off" },
+                            { "hidden", true }
+                        },
+                        new Dictionary<string, object>()
+                        {
+                            { "date", new DateTime(today.Year, today.Month, 9) },
+                            { "label", "Rescheduled. Simon is not available" },
+                            { "dateStart", new DateTime(today.Year, today.Month, 8) },
+                            { "dateEnd", new DateTime(today.Year, today.Month, 9) },
+                            { "backgroundColor", "#2196F3" }
+                        }
+                    }
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Google AdWords Strategy",
+                DateStart = new DateTime(today.Year, today.Month, 10, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, 11, 10, 30, 0),
+                AllDay = true,
+                BackgroundColor = "#F57F17",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Weekly,
+                    RepeatInterval = 5,
+                    RepeatOn = new int[] { 0, 2, 5 },
+                    RepeatEnd = new DateTime(today.Year, today.Month + 2, 24)
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "New Brochures",
+                DateStart = new DateTime(today.Year, 6, today.Day, 11, 30, 0),
+                DateEnd = new DateTime(today.Year, 6, today.Day, 14, 15, 0).AddDays(1),
+                BackgroundColor = "#BA68C8",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Monthly,
+                    RepeatInterval = 1,
+                    RepeatOn = today.Date
+                }
+            },
+            new SchedulerDataSource() {
+                Label = "Brochures Design Review",
+                DateStart = new DateTime(today.Year, 6, 12, 13, 15, 0),
+                DateEnd = new DateTime(today.Year, 6, 14, 16, 15, 0),
+                BackgroundColor = "#4CAF50",
+                Repeat = new SchedulerDataSourceRepeat()
+                {
+                    RepeatFreq = SchedulerRepeatFreq.Yearly,
+                    RepeatInterval = 10,
+                    RepeatOn = new Dictionary<string, int>() { { "month", 7 }, { "date", 17 } },
+                    RepeatEnd = 3
+                }
+            }
+        };
+
+        return data;
+    }
+}

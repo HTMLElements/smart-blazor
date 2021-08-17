@@ -1,0 +1,167 @@
+﻿@page "/table-change-columns"
+
+@using System.Collections.ObjectModel
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases how to change the columns of Smart.Table Blazor component.
+    </p>
+
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table @ref="table" DataSource="dataRecords" Columns="@columns"></Table>
+
+        <div class="options">
+            <Button Disabled="@addBtnDisabled" OnClick="AddColumn">Add a column</Button>
+            <Button Disabled="@removeBtnDisabled" OnClick="RemoveLastColumn">Remove last column</Button>
+        </div>
+    }
+</Example>
+
+@code {
+    Table table;
+    bool addBtnDisabled = false;
+    bool removeBtnDisabled = false;
+
+    private List<DataRecord> dataRecords;
+
+    List<TableColumn> allColumns = new List<TableColumn>()
+{
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Total",
+            Label = "Total",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "TimeOfPurchase",
+            Label = "Date",
+            DataType = TableColumnDataType.Date
+        },
+        new TableColumn()
+        {
+            DataField = "Expired",
+            Label = "Expired",
+            DataType = TableColumnDataType.Boolean
+        }
+    };
+
+    ObservableCollection<TableColumn> columns = new ObservableCollection<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            DataType = TableColumnDataType.String
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(15);
+    }
+
+    private void AddColumn()
+    {
+        for (int i = 0; i < allColumns.Count; i++)
+        {
+            if (!columns.Any(c => c.DataField == allColumns[i].DataField))
+            {
+                columns.Add(allColumns[i]);
+                break;
+            }
+        }
+
+        removeBtnDisabled = false;
+
+        if (columns.Count == allColumns.Count)
+        {
+            addBtnDisabled = true;
+        }
+    }
+
+    private void RemoveLastColumn()
+    {
+        columns.RemoveAt(columns.Count - 1);
+
+        addBtnDisabled = false;
+
+        if (columns.Count == 0)
+        {
+            removeBtnDisabled = true;
+        }
+    }
+}

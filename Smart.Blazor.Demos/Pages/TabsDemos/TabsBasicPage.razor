@@ -1,0 +1,22 @@
+﻿@page "/tabs-basic"
+
+<Example Name="Tabs">
+	<Tabs class="demoTabs" @bind-SelectedIndex="selectedIndex">
+		<TabItem @ref="item1" Label="TAB 1">Content 1</TabItem>
+		<TabItem Label="TAB 2">Content 2</TabItem>
+		<TabItem Label="TAB 3">Content 3</TabItem>
+		<TabItem Label="TAB 4">Content 4</TabItem>
+	</Tabs>
+	<Button OnClick="SetSelection">Select Last Item</Button>
+</Example>
+
+@code {
+    TabItem item1;
+
+    private int selectedIndex = 0;
+
+    private void SetSelection()
+    {
+        selectedIndex = 3;
+    }
+}

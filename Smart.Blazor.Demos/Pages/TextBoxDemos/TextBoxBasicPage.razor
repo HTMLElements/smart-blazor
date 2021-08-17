@@ -1,0 +1,32 @@
+﻿@page "/textbox-basic"
+
+
+<TextBox @ref="textBox" OnChange="OnChange" OnChanging="OnValueChange"></TextBox>
+
+@code {
+    TextBox textBox;
+
+    private async void OnChange(Event changeEvent)
+    {
+        TextBoxChangeEventDetail detail = changeEvent["Detail"] as TextBoxChangeEventDetail;
+
+        string currentValue = this.textBox.Value;
+
+        string value = await this.textBox.GetProperty<string>("Value");
+
+        Console.WriteLine("Change" + currentValue + "/" + value);
+    }
+
+    private async void OnValueChange(Event changeEvent)
+    {
+        TextBoxChangingEventDetail detail = changeEvent["Detail"] as TextBoxChangingEventDetail;
+
+
+        string currentValue = this.textBox.Value;
+
+        string value = await this.textBox.GetProperty<string>("Value");
+
+        Console.WriteLine("Changing" + currentValue + "/" + value);
+
+    }
+}

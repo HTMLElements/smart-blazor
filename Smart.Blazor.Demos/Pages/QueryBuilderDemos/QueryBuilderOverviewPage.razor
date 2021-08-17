@@ -1,0 +1,44 @@
+﻿@page "/querybuilder-overview"
+
+<Example Name="QueryBuilder">
+    <p>
+        The Query Builder component allows you to build complex quieries through UI. The output of the component is a JSON object with the query.
+    </p>
+
+    <QueryBuilder AllowDrag Fields="@fields"></QueryBuilder>
+</Example>
+
+@code {
+    private List<QueryBuilderField> fields = new List<QueryBuilderField>() {
+        new QueryBuilderField()
+        {
+            Label = "Id",
+            DataField = "id",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Product",
+            DataField = "productName",
+            DataType = "string"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Unit Price",
+            DataField = "price",
+            DataType = "number"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Purchased",
+            DataField = "purchased",
+            DataType = "date"
+        },
+        new QueryBuilderField()
+        {
+            Label = "Available",
+            DataField = "available",
+            DataType = "boolean"
+        }
+    };
+}

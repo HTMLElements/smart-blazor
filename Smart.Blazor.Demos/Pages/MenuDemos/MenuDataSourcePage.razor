@@ -1,0 +1,64 @@
+﻿@page "/menu-data-source"
+
+<style>
+    smart-menu {
+        margin-left: 5%;
+    }
+
+    #helpIcon,
+    .planetIcon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .planetIcon {
+        background-image: url("../../images/earth.png");
+        background-position: center;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu DataSource="menuDataSource"></Menu>
+</Example>
+
+@code {
+    private List<Dictionary<string, object>> menuDataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "File" },
+            {
+                "items",
+                new List<Dictionary<string, object>>()
+                {
+                    new Dictionary<string, object>() { { "label", "New" }, { "shortcut", "Ctrl+N" } },
+                    new Dictionary<string, object>() { { "label", "Open" }, { "shortcut", "Ctrl+0" } },
+                    new Dictionary<string, object>() {
+                        { "label", "Open Containing Folder" },
+                        {
+                            "items",
+                            new List<Dictionary<string, object>>()
+                            {
+                                new Dictionary<string, object>() { { "label", "Explorer" } },
+                                new Dictionary<string, object>() { { "label", "cmd" } }
+                            }
+                        }
+                    },
+                    new Dictionary<string, object>() {
+                        { "label", "Save" },
+                        { "shortcut", "Ctrl+S" },
+                        { "disabled", true },
+                        { "separator", true }
+                    },
+                    new Dictionary<string, object>() {
+                        { "label", "Exit" },
+                        { "shortcut", "Alt+F4" }
+                    }
+                }
+            }
+        },
+        new Dictionary<string, object>() { { "label", "<img id='helpIcon' src='../../images/help-icon.png' title='Help' />" } },
+        new Dictionary<string, object>() { { "label", "<div class='planetIcon' title='Planet'></div>" } },
+        new Dictionary<string, object>() { { "label", "About" }, { "value", "customValue" } },
+    };
+}

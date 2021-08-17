@@ -1,0 +1,12 @@
+﻿@page "/button-dynamic"
+
+<Button OnClick="OnShow">Show</Button>
+@if (_show)
+{
+    <Button style="display: inline-block">Text</Button>
+}
+
+@code {
+    private bool _show = false;
+    private void OnShow() => _show = !_show;
+}

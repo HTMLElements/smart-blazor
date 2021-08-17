@@ -1,0 +1,89 @@
+﻿@page "/button-basic"
+
+<style>
+    .demo-horizontal-layout {
+    display:  flex;
+	flex-direction: column;
+}
+.dark-mode .demo-icon {
+	background-image: none;
+}
+label {
+    font-size: 14px;
+}
+.demo-buttons-group {
+    margin: 8px;
+}
+.demo-buttons-group smart-button {
+    margin:8px;
+}
+.demo-horizontal-layout {
+    display:  flex;
+	flex-direction: column;
+}
+.dark-mode .demo-icon {
+	background-image: none;
+}
+label {
+    font-size: 14px;
+}
+.demo-buttons-group {
+    margin: 8px;
+}
+.demo-buttons-group smart-ui-button {
+    margin:8px;
+}
+
+
+</style>
+<div class="demo-horizontal-layout">
+    <div>
+        <label>Default Buttons</label>
+        <div class="demo-buttons-group">
+            <Button ClickMode="ClickMode.PressAndRelease">Normal</Button>
+            <Button class="raised">Raised</Button>
+            <Button class="outlined">Outlined</Button>
+            <Button class="flat">Flat</Button>
+        </div>
+    </div>
+    <div>
+        <label>Primary Buttons</label>
+        <div class="demo-buttons-group">
+            <Button class="primary">Normal</Button>
+            <Button class="raised primary">Raised</Button>
+            <Button class="outlined primary">Outlined</Button>
+            <Button class="flat primary">Flat</Button>
+        </div>
+    </div>
+    <div>
+        <label>Secondary Buttons</label>
+        <div class="demo-buttons-group">
+            <Button class="secondary">Normal</Button>
+            <Button class="raised secondary">Raised</Button>
+            <Button class="outlined secondary">Outlined</Button>
+            <Button class="flat secondary">Flat</Button>
+        </div>
+    </div>
+    <div>
+        <label>Success Buttons</label>
+        <div class="demo-buttons-group">
+            <Button class="success">Normal</Button>
+            <Button class="raised success">Raised</Button>
+            <Button class="outlined success">Outlined</Button>
+            <Button class="flat success">Flat</Button>
+        </div>
+    </div>
+    <div>
+        <label>Error Buttons</label>
+        <div class="demo-buttons-group">
+            <Button class="error">Normal</Button>
+            <Button class="raised error">Raised</Button>
+            <Button class="outlined error">Outlined</Button>
+            <Button class="flat error">Flat</Button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

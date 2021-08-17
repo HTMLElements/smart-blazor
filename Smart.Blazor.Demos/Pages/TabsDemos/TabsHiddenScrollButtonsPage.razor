@@ -1,0 +1,54 @@
+﻿@page "/tabs-hidden-scroll-buttons"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-tabs {
+        width: 100%;
+        height: 200px;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        smart-tabs {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Tabs">
+    <p>overflow: 'auto'</p>
+    <Tabs class="demoTabs" SelectedIndex=1 Overflow="Overflow.Auto">
+        <TabItem Label="TAB 1">Content 1</TabItem>
+        <TabItem Label="TAB 2">Content 2</TabItem>
+        <TabItem Label="TAB 3">Content 3</TabItem>
+        <TabItem Label="TAB 4">Content 4</TabItem>
+        <TabItem Label="TAB 5">Content 5</TabItem>
+        <TabItem Label="TAB 6">Content 6</TabItem>
+        <TabItem Label="TAB 7">Content 7</TabItem>
+    </Tabs>
+
+    <p>overflow: 'hidden'</p>
+    <Tabs class="demoTabs" SelectedIndex=1 Overflow="Overflow.Hidden">
+        <TabItem Label="TAB 1">Content 1</TabItem>
+        <TabItem Label="TAB 2">Content 2</TabItem>
+        <TabItem Label="TAB 3">Content 3</TabItem>
+        <TabItem Label="TAB 4">Content 4</TabItem>
+        <TabItem Label="TAB 5">Content 5</TabItem>
+        <TabItem Label="TAB 6">Content 6</TabItem>
+        <TabItem Label="TAB 7">Content 7</TabItem>
+    </Tabs>
+
+    <p>overflow: 'scroll'</p>
+    <Tabs class="demoTabs" SelectedIndex=1 Overflow="Overflow.Scroll">
+        <TabItem Label="TAB 1">Content 1</TabItem>
+        <TabItem Label="TAB 2">Content 2</TabItem>
+        <TabItem Label="TAB 3">Content 3</TabItem>
+        <TabItem Label="TAB 4">Content 4</TabItem>
+        <TabItem Label="TAB 5">Content 5</TabItem>
+        <TabItem Label="TAB 6">Content 6</TabItem>
+        <TabItem Label="TAB 7">Content 7</TabItem>
+    </Tabs>
+</Example>
+
+@code {
+
+}

@@ -1,11 +1,15 @@
 ﻿@page "/togglebutton"
 
 <Example Name="ToggleButton">
-	<ToggleButton>Button 1</ToggleButton>
-	<br /><br />
-	<ToggleButton Checked="true">Button 2</ToggleButton>
+	<ToggleButton @ref="button" OnChange="OnChange">Button</ToggleButton>
 </Example>
 
 @code {
+    ToggleButton button;
 
+    private void OnChange(Event args)
+    {
+        bool isChecked = button.Checked;
+
+    }
 }

@@ -1,0 +1,67 @@
+﻿@page "/table-html-virtualization"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    body,
+    html,
+    app {
+        height: 100%;
+    }
+
+    app {
+        overflow: auto;
+    }
+
+    .content {
+        height: calc(100% - 70px);
+    }
+
+    /* This is the CSS used in the demo */
+    .smart-table {
+        width: 800px;
+        height: 600px;
+    }
+</style>
+<Example Name="Table">
+    <p>
+        This demo showcases a smart-table with enabled HTML virtualization. This functionality allows for only visible
+        rows to be rendered resulting in an increased Table performance.
+    </p>
+
+    <Table @ref="table" DataSource="data" FreezeHeader="true" KeyboardNavigation="true" Virtualization="true" Columns="@columns"></Table>    
+</Example>
+
+@code {   
+    Table table;
+
+    private List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+
+    List<TableColumn> columns = new List<TableColumn>() { };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        for (int i = 65; i < 91; i++)
+        {
+            string letter = ((char)i).ToString();
+            TableColumn column = new TableColumn() { DataField = letter, Label = letter, Width = 100 };
+            columns.Add(column);
+        }
+
+        for (int i = 0; i < 1000; i++)
+        {
+            Dictionary<string, string> dataPoint = new Dictionary<string, string>();
+
+            for (int j = 65; j < 91; j++)
+            {
+                string letter = ((char)j).ToString();
+                dataPoint.Add(letter, letter + i);
+            }
+
+            data.Add(dataPoint);
+        }
+    }
+}

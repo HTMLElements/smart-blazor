@@ -1,0 +1,53 @@
+﻿@page "/menu-add-remove-items"
+
+<style>
+    smart-menu {
+        margin-left: 5%;
+    }
+</style>
+
+<Example Name="Menu">
+    <Menu @ref="menu" DropDownAppendTo="body">
+        <MenuItemsGroup>
+            Item 0
+            <MenuItem>Item 0.0</MenuItem>
+        </MenuItemsGroup>
+        <MenuItem>Item 1</MenuItem>
+    </Menu>
+
+    <div class="options">
+        <div class="caption">Settings</div>
+        <div class="option">
+            <Button OnClick="OnAddItem">Add item</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnAddTo">Add to "Item 0"</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnRemove">Remove "Item 1"</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Menu menu;
+    int itemCount = 1;
+    int subItemCount = 0;
+
+    private void OnAddItem()
+    {
+        itemCount++;
+        menu.AddItem(new { label = "Item " + itemCount });
+    }
+
+    private void OnAddTo()
+    {
+        subItemCount++;
+        menu.AddItem(new { label = "Item 0." + subItemCount }, "0");
+    }
+
+    private void OnRemove()
+    {
+        menu.RemoveItem("1");
+    }
+}

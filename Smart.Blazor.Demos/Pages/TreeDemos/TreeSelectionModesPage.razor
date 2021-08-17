@@ -1,0 +1,183 @@
+﻿@page "/tree-selection-modes"
+
+<style>
+	smart-tree {
+		width: 300px;
+	}
+
+	@@media only screen and (max-width: 700px) {
+		smart-tree {
+			width: 100%;
+		}
+	}
+</style>
+
+<Example Name="Tree">
+    <Tree @ref="tree" class="animation" SelectionMode="@selectionMode" ToggleMode="@toggleMode">
+        <TreeItem>Home</TreeItem>
+        <TreeItemsGroup>
+            Solutions
+            <TreeItem Selected>Education</TreeItem>
+            <TreeItem>Financial services</TreeItem>
+            <TreeItem>Government</TreeItem>
+            <TreeItem Disabled>Manufacturing</TreeItem>
+            <TreeItemsGroup>
+                Solutions
+                <TreeItem>Consumer photo and video</TreeItem>
+                <TreeItem>Mobile</TreeItem>
+                <TreeItem>Rich Internet applications</TreeItem>
+                <TreeItem>Technical communication</TreeItem>
+                <TreeItem>Training and eLearning</TreeItem>
+                <TreeItem>Web conferencing</TreeItem>
+            </TreeItemsGroup>
+            <TreeItem>All industries and solutions</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup Disabled>
+            Products
+            <TreeItem>PC products</TreeItem>
+            <TreeItem>Mobile products</TreeItem>
+            <TreeItem>All products</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Support
+            <TreeItem>Support home</TreeItem>
+            <TreeItem>Customer Service</TreeItem>
+            <TreeItem>Knowledge base</TreeItem>
+            <TreeItem>Books</TreeItem>
+            <TreeItem>Training and certification</TreeItem>
+            <TreeItem>Support programs</TreeItem>
+            <TreeItem>Forums</TreeItem>
+            <TreeItem>Documentation</TreeItem>
+            <TreeItem>Updates</TreeItem>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Communities
+            <TreeItem>Designers</TreeItem>
+            <TreeItem>Developers</TreeItem>
+            <TreeItem>Educators and students</TreeItem>
+            <TreeItem>Partners</TreeItem>
+            <TreeItemsGroup>
+                By resource
+                <TreeItem>Labs</TreeItem>
+                <TreeItem>TV</TreeItem>
+                <TreeItem>Forums</TreeItem>
+                <TreeItem>Exchange</TreeItem>
+                <TreeItem>Blogs</TreeItem>
+                <TreeItem>Experience Design</TreeItem>
+            </TreeItemsGroup>
+        </TreeItemsGroup>
+        <TreeItemsGroup>
+            Company
+            <TreeItem>About Us</TreeItem>
+            <TreeItem>Press</TreeItem>
+            <TreeItem>Investor Relations</TreeItem>
+            <TreeItem>Corporate Affairs</TreeItem>
+            <TreeItem>Careers</TreeItem>
+            <TreeItem>Showcase</TreeItem>
+            <TreeItem>Events</TreeItem>
+            <TreeItem>Contact Us</TreeItem>
+            <TreeItem>Become an affiliate</TreeItem>
+        </TreeItemsGroup>
+    </Tree>
+
+    <div class="options">
+        <div class="caption"></div>
+        <div class="options">
+            <div>
+                <p>Selection mode:</p>
+                <RadioButton OnCheckValue="OnNoneChecked">None</RadioButton><br />
+                <RadioButton OnCheckValue="OnOneChecked">One</RadioButton><br />
+                <RadioButton OnCheckValue="OnZeroOrOneChecked">Zero or one</RadioButton><br />
+                <RadioButton Checked="zeroOrMany" OnCheckValue="OnZeroOrManyChecked">Zero or many</RadioButton><br />
+                <RadioButton OnCheckValue="OnOneOrManyChecked">One or many</RadioButton><br />
+                <RadioButton OnCheckValue="OnOneOrManyExtendedChecked">One or many extended</RadioButton><br />
+                <RadioButton OnCheckValue="OnCheckboxChecked">Checkbox</RadioButton><br />
+                <RadioButton OnCheckValue="OnRadioButtonChecked">Radio button</RadioButton><br />
+            </div>
+            <br />
+            <div>
+                <p>Toggle mode:</p>
+                <RadioButton Checked="doubleClick" OnCheckValue="OnDblClickChecked">Item double click</RadioButton><br />
+                <RadioButton OnCheckValue="OnClickChecked">Item click</RadioButton><br />
+                <RadioButton OnCheckValue="OnArrowChecked">Item arrow click</RadioButton><br />
+            </div>
+        </div>
+    </div>
+
+</Example>
+
+@code {
+    Tree tree;
+    bool doubleClick = true;
+    bool zeroOrMany = true;
+
+    TreeSelectionMode selectionMode = TreeSelectionMode.ZeroOrMany;
+    TreeToggleMode toggleMode = TreeToggleMode.Dblclick;
+
+    private void OnNoneChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.None;
+        zeroOrMany = false;
+    }
+
+    private void OnOneChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.One;
+        zeroOrMany = false;
+    }
+
+    private void OnZeroOrOneChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.ZeroOrOne;
+        zeroOrMany = false;
+    }
+
+    private void OnZeroOrManyChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.ZeroOrMany;
+        zeroOrMany = true;
+    }
+
+    private void OnOneOrManyChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.OneOrMany;
+        zeroOrMany = false;
+    }
+
+    private void OnOneOrManyExtendedChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.OneOrManyExtended;
+        zeroOrMany = false;
+    }
+
+    private void OnCheckboxChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.CheckBox;
+        zeroOrMany = false;
+    }
+
+    private void OnRadioButtonChecked(Event eventObj)
+    {
+        selectionMode = TreeSelectionMode.RadioButton;
+        zeroOrMany = false;
+    }
+
+    private void OnDblClickChecked(Event eventObj)
+    {
+        toggleMode = TreeToggleMode.Dblclick;
+        doubleClick = true;
+    }
+
+    private void OnClickChecked(Event eventObj)
+    {
+        toggleMode = TreeToggleMode.Click;
+        doubleClick = false;
+    }
+
+    private void OnArrowChecked(Event eventObj)
+    {
+        toggleMode = TreeToggleMode.Arrow;
+        doubleClick = false;
+    }
+}
+ 
