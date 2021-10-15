@@ -1,4 +1,4 @@
-﻿@page "/gantt-chart-get-tasks"
+﻿@page "/ganttchart-get-tasks"
 
 @using Smart.Blazor.Demos.Data
 @using System.Linq;
@@ -17,11 +17,14 @@
 <Example Name="GanttChart">
     <GanttChart @ref="ganttChart" DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Day" View="GanttChartView.Month" TreeSize="treeSize" />
     <Button OnClick="GetTasks">Get Tasks</Button>
+
+    @tasksLog
 </Example>
 
 @code {
     GanttChart ganttChart;
     string treeSize = "25%";
+    string tasksLog = "";
 
     List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
 {
@@ -133,14 +136,15 @@
 
     private async void GetTasks()
     {
-        IEnumerable<object> tasks = await ganttChart.GetProperty<IEnumerable<object>>("tasks");
+        IEnumerable<object> tasks = await ganttChart.GetTasks();
         List<object> tasksList = tasks.ToList();
 
+        string log = "";
 
         for (int i = 0; i < tasksList.Count; i++)
         {
             Dictionary<string, object> taskItem = JsonSerializer.Deserialize<Dictionary<string, object>>(tasksList[i].ToString());
-            
+
             string id = Convert.ToString(taskItem["id"]);
 
             GanttChartTask task = new GanttChartTask()
@@ -151,7 +155,9 @@
                 Label = taskItem["label"].ToString()
             };
 
-            Console.WriteLine(task.Id);
+            log += task.Id + ": " + task.Label + ", ";
         }
+
+        tasksLog = log;
     }
 }

@@ -1,0 +1,11 @@
+@page "/bind-switch"    
+    
+    
+    <SwitchButton @bind-Checked="@SwitchButtonValue"></SwitchButton>
+    <br/>
+    <h3>Switch button value radio button value: @SwitchButtonValue </h3>
+
+@code {
+    public bool  SwitchButtonValue  = true;
+
+}

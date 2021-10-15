@@ -1,0 +1,562 @@
+﻿@page "/ganttchart-resource-work-and-material"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: 100%;
+        height: 80%;
+        --smart-gantt-chart-task-label-color: white;
+        --smart-gantt-chart-task-color: #8BC34A;
+        --smart-gantt-chart-task-label-color-selected: var(--smart-gantt-chart-task-label-color);
+        --smart-gantt-chart-task-default-height: 35px;
+    }
+
+    .smart-gantt-chart tr[aria-expanded] {
+        font-weight: bold;
+    }
+
+    .smart-gantt-chart .gantt-chart-task-assignees {
+        display: flex;
+        align-items: center;
+    }
+
+    .smart-gantt-chart .gantt-chart-task-assignee {
+        border-radius: 25%;
+        color: white;
+        background: #3266a7;
+        width: calc(var(--smart-gantt-chart-task-default-height) / 2);
+        height: calc(var(--smart-gantt-chart-task-default-height) / 2);
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 2px;
+    }
+
+    .smart-gantt-chart .unassigned {
+        background: red;
+    }
+
+    body {
+        height: 100vh;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description</b><br />
+        GanttChart Resources can be people and materials. The following demo illustrates how to have multiple types of resources in a single project.<br />
+        The GanttChart represents a Building Construction Project with subtasks and resources assigned to some of them.
+        The Resource Panel shows the allocation of the resources according to the days and tasks assigned.
+        The resource Tree and timeline are customized to show different units and resource placement. <br />
+        Saturdays and Sundays are nonworking days and <b>SnapToNearest</b> is enabled, which means that the tasks will start and end at the begining of the days.
+    </p>
+
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" ResourceColumns="resourceColumns" 
+                TreeSize="treeSize" NonworkingDays="nonworkingDays" ResourcePanelSize="resourcePanelSize" 
+                DurationUnit="Duration.Day" SnapToNearest View="GanttChartView.Week" />
+</Example>
+
+@code {
+    string treeSize = "30%";
+    int[] nonworkingDays = new int[] { 0, 6 };
+    string resourcePanelSize = "30%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>()
+    {
+        new GanttChartTaskColumn()
+        {
+            Label = "Task Name",
+            Value = "label",
+            Size = "40%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Start Time",
+            Value = "dateStart",
+            Size = "25%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Resource",
+            Value = "resources",
+            Size = "20%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Duration",
+            Value = "duration"
+        }
+    };
+
+    List<GanttChartResourceColumn> resourceColumns = new List<GanttChartResourceColumn>()
+    {
+        new GanttChartResourceColumn()
+        {
+            Label = "Name",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartResourceColumn()
+        {
+            Label = "Allocated",
+            Value = "value"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Building Construction",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "task",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Architectural Stage",
+                        Synchronized = true,
+                        Expanded = true,
+                        DisableResources = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Architectural Draft",
+                                DateStart = "2021-09-01",
+                                DateEnd = "2021-09-11",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 3 }, { "type", 1 }
+                                    }
+                                },
+                                Resources = new List<Dictionary<string, object>>()
+                                {
+                                    new Dictionary<string, object>()
+                                    {
+                                         { "id", "maya" }, { "label", "Maya, Architect" }, { "maxCapacity", 8 }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Investor Agreement",
+                                DateStart = "2021-09-12",
+                                DateEnd = "2021-09-20",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 4 }, { "type", 0 }
+                                    }
+                                },
+                                Resources = "maya"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Client Agreement",
+                                DateStart = "2021-09-21",
+                                DateEnd = "2021-09-25",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 5 }, { "type", 0 }
+                                    }
+                                },
+                                Resources = "maya"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Hiring a Construction Contractor",
+                                DateStart = "2021-09-28",
+                                DateEnd = "2021-09-31",
+                                Type = "task",
+                                Resources = new List<Dictionary<string, object>>()
+                                {
+                                    new Dictionary<string, object>()
+                                    {
+                                         { "id", "sean" }, { "label", "Sean, Manager" }, { "maxCapacity", 8 }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Exterior Construction Stage",
+                        Synchronized = true,
+                        Expanded = true,
+                        DisableResources = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Underground Parking",
+                                Synchronized = true,
+                                Expanded = true,
+                                DisableResources = true,
+                                Type = "project",
+                                Tasks = new List<GanttDataRecord>()
+                                {
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Excavation",
+                                        DateStart = "2021-10-04",
+                                        DateEnd = "2021-10-07",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 9 }, { "type", 1 }
+                                            }
+                                        },
+                                        Resources = new List<Dictionary<string, object>>()
+                                        {
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "mike" }, { "label", "Mike, Construction Worker" }, { "maxCapacity", 8 }
+                                            },
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "concrete" }, { "label", "Concrete, Material" }, { "value", 150 }, { "type", "material" }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Foundation",
+                                        DateStart = "2021-10-08",
+                                        DateEnd = "2021-10-10",
+                                        Type = "task",
+                                        Resources = new string[] { "mike", "concrete" }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Ground Level",
+                                Synchronized = true,
+                                Expanded = true,
+                                DisableResources = true,
+                                Type = "project",
+                                Tasks = new List<GanttDataRecord>()
+                                {
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Building Entrance",
+                                        DateStart = "2021-10-13",
+                                        DateEnd = "2021-10-20",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 12 }, { "type", 0 }
+                                            }
+                                        },
+                                        Resources = new List<object>()
+                                        {
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "joe" }, { "label", "Joe, Construction Worker" }, { "maxCapacity", 8 }
+                                            },
+                                            "mike"
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Garages",
+                                        DateStart = "2021-10-14",
+                                        DateEnd = "2021-10-18",
+                                        Type = "task",
+                                        Resources = new string[] { "joe", "mike" }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Floors",
+                                Synchronized = true,
+                                Expanded = true,
+                                DisableResources = true,
+                                Type = "project",
+                                Tasks = new List<GanttDataRecord>()
+                                {
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Walls",
+                                        DateStart = "2021-10-22",
+                                        DateEnd = "2021-10-25",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 15 }, { "type", 1 }
+                                            }
+                                        },
+                                        Resources = new List<object>()
+                                        {
+                                            "joe",
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "bricks" }, { "label", "Brick, Material" }, { "value", 1000 }, { "type", "material" }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Windows",
+                                        DateStart = "2021-10-26",
+                                        DateEnd = "2021-10-30",
+                                        Type = "task",
+                                        Resources = new string[] { "joe", "bricks" }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "General Works",
+                                Synchronized = true,
+                                Expanded = true,
+                                DisableResources = true,
+                                Type = "project",
+                                Tasks = new List<GanttDataRecord>()
+                                {
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Stairs",
+                                        DateStart = "2021-11-01",
+                                        DateEnd = "2021-11-03",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 18 }, { "type", 1 }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Emergency plan",
+                                        DateStart = "2021-11-04",
+                                        DateEnd = "2021-11-06",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 19 }, { "type", 1 }
+                                            }
+                                        },
+                                        Type = "task"
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Electricity",
+                                        DateStart = "2021-11-07",
+                                        DateEnd = "2021-11-10",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 20 }, { "type", 1 }
+                                            }
+                                        },
+                                        Resources = new List<Dictionary<string, object>>()
+                                        {
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "wires" }, { "label", "Wires, Material" }, { "value", 100 }, { "type", "material" }
+                                            },
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "airConditioners" }, { "label", "Air Conditioners" }, { "value", 2 }, { "type", "material" }
+                                            },
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "jake" }, { "label", "Jake, Electrician" }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Water Supply",
+                                        DateStart = "2021-11-11",
+                                        DateEnd = "2021-11-15",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 21 }, { "type", 1 }
+                                            }
+                                        },
+                                        Resources = new List<Dictionary<string, object>>()
+                                        {
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "pipes" }, { "label", "Pipes, Material" }, { "value", 50 }, { "type", "material" }
+                                            },
+                                            new Dictionary<string, object>()
+                                            {
+                                                 { "id", "tom" }, { "label", "Tom, Plumber" }, { "maxCapacity", 8 }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Sanitary Supply",
+                                        DateStart = "2021-11-16",
+                                        DateEnd = "2021-11-20",
+                                        Type = "task",
+                                        Resources = new string[] { "tom", "pipes" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Interior Construction Stage",
+                        Synchronized = true,
+                        Expanded = true,
+                        DisableResources = true,
+                        Type = "project",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 27 }, { "type", 1 }
+                            }
+                        },
+                        Progress = 50,
+                        Resources = 4,
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Floor and Ceiling",
+                                DateStart = "2021-11-21",
+                                DateEnd = "2021-11-23",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 24 }, { "type", 1 }
+                                    }
+                                },
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Walls and Columns",
+                                DateStart = "2021-11-24",
+                                DateEnd = "2021-11-30",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 25 }, { "type", 1 }
+                                    }
+                                },
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Isolation",
+                                DateStart = "2021-12-01",
+                                DateEnd = "2021-12-03",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 26 }, { "type", 1 }
+                                    }
+                                },
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Doors",
+                                DateStart = "2021-12-04",
+                                DateEnd = "2021-12-05",
+                                Type = "task"
+                            },
+
+                            new GanttDataRecord()
+                            {
+                                Label = "Investor Agreement",
+                                DateStart = "2021-09-12",
+                                DateEnd = "2021-09-20",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 4 }, { "type", 0 }
+                                    }
+                                },
+                                Resources = "maya"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Client Agreement",
+                                DateStart = "2021-09-21",
+                                DateEnd = "2021-09-25",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 5 }, { "type", 0 }
+                                    }
+                                },
+                                Resources = "maya"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Hiring a Construction Contractor",
+                                DateStart = "2021-09-28",
+                                DateEnd = "2021-09-31",
+                                Type = "task",
+                                Resources = new List<Dictionary<string, object>>()
+                                {
+                                    new Dictionary<string, object>()
+                                    {
+                                         { "id", "sean" }, { "label", "Sean, Manager" }, { "maxCapacity", 8 }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Finishing Stage",
+                        DateStart = "2021-12-05",
+                        Type = "milestone"
+                    }
+                }
+            }
+        };
+    }
+}

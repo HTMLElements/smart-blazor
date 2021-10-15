@@ -19,20 +19,7 @@ else if (Documentation)
 
 <br />
 <br />
-<Tabs OnChange="OnChange" Class="example-tabs" Style="width: 100%; height: auto;">
-	<TabItem Label="Example">
-	</TabItem>
-	<TabItem Label="Source" Icon="code">
-	</TabItem>
-	<TabItem Label="API" Icon="api">
-	</TabItem>
-	@foreach (var p in SourceCodePages)
-	{
-		<TabItem Text="@p" Icon="code">
-			<CodeView PageName="@p" />
-		</TabItem>
-	}
-</Tabs>
+
 @if (SelectedTab == 0)
 {
 	@ChildContent

@@ -1,0 +1,132 @@
+﻿@page "/ganttchart-auto-schedule"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+    @@media (max-width: 600px)
+    {
+        smart-gantt-chart {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        Task 3 has a lag of 5 days. This means that it will start 5 days after the Milestone. Click on the CheckBox to enable Strict Mode.
+    </p>
+
+    <GanttChart @ref="gantt" DataSource="Records" AutoSchedule AutoScheduleStrictMode="autoScheduleStrictMode" />
+
+    <div class="options">
+        <h3>Auto Schedule</h3>
+        <div class="option">
+            <CheckBox OnChange="OnChange">Strict Mode</CheckBox>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+
+    bool autoScheduleStrictMode = false;
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                DateStart = "2020-03-10T12:30:00",
+                DateEnd = "2021-06-10T3:59:00",
+                Expanded = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }, { "lag", 2 * 24 * 60 * 60 * 1000 } // 2 days lag
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-02-10",
+                        DateEnd = "2021-01-10",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }, { "lag", -5 * 24 * 60 * 60 * 1000 } // -5 days lag
+                            },
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-10-10",
+                        DateEnd = "2021-02-31",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 3 }, { "type", 1 }, { "lag", 15 * 24 * 60 * 60 * 1000 } // 15 days lag
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2020-03-10T15:30:00",
+                DateEnd = "2021-08-10",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Milestone 1",
+                DateEnd = "2021-05-24",
+                Type = "milestone",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 5 }, { "type", 1 }, { "lag", 5 * 24 * 60 * 60 * 1000 } // 5 days lag
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2021-02-05",
+                DateEnd = "2021-07-08",
+                Progress = 50,
+                Type = "task"
+            }
+        };
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail detail = eventObj["Detail"];
+        autoScheduleStrictMode = detail.Value;
+    }
+}

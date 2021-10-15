@@ -11,7 +11,7 @@
         margin: 0;
     }
 </style>
-<Example Name="Kanban">
+
     @if (dataRecords == null)
     {
         <p><em>Loading...</em></p>
@@ -20,7 +20,7 @@
     {
         <Kanban DataSource="dataRecords" Columns="@columns" Collapsible TaskPosition="KanbanTaskPosition.Leaf" />
     }
-</Example>
+
 
 @code {
     List<KanbanColumn> columns = new List<KanbanColumn>()

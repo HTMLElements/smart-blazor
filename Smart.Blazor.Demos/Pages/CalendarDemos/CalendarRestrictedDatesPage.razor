@@ -1,0 +1,19 @@
+﻿@page "/calendar-restricted-dates"
+
+<Example Name="Calendar">
+    <Calendar SelectedDates="@selectedDates" RestrictedDates="@restrictedDates" />
+
+    <div class="options">
+        <div class="caption">Restricted Dates</div>
+        <div class="option">
+            25 July 2021<br>
+            15 July 2021<br>
+            1 January 2021<br>
+        </div>
+    </div>
+</Example>
+
+@code {
+    List<string> selectedDates = new List<string>() { "2021-7-4" };
+    List<string> restrictedDates = new List<string>() { "2021-7-25", "2021-7-15", "2021-1-1" };
+} 

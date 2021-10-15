@@ -1,0 +1,41 @@
+﻿@page "/listbox-reorder"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-list-box {
+        width: 300px;
+        height: 500px;
+    }
+
+    @@media only screen and (max-width: 700px) {
+        body, html {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        smart-list-box {
+            width: 100%;
+            height: 100%;
+        }
+    }
+</style>
+
+<Example Name="ListBox">
+    <ListBox AllowDrag AllowDrop>
+        <ListItem Selected Value="volvo">Volvo</ListItem>
+        <ListItem Value="saab">Saab</ListItem>
+        <ListItem Value="saab">Scania</ListItem>
+        <ListItem Value="mercedes">Mercedes</ListItem>
+        <ListItem Value="vw">VW</ListItem>
+        <ListItem Value="audi">Audi</ListItem>
+        <ListItem Value="porsche">Porsche</ListItem>
+        <ListItem Value="mazda">Mazda</ListItem>
+        <ListItem Value="honda">Honda</ListItem>
+        <ListItem Value="infinity">Infinity</ListItem>
+        <ListItem Value="mitsubishi">Mitsubishi</ListItem>
+        <ListItem Value="toyota">Toyota</ListItem>
+    </ListBox>
+</Example>

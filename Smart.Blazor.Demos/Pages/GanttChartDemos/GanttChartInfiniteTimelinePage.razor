@@ -1,0 +1,83 @@
+﻿@page "/ganttchart-infinite-timeline"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: auto;
+    }
+</style>
+
+<Example Name="GanttChart">   
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" InfiniteTimeline InfiniteTimelineStep="10"/>
+</Example>
+
+@code {
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() 
+        {
+            Label = "Tasks",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartTaskColumn() 
+        {
+            Label = "Expected End Date",
+            Value = "dateEnd"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "PRD & User-Stories",
+                DateStart = "2021-01-10",
+                DateEnd = "2022-03-10"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Persona & Journey",
+                DateStart = "2021-02-01",
+                DateEnd = "2022-03-10"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Architecture",
+                DateStart = "2021-02-11",
+                DateEnd = "2022-05-16"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Prototyping",
+                DateStart = "2021-01-17",
+                DateEnd = "2022-05-01"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Design",
+                DateStart = "2021-06-02",
+                DateEnd = "2022-08-01"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                DateStart = "2021-08-01",
+                DateEnd = "2022-09-10"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Testing & QA",
+                DateStart = "2021-09-11",
+                DateEnd = "2022-12-10"
+            }
+        };
+    }
+}

@@ -1,0 +1,11 @@
+@page "/bind-textarea"
+
+
+<TextArea @bind-Value=@TextAreaValue ></TextArea>
+    <br/>
+    <h3>Enter new text: @TextAreaValue  </h3>
+
+@code {
+    string TextAreaValue=  "Your text";
+
+}

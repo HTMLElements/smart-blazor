@@ -1,9 +1,8 @@
-﻿@page "/dropdownbutton"
+﻿@page "/dropdownbutton-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="DropDownButton">
 	<DropDownButton DropDownWidth="500" Placeholder="Forecasts">
 		@if (forecasts == null)
 		{
@@ -35,7 +34,7 @@
 		}
 
 	</DropDownButton>
-</Example>
+
 
 
 @code {

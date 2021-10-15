@@ -1,0 +1,51 @@
+﻿@page "/calendar-methods"
+
+<Example Name="Calendar">
+    <Calendar @ref="calendar" Disabled="@disabled" />
+
+    <div class="options">
+        <div class="caption"><Button OnClick="OnClearSelectionClick">Clear Selection</Button></div>
+        <div class="option"><Button OnClick="OnTodayClick">Today</Button></div>
+        <div class="option"><Button OnClick="OnNavBackwardClick">Navigate Backward</Button></div>
+        <div class="option"><Button OnClick="OnNavForwardClick">Navigate Forward</Button></div>
+        <div class="option"><Input @ref="input" Class="text-input" Placeholder="e.g. 2021-1-1" /></div>
+        <div class="option"><Button OnClick="OnSelectDateClick">Select Date</Button></div>
+        <div class="option"><Button Style="width:auto;" OnClick="OnEnableDisableClick">Enable/Disable</Button></div>
+    </div>
+</Example>
+
+@code {
+    private Calendar calendar;
+    private Input input;
+    private bool disabled = false;
+
+    private void OnClearSelectionClick()
+    {
+        calendar.ClearSelection();
+    }
+
+    private void OnTodayClick()
+    {
+        calendar.Today();
+    }
+
+    private void OnNavBackwardClick()
+    {
+        calendar.Navigate(1);
+    }
+
+    private void OnNavForwardClick()
+    {
+        calendar.Navigate(-1);
+    }
+
+    private void OnSelectDateClick()
+    {
+        calendar.Select(input.Value);
+    }
+
+    private void OnEnableDisableClick()
+    {
+        disabled = !disabled;
+    }
+}

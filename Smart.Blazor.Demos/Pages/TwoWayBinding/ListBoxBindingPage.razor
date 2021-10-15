@@ -1,0 +1,25 @@
+@page "/bind-listbox"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+
+    <ListBox  SelectionMode="ListSelectionMode.One"  @bind-SelectedIndexes="@SelectedIndex" >
+        @foreach (var forecast in forecasts)
+        {
+            <ListItem Label="@forecast.Summary.Trim()"></ListItem>
+        }
+    </ListBox>
+     <br/>
+     <h3>  The Selected index is: @SelectedIndex[0]  </h3>
+
+@code {
+
+    int[] SelectedIndex = new int[]{ 1 };
+   
+    private WeatherForecast[] forecasts;
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}

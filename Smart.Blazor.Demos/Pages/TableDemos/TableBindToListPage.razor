@@ -15,7 +15,7 @@
         height: calc(100% - 70px);
     }
 </style>
-<Example Name="Table">
+
     @if (dataRecords == null)
     {
         <p><em>Loading...</em></p>
@@ -24,7 +24,7 @@
     {
         <Table Columns="columns" DataSource="dataRecords" SortMode="TableSortMode.One" Selection="true"></Table>
     }
-</Example>
+
 @code {
     public class Person
     {

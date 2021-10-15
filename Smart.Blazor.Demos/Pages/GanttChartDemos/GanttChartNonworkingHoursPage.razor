@@ -1,0 +1,109 @@
+﻿@page "/ganttchart-nonworking-hours"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: auto;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description:</b> <b>NonworkingHours</b> determine the non working Hours of the day. Similar to nonworkingDays they are also ignored in the task start/end date calculations. Also colored in gray. Drag and Drop a task inside the timeline to see how the Task Bar changes according to the new added/removed slack time.
+    </p>
+
+    <GanttChart DataSource="Records" View="GanttChartView.Day" NonworkingHours="nonworkingHours" />
+</Example>
+
+@code {
+    private List<object> nonworkingHours = new List<object>() { 22, 23, 0, 1, 2, 3, 4, 5, 6 };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                DateStart = "2020-02-18T12:30:00",
+                DateEnd = "2020-02-20T3:59:00",
+                Type = "project",
+                Expanded = true,
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-02-24",
+                        DateEnd = "2020-02-28",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }
+                            },
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-2-19",
+                        DateEnd = "2020-2-29",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 3 }, { "type", 1 }
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2020-02-21T15:30:00",
+                DateEnd = "2020-03-2T15:30:00",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Milestone 1",
+                DateEnd = "2020-02-24",
+                Type = "milestone",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 5 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2020-02-18T1:00:00",
+                DateEnd = "2020-02-18T18:30:00",
+                Progress = 50,
+                Type = "task"
+            }
+        };
+    }
+}

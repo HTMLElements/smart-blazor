@@ -1,0 +1,155 @@
+﻿@page "/ganttchart-task-connections"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+
+    smart-button {
+        width: 100%;
+    }
+
+    @@media (max-width: 700px)
+    {
+        smart-gantt-chart {
+            width: 95%;
+            margin-left:2%;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <b>Description:</b> Connections can be created/removed using methods as well.
+    <ul>
+        <li>Add Connection - Create's a connection between "Task 1.2" and "Milestone 1" of type Start-to-Start(0).</li>
+        <li>Remove Specific Connection - Removes the selected connection from the Drop Down List.</li>
+        <li>
+            Remove All Connections - Removes all connections between the tasks.
+        </li>
+    </ul>
+
+    <GanttChart @ref="gantt" DataSource="Records" />
+
+    <div class="options">
+        <div class="caption">
+            Settings
+        </div>
+        <div class="option">
+            <DropDownList @ref="connectionSelector">
+                <ListItem Value="0-1-0">Project 1 - Task 1.1</ListItem>
+                <ListItem Value="1-2-2">Task 1.1 - Task 1.2</ListItem>
+                <ListItem Value="3-4-1">Milestone 1 - Task 2</ListItem>
+            </DropDownList>
+        </div>
+        <div class="option">            
+            <Button OnClick="OnAddClick">Add Connection</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnRemoveClick">Remove Connection</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnRemoveAllClick">Remove All</Button>
+        </div>
+    </div>
+</Example>
+
+@code {   
+    GanttChart gantt;
+    DropDownList connectionSelector;
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            //Note: dateStart/dateEnd and min/max of syncronized projects are automatically calculated based on the tasks
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                Expanded = true,
+                Synchronized = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-05-10",
+                        DateEnd = "2021-04-10",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 2 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-03-27",
+                        DateEnd = "2020-06-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Milestone 1",
+                        DateEnd = "2021-03-15",
+                        Type = "milestone",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2021-06-21",
+                DateEnd = "2021-12-10",
+                Type = "task"
+            }
+        };
+    }
+
+    private void OnAddClick()
+    {
+        gantt.CreateConnection("2-3-0");
+        connectionSelector.Insert(4, new Dictionary<string, string>() { { "value", "2-3-0" }, { "label", "Task 1.2 - Milestone 1" } });
+    }
+
+    private async void OnRemoveClick()
+    {
+        var con = connectionSelector.SelectedValues[0];
+
+        if(con != null)
+        {
+            await gantt.RemoveConnection(con);
+            connectionSelector.RemoveAt(connectionSelector.SelectedIndexes[0]);
+        }
+
+    }
+
+    private void OnRemoveAllClick()
+    {
+        gantt.RemoveAllConnections();
+        connectionSelector.ClearItems();
+    }
+}

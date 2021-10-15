@@ -1,0 +1,140 @@
+﻿@page "/ganttchart-view"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        width: 100%;
+    }
+
+    .smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: 350px;
+    }
+    @@media only screen (max-width: 600px) {
+        smart-gantt-chart {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description:</b> Click on the Drop Down List to select a different Timeline View.
+    </p>
+
+    <GanttChart DataSource="Records" View="view" />
+
+    <div class="options">
+        <div class="option">
+            <h3>Select view:</h3>
+            <DropDownList DataSource="items" @bind-SelectedValues="@selectedValues" OnChange="OnChange"></DropDownList>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChartView view = GanttChartView.Year;
+
+    string[] items = new string[] { "year", "month", "week", "day" };
+    string[] selectedValues = new string[]{ "year" };
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                 //Note: dateStart/dateEnd and min/max of syncronized projects are automatically calculated based on the tasks
+                Label = "Project 1",
+                DateStart = "2020-05-10",
+                DateEnd = "2021-06-10",
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-02-10",
+                        DateEnd = "2020-04-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-03-27",
+                        DateEnd = "2020-06-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Milestone 1",
+                        DateStart = "2021-6-1",
+                        Type = "milestone"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project 2",
+                        DateStart = "2020-06-11",
+                        DateEnd = "2024-12-31T23:59:59",
+                        Expanded = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 2.1",
+                                DateStart = "2020-06-12",
+                                DateEnd = "2021-01-1",
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 2.2",
+                                DateStart = "2020-01-02",
+                                DateEnd = "2021-06-01",
+                                Type = "task"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Milestone 2.1",
+                                DateStart = "2020-06-30",
+                                Type = "milestone"
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 2.3",
+                                DateStart = "2020-09-01",
+                                DateEnd = "2024-12-31T23:59:59",
+                                Type = "task"
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private async void OnChange(Event eventObj)
+    {
+        switch(this.selectedValues[0])
+        {
+            case "year":
+                view = GanttChartView.Year;
+                break;
+            case "month":
+                view = GanttChartView.Month;
+                break;
+            case "week":
+                view = GanttChartView.Week;
+                break;
+            case "day":
+                view = GanttChartView.Day;
+                break;
+        }
+    }
+}

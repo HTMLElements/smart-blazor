@@ -1,0 +1,11 @@
+@page "/bind-textbox"
+
+
+<TextBox @bind-Value=@TextBoxValue ></TextBox>
+    <br/>
+    <h3>Enter new text: @TextBoxValue  </h3>
+
+@code {
+    string TextBoxValue=  "Your text";
+
+}

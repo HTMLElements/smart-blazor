@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-event-render-mode"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -30,38 +27,31 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" HourStart="9" 
-                   TimelineDayScale="SchedulerTimelineDayScale.HalfHour" EventRenderMode="@eventRenderMode" />
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" HourStart="9"
+               TimelineDayScale="SchedulerTimelineDayScale.HalfHour" EventRenderMode="@eventRenderMode" />
 
-        <div class="options">
-            <div class="description">
-                <h4>Description</h4>
-                <b>eventRenderMode</b> determines how the events are rendered inside the
-                cells:
-                <ul>
-                    <li>
-                        classic - the events are fitted inside the target cell. No event collector
-                        is used.
-                    </li>
-                    <li>
-                        modern - the events are fitted according to their size set via the CSS
-                        variable. Events that overflow will be placed inside a collector. On Mobile
-                        all events are placed inside collectors.
-                    </li>
-                </ul>
-            </div>
-            <div class="option">
-                <h4>Select Event Render Mode:</h4>
-                <Input DataSource="inputDataSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="@inputValue" Readonly OnChange="handleInputChange"/>
-            </div>
+    <div class="options">
+        <div class="description">
+            <h4>Description</h4>
+            <b>eventRenderMode</b> determines how the events are rendered inside the
+            cells:
+            <ul>
+                <li>
+                    classic - the events are fitted inside the target cell. No event collector
+                    is used.
+                </li>
+                <li>
+                    modern - the events are fitted according to their size set via the CSS
+                    variable. Events that overflow will be placed inside a collector. On Mobile
+                    all events are placed inside collectors.
+                </li>
+            </ul>
         </div>
-    }
+        <div class="option">
+            <h4>Select Event Render Mode:</h4>
+            <Input DataSource="inputDataSource" DropDownButtonPosition="DropDownButtonPosition.Right" @bind-Value="@inputValue" Readonly OnChange="handleInputChange" />
+        </div>
+    </div>
 </Example>
 
 @code {

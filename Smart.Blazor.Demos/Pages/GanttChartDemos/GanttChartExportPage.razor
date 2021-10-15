@@ -50,7 +50,7 @@
         GanttChart's can be exported to a PDF or XLSX file via the <b>exportData</b> method by clicking on the corresponding button.
     </div>
 
-    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Hour" 
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Hour"
                 TreeSize="treeSize" NonworkingHours="nonworkingHours" NonworkingDays="nonworkingDays" />
 
     <div class="options">
@@ -62,6 +62,15 @@
         </div>
         <div class="option">
             <Button OnClick="ExportToHTML">Export to HTML</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ExportToCSV">Export to CSV</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ExportToTSV">Export to TSV</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ExportToXML">Export to XML</Button>
         </div>
     </div>
 </Example>
@@ -211,5 +220,20 @@
     private void ExportToHTML()
     {
         gantt.ExportData("html");
+    }
+
+    private void ExportToCSV()
+    {
+        gantt.ExportData("csv");
+    }
+
+    private void ExportToTSV()
+    {
+        gantt.ExportData("tsv");
+    }
+
+    private void ExportToXML()
+    {
+        gantt.ExportData("xml");
     }
 }

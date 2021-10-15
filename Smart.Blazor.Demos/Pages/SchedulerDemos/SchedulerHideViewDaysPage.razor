@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-hide-view-days"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -25,28 +22,21 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" NonworkingDays="@nonWorkingDays" 
-                   HideNonworkingWeekdays="@hideNonWorkingDays" HideWeekend="@hideWeekend" HideAllDay="@hideAllDay" />
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" NonworkingDays="@nonWorkingDays"
+               HideNonworkingWeekdays="@hideNonWorkingDays" HideWeekend="@hideWeekend" HideAllDay="@hideAllDay" />
 
-        <div class="options">
-            <div class="description">Tuesday and Thursday have been set as nonworking days.</div>
-            <div class="option">
-                <CheckBox OnChange="OnHideNonWorkingDaysChange">Hide Nonworking weekdays</CheckBox>
-            </div>
-            <div class="option">
-                <CheckBox OnChange="OnHideWeekendChange">Hide Weekend</CheckBox>
-            </div>
-            <div class="option">
-                <CheckBox OnChange="OnHideAllDayChange">Hide All day</CheckBox>
-            </div>
+    <div class="options">
+        <div class="description">Tuesday and Thursday have been set as nonworking days.</div>
+        <div class="option">
+            <CheckBox OnChange="OnHideNonWorkingDaysChange">Hide Nonworking weekdays</CheckBox>
         </div>
-    }
+        <div class="option">
+            <CheckBox OnChange="OnHideWeekendChange">Hide Weekend</CheckBox>
+        </div>
+        <div class="option">
+            <CheckBox OnChange="OnHideAllDayChange">Hide All day</CheckBox>
+        </div>
+    </div>
 </Example>
 
 @code {   

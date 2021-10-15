@@ -5,7 +5,7 @@
         display: inline-block;
     }
 </style>
-<Example Name="QueryBuilder">
+
     <QueryBuilder @ref="queryBuilder" RightToLeft Fields="@fields" AllowDrag="@allowDrag" 
                   ShowIcons="@showIcons" Value="@value" Messages="@messages" Locale="he">
     </QueryBuilder>
@@ -18,7 +18,7 @@
             <CheckBox Checked OnChange="OnShowIconsChange">Show icons in "Equals"</CheckBox>
         </div>
     </div>
-</Example>
+
 
 @code {
     private QueryBuilder queryBuilder;

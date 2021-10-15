@@ -1,0 +1,12 @@
+@page "/bind-checkbox"
+   
+
+    <CheckBox @bind-Checked="@CheckBoxValue">Check Box</CheckBox>
+    <br/>
+    <h3>Check box value: @CheckBoxValue </h3>
+
+@code {
+   
+    public bool CheckBoxValue = true;
+
+}

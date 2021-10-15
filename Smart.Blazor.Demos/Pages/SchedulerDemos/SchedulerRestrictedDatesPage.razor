@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-restricted-dates"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html, body {
@@ -18,15 +15,8 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" 
-                   HourStart="9" HourEnd="18" FirstDayOfWeek="1" RestrictedDates="@restrictedDates"/>
-    }
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week"
+               HourStart="9" HourEnd="18" FirstDayOfWeek="1" RestrictedDates="@restrictedDates" />
 </Example>
 
 @code {

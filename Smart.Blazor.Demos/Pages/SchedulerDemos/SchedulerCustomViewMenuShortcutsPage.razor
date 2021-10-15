@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-custom-view-menu-shortcuts"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -26,14 +23,7 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Month" NonworkingDays="@nonWorkingDays" />
-    }
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Month" NonworkingDays="@nonWorkingDays" />
 </Example>
 
 @code {

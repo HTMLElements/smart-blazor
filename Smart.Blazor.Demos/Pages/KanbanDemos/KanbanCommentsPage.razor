@@ -11,7 +11,7 @@
         margin: 0;
     }
 </style>
-<Example Name="Kanban">
+
     <p>
         Kanban Card comments are the easiest way to communicate with your team and share task and project related information with the rest of the team members.
         The Kanban Card Comments tab capabilities facilitate team collaboration and management from the card. To open the comments box, click on the "comments" icon below the user's image.
@@ -25,7 +25,7 @@
     {
         <Kanban DataSource="dataRecords" Columns="@columns" Users="@users" Collapsible TaskComments CurrentUser="1" />
     }
-</Example>
+
 
 @code {
     List<KanbanColumn> columns = new List<KanbanColumn>()
@@ -58,31 +58,31 @@
         {
             Id = 0,
             Name = "Andrew",
-            Image = "../../images/people/andrew.png"
+            Image = "https://www.htmlelements.com/demos/images/people/andrew.png"
         },
         new KanbanUser()
         {
             Id = 1,
             Name = "Anne",
-            Image = "../../images/people/anne.png"
+            Image = "https://www.htmlelements.com/demos/images/people/anne.png"
         },
         new KanbanUser()
         {
             Id = 2,
             Name = "Janet",
-            Image = "../../images/people/janet.png"
+            Image = "https://www.htmlelements.com/demos/images/people/janet.png"
         },
         new KanbanUser()
         {
             Id = 3,
             Name = "John",
-            Image = "../../images/people/john.png"
+            Image = "https://www.htmlelements.com/demos/images/people/john.png"
         },
         new KanbanUser()
         {
             Id = 4,
             Name = "Laura",
-            Image = "../../images/people/laura.png"
+            Image = "https://www.htmlelements.com/demos/images/people/laura.png"
         }
     };
 

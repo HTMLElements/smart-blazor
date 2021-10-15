@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-event-notifications"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -20,14 +17,7 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Month" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" FirstDayOfWeek="1" />
-    }
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Month" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" FirstDayOfWeek="1" />
 </Example>
 
 @code {
@@ -48,7 +38,7 @@
 
     private List<SchedulerDataSource> GetData()
     {
-        DateTime today = DateTime.Today;
+        DateTime today = DateTime.Now;
 
         List<SchedulerDataSource> data = new List<SchedulerDataSource>()
         {
@@ -65,7 +55,7 @@
                     {
                         Interval = 1,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute },
+                        Time = new int[] { today.Hour, today.Minute },
                         Message = "Bryan's birthday is tomorrow! By him a present !",
                         IconType = "warning"
                     }
@@ -83,14 +73,14 @@
                     {
                         Interval = 0,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Time = new int[] { today.Hour, today.Minute + 1 },
                         Message = "Stand up meeting with the team early"
                     },
                     new SchedulerDataSourceNotification()
                     {
                         Interval = 0,
                         Type = SchedulerNotificationType.Weeks,
-                        Time = new List<object>() { today.Hour, today.Minute + 2 },
+                        Time = new int[] { today.Hour, today.Minute + 2 },
                         Message = "Stand up meeting with the team late",
                         IconType = "warning"
                     }
@@ -108,7 +98,7 @@
                     {
                         Interval = 1,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Time = new int[] { today.Hour, today.Minute + 1 },
                         Message = "Get the brake pads of the car repalced."
                     }
                 }
@@ -125,7 +115,7 @@
                     {
                         Interval = 3,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute },
+                        Time = new int[] { today.Hour, today.Minute },
                         Message = "Payday in 3 days!! Wohoo $$!",
                         IconType = "success"
                     }
@@ -143,7 +133,7 @@
                     {
                         Interval = 4,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 3 },
+                        Time = new int[] { today.Hour, today.Minute + 3 },
                         Message = "Yoanna's birthday is in 4 days!"
                     }
                 }
@@ -151,8 +141,8 @@
             new SchedulerDataSource() 
             {
                 Label = "Job interview at Google",
-                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0).AddDays(1),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(1),
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 45, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0),
                 BackgroundColor = "#616161",
                 Notifications = new List<SchedulerDataSourceNotification>()
                 {
@@ -160,7 +150,7 @@
                     {
                         Interval = 1,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 5 },
+                        Time = new int[] { today.Hour, today.Minute + 5 },
                         Message = "Don't forget the job interview tomorrow at Google!"
                     }
                 }

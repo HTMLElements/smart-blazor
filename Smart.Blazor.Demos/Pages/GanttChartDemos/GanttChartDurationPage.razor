@@ -1,0 +1,71 @@
+﻿@page "/ganttchart-duration"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: 200px;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p><b>Duration</b> of tasks can be calculated in different units: day, hour and others. Press on the radio button to change the Duration Unit.</p>
+
+    <GanttChart DataSource="Records" DurationUnit="@duration" />
+
+    <div class="options">
+        <h3>Duration Unit:</h3>
+        <div class="option">
+            <RadioButton GroupName="durationUnit" Checked="@isDayChecked" OnCheckValue="OnDayChecked">day</RadioButton>
+        </div>
+        <div class="option">
+            <RadioButton GroupName="durationUnit" OnCheckValue="OnHourChecked">hour</RadioButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+
+    Duration duration = Duration.Day;
+    bool isDayChecked = true;
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Type = "project",
+                Label = "Project 1",
+                DateStart = "2020-5-10",
+                DateEnd = "2021-7-10",
+                MinDuration = 60
+
+            },
+            new GanttDataRecord()
+            {
+                Type = "task",
+                Label = "Task 2",
+                DateStart = "2021-6-5",
+                DateEnd = "2021-8-10",
+                MinDuration = 10,
+                MaxDuration = 60
+            }
+        };
+    }
+
+    private void OnDayChecked()
+    {
+        duration = Duration.Day;
+        isDayChecked = true;
+    }
+
+    private void OnHourChecked()
+    {
+        duration = Duration.Hour;
+        isDayChecked = false;
+    }
+}

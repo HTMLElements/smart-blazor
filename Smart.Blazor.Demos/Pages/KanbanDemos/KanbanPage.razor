@@ -3,10 +3,10 @@
 @using Smart.Blazor.Demos.Data
 @inject RandomDataService RandomDataService
 
-<Example Name="Kanban">
+
 
 	<Kanban DataSource="Data" Columns="columns" Collapsible="true"></Kanban>
-</Example>
+
 
 @code {
 	List<KanbanColumn> columns = new List<KanbanColumn>{

@@ -1,0 +1,12 @@
+@page "/bind-numberinput"
+
+
+    <NumberInput @bind-Value=@inputValue Placeholder="Please Enter a Number"></NumberInput>
+    <br/>
+    <h3>Enter a number: @inputValue  </h3>
+
+@code {
+
+    string inputValue=  "1233";
+
+}

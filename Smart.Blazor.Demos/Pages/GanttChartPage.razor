@@ -1,9 +1,9 @@
-﻿@page "/ganttchart"
+﻿@page "/ganttchart-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject RandomDataService RandomDataService
 
-<Example Name="GanttChart">
+
 	<style>
 		smart-gantt-chart {
 			height: auto;
@@ -39,7 +39,7 @@
 			}
 	</style>
 	<GanttChart DataSource="Data"  TaskColumns="taskColumns" DurationUnit="Duration.Hour"></GanttChart>
-</Example>
+
 
 @code {
 	

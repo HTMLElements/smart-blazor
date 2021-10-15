@@ -1,0 +1,74 @@
+﻿@page "/ganttchart-synchronized-project-drag"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: 300px;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description:</b> 'Project 1' is <b>Synchronized</b> and <b>DragProject</b> is enabled. This means that the position and duration of the project depends on it's sub-tasks. However the project can still be dragged along with it's sub-tasks.
+    </p>
+
+    <GanttChart DataSource="Records" TreeSize="treeSize" DurationUnit="Duration.Day" />
+</Example>
+
+@code {
+    string treeSize = "35%";
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            //Note: dateStart/dateEnd and min/max of syncronized projects are automatically calculated based on the tasks
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                Expanded = true,
+                Synchronized = true,
+                DragProject = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        MinDateStart = "2020-02-10",
+                        MaxDateEnd = "2021-08-10",
+                        DateStart = "2020-05-10",
+                        DateEnd = "2021-04-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        MinDateStart = "2020-03-10",
+                        MaxDateEnd = "2020-11-10",
+                        DateStart = "2020-03-27",
+                        DateEnd = "2020-06-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Milestone 1",
+                        DateEnd = "2021-03-15",
+                        Type = "milestone"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2021-06-21",
+                DateEnd = "2021-12-10",
+                Type = "task"
+            }
+        };
+    }
+}

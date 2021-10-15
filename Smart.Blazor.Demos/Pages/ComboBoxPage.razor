@@ -1,9 +1,9 @@
-﻿@page "/combobox"
+﻿@page "/combobox-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="ComboBox">
+
 	@if (forecasts == null)
 	{
 		<p><em>Loading...</em></p>
@@ -18,7 +18,7 @@
 			}
 		</ComboBox>
 	}
-</Example>
+
 
 @code {
 	private WeatherForecast[] forecasts;

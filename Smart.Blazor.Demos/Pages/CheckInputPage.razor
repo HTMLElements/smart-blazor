@@ -1,9 +1,9 @@
-﻿@page "/checkinput"
+﻿@page "/checkinput-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="CheckInput">
+
 	@if (forecasts == null)
 	{
 		<p><em>Loading...</em></p>
@@ -13,7 +13,7 @@
 		<h2>Forecasts Summary</h2>
 		<CheckInput DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></CheckInput>
 	}
-</Example>
+
 
 @code {
 	private WeatherForecast[] forecasts;

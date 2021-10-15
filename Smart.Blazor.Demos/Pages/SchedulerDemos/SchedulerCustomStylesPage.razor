@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-custom-styles"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -49,42 +46,30 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler class="@lineClass" DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" FirstDayOfWeek="1" HourStart="7" HourEnd="21" TimelineDayScale="SchedulerTimelineDayScale.HalfHour"                         TimeRulerTicks="@timeRulerTicks" CurrentTimeIndicator="@currentTimeIndicator" ShadeUntilCurrentTime="@shadeUntilCurrentTime" />
+    <Scheduler class="@lineClass" DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" FirstDayOfWeek="1" HourStart="7" HourEnd="21" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" TimeRulerTicks="@timeRulerTicks" CurrentTimeIndicator="@currentTimeIndicator" ShadeUntilCurrentTime="@shadeUntilCurrentTime" />
 
-        <div class="options">           
-            <div class="option">
-                <h4>Day/Week Horizontal Line Size:</h4>
-                <Input DataSource="inputSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="@value1" Readonly OnChange="OnHorizontalLineChange"/>
-            </div>
-            <div class="option">
-                <h4>Day/Week Vertical Line Size:</h4>
-                <Input DataSource="inputSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="@value2" Readonly OnChange="OnHorizontalLineChange" />
-            </div>
-            <div class="option">
-                <h4>Show Time Ruler Ticks:</h4>
-                <SwitchButton OnChange="OnTimeRulerTicksChange" />
-            </div>
-            <div class="option">
-                <h4>Show Current Time Indicator:</h4>
-                <SwitchButton OnChange="OnCurrentTimeIndicatorChange" />
-            </div>
-            <div class="option">
-                <h4>Shade Until Current Time:</h4>
-                <SwitchButton OnChange="OnShadeUntilCurrentTimeChange" />
-            </div>
+    <div class="options">
+        <div class="option">
+            <h4>Day/Week Horizontal Line Size:</h4>
+            <Input DataSource="inputSource" DropDownButtonPosition="DropDownButtonPosition.Right" @bind-Value="@value1" Readonly OnChange="OnHorizontalLineChange" />
         </div>
-    }
+        <div class="option">
+            <h4>Show Time Ruler Ticks:</h4>
+            <SwitchButton OnChange="OnTimeRulerTicksChange" />
+        </div>
+        <div class="option">
+            <h4>Show Current Time Indicator:</h4>
+            <SwitchButton OnChange="OnCurrentTimeIndicatorChange" />
+        </div>
+        <div class="option">
+            <h4>Shade Until Current Time:</h4>
+            <SwitchButton OnChange="OnShadeUntilCurrentTimeChange" />
+        </div>
+    </div>
 </Example>
 
 @code {
     string value1 = "1";
-    string value2 = "1";
 
     bool timeRulerTicks = false;
     bool currentTimeIndicator = false;
@@ -92,8 +77,7 @@
 
     string lineClass = "";
     string horizontalLineClass = "";
-    string verticalLineClass = "";
-
+  
     private string[] inputSource = new string[] { "1", "2", "5" };
 
     private List<SchedulerDataSource> dataRecords;
@@ -183,29 +167,6 @@
         }
 
         horizontalLineClass = "line-horizontal-size-" + size;
-        lineClass = horizontalLineClass + " " + verticalLineClass;
-    }
-
-    private void OnVerticaltalLineChange(Event eventObj)
-    {
-        InputChangeEventDetail args = eventObj["Detail"];
-
-        string size;
-        switch (args.Value)
-        {
-            case "1":
-                size = "small";
-                break;
-            case "2":
-                size = "medium";
-                break;
-            default:
-                size = "large";
-                break;
-        }
-
-        verticalLineClass = "line-horizontal-size-" + size;
-
-        lineClass = horizontalLineClass + " " + verticalLineClass;
+        lineClass = horizontalLineClass;
     }
 }

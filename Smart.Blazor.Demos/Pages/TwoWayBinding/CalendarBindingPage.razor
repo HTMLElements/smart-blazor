@@ -1,0 +1,16 @@
+@page "/bind-calendar"
+
+    <Calendar  @bind-SelectedDates=@DateValue></Calendar>
+    
+    <br/>
+
+    @foreach (var date in DateValue)
+    {
+        <h3>The Selected date is: @date </h3>
+    }
+
+@code {
+
+public  IEnumerable<object> DateValue = new List<object>() {"2021-09-14 T21:00"};
+
+}

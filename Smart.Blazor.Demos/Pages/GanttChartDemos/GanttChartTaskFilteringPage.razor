@@ -1,0 +1,255 @@
+﻿@page "/ganttchart-task-filtering"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+        --smart-gantt-chart-task-fill-border-radius: 2px;
+        --smart-gantt-chart-header-height: 40px;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        .smart-gantt-chart {
+            width: 100%;
+        }
+    }
+
+        smart-gantt-chart .priority-low {
+            --smart-gantt-chart-task-color: var(--smart-success);
+            --smart-gantt-chart-task-label-color: var(--smart-success-color);
+            --smart-gantt-chart-task-label-color-selected: var(--smart-success-color);
+            --smart-gantt-chart-project-label-color: var(--smart-success-color);
+            --smart-gantt-chart-project-label-color-selected: var(--smart-success-color);
+        }
+
+        smart-gantt-chart .priority-medium {
+            --smart-gantt-chart-task-color: var(--smart-toast-warning-background);
+            --smart-gantt-chart-task-label-color: var(--smart-toast-warning-color);
+            --smart-gantt-chart-task-label-color-selected: var(--smart-toast-warning-color);
+            --smart-gantt-chart-project-label-color: var(--smart-toast-warning-color);
+            --smart-gantt-chart-project-label-color-selected: var(--smart-toast-warning-color);
+        }
+
+        smart-gantt-chart .priority-high {
+            --smart-gantt-chart-task-color: var(--smart-error);
+            --smart-gantt-chart-task-label-color: var(--smart-error-color);
+            --smart-gantt-chart-task-label-color-selected: var(--smart-error-color);
+            --smart-gantt-chart-project-label-color: var(--smart-error-color);
+            --smart-gantt-chart-project-label-color-selected: var(--smart-error-color);
+        }
+
+        .task-filtering-container {
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            justify-content: center;
+            align-items: center;
+            grid-column-gap: 10px;
+            --smart-background: var(--smart-surface);
+        }
+
+        .priority-container {
+            display: flex;
+        }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        The following demo illustrates how to filter the tasks inside the GanttChart component. Two types of filtering are avaialble: default and
+        advanced( via the <b>filterRow</b>). The default filtering mode filters all columns based
+        on
+        their cell values. Cell value might not be the same as the cell's actual content that appear inside the Table.
+        The cell value is determined by the column settings defined in the <b>taskColumn</b>
+        property. For example, the <u>Priority</u> column uses a <b>formatFunction</b> to display the priority
+        labels ('Low', 'Medium', 'High') instead of the actual numeric values that represent them. The filtering is applied on the numeric
+        values of the column since they represent the actual priority of the task.
+    </p>
+
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" TreeMin="300" DurationUnit="Duration.Day"
+                TaskFiltering FilterRow="true" HideTimelineHeaderDetails View="GanttChartView.Week" />
+
+ 
+
+</Example>
+
+@code {
+    string buttonText;
+    
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>()
+    {
+        new GanttChartTaskColumn()
+        {
+            Label = "Tasks",
+            Value = "label",
+            Size = "40%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Start Time",
+            Value = "dateStart",
+            Size = "30%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Priority",
+            Value = "value"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        buttonText = "Enable";
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project A",
+                Value = 1,
+                Class = "priority-medium",
+                DateStart = "2021-05-01",
+                Duration = 20,
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task A",
+                        Value = 2,
+                        Class = "priority-high",
+                        DateStart = "2021-05-03",
+                        Duration = 5,
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 5 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project A-1",
+                        Value = 2,
+                        Class = "priority-high",
+                        DateStart = "2021-05-02",
+                        Duration = 10,
+                        Expanded = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Task B",
+                                Value = 1,
+                                Class = "priority-medium",
+                                DateStart = "2021-05-05",
+                                Duration = 3
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task B-1",
+                                Value = 0,
+                                Class = "priority-low",
+                                DateStart = "2021-05-06",
+                                Duration = 2
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task B-2",
+                                Value = 2,
+                                Class = "priority-high",
+                                DateStart = "2021-05-8",
+                                Duration = 3
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task B-3",
+                                Value = 2,
+                                Class = "priority-high",
+                                DateStart = "2021-05-10",
+                                Duration = 4
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task B-4",
+                                Value = 1,
+                                Class = "priority-medium",
+                                DateStart = "2021-05-10",
+                                Duration = 4
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project A-2",
+                        Value = 0,
+                        Class = "priority-low",
+                        DateStart = "2021-05-05",
+                        Duration = 8,
+                        Expanded = true,
+                        Type = "project",
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Task C",
+                                Value = 0,
+                                Class = "priority-low",
+                                DateStart = "2021-05-05",
+                                Duration = 4,
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 10 }, { "type", 1 }
+                                    },
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 11 }, { "type", 1 }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task C-1",
+                                Value = 0,
+                                Class = "priority-low",
+                                DateStart = "2021-05-10",
+                                Duration = 4
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task C-2",
+                                Value = 1,
+                                Class = "priority-medium",
+                                DateStart = "2021-05-11",
+                                Duration = 3,
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 12 }, { "type", 1 }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task C-3",
+                                Value = 1,
+                                Class = "priority-medium",
+                                DateStart = "2021-05-12",
+                                Duration = 2
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+}

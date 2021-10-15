@@ -1,0 +1,39 @@
+﻿@page "/calendar-list-display-view-mode"
+
+<Example Name="Calendar">
+    <Calendar DisplayModeView="CalendarDisplayModeView.List" DisplayMode="@displayMode" />
+    <br />
+    <div class="options">
+        <div class="caption">Choose Mode</div>
+        <div class="option">
+            <RadioButton OnCheckValue="OnMonthChecked" OnReady="OnReady">Month</RadioButton>
+            <RadioButton OnCheckValue="OnYearChecked">Year</RadioButton>
+            <RadioButton OnCheckValue="OnDecadeChecked">Decade</RadioButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    CalendarDisplayModeView displayModeView = CalendarDisplayModeView.List;
+    CalendarDisplayMode displayMode = CalendarDisplayMode.Month;
+
+    private void OnMonthChecked()
+    {
+        displayMode = CalendarDisplayMode.Month;
+    }
+
+    private void OnYearChecked()
+    {
+        displayMode = CalendarDisplayMode.Year;
+    }
+
+    private void OnDecadeChecked()
+    {
+        displayMode = CalendarDisplayMode.Decade;
+    }
+
+    private void OnReady(RadioButton radioButton)
+    {
+        radioButton.Checked = true;
+    }
+} 

@@ -60,13 +60,13 @@
         height: 34px;
     }
 </style>
-<Example Name="Table">
+
     <p>
         This demo showcases how to enable expandable rows with row details in smart-table.
     </p>
 
     <Table DataSource="chemicalElementsData" KeyboardNavigation="true" RowDetailTemplate="@rowDetailTemplate" Columns="@columns"></Table>    
-</Example>
+
 
 @code {
     private List<Dictionary<string, object>> chemicalElementsData = new List<Dictionary<string, object>>()

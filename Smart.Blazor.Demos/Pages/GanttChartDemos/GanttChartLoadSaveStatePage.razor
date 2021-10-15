@@ -1,0 +1,230 @@
+﻿@page "/ganttchart-load-save-state"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+
+    smart-button {
+        width: 150px;
+    }
+
+    @@media (max-width: 700px)
+    {
+        smart-gantt-chart {
+            width: 95%;
+            margin-left: 2%;
+        }
+    }
+
+    smart-gantt-chart .task {
+        --smart-gantt-chart-task-default-color: rgb(94, 99, 181);
+        --smart-gantt-chart-task-label-color: white;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <div class="demo-description">
+        <b>Save State</b> Button saves the current state of the Chart to LocalStorage. <b>Load State</b> Button reloads a previously saved state. <b>Reset</b> Button will erase any cache.
+        <pre><b>Notice that the element must have an 'id' in order to save/load it's state.</b></pre>
+    </div>
+
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" TreeSize="treeSize" View="GanttChartView.Week" />
+
+    <div class="options">
+        <div class="option">
+            <Button OnClick="SaveState">Save State</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="LoadState">Load State</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="ClearState">Reset</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+
+    string treeSize = "25%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() {
+            Label = "Tasks",
+            Value = "label",
+            Size = "50%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Start Date",
+            Value = "dateStart",
+            Size = "25%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "End Date",
+            Value = "dateEnd"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Id = "1",
+                Label = "Clear Site",
+                DateStart = "2021-01-1",
+                DateEnd = "2021-01-10",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "2",
+                Label = "Drainage & Foundation",
+                DateStart = "2021-01-11",
+                DateEnd = "2021-01-20",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 2 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "3",
+                Label = "Ground Floor",
+                DateStart = "2021-01-21",
+                DateEnd = "2021-01-31",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 3 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "4",
+                Label = "First Floor",
+                DateStart = "2021-02-01",
+                DateEnd = "2021-02-20",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 4 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "5",
+                Label = "Roofing",
+                DateStart = "2021-02-25",
+                DateEnd = "2021-03-5",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 5 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "6",
+                Label = "Connect Electricity",
+                DateStart = "2021-03-6",
+                DateEnd = "2021-03-15",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 6 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "7",
+                Label = "Air Conditioning",
+                DateStart = "2021-03-16",
+                DateEnd = "2021-03-20",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 7 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "8",
+                Label = "Interiors",
+                DateStart = "2021-03-21",
+                DateEnd = "2021-03-28",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 8 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "9",
+                Label = "Racking",
+                DateStart = "2021-03-31",
+                DateEnd = "2021-04-10",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 9 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Id = "10",
+                Label = "Stock Shelving",
+                DateStart = "2021-04-12",
+                DateEnd = "2021-05-01"
+            }
+        };
+    }
+
+    private void SaveState()
+    {
+        gantt.SaveState();
+    }
+
+    private void LoadState()
+    {
+        gantt.LoadState();
+    }
+
+    private void ClearState()
+    {
+        gantt.ClearState();
+    }
+}

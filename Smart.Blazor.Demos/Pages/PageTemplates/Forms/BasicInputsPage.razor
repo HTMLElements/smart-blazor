@@ -1,0 +1,147 @@
+﻿@page "/basic-inputs"
+
+<style>
+    .basic-input {
+        width: 100%;
+    }
+
+        .basic-input + .basic-input {
+            margin-top: 10px;
+        }
+
+    .options-container {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<Example Name="Forms">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Basic Inputs</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Inputs</h4>
+                    </div>
+                    <div class="card-body">
+                        <Input class="basic-input" Placeholder="Input" />
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Textarea</h4>
+                    </div>
+                    <div class="card-body">
+                        <TextArea Class="basic-input" Placeholder="Textarea" />
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Checkboxes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="options-container">
+                            <CheckBox>Checkbox 1</CheckBox>
+                            <CheckBox Checked>Checkbox 2</CheckBox>
+                            <CheckBox Disabled>Disabled checkbox 3</CheckBox>
+                            <CheckBox Checked Disabled>Disabled checkbox 4</CheckBox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Radio Buttons</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="options-container">
+                            <RadioButton>Radio button 1</RadioButton>
+                            <RadioButton Checked>Radio button 2</RadioButton>
+                            <RadioButton Disabled>Disabled radio button 3</RadioButton>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Switch Buttons</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="options-container">
+                            <SwitchButton />
+                            <SwitchButton Checked />
+                            <SwitchButton Disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Color Input</h4>
+                    </div>
+                    <div class="card-body">
+                        <ColorInput Class="basic-input" Value="#85AA4C" />
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Date and Time Inputs</h4>
+                    </div>
+                    <div class="card-body">
+                        <DateInput Class="basic-input" />
+                        <TimeInput Class="basic-input" />
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Selects</h4>
+                    </div>
+                    <div class="card-body">
+                        <Input Class="basic-input" DataSource="@inputSource" DropDownButtonPosition="DropDownButtonPosition.Right" Value="sit amet" />
+                        <ListBox Class="basic-input">
+                            <ListItem>pellentesque gravida</ListItem>
+                            <ListItem>neque id rutrum</ListItem>
+                            <ListItem Selected>sit amet</ListItem>
+                            <ListItem>tristique</ListItem>
+                            <ListItem>cras consectetur</ListItem>
+                        </ListBox>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Disabled</h4>
+                    </div>
+                    <div class="card-body">
+                        <Input Class="basic-input" Disabled Placeholder="Disabled input" />
+                        <Input Class="basic-input" Disabled DropDownButtonPosition="DropDownButtonPosition.Right" Placeholder="Disabled select" />
+                        <CheckBox Class="basic-input" Disabled>Disabled checkbox</CheckBox>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Readonly</h4>
+                    </div>
+                    <div class="card-body">
+                        <Input Class="basic-input" Readonly Placeholder="Readonly input" /> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string[] inputSource = new string[] { "pellentesque gravida", "neque id rutrum", "sit amet", "tristique", "cras consectetur" };
+}

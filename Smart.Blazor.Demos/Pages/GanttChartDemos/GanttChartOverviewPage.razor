@@ -1,0 +1,150 @@
+﻿@page "/ganttchart-overview"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: auto;
+    }
+        smart-gantt-chart .product-team {
+            --smart-gantt-chart-task-color: rgb(94, 99, 181);
+            --smart-gantt-chart-task-label-color: white;
+            --smart-gantt-chart-task-label-color-selected: white;
+        }
+
+        smart-gantt-chart .marketing-team {
+            --smart-gantt-chart-task-color: rgb(43, 195, 190);
+        }
+
+        smart-gantt-chart .dev-team {
+            --smart-gantt-chart-task-color: rgb(242, 115, 112);
+            --smart-gantt-chart-task-label-color: white;
+            --smart-gantt-chart-task-label-color-selected: white;
+        }
+
+        smart-gantt-chart .design-team {
+            --smart-gantt-chart-task-color: rgb(255, 197, 53);
+        }
+
+        smart-gantt-chart .qa-team {
+            --smart-gantt-chart-task-color: rgb(99, 181, 144);
+        }
+
+        smart-gantt-chart .release-team {
+            --smart-gantt-chart-task-color: rgb(188, 150, 223);
+            --smart-gantt-chart-task-label-color: white;
+        }
+</style>
+
+<Example Name="GanttChart">   
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" TreeSize="treeSize" DurationUnit="Duration.Hour" />
+</Example>
+
+@code {
+    string treeSize = "30%";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn()
+        {
+            Label = "Tasks",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Duration (hours)",
+            Value = "duration"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "PRD & User-Stories",
+                DateStart = "2021-01-10",
+                DateEnd = "2021-03-10",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Persona & Journey",
+                DateStart = "2021-03-01",
+                DateEnd = "2021-04-30",
+                Class = "marketing-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Architecture",
+                DateStart = "2021-04-11",
+                DateEnd = "2021-05-16",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Prototyping",
+                DateStart = "2021-05-17",
+                DateEnd = "2021-07-01",
+                Class = "dev-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Design",
+                DateStart = "2021-07-02",
+                DateEnd = "2021-08-01",
+                Class = "design-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                DateStart = "2021-08-01",
+                DateEnd = "2021-09-10",
+                Class = "dev-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Testing & QA",
+                DateStart = "2021-09-11",
+                DateEnd = "2021-10-10",
+                Class = "qa-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "UAT Test",
+                DateStart = "2021-10-12",
+                DateEnd = "2021-11-11",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Handover & Documentation",
+                DateStart = "2021-10-17",
+                DateEnd = "2021-11-31",
+                Class = "marketing-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Release",
+                DateStart = "2021-11-01",
+                DateEnd = "2021-12-31",
+                Class = "release-team",
+                Type = "task"
+            }
+        };
+    }
+}

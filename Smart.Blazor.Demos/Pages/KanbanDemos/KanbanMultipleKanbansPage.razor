@@ -11,7 +11,7 @@
         height: 400px !important;
     }
 </style>
-<Example Name="Kanban">
+
     <h1>Kanban Boards</h1>
     <p>
         This page shows two Kanban boards. You can drag and drop Kanban cards between Phase 1 and Phase 2. You can also move multiple cards by selecting with Shift + Click.
@@ -22,7 +22,7 @@
 
     <h2>Phase 2</h2>
     <Kanban DataSource="dataPhaseTwo" Columns="@columns" Collapsible AddNewButton SelectionMode="KanbanSelectionMode.ZeroOrManyExtended" />
-</Example>
+
 
 @code {
     List<Dictionary<string, object>> dataPhaseOne = new List<Dictionary<string, object>>()

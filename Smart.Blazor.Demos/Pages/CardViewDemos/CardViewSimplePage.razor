@@ -1,0 +1,162 @@
+﻿@page "/cardview-simple"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService RandomDataService
+
+
+
+	<style>
+		/* This is the CSS used in the demo */
+		.firstName:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/user-filled.png");
+		}
+
+		.lastName:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/signature-filled.png");
+		}
+
+		.birthday:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/birthday-filled.png");
+		}
+
+		.petName:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/pet-commands-follow-filled.png");
+		}
+
+		.productName:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/box-filled.png");
+		}
+
+		.price:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/price-tag-euro-filled.png");
+		}
+
+		.quantity:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/negative-dynamic-filled.png");
+		}
+
+		.country:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/country-filled.png");
+		}
+
+		.timeOfPurchase:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/alarm-clock-filled.png");
+		}
+
+		.expired:after {
+			background-image: url("https://img.icons8.com/ios/16/000000/expired-filled.png");
+		}
+
+		.red, .yellow, .green {
+			display: inline-block;
+			border-radius: 10px;
+			padding: 5px;
+		}
+
+		.red {
+			background-color: #E94F37;
+			color: white;
+		}
+
+		.yellow {
+			background-color: #FFEE93;
+		}
+
+		.green {
+			background-color: #63C7B2;
+			color: white;
+		}
+	</style>
+	<div class="demo-description">
+		In Card View, data source records are represented as cards. Each Card
+		contain content and actions about a single subject. smartCardView supports
+		data sort, data filtering, data editing, data grouping and data searching.
+	</div>
+	<CardView CoverField="Attachments" TitleField="FirstName" DataSource=@Data Columns=@Columns></CardView>
+
+
+@code {
+
+
+	IEnumerable<ICardViewColumn> Columns = new List<CardViewColumn>()
+{
+				new CardViewColumn()
+				{
+					Label = "First Name",
+					DataField = "FirstName",
+					Icon = "firstName"
+				},
+				new CardViewColumn()
+				{
+					Label = "Last Name",
+					DataField = "LastName",
+					Icon = "lastName"
+				},
+				new CardViewColumn()
+				{
+					Label = "Birthday",
+					DataField = "Birthday",
+					Icon = "birthday"
+				},
+				new CardViewColumn()
+				{
+					Label = "Pet Name",
+					DataField = "PetName",
+					Icon = "petName"
+				},
+				new CardViewColumn()
+				{
+					Label = "Country",
+					DataField = "Country",
+					Icon = "country"
+				},
+				new CardViewColumn()
+				{
+					Label = "Product Name",
+					DataField = "ProductName",
+					Icon = "ProductName"
+				},
+				new CardViewColumn()
+				{
+					Label = "Price",
+					DataField = "Price",
+					Icon = "price",
+					FormatSettings =
+					new {
+						formatString = "c2"
+					}
+				},
+				new CardViewColumn()
+				{
+					Label = "Quantity",
+					DataField = "Quantity",
+					Icon = "quantity"
+				},
+				new CardViewColumn()
+				{
+					Label = "Time Of Purchase",
+					DataField = "TimeOfPurchase",
+					Icon = "timeOfPurchase"
+				},
+				new CardViewColumn()
+				{
+					Label = "Expired",
+					DataField = "Expired",
+					Icon = "expired"
+				},
+				new CardViewColumn()
+				{
+					Label = "Attachments",
+					DataField = "Attachments",
+					Icon = "attachments",
+					Image = true
+				}
+			};
+
+	public DataRecord[] Data;
+
+	protected override async Task OnInitializedAsync()
+	{
+		Data = await RandomDataService.GetDataAsync(100);
+	}
+}

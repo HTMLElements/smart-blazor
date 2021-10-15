@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-current-time-indicator"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -25,37 +22,25 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" CurrentTimeIndicator="@currentTimeIndicator" ShadeUntilCurrentTime="@shadeUntilCurrentTime" 
-                   CurrentTimeIndicatorInterval="@currentTimeIndicatorInterval" Views="@views" View="SchedulerViewType.Day" FirstDayOfWeek="1" />
-
-        <div class="options">
-            <div class="option">
-                <h4>Current Time Indicator:</h4>
-                <SwitchButton Checked OnChange="OnCurrentTimeIndicatorChange" />
-            </div>
-            <div class="option">
-                <h4>Shade Untill Current Time:</h4>
-                <SwitchButton Checked OnChange="OnShadeUntilCurrentTimeChange" />
-            </div>
-            <div class="option">
-                <h4>Current Time Indicator/Shader Update Interval:</h4>
-                <NumberInput Min="1" Value="1" OnChange="OnCurrentTimeIndicatorIntervalChange"/>
-            </div>
+    <Scheduler DataSource="dataRecords" CurrentTimeIndicator="@currentTimeIndicator" ShadeUntilCurrentTime="@shadeUntilCurrentTime" 
+                Views="@views" View="SchedulerViewType.Day" FirstDayOfWeek="1" />
+    
+    <div class="options">
+        <div class="option">
+            <h4>Current Time Indicator:</h4>
+            <SwitchButton @bind-Checked="currentTimeIndicator" />
         </div>
-    }
+        <div class="option">
+            <h4>Shade Untill Current Time:</h4>
+            <SwitchButton @bind-Checked="shadeUntilCurrentTime" />
+        </div>
+    </div>   
 </Example>
 
 @code {
     bool currentTimeIndicator = true;
     bool shadeUntilCurrentTime = true;
-    int currentTimeIndicatorInterval = 1;
-
+    
     private List<SchedulerDataSource> dataRecords;
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
@@ -101,26 +86,5 @@
         };
 
         return data;
-    }
-
-    private void OnCurrentTimeIndicatorChange(Event eventObj)
-    {
-        SwitchButtonChangeEventDetail args = eventObj["Detail"];
-
-        currentTimeIndicator = args.Value;
-    }
-
-    private void OnShadeUntilCurrentTimeChange(Event eventObj)
-    {
-        SwitchButtonChangeEventDetail args = eventObj["Detail"];
-
-        shadeUntilCurrentTime = args.Value;
-    }
-
-    private void OnCurrentTimeIndicatorIntervalChange(Event eventObj)
-    {
-        NumberInputChangeEventDetail args = eventObj["Detail"];
-
-        currentTimeIndicatorInterval = args.Value;
     }
 }

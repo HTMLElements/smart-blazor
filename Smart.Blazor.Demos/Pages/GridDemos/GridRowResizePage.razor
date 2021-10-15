@@ -28,7 +28,7 @@
         max-width: 600px;
     }
 </style>
-<Example Name="Grid">
+
     The Data grid component supports row resizing in two levels - Grid's 'rowResizeMode' property and optionally 'allowResize' Smart.Grid.Row property. To enable row resizing, you need to set the 'rowResizeMode' property to 'split' or 'growAndShrink'.<br /><br /> In the 'split' mode, when you resize a row, the next row's height is also affected and the total height of both rows remains constant.<br />In the 'growAndShrink' mode, the resized row grows or shrinks.
     <br />Each row has 'minHeight' and 'maxHeight' properties which allow you to restrict the resizing of specific rows. You can disable the resize of specific row by setting its 'allowResize' property to false. Resizing requiest a visible Row header which is enabled by setting the 'appearance.showRowHeaderNumber' or 'appearance.showRowHeader' properties to 'true'.<br />To start row's resize, move the mouse cursor over the rows header and at the bottom of a header cell, the cursor is
     changed to a row resize cursor. Press the mouse button and Drag to resize. When you release the mouse button, the row is resized.
@@ -61,7 +61,7 @@
             </div>
         </div>
     }
-</Example>
+
 
 @code {
     private Grid grid;

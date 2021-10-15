@@ -11,7 +11,7 @@
         margin: 0;
     }
 </style>
-<Example Name="Kanban">
+
     <p>
         Kanban Cards in the "Done" column are displayed horizontally.
     </p>
@@ -24,7 +24,7 @@
     {
         <Kanban DataSource="dataRecords" Columns="@columns" Collapsible />
     }
-</Example>
+
 
 @code {
     List<KanbanColumn> columns = new List<KanbanColumn>()

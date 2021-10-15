@@ -1,0 +1,17 @@
+﻿@page "/calendar-custom-header"
+
+<Example Name="Calendar">
+    <Calendar Class="custom-header" HeaderTemplate="headerTemplate" SelectionMode="CalendarSelectionMode.One"
+              SelectedDates="selectedDates" CalendarMode="CalendarMode.Classic" />
+
+    <template id="headerTemplate">
+        <div class="smart-date-element">
+            <span>{{date}}</span>
+        </div>
+    </template>
+</Example>
+
+@code {
+    string headerTemplate = "headerTemplate";
+    List<string> selectedDates = new List<string>() { "2017-08-17" };
+} 

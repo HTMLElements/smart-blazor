@@ -1,0 +1,108 @@
+﻿@page "/ganttchart-snap-to-nearest"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: 300px;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        <b>Description:</b> Drag and Drop a task inside the Timeline. The task will snap to the nearest cell.
+    </p>
+
+    <GanttChart DataSource="Records" SnapToNearest />
+</Example>
+
+@code {
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                //Non synchronized projects require dateStart/dateEnd like every other task
+                Label = "Project 1",
+                DateStart = "2020-06-25",
+                DateEnd = "2021-04-28",
+                DragProject = true,
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-09-10",
+                        DateEnd = "2021-08-10",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 0 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-03-27",
+                        DateEnd = "2021-06-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Milestone 1",
+                        DateEnd = "2021-07-15",
+                        Type = "milestone"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.3",
+                        DateStart = "2021-04-21",
+                        DateEnd = "2021-10-15",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 6 }, { "type", 3 }
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2021-02-2",
+                DateEnd = "2021-3-20",
+                Type = "task",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 3 }, { "type", 1 }
+                    },
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 2 }, { "type", 0 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2020-04-5",
+                DateEnd = "2021-1-25",
+                Type = "task"
+            }
+        };
+    }
+}

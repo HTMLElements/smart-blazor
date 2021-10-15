@@ -1,0 +1,58 @@
+﻿@page "/calendar-navigation-modes"
+
+<Example Name="Calendar">
+    <Calendar ScrollButtonsPosition="@scrollButtonsPosition" ScrollButtonsNavigationMode="@scrollButtonsNavigationMode" OnReady="OnReady"/>
+    <br />
+    <div class="options">
+        <div class="caption">Scroll Buttons Position</div>
+        <div class="option">
+            <RadioButton GroupName="a" OnCheckValue="OnNearChecked">Near</RadioButton>
+            <RadioButton GroupName="a" OnCheckValue="OnFarChecked">Far</RadioButton>
+            <RadioButton @ref="bothRadioButton" GroupName="a" OnCheckValue="OnBothChecked">Both</RadioButton>
+        </div>
+        <div class="caption">Scroll Buttons Navigation Mode</div>
+        <div class="option">
+            <RadioButton @ref="landscapeRadioButton" GroupName="b" OnCheckValue="OnLandscapeChecked">Landscape</RadioButton>
+            <RadioButton GroupName="b" OnCheckValue="OnPortraitChecked">Portrait</RadioButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    RadioButton bothRadioButton;
+    RadioButton landscapeRadioButton;
+
+    LayoutPosition scrollButtonsPosition = LayoutPosition.Both;
+    ViewLayout scrollButtonsNavigationMode = ViewLayout.Landscape;
+
+    private void OnNearChecked()
+    {
+        scrollButtonsPosition = LayoutPosition.Near;
+    }
+
+    private void OnFarChecked()
+    {
+        scrollButtonsPosition = LayoutPosition.Far;
+    }
+
+    private void OnBothChecked()
+    {
+        scrollButtonsPosition = LayoutPosition.Both;
+    }
+
+    private void OnLandscapeChecked()
+    {
+        scrollButtonsNavigationMode = ViewLayout.Landscape;
+    }
+
+    private void OnPortraitChecked()
+    {
+        scrollButtonsNavigationMode = ViewLayout.Portrait;
+    }
+
+    private void OnReady(Calendar calendar)
+    {
+        bothRadioButton.Checked = true;
+        landscapeRadioButton.Checked = true;
+    }
+} 

@@ -1,0 +1,60 @@
+﻿@typeparam TItem
+
+<style>
+   .blazor-toolbar {
+        display: flex;
+        height: 50px;
+        padding: 0 1rem;
+    }
+
+   .blazor-toolbar.warning:after {
+        content: 'Selected data cannot be used to create a chart.';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: var(--smart-error);
+    }
+
+   .blazor-toolbar > div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        margin-right: 15px;
+        width: 35px;
+        height: 30px;
+        height: 100%;
+        font-size: 12px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        user-select: none;
+        cursor: pointer;
+    }
+
+       .blazor-toolbar > div:hover {
+            background-color: var(--smart-grid-column-header-background-hover);
+        }
+
+       .blazor-toolbar > div:active {
+            background-color: var(--smart-grid-column-header-background-active);
+        }
+
+       .blazor-toolbar > div.warning {
+            outline: 2px solid var(--smart-error);
+        }
+
+</style>
+<div class="blazor-toolbar">
+    @foreach (var item in Items)
+    {
+        @ItemTemplate(item)
+    }
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem> ItemTemplate { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; }
+}

@@ -1,0 +1,95 @@
+﻿@page "/dropdownlist-resizing"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        position: absolute;
+        left: 35%;
+        top: 45%;
+        min-height: 35px;
+        height: auto;
+    }
+</style>
+
+<Example Name="DropDownList">
+    <div>
+        <h3>Resize Mode:</h3>
+        <RadioButton GroupName="resize" OnCheckValue="OnNoneChecked">None</RadioButton>
+        <RadioButton @ref="verticalRadioButton" GroupName="resize" OnCheckValue="OnVerticalChecked">Vertical</RadioButton>
+        <RadioButton GroupName="resize" OnCheckValue="OnHorizontalChecked">Horizontal</RadioButton>
+        <RadioButton GroupName="resize" OnCheckValue="OnBothChecked">Both</RadioButton>
+    </div>
+    <br />
+    <div>
+        <h3>DropDown position:</h3>
+        <RadioButton @ref="bottomRadioButton" GroupName="position" OnCheckValue="OnBottomChecked">Bottom</RadioButton>
+        <RadioButton GroupName="position" OnCheckValue="OnTopChecked">Top</RadioButton>
+    </div>
+
+    <DropDownList ResizeMode="@resizeMode" DropDownPosition="@dropDownPosition" OnReady="OnReady">
+        <ListItem Value="1">Affogato</ListItem>
+        <ListItem Value="2">Americano</ListItem>
+        <ListItem Value="3">Bicerin</ListItem>
+        <ListItem Value="4">Breve</ListItem>
+        <ListItem Value="5">Cappuccino</ListItem>
+        <ListItem Value="6">Cafe Crema</ListItem>
+        <ListItem Value="7">Cafe Corretto</ListItem>
+        <ListItem Value="8">Cafe macchiato</ListItem>
+        <ListItem Value="9">Cafe mocha</ListItem>
+        <ListItem Value="10">Cortado</ListItem>
+        <ListItem Value="11">Cuban espresso</ListItem>
+        <ListItem Value="12">Espresso</ListItem>
+        <ListItem Value="13">Eiskaffee</ListItem>
+        <ListItem Value="14">Frappuccino</ListItem>
+        <ListItem Value="15">Galao</ListItem>
+        <ListItem Value="16">Greek frappe coffee</ListItem>
+        <ListItem Value="17">Iced Coffee﻿</ListItem>
+        <ListItem Value="18">Instant Coffee﻿</ListItem>
+        <ListItem Value="19">Latte</ListItem>
+        <ListItem Value="20">Liqueur coffee</ListItem>
+    </DropDownList>
+</Example>
+
+@code {
+    RadioButton verticalRadioButton;
+    RadioButton bottomRadioButton;
+
+    private ResizeMode resizeMode = ResizeMode.Vertical;
+    private DropDownPosition dropDownPosition = DropDownPosition.Bottom;
+
+    private void OnReady(DropDownList list)
+    {
+        verticalRadioButton.Checked = true;
+        bottomRadioButton.Checked = true;
+    }
+
+    private void OnNoneChecked()
+    {
+        resizeMode = ResizeMode.None;
+    }
+
+    private void OnHorizontalChecked()
+    {
+        resizeMode = ResizeMode.Horizontal;
+    }
+
+    private void OnBothChecked()
+    {
+        resizeMode = ResizeMode.Both;
+    }
+
+    private void OnVerticalChecked()
+    {
+        resizeMode = ResizeMode.Vertical;
+    }
+
+    private void OnBottomChecked()
+    {
+        dropDownPosition = DropDownPosition.Bottom;
+    }
+
+    private void OnTopChecked()
+    {
+        dropDownPosition = DropDownPosition.Top;
+    }
+}

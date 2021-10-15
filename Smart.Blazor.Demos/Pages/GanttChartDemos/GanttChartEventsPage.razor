@@ -1,0 +1,201 @@
+﻿@page "/ganttchart-events"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    .smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: 450px;
+    }
+
+    @@media only screen and (max-width: 600px) {
+	    .smart-gantt-chart {
+		    width: 100%;
+		    height: auto;
+	    }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        GanttChart fires a number of events on different ocasions, like dragging,resizing,inserting/removing a connection between tasks or editing/removing/inserting a task/resource. Double click on a task in order to open the
+        Editor Window. When an item is edited an event is fired and displayed in the log.
+    </p>
+    Events fired in the demo:
+    <ul>
+        <li>change - fired when selection is changed</li>
+        <li>opening - fired when the editor window is opening</li>
+        <li>open - fired when the editor window is opened</li>
+        <li>closing - fired when the editor window is closing</li>
+        <li>close - fired when the editor window is closed</li>
+        <li>dragStart - fired when a task bar dragging is started</li>
+        <li>dragEnd - fired when a task bar dragging is finished</li>
+        <li>resizeStart - fired when a task bar resizing is started</li>
+        <li>resizeEnd - fired when a task bar resizing is finished</li>
+        <li>progressChangeStart - fired when task bar progress thumb dragging is started</li>
+        <li>progressChangeEnd - fired when task bar progress thumb dragging is finished</li>
+        <li>connetionStart - fired when task bar connecting is started</li>
+        <li>connetionEnd - fired when task bar conneciting is finished.</li> 
+        <li>itemRemove - fired when a task/resource/connection is removed.</li>
+        <li>itemInsert - fired when a task/resource/connection is inserted.</li>
+        <li>itemUpdate - fired when a task/resource/connection is updated.</li>
+        <li>itemClick - fired when a task bar/task tree item/resource tree item/connection is clicked.</li>
+    </ul>
+
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Day" View="GanttChartView.Week" 
+                OnChange="OnChangeHandler" OnOpening="OnOpeningHandler" OnClosing="OnClosingHandler" OnOpen="OnOpenHandler" 
+                OnClose="OnCloseHandler" OnDragStart="OnDragStartHandler" OnDragEnd="OnDragEndHandler" OnResizeStart="OnResizeStartHandler" 
+                OnResizeEnd="OnResizeEndHandler" OnProgressChangeStart="OnProgressChangeStartHandler" OnProgressChangeEnd="OnProgressChangeEndHandler"
+                OnConnectionStart="OnConnectionStartHandler" OnConnectionEnd="OnConnectionEndHandler" OnItemRemove="OnItemRemoveHandler" 
+                OnItemInsert="OnItemInsertHandler" OnItemUpdate="OnItemUpdateHandler" OnItemClick="OnItemClickHandler"/>
+
+    <div class="options">
+        <h3>Events:</h3>
+        <div class="option" id="eventLog">
+            <div id="log">@((MarkupString)eventLog)</div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string eventLog = "";
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn() {
+            Label = "Name",
+            Value = "label"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Task A",
+                DateStart = "2021-01-15",
+                Duration = 10
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task B",
+                DateStart = "2021-01-14",
+                Duration = 6
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task C",
+                DateStart = "2021-01-16",
+                Duration = 4
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task D",
+                DateStart = "2021-01-13",
+                Duration = 12
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task E",
+                DateStart = "2021-01-18",
+                Duration = 7
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task F",
+                DateStart = "2021-01-15T00:00:00",
+                Duration = 15
+            }
+        };
+    }
+
+    private void OnChangeHandler()
+    {
+        this.eventLog += "change <br />";
+    }
+
+    private void OnOpeningHandler()
+    {
+        this.eventLog += "opening <br />";
+    }
+
+    private void OnClosingHandler()
+    {
+        this.eventLog += "closing <br />";
+    }
+
+    private void OnOpenHandler()
+    {
+        this.eventLog += "open <br />";
+    }
+
+    private void OnCloseHandler()
+    {
+        this.eventLog += "close <br />";
+    }
+
+    private void OnDragStartHandler()
+    {
+        this.eventLog += "dragStart <br />";
+    }
+
+    private void OnDragEndHandler()
+    {
+        this.eventLog += "dragEnd <br />";
+    }
+
+    private void OnResizeStartHandler()
+    {
+        this.eventLog += "resizeStart <br />";
+    }
+
+    private void OnResizeEndHandler()
+    {
+        this.eventLog += "resizeEnd <br />";
+    }
+
+    private void OnProgressChangeStartHandler()
+    {
+        this.eventLog += "progressChangeStart <br />";
+    }
+
+    private void OnProgressChangeEndHandler()
+    {
+        this.eventLog += "progressChangeEnd <br />";
+    }
+
+    private void OnConnectionStartHandler()
+    {
+        this.eventLog += "connectionStart <br />";
+    }
+
+    private void OnConnectionEndHandler()
+    {
+        this.eventLog += "connectionEnd <br />";
+    }
+
+    private void OnItemRemoveHandler()
+    {
+        this.eventLog += "itemRemove <br />";
+    }
+
+    private void OnItemInsertHandler()
+    {
+        this.eventLog += "itemInsert <br />";
+    }
+
+    private void OnItemUpdateHandler()
+    {
+        this.eventLog += "itemUpdate <br />";
+    }
+
+    private void OnItemClickHandler()
+    {
+        this.eventLog += "itemClick <br />";
+    }
+}

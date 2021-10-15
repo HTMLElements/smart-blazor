@@ -24,14 +24,14 @@
         height: 600px;
     }
 </style>
-<Example Name="Table">
+
     <p>
         This demo showcases a smart-table with enabled HTML virtualization. This functionality allows for only visible
         rows to be rendered resulting in an increased Table performance.
     </p>
 
     <Table @ref="table" DataSource="data" FreezeHeader="true" KeyboardNavigation="true" Virtualization="true" Columns="@columns"></Table>    
-</Example>
+
 
 @code {   
     Table table;

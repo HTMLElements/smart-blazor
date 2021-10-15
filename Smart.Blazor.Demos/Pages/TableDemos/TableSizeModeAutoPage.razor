@@ -24,7 +24,7 @@
         height: 600px;
     }
 </style>
-<Example Name="Table">
+
     <p>
         This demo showcases the "auto" column size mode of smart-table. In this mode, columns are sized based on their
         content and the value of the <strong>columnMinWidth</strong> property, unless there is not enough space in the
@@ -39,7 +39,7 @@
     {
         <Table DataSource="dataRecords" ColumnMinWidth="@columnMinWidth" ColumnSizeMode="TableColumnSizeMode.Auto" Selection="true" Tooltip="true" Columns="@columns"></Table>
     }
-</Example>
+
 
 @code {
     private string columnMinWidth = "50px";

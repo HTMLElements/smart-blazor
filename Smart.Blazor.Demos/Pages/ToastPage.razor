@@ -1,25 +1,10 @@
-﻿@page "/toast"
+﻿@page "/toast-basic"
 
-<Button @onclick="Open">Open Toast</Button>
-<Toast @ref="@_toast"
-       Position="ToastPosition.TopRight"
-       ShowCloseButton="true"
-       Class="blink"
-       Type="ToastType.Mail">
-    You have 2 new messages.
-</Toast>
+
+	<Toast Position="ToastPosition.TopRight" AutoOpen="true" ShowCloseButton="true" Type="ToastType.Mail"
+		   Class="blink">You have 2 new messages.</Toast>
+
 
 @code {
-    private Toast _toast;
 
-    public async Task Open()
-    {
-        try
-        {
-            await _toast.Open("", "");
-        }
-        catch (Exception ex)
-        {
-        }
-    }
 }

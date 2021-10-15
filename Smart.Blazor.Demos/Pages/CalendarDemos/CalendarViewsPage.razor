@@ -1,0 +1,35 @@
+﻿@page "/calendar-views"
+
+<Example Name="Calendar">
+    <Calendar Class="calendar-views" View="@view" ViewSections="viewSections" SelectionMode="CalendarSelectionMode.One" />
+
+    <div class="options">
+        <div class="caption">View Mode</div>
+        <div class="option">
+            <RadioButton GroupName="a" OnCheckValue="OnLandscapeChecked" OnReady="OnReady">Landscape</RadioButton>
+            <RadioButton GroupName="a" OnCheckValue="OnPortraitChecked">Portrait</RadioButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    RadioButton landscapeRadioButton;
+
+    ViewLayout view = ViewLayout.Landscape;
+    string[] viewSections = new string[] { "title", "header" };
+
+    private void OnLandscapeChecked()
+    {
+        view = ViewLayout.Landscape;
+    }
+
+    private void OnPortraitChecked()
+    {
+        view = ViewLayout.Portrait;
+    }
+
+    private void OnReady(RadioButton radioButton)
+    {
+        radioButton.Checked = true;
+    }
+} 

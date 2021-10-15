@@ -1,0 +1,235 @@
+﻿@page "/ganttchart-localize"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+        --smart-gantt-chart-timeline-cell-size: 200px;
+    }
+
+    @@media (max-width: 700px) {
+        smart-gantt-chart {
+            width: 95%;
+            margin-left: 2%;
+        }
+    }
+
+        smart-gantt-chart .product-team {
+            --smart-gantt-chart-task-default-color: rgb(94, 99, 181);
+        }
+
+        smart-gantt-chart .marketing-team {
+            --smart-gantt-chart-task-default-color: rgb(43, 195, 190);
+        }
+
+        smart-gantt-chart .dev-team {
+            --smart-gantt-chart-task-default-color: rgb(242, 115, 112);
+        }
+
+        smart-gantt-chart .design-team {
+            --smart-gantt-chart-task-default-color: rgb(255, 197, 53);
+        }
+
+        smart-gantt-chart .qa-team {
+            --smart-gantt-chart-task-default-color: rgb(99, 181, 144);
+        }
+
+        smart-gantt-chart .release-team {
+            --smart-gantt-chart-task-default-color: rgb(188, 150, 223);
+        }
+</style>
+
+<Example Name="GanttChart">
+    <div class="demo-description">
+        Click on the Drop Down List to select a different Locale.
+    </div>
+
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" DurationUnit="Duration.Hour" View="GanttChartView.Month"
+                TreeSize="treeSize" YearFormat="YearFormat.TwoDigit" MonthFormat="MonthFormat.Short"
+                DayFormat="GanttDayFormat.TwoDigit" Messages="messages" Locale="@locale" />
+
+    <div class="options">
+        <div class="option">
+            <h3>Select locale:</h3>
+            <Input Readonly @bind-Value="@locale" DataSource="@inputDataSource" DropDownButtonPosition="DropDownButtonPosition.Right" />
+
+        </div>
+    </div>
+</Example>
+
+@code {
+    string treeSize = "35%";
+    string locale = "en";
+    private string[] inputDataSource = new string[] { "bg", "en", "de", "fr" };
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>
+    {
+        new GanttChartTaskColumn()
+        {
+            Label = "tasks",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "duration",
+            Value = "duration"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "PRD & User-Stories",
+                DateStart = "2021-01-10",
+                DateEnd = "2021-02-10",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Persona & Journey",
+                DateStart = "2021-02-11",
+                DateEnd = "2021-03-10",
+                Class = "marketing-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Architecture",
+                DateStart = "2021-03-11",
+                DateEnd = "2021-04-1",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Prototyping",
+                DateStart = "2021-04-02",
+                DateEnd = "2021-05-01",
+                Class = "dev-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Design",
+                DateStart = "2021-05-02",
+                DateEnd = "2021-06-31",
+                Class = "design-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                DateStart = "2021-07-01",
+                DateEnd = "2021-08-10",
+                Class = "dev-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Testing & QA",
+                DateStart = "2021-08-11",
+                DateEnd = "2021-09-10",
+                Class = "qa-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "UAT Test",
+                DateStart = "2021-09-12",
+                DateEnd = "2021-10-01",
+                Class = "product-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Handover & Documentation",
+                DateStart = "2021-10-02",
+                DateEnd = "2021-11-01",
+                Class = "marketing-team",
+                Type = "task"
+            },
+            new GanttDataRecord()
+            {
+                Label = "Release",
+                DateStart = "2021-11-01",
+                DateEnd = "2021-12-31",
+                Class = "release-team",
+                Type = "task"
+            }
+        };
+    }
+
+    Dictionary<string, object> messages = new Dictionary<string, object>()
+    {
+        {
+            "en",
+            new Dictionary<string, string>()
+            {
+                { "incorrectArgument", "{{elementType}}: Incorrect argument {{argumentName}} in method {{methodName}}." },
+                { "outOfBounds", "{{elementType}}: Out of bounds argument {{argumentName}} in method {{methodName}}." },
+                { "noId", "smartGanttChart requires an id in order to save/load/clear a state." },
+                { "ok", "Ok" },
+                { "cancel", "Cancel" },
+                { "delete", "Delete" },
+                { "confirm", "{{componentName}} will be deleted permanently, <b>are you sure? </b>" },
+                { "tasks", "Tasks" },
+                { "duration", "Duration (hours)" }
+            }
+        },
+        {
+            "de",
+            new Dictionary<string, string>()
+            {
+                { "incorrectArgument", "{{elementType}}: Falsches Argument {{argumentName}} in Methode {{methodName}}." },
+                { "outOfBounds", "{{elementType}}: Unbegrenztes Argument {{argumentName}} in Methode {{methodName}}." },
+                { "noId", "smartGanttChart erfordert eine ID, um einen Zustand speichern / laden / löschen." },
+                { "ok", "Ok" },
+                { "cancel", "Stornieren" },
+                { "delete", "Löschen" },
+                { "confirm", "{{componentName}} wird dauerhaft gelöscht, <b>bist du sicher? </b>" },
+                { "tasks", "Aufgaben" },
+                { "duration", "Dauer (Std)" }
+            }
+        },
+        {
+            "bg",
+            new Dictionary<string, string>()
+            {
+                { "incorrectArgument", "{{elementType}}: Невалиден аргумент {{argumentName}} при извикване на метод {{methodName}}." },
+                { "outOfBounds", "{{elementType}}: Аргументът {{argumentName}} в метод {{methodName}} е извън обхват." },
+                { "noId", "smartGanttChart трябва да има id за да може да записва/зарежда/изчиства запазени състояния." },
+                { "ok", "Ок" },
+                { "cancel", "Отказ" },
+                { "delete", "Изтрий" },
+                { "confirm", "{{componentName}} ще бъде изтрит завинаги, <b>сигурни ли сте? </b>" },
+                { "tasks", "Задачи" },
+                { "duration", "Продължителност (часове)" }
+            }
+        },
+        {
+            "fr",
+            new Dictionary<string, string>()
+            {
+                { "incorrectArgument", "{{elementType}}, argument incorrect {{argumentName}} dans la méthode {{methodName}}." },
+                { "outOfBounds", "{{elementType}}: Argument hors limites {{argumentName}} en méthode {{methodName}}." },
+                { "noId", "smartGanttChart nécessite un identifiant pour sauvegarder / charger / effacer un état." },
+                { "ok", "D\'accord" },
+                { "cancel", "Annuler" },
+                { "delete", "Effacer" },
+                { "confirm", "{{componentName}} sera supprimé définitivement, <b>êtes-vous sûr? </b>" },
+                { "tasks", "Les tâches" },
+                { "duration", "Durée (heures)" }
+            }
+        }
+    };
+}

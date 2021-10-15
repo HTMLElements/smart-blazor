@@ -1,0 +1,29 @@
+﻿@page "/calendar-locale"
+
+<Example Name="Calendar">
+    <Calendar Locale="@locale" />
+
+    <div class="options">
+        <div class="option">Choose a locale</div>
+        <div class="option"><DropDownList DataSource="dataSource" OnChange="OnChange"/></div>
+        <div class="option">
+            <div id="log">@log</div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string locale = "en";
+
+    string[] dataSource = new string[] { "en", "tr", "ar", "ru", "de", "es", "pt", "fr", "zh", "ja", "it", "bg", "nl" };
+
+    string log = "";
+
+    private void OnChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        locale = args.Label;
+        log = "Current locale is " + args.Label;
+    }
+} 

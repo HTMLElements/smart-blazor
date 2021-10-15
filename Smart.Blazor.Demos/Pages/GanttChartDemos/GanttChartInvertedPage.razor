@@ -1,0 +1,171 @@
+﻿@page "/ganttchart-inverted"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: auto;
+    }
+    @@media (max-width: 700px)
+    {
+        smart-gantt-chart {
+            width: 95%;
+            margin-left: 2%;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        Inverted Gantt Chart has it's Task Tree on the right and it's Timeline on the left. Click on the CheckBox in order to change the positions.
+    </p>
+
+    <GanttChart DataSource="Records" Inverted="@inverted" />
+
+    <div class="options">
+        <h3>Inverted Gantt Chart</h3>
+        <div class="option">
+            <CheckBox Checked="@inverted" OnChange="OnChange">Inverted</CheckBox>
+        </div>
+    </div>
+</Example>
+
+@code {
+    bool inverted = true;
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                DateStart = "2021-5-2",
+                Duration = 24 * 24 * 60 * 60 * 1000, // 24 days in miliseconds
+                Expanded = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2021-5-5",
+                        Type = "task",
+                        Duration = 5 * 24 * 60 * 60 * 1000, // 5 days in miliseconds
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2021-5-16",
+                        Type = "task",
+                        Duration = 6 * 24 * 60 * 60 * 1000, // 6 days in miliseconds
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 3 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Milestone 1",
+                        DateStart = "2021-6-1",
+                        Type = "milestone",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.3",
+                        DateStart = "2021-6-2",
+                        Type = "task",
+                        Duration = 24 * 24 * 60 * 60 * 1000 // 24 days in miliseconds
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Project 2",
+                DateStart = "2021-10-1",
+                Duration = 24 * 24 * 60 * 60 * 1000, // 24 days in miliseconds
+                Expanded = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 6 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 2.1",
+                        DateStart = "2021-10-2",
+                        Type = "task",
+                        Duration = 8 * 24 * 60 * 60 * 1000, // 8 days in miliseconds
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 7 }, { "type", 0 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 2.2",
+                        DateStart = "2021-10-2",
+                        Type = "task",
+                        Duration = 5 * 24 * 60 * 60 * 1000, // 5 days in miliseconds
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 8 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 2.3",
+                        DateStart = "2021-11-1",
+                        Type = "task",
+                        Duration = 20 * 24 * 60 * 60 * 1000 // 20 days in miliseconds
+                    }
+                }
+            }
+        };
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail detail = eventObj["Detail"];
+        inverted = detail.Value;
+    }
+}

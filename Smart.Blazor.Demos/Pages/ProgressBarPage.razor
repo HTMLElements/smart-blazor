@@ -1,15 +1,11 @@
-﻿@page "/progress-bar"
+﻿@page "/progressbar-basic"
 
-<Example Name="ProgressBar">
-    <ProgressBar id="progressbar1" Value=50> </ProgressBar>
-    <ProgressBar id="progressbar2" Orientation="Orientation.Vertical" Value=50> </ProgressBar>
 
-    <CircularProgressBar Indeterminate="true" FormatFunction="@FormatValue" ShowProgressValue="true" Value=0 id="progressbar3"> </CircularProgressBar>
-</Example>
+	<ProgressBar id="progressbar1" Value=50> </ProgressBar>
+	<ProgressBar id="progressbar2" Orientation="Orientation.Vertical" Value=50> </ProgressBar>
+	<CircularProgressBar id="progressbar3" Value=50> </CircularProgressBar>
+
 
 @code {
-    private object FormatValue(object value)
-    {
-        return value + "s";
-    } 
+
 }

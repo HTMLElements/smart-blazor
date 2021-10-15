@@ -1,9 +1,9 @@
-﻿@page "/multicomboinput"
+﻿@page "/multicomboinput-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="MultiComboInput">
+
 	@if (forecasts == null)
 	{
 		<p><em>Loading...</em></p>
@@ -13,7 +13,7 @@
 		<h2>Forecasts Summary</h2>
 		<MultiComboInput DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></MultiComboInput>
 	}
-</Example>
+
 
 @code {
 	private WeatherForecast[] forecasts;

@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-header-navigation-style"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -26,44 +23,37 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" View="SchedulerViewType.Day" HourStart="9" HourEnd="18" FirstDayOfWeek="1" 
-                   HeaderNavigationStyle="@headerNavigationStyle" HideTodayButton="@hideTodayButton" HideViewMenuCheckableItems="@hideViewMenuCheckableItems" 
-                   DisableDateMenu="@disableDateMenu" DisableViewMenu="@disableViewMenu" DisableContextMenu="@disableContextMenu" DisableEventMenu="@disableEventMenu"
-                   DisableWindowEditor="@disableWindowEditor" DisableDrag="@disableDrag" DisableDrop="@disableDrop" DisableResize="@disableResize" />
+    <Scheduler DataSource="dataRecords" View="SchedulerViewType.Day" HourStart="9" HourEnd="18" FirstDayOfWeek="1"
+               HeaderNavigationStyle="@headerNavigationStyle" HideTodayButton="@hideTodayButton" HideViewMenuCheckableItems="@hideViewMenuCheckableItems"
+               DisableDateMenu="@disableDateMenu" DisableViewMenu="@disableViewMenu" DisableContextMenu="@disableContextMenu" DisableEventMenu="@disableEventMenu"
+               DisableWindowEditor="@disableWindowEditor" DisableDrag="@disableDrag" DisableDrop="@disableDrop" DisableResize="@disableResize" />
 
-        <div class="options">
-            <div class="description">
-                <h4>Description</h4>
-                <p>
-                    <b>headerNavigationStyle</b> determines the layout style of the header controls.
-                </p>
-                <p>Choose a style:</p>
-            </div>
-            <div class="option">
-                <RadioButton Checked OnCheckValue="OnFlatChecked">Flat</RadioButton>
-                <RadioButton OnCheckValue="OnRaisedChecked">Raised</RadioButton>
-            </div>
-            <div class="option">
-                <h4>Additional settings:</h4>
-                <CheckBox OnChange="OnHideTodayButtonChange">Hide Today Button</CheckBox>
-                <CheckBox OnChange="OnHideViewMenuCheckableItems">Hide View Menu Checkable Item</CheckBox>
-                <CheckBox OnChange="OnDisableDateMenu">Disable Date Menu</CheckBox>
-                <CheckBox OnChange="OnDisableViewMenu">Disable View Menu</CheckBox>
-                <CheckBox OnChange="OnDisableContextMenu">Disable Context Menu</CheckBox>
-                <CheckBox OnChange="OnDisableEventMenu">Disable Event Menu</CheckBox>
-                <CheckBox OnChange="OnDisableWindowEditor">Disable Window Editor</CheckBox>
-                <CheckBox OnChange="OnDisableDrag">Disable Event Drag</CheckBox>
-                <CheckBox OnChange="OnDisableDrop">Disable Event Drop</CheckBox>
-                <CheckBox OnChange="OnDisableResize">Disable Event Resize</CheckBox>
-            </div>
+    <div class="options">
+        <div class="description">
+            <h4>Description</h4>
+            <p>
+                <b>headerNavigationStyle</b> determines the layout style of the header controls.
+            </p>
+            <p>Choose a style:</p>
         </div>
-    }
+        <div class="option">
+            <RadioButton Checked OnCheckValue="OnFlatChecked">Flat</RadioButton>
+            <RadioButton OnCheckValue="OnRaisedChecked">Raised</RadioButton>
+        </div>
+        <div class="option">
+            <h4>Additional settings:</h4>
+            <CheckBox OnChange="OnHideTodayButtonChange">Hide Today Button</CheckBox>
+            <CheckBox OnChange="OnHideViewMenuCheckableItems">Hide View Menu Checkable Item</CheckBox>
+            <CheckBox OnChange="OnDisableDateMenu">Disable Date Menu</CheckBox>
+            <CheckBox OnChange="OnDisableViewMenu">Disable View Menu</CheckBox>
+            <CheckBox OnChange="OnDisableContextMenu">Disable Context Menu</CheckBox>
+            <CheckBox OnChange="OnDisableEventMenu">Disable Event Menu</CheckBox>
+            <CheckBox OnChange="OnDisableWindowEditor">Disable Window Editor</CheckBox>
+            <CheckBox OnChange="OnDisableDrag">Disable Event Drag</CheckBox>
+            <CheckBox OnChange="OnDisableDrop">Disable Event Drop</CheckBox>
+            <CheckBox OnChange="OnDisableResize">Disable Event Resize</CheckBox>
+        </div>
+    </div>
 </Example>
 
 @code {

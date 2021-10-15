@@ -1,0 +1,45 @@
+﻿@page "/bind-editor"
+
+<style>
+    .content.px-4 {
+        height: calc(100% - 60px);
+    }
+</style>
+
+<Editor @bind-Value="editorValue" ToolbarItems="items">
+    
+</Editor>
+<br/>
+<h3>Editor Value</h3>
+@editorValue
+
+@code {
+    string editorValue = "Hello from Smart.Editor";
+
+    List<IEditorToolbarItem> items = new List<IEditorToolbarItem>()
+    {
+        new EditorToolbarItem() { Name = "Bold" },
+        new EditorToolbarItem() { Name = "Italic" },
+        new EditorToolbarItem() { Name = "Underline" },
+        new EditorToolbarItem() { Name = "StrikeThrough" },
+        new EditorToolbarItem() { Name = "FontName" },
+        new EditorToolbarItem() { Name = "FontSize" },
+        new EditorToolbarItem() { Name = "FontColor" },
+        new EditorToolbarItem() { Name = "BackgroundColor" },
+        new EditorToolbarItem() { Name = "LowerCase" },
+        new EditorToolbarItem() { Name = "UpperCase" },
+        new EditorToolbarItem() { Name = "Formats" },
+        new EditorToolbarItem() { Name = "Alignment" },
+        new EditorToolbarItem() { Name = "OrderedList" },
+        new EditorToolbarItem() { Name = "UnorderedList" },
+        new EditorToolbarItem() { Name = "Outdent" },
+        new EditorToolbarItem() { Name = "Indent" },
+        new EditorToolbarItem() { Name = "Hyperlink" },
+        new EditorToolbarItem() { Name = "Table" },
+        new EditorToolbarItem() { Name = "Image" },
+        new EditorToolbarItem() { Name = "Undo" },
+        new EditorToolbarItem() { Name = "Redo" },
+        new EditorToolbarItem() { Name = "Print" },
+        new EditorToolbarItem() { Name = "ClearFormat" }
+    };
+}

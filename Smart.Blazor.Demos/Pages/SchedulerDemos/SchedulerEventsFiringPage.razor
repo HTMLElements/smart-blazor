@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-events-firing"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -29,70 +26,64 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" View="SchedulerViewType.Week"
-                   OnChange="OnChangeHandler" OnViewChange="OnViewChangeHandler" OnDragStart="OnDragStartHandler" OnDragEnd="OnDragEndHandler"
-                   OnResizeStart="OnResizeStartHandler" OnResizeEnd="OnResizeEndHandler" OnEditDialogOpening="OnEditDialogOpeningHandler"
-                   OnEditDialogOpen="OnEditDialogOpenHandler" OnEditDialogClose="OnEditDialogCloseHandler" OnEditDialogClosing="OnEditDialogClosingHandler"
-                   OnContextMenuOpen="OnContextMenuOpenHandler" OnContextMenuOpening="OnContextMenuOpeningHandler" OnContextMenuClose="OnContextMenuCloseHandler"
-                   OnContextMenuClosing="OnContextMenuClosingHandler" OnEventMenuOpen="OnEventMenuOpenHandler" OnEventMenuOpening="OnEventMenuOpeningHandler"
-                   OnEventMenuClose="OnEventMenuCloseHandler" OnEventMenuClosing="OnEventMenuClosingHandler" OnDateMenuOpen="OnDateMenuOpenHandler"
-                   OnDateMenuClose="OnDateMenuCloseHandler" OnViewMenuOpen="OnViewMenuOpenHandler" OnViewMenuClose="OnViewMenuCloseHandler"
-                   OnNotificationOpen="OnNotificationOpenHandler" OnNotificationClose="OnNotificationCloseHandler" OnItemRemove="OnItemRemoveHandler"
-                   OnItemInsert="OnItemInsertHandler" OnItemUpdate="OnItemUpdateHandler" OnItemClick="OnItemClickHandler"
-                   OnEventShortcutKey="OnEventShortcutKeyHandler" OnDateChange="OnDateChangeHandler" />
+    <Scheduler DataSource="dataRecords" View="SchedulerViewType.Week"
+               OnChange="OnChangeHandler" OnViewChange="OnViewChangeHandler" OnDragStart="OnDragStartHandler" OnDragEnd="OnDragEndHandler"
+               OnResizeStart="OnResizeStartHandler" OnResizeEnd="OnResizeEndHandler" OnEditDialogOpening="OnEditDialogOpeningHandler"
+               OnEditDialogOpen="OnEditDialogOpenHandler" OnEditDialogClose="OnEditDialogCloseHandler" OnEditDialogClosing="OnEditDialogClosingHandler"
+               OnContextMenuOpen="OnContextMenuOpenHandler" OnContextMenuOpening="OnContextMenuOpeningHandler" OnContextMenuClose="OnContextMenuCloseHandler"
+               OnContextMenuClosing="OnContextMenuClosingHandler" OnEventMenuOpen="OnEventMenuOpenHandler" OnEventMenuOpening="OnEventMenuOpeningHandler"
+               OnEventMenuClose="OnEventMenuCloseHandler" OnEventMenuClosing="OnEventMenuClosingHandler" OnDateMenuOpen="OnDateMenuOpenHandler"
+               OnDateMenuClose="OnDateMenuCloseHandler" OnViewMenuOpen="OnViewMenuOpenHandler" OnViewMenuClose="OnViewMenuCloseHandler"
+               OnNotificationOpen="OnNotificationOpenHandler" OnNotificationClose="OnNotificationCloseHandler" OnItemRemove="OnItemRemoveHandler"
+               OnItemInsert="OnItemInsertHandler" OnItemUpdate="OnItemUpdateHandler" OnItemClick="OnItemClickHandler"
+               OnEventShortcutKey="OnEventShortcutKeyHandler" OnDateChange="OnDateChangeHandler" />
 
-        <div class="options">
-            <h3>Events:</h3>
-            <div class="demo-description">
-                <p>Scheduler fires the following events:</p>
-                <ul>
-                    <li>change - fired when selection is changed</li>
-                    <li>viewChange - fired when the view is changed</li>
-                    <li>editDialogOpening - fired when the editor window is opening</li>
-                    <li>editDialogOpen - fired when the editor window is opened</li>
-                    <li>editDialogClosing - fired when the editor window is closing</li>
-                    <li>editDialogClose - fired when the editor window is closed</li>
-                    <li>dragStart - fired when an event dragging is started</li>
-                    <li>dragEnd - fired when an event dragging is finished</li>
-                    <li>resizeStart - fired when an event resizing is started</li>
-                    <li>resizeEnd - fired when an event resizing is finished</li>
-                    <li>contextMenuOpen - fired when the context menu is opened</li>
-                    <li>contextMenuOpening - fired when the context menu is opening</li>
-                    <li>contextMenuClose - fired when the context menu is closed</li>
-                    <li>contextMenuClosing - fired when the context menu is closing</li>
-                    <li>eventMenuOpen - fired when the event menu is opened</li>
-                    <li>eventMenuOpening - fired when the event menu is opening</li>
-                    <li>eventMenuClose - fired when the event menu is closed</li>
-                    <li>eventMenuClosing - fired when the event menu is closing</li>
-                    <li>dateMenuOpen - fired when the date selection menu is opened</li>
-                    <li>dateMenuClose - fired when the date selection menu is closed</li>
-                    <li>viewMenuOpen - fired when the view selection menu is opened</li>
-                    <li>viewMenuClose - fired when the view selection menu is closed.</li>
-                    <li>notificationOpen - fired when a notification is opened</li>
-                    <li>notificationClose - fired when a notification is closed.</li>
-                    <li>itemRemove - fired when an event is removed.</li>
-                    <li>itemInsert - fired when an event is inserted.</li>
-                    <li>itemUpdate - fired when an event is updated.</li>
-                    <li>itemClick - fired when an eventis clicked.</li>
-                    <li>eventShortcutKey - fired when an event shortcut key is pressed.</li>
-                    <li>
-                        dateChange - fired when the current visible date is changed(e.g. using
-                        the date navigation keys).
-                    </li>
-                </ul>
-            </div>
-            <div class="option" id="eventLog">
-                <h3>Event Log:</h3>
-                <div id="log">@((MarkupString)log)</div>
-            </div>
+    <div class="options">
+        <div class="option" id="eventLog">
+            <h3>Event Log:</h3>
+            <div id="log">@((MarkupString)log)</div>
         </div>
-    }
+        <h3>Events:</h3>
+        <div class="demo-description">
+            <p>Scheduler fires the following events:</p>
+            <ul>
+                <li>change - fired when selection is changed</li>
+                <li>viewChange - fired when the view is changed</li>
+                <li>editDialogOpening - fired when the editor window is opening</li>
+                <li>editDialogOpen - fired when the editor window is opened</li>
+                <li>editDialogClosing - fired when the editor window is closing</li>
+                <li>editDialogClose - fired when the editor window is closed</li>
+                <li>dragStart - fired when an event dragging is started</li>
+                <li>dragEnd - fired when an event dragging is finished</li>
+                <li>resizeStart - fired when an event resizing is started</li>
+                <li>resizeEnd - fired when an event resizing is finished</li>
+                <li>contextMenuOpen - fired when the context menu is opened</li>
+                <li>contextMenuOpening - fired when the context menu is opening</li>
+                <li>contextMenuClose - fired when the context menu is closed</li>
+                <li>contextMenuClosing - fired when the context menu is closing</li>
+                <li>eventMenuOpen - fired when the event menu is opened</li>
+                <li>eventMenuOpening - fired when the event menu is opening</li>
+                <li>eventMenuClose - fired when the event menu is closed</li>
+                <li>eventMenuClosing - fired when the event menu is closing</li>
+                <li>dateMenuOpen - fired when the date selection menu is opened</li>
+                <li>dateMenuClose - fired when the date selection menu is closed</li>
+                <li>viewMenuOpen - fired when the view selection menu is opened</li>
+                <li>viewMenuClose - fired when the view selection menu is closed.</li>
+                <li>notificationOpen - fired when a notification is opened</li>
+                <li>notificationClose - fired when a notification is closed.</li>
+                <li>itemRemove - fired when an event is removed.</li>
+                <li>itemInsert - fired when an event is inserted.</li>
+                <li>itemUpdate - fired when an event is updated.</li>
+                <li>itemClick - fired when an eventis clicked.</li>
+                <li>eventShortcutKey - fired when an event shortcut key is pressed.</li>
+                <li>
+                    dateChange - fired when the current visible date is changed(e.g. using
+                    the date navigation keys).
+                </li>
+            </ul>
+        </div>
+
+    </div>
 </Example>
 
 @code {

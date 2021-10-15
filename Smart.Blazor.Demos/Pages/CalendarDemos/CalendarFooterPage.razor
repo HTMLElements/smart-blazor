@@ -1,0 +1,17 @@
+﻿@page "/calendar-footer"
+
+<Example Name="Calendar">
+    <Calendar Class="custom-header" FooterTemplate="@footerTemplate" ViewSections="viewSections"/>
+
+    <template id="templateWithButtons">
+        <div id="buttonContainer">
+            <Button Class="flat primary">CANCEL</Button>
+            <Button Class="flat primary">OK</Button>
+        </div>
+    </template>
+</Example>
+
+@code {
+    string footerTemplate = "templateWithButtons";
+    string[] viewSections = new string[] { "title", "header", "footer" };
+} 

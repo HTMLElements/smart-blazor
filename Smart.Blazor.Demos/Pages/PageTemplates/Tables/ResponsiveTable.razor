@@ -1,0 +1,108 @@
+﻿@page "/responsive-table"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    smart-table {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<Example Name="Table">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Responsive Table</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Smart.Table web component can be used to wrap or replace standard Tables.</p>
+                        <Table Id="table" DataSource="dataRecords" DataSourceSettings="dataSourceSettings"
+                               Paging SortMode="TableSortMode.One" Tooltip Columns="columns" OnReady="OnReady" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private List<DataRecord> dataRecords;
+
+    TableDataSourceSettings dataSourceSettings = new TableDataSourceSettings()
+    {
+        DataFields = new List<ITableDataSourceSettingsDataField>()
+    {
+            new TableDataSourceSettingsDataField() { Name = "Id", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "FirstName", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "LastName", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "ProductName", DataType = TableDataSourceSettingsDataFieldDataType.String },
+            new TableDataSourceSettingsDataField() { Name = "Quantity", DataType = TableDataSourceSettingsDataFieldDataType.Number },
+            new TableDataSourceSettingsDataField() { Name = "Price", DataType = TableDataSourceSettingsDataFieldDataType.Number },
+            new TableDataSourceSettingsDataField() { Name = "Total", DataType = TableDataSourceSettingsDataFieldDataType.Number }
+        }
+    };
+
+    List<TableColumn> columns = new List<TableColumn>()
+{
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "FirstName",
+            Label = "First Name",
+            DataType = TableColumnDataType.String,
+            ResponsivePriority = 4
+        },
+        new TableColumn()
+        {
+            DataField = "LastName",
+            Label = "Last Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 3
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+            ResponsivePriority = 3
+        },
+        new TableColumn()
+        {
+            DataField = "Total",
+            Label = "Total",
+            DataType = TableColumnDataType.Number
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(50);
+    }
+
+    private void OnReady(Table table)
+    {
+        table.SortBy("LastName", "asc");
+    }
+}

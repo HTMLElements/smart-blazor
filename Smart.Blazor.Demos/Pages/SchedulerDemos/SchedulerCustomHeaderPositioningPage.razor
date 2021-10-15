@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-custom-header-positioning"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -25,15 +22,8 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" HeaderDatePosition="SchedulerHeaderDatePosition.Far" 
+    <Scheduler DataSource="dataRecords" HeaderDatePosition="SchedulerHeaderDatePosition.Far" 
                    HeaderViewPosition="SchedulerHeaderViewPosition.Near" ScrollButtonsPosition="SchedulerScrollButtonsPosition.Far" />
-    }
 </Example>
 
 @code {

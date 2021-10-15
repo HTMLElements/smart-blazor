@@ -1,0 +1,18 @@
+@page "/bind-datetimepicker"
+
+
+    <DateTimePicker 
+        @bind-Value = "@DateValue"
+        CalendarButton="true" 
+        DropDownPosition="DropDownPosition.Bottom"
+        >
+    </DateTimePicker>
+    <br/>
+    <h3>Time Value: @DateValue  </h3>
+
+
+@code {
+
+    public  object DateValue = "2021-09-14 T21:00";
+
+}

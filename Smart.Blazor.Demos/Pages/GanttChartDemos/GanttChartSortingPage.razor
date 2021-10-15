@@ -1,0 +1,271 @@
+﻿@page "/ganttchart-sorting"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+        /* This is the CSS used in the demo */
+        .smart-gantt-chart {
+            width: calc(100% - 300px);
+            height: 450px;
+        }
+        
+        @@media only screen and (max-width: 600px) {
+            .smart-gantt-chart  {
+                width: 100%;
+                height: auto;
+            }
+        }
+</style>
+
+<Example Name="GanttChart">
+    <GanttChart @ref="gantt" DataSource="Records" TaskColumns="taskColumns" ResourceColumns="resourceColumns"
+                TreeSize="treeSize" DurationUnit="Duration.Hour" SortMode="@sortMode" />
+
+    <div class="options">
+        <div class="description">
+            <p>
+                Gantt Chart can be sorted by columns by clicking on the header of the desired column. The first click on
+                the header will sort the Tasks in 'ascending' order. Second click will sort them in 'descending' and the
+                third will remove the sorting.
+            </p>
+            Enable/Disable Multi Column Sorting from the Checkbox:
+        </div>
+        <div class="option">
+            <CheckBox OnChange="OnCheckBoxChange">Multi Column Sorting</CheckBox>
+        </div>
+        <div class="option">
+            <Button OnClick="OnSortClick">Sort</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnClearSortClick">Clear Sort</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    GanttChart gantt;
+    string treeSize = "30%";
+    GanttChartSortMode sortMode = GanttChartSortMode.One;
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>()
+    {
+        new GanttChartTaskColumn()
+        {
+            Label = "Tasks",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartTaskColumn()
+        {
+            Label = "Duration (hours)",
+            Value = "duration"
+        }
+    };
+
+    List<GanttChartResourceColumn> resourceColumns = new List<GanttChartResourceColumn>()
+    {
+        new GanttChartResourceColumn()
+        {
+            Label = "Tasks",
+            Value = "label",
+            Size = "60%"
+        },
+        new GanttChartResourceColumn()
+        {
+            Label = "Work Time (hours)",
+            Value = "workload",
+            Size = "20%"
+        },
+        new GanttChartResourceColumn()
+        {
+            Label = "Progress",
+            Value = "progress"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project A",
+                DateStart = "2021-01-10",
+                DateEnd = "2021-03-10",
+                Synchronized = true,
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task Z",
+                        DateStart = "2021-03-01",
+                        Duration = 1500,
+                        Progress = 30,
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }
+                            }
+                        },
+                        Resources = new List<Dictionary<string, object>>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                 { "id", "resource1" }, { "label", "Resource 1" }
+                            },
+                            new Dictionary<string, object>()
+                            {
+                                 { "id", "resource2" }, { "label", "Resource 2" }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task Y",
+                        DateStart = "2021-04-11",
+                        Duration = 1500
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task C",
+                DateStart = "2021-05-17",
+                Duration = 1000,
+                Progress = 45,
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 4 }, { "type", 1 }
+                    }
+                },
+                Resources = new List<Dictionary<string, object>>()
+                {
+                    new Dictionary<string, object>()
+                    {
+                         { "id", "resource3" }, { "label", "Resource 3" }
+                    },
+                    new Dictionary<string, object>()
+                    {
+                         { "id", "resource4" }, { "label", "Resource 4" }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task D",
+                DateStart = "2021-07-02",
+                Duration = 1000,
+                Progress = 20,
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 5 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task E",
+                DateStart = "2021-08-01",
+                DateEnd = "2021-09-10",
+                Progress = 50,
+                Resources = new List<Dictionary<string, object>>()
+                {
+                    new Dictionary<string, object>()
+                    {
+                         { "id", "resource5" }, { "label", "Resource 5" }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Project B",
+                DateStart = "2021-09-11",
+                DateEnd = "2021-10-10",
+                Synchronized = true,
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task A",
+                        DateStart = "2021-10-12",
+                        DateEnd = "2021-11-11",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 8 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task C",
+                        DateStart = "2021-10-17",
+                        DateEnd = "2021-11-31",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 9 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task B",
+                        DateStart = "2021-11-01",
+                        DateEnd = "2021-12-31",
+                        Progress = 10,
+                        Resources = new List<Dictionary<string, object>>()
+                        {
+                            new Dictionary<string, object>()
+                            {
+                                 { "id", "resource6" }, { "label", "Resource 6" }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private void OnCheckBoxChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        sortMode = args.Value ? GanttChartSortMode.Many : GanttChartSortMode.One;
+    }
+
+    private void OnSortClick()
+    {
+        gantt.Sort(
+            new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string>()
+                {
+                    { "value", "duration" }, { "sortMode", "asc" }, { "type", "task" }
+                },
+                new Dictionary<string, string>()
+                {
+                    { "value", "progress" }, { "sortMode", "asc" }, { "type", "resource" }
+                }
+            }
+        );
+    }
+
+    private void OnClearSortClick()
+    {
+        gantt.ClearSort();
+    }
+}

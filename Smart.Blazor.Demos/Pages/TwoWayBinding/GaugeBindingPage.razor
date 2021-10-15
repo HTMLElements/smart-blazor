@@ -1,0 +1,12 @@
+@page "/bind-gauge"
+   
+  <Gauge @bind-Value="@GaugeValue"></Gauge>
+  
+  <h3>Gauge value: @GaugeValue </h3>
+
+
+@code {
+
+    public object GaugeValue = "50";
+
+}

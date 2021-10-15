@@ -1,0 +1,41 @@
+﻿@page "/calendar-min-max-date"
+
+<Example Name="Calendar">
+    <Calendar Class="calendar-demo" Min="@min" Max="@max" SelectedDates="selectedDates" OnReady="OnReady" />
+
+    <div class="options">
+        <div>Min/Max Set</div>
+        <div class="caption">
+            <pre>Min </pre><Input @ref="minInput" Class="text-input" Placeholder="2019-01-01" OnChange="OnMinChange" />
+        </div>
+        <div class="option">
+            <pre>Max </pre><Input @ref="maxInput" Class="text-input" Placeholder="2019-01-01" Value="2019-7-31" OnChange="OnMaxChange" />
+        </div>
+    </div>
+</Example>
+
+@code {
+    Input minInput;
+    Input maxInput;
+
+    string min = "2018, 7, 1";
+    string max = "2019-7-31";
+
+    List<string> selectedDates = new List<string>() { "2019-7-2", "2029-7-17" };
+
+    private void OnMinChange(Event eventObj)
+    {
+        min = minInput.Value;
+    }
+
+    private void OnMaxChange(Event eventObj)
+    {
+        max = maxInput.Value;
+    }
+
+    private void OnReady(Calendar calendar)
+    {
+        minInput.Value = "2018-7-1";
+        maxInput.Value = "2019-7-31";
+    }
+}

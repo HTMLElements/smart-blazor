@@ -1,0 +1,38 @@
+﻿@page "/calendar-first-day-of-week"
+
+<Example Name="Calendar">
+    <Calendar FirstDayOfWeek="@firstDayOfWeek" />
+
+    <div class="options">
+        <div class="option">Select first day of week</div>
+        <div class="option"><DropDownList DataSource="dataSource" OnChange="OnChange"/></div>
+        <div class="option">
+            <div id="log">@log</div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    int firstDayOfWeek = 0;
+
+    List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "value", 0 }, { "label", "Sunday" } },
+        new Dictionary<string, object>() { { "value", 1 }, { "label", "Monday" } },
+        new Dictionary<string, object>() { { "value", 2 }, { "label", "Tuesday" } },
+        new Dictionary<string, object>() { { "value", 3 }, { "label", "Wednesday" } },
+        new Dictionary<string, object>() { { "value", 4 }, { "label", "Thursday" } },
+        new Dictionary<string, object>() { { "value", 5 }, { "label", "Friday" } },
+        new Dictionary<string, object>() { { "value", 6 }, { "label", "Saturday" } }
+    };
+
+    string log = "";
+
+    private void OnChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        firstDayOfWeek = args.Index;
+        log = "First day of week is " + args.Label;
+    }
+} 

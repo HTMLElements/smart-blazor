@@ -1,0 +1,43 @@
+﻿@page "/calendar-multiple-months"
+
+<style>
+    /* This is the CSS used in the demo */
+
+    @@media only screen and (max-width: 500px) {
+        smart-calendar [months] .smart-calendar-month {
+            width: 100%;
+        }
+
+        smart-calendar {
+            width: 300px !important;
+            height: 600px !important;
+        }
+    }
+</style>
+
+<Example Name="Calendar">
+    <Calendar Class="multiple-months" Months="@months" />
+
+    <div class="options">
+        <div class="caption">Number of months(1-12)</div>
+        <div class="option">
+            <Input @ref="input" Class="text-input" OnChange="OnChange" OnReady="OnReady" />
+        </div>
+    </div>
+</Example>
+
+@code {
+    Input input;
+    int months = 12;
+    List<string> selectedDates = new List<string>() { "2020-08-17", "2020-09-6", "2020-09-21", "2020-10-31", "2020-11-25", "2020-12-24", "2021-1-7" };
+
+    private void OnChange(Event eventObj)
+    {
+        months = int.Parse(input.Value);
+    }
+
+    private void OnReady(Input input)
+    {
+        input.Value = (12).ToString();
+    }
+}

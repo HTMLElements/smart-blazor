@@ -12,7 +12,7 @@
         margin: 0;
     }
 </style>
-<Example Name="Kanban">
+
     <p>
         Kanban represents a UI component for mapping and visualizing each step of your process as a flow. The Kanban is usually named after the project you are assigned to work on.
         Every Kanban has three main sections that show the state of your tasks in the flow:
@@ -30,7 +30,7 @@
     {
         <Kanban DataSource="dataRecords" Columns="@columns" Collapsible />
     }
-</Example>
+
 
 @code {
     List<KanbanColumn> columns = new List<KanbanColumn>()

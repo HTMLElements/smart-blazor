@@ -1,0 +1,268 @@
+﻿@page "/ganttchart-resource-timeline-view"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: 450px;
+    }
+
+    @@media only screen (max-width: 600px) {
+        smart-gantt-chart {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        Resource Timeline View can display different information depending on the <b>resourceTimelineView</b> property:
+    </p>
+
+    <GanttChart DataSource="Records" TaskColumns="taskColumns" ResourceColumns="resourceColumns"
+                View="GanttChartView.Week" TreeMin="treeMin" ResourcePanelSize="resourcePanelSize"
+                ResourceTimelineMode="GanttChartResourceTimelineMode.Histogram" ResourceTimelineView="resourceTimelineView"/>
+
+    <div class="options">
+        <div class="option">
+            <h3>Resource Timeline View:</h3>
+            <RadioButton OnReady="OnRadioButtonReady" OnCheckValue="OnHoursChecked">hours</RadioButton>
+            <RadioButton OnCheckValue="OnTasksChecked">tasks</RadioButton>
+        </div>
+        <div class="option">
+            <h3>Description</h3>
+            <ul>
+                <li>
+                    <b>hours</b> - the hours of a resource assigned to a task, where the resource attribute <b>capacity</b> represents the working capacity of the resource and <b>maxCapacity</b> represents the maximum capacity.
+                </li>
+                <li>
+                    <b>tasks</b> - the tasks that are assigned to the resource. In this mode <b>capacity</b> is not taken into considuration. Only <b>maxCapacity</b> is used to determine the maximum possible tasks that should be assigned to the resource.
+                </li>
+                <li>
+                    <b>custom</b> - allows to customize the cell content of the histogram since that's the <b>resourceTimelineMode</b>. This can be achieved via the <b>resourceTimelineFormatFunction</b> property which accepts a callback. <br /> In the current demo 'custom' mode displays the bonuses that the workers will get for each task they are assigned to.
+                </li>
+            </ul>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string treeMin = "20%";
+    string resourcePanelSize = "10%";
+
+    GanttChartResourceTimelineView resourceTimelineView = GanttChartResourceTimelineView.Hours;
+
+    List<GanttChartTaskColumn> taskColumns = new List<GanttChartTaskColumn>()
+{
+        new GanttChartTaskColumn() {
+            Label = "Name",
+            Value = "label",
+            Size = "70%"
+        },
+        new GanttChartTaskColumn() {
+            Label = "Owner",
+            Value = "resources"
+        }
+};
+
+    List<GanttChartResourceColumn> resourceColumns = new List<GanttChartResourceColumn>()
+    {
+        new GanttChartResourceColumn()
+        {
+            Label = "Name",
+            Value = "label",
+            Size = "70%"
+        },
+        new GanttChartResourceColumn()
+        {
+            Label = "Completion",
+            Value = "progress"
+        }
+    };
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+    {
+            new GanttDataRecord()
+            {
+                Label = "Preparation",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Identify Objective",
+                        DateStart = "2020-05-01",
+                        DateEnd = "2020-05-05",
+                        Value = 5,
+                        Progress = 25,
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", "megan" }, { "label", "Megan" }, { "maxCapacity", 8 }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Determine Project Risks",
+                        DateStart = "2020-05-05",
+                        DateEnd = "2020-05-10",
+                        Value = 8,
+                        Type = "task",
+                        Resources = "megan"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Ensure Funding",
+                        DateStart = "2020-05-10",
+                        DateEnd = "2020-05-15",
+                        Progress = 15,
+                        Value = 9,
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", "taylor" }, { "label", "Taylor" }, { "maxCapacity", 8 }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Determine Scope",
+                        DateStart = "2020-05-15",
+                        DateEnd = "2020-05-18",
+                        Value = 7,
+                        Type = "task",
+                        Resources = "taylor"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project Documentation",
+                        DateStart = "2020-05-20",
+                        DateEnd = "2020-05-27",
+                        Progress = 10,
+                        Value = 5,
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", "dave" }, { "label", "Dave" }, { "maxCapacity", 8 }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Planning",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Create Project Plan",
+                        DateStart = "2020-05-26",
+                        DateEnd = "2020-05-30",
+                        Progress = 55,
+                        Value = 7,
+                        Type = "task",
+                        Resources = new Dictionary<string, object>()
+                        {
+                            { "id", "chris" }, { "label", "Chris" }, { "maxCapacity", 8 }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Identify Resources",
+                        DateStart = "2020-06-01",
+                        DateEnd = "2020-06-02",
+                        Value = 6,
+                        Type = "task",
+                        Resources = "chris"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Determine Budget and Expenses",
+                        DateStart = "2020-06-03",
+                        DateEnd = "2020-06-07",
+                        Progress = 65,
+                        Value = 10,
+                        Type = "task",
+                        Resources = "taylor"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Development",
+                Synchronized = true,
+                Expanded = true,
+                DisableResources = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Analyze Performance",
+                        DateStart = "2020-08-11",
+                        DateEnd = "2020-08-13",
+                        Progress = 100,
+                        Value = 7,
+                        Type = "task",
+                        Resources = "chris"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Documentations and Tutorials",
+                        DateStart = "2020-08-14",
+                        DateEnd = "2020-08-20",
+                        Value = 5,
+                        Type = "task",
+                        Resources = "dave"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Implementation Review",
+                        DateStart = "2020-08-21",
+                        DateEnd = "2020-08-25",
+                        Value = 7,
+                        Type = "task",
+                        Resources = "megan"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Budget review",
+                        DateStart = "2020-08-26",
+                        DateEnd = "2020-08-31",
+                        Value = 8,
+                        Type = "task",
+                        Resources = "taylor"
+                    }
+                }
+            }
+    };
+    }
+
+    private void OnRadioButtonReady(RadioButton radioButton)
+    {
+        radioButton.Checked = true;
+    }
+
+    private void OnHoursChecked()
+    {
+        resourceTimelineView = GanttChartResourceTimelineView.Hours;
+    }
+
+    private void OnTasksChecked()
+    {
+        resourceTimelineView = GanttChartResourceTimelineView.Tasks;
+    }
+}

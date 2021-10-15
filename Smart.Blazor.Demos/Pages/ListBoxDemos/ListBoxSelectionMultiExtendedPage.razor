@@ -1,0 +1,76 @@
+﻿@page "/listbox-selection-multi-extended"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-list-box {
+        width: 300px;
+        height: 500px;
+    }
+
+    @@media only screen and (max-width: 700px) {
+      body, html {
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+      }
+
+      smart-list-box {
+        width: 100%;
+        height: 100%;
+      }
+    }
+</style>
+
+<Example Name="ListBox">
+    <p>Click on item, press Ctrl or Shift key and select another item for multiple selection.</p>
+
+    <ListBox DataSource="dataSource" />
+</Example>
+ 
+@code {
+    private List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Andrew" }, { "value", 1 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Natalia" }, { "value", 5 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Michael" }, { "value", 4 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Angel" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Hristo" }, { "value", 6 }, { "group", "C" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Peter" }, { "value", 3 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Albert" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Boyko" }, { "value", 8 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Dimitar" }, { "value", 2 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "George" }, { "value", 10 }, { "group", "C" }
+        }
+    };
+}

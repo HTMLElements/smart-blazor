@@ -1,19 +1,18 @@
-﻿@page "/multiinput"
+﻿@page "/multiinput-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="MultiComboInput">
-	@if (forecasts == null)
-	{
-		<p><em>Loading...</em></p>
-	}
-	else
-	{
-		<h2>Forecasts Summary</h2>
-		<MultiInput DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></MultiInput>
-	}
-</Example>
+@if (forecasts == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<h2>Forecasts Summary</h2>
+	<MultiInput DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></MultiInput>
+}
+
 
 @code {
 	private WeatherForecast[] forecasts;

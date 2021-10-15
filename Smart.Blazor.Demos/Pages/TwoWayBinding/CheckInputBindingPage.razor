@@ -1,0 +1,30 @@
+@page "/bind-checkinput"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+<Example Name="CheckInput">
+    @if (forecasts == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <h2>Forecasts Summary</h2>
+        <CheckInput @bind-Value="@CheckInputValue" DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></CheckInput>
+        <h3>Check input Value (Type words like - cool, scorching or warm): @CheckInputValue </h3>
+    }
+</Example>
+
+@code {
+
+    string CheckInputValue = "";
+    private WeatherForecast[] forecasts;
+    private string[] summaries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        summaries = forecasts.Select(item => item.Summary).ToArray();
+    }
+}

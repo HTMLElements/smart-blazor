@@ -1,0 +1,248 @@
+﻿@page "/ganttchart-collapse-expand"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        width: calc(100% - 300px);
+        height: 450px;
+    }
+    @@media only screen and (max-width: 600px) {
+        smart-gantt-chart {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+<Example Name="GanttChart">
+    <p>
+        Select a Project task from the drop down list to collapse/expand.
+    </p>
+
+    <GanttChart @ref="gantt" DataSource="Records" View="GanttChartView.Year" OnCollapse="OnCollapse" OnExpand="OnExpand" />
+
+    <div class="options">
+        <div class="option">
+            <DropDownList @ref="indexSelector">
+                <ListItem Value="0">Project 1</ListItem>
+                <ListItem Value="0.2">Project 1.1</ListItem>
+                <ListItem Value="0.2.2">Project 1.1.1</ListItem>
+            </DropDownList>
+        </div>
+        <div class="option">
+            <Button OnClick="OnCollapseClick">Collapse</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnExpandClick">Expand</Button>
+        </div>
+        <div class="option">
+            <div id="logContainer">
+                <h4>Event Log:</h4>
+                <div id="log">@((MarkupString)eventLog)</div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {   
+    private GanttChart gantt;
+    private DropDownList indexSelector;
+    private string eventLog = "";
+
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+        {
+            new GanttDataRecord()
+            {
+                Label = "Project 1",
+                Synchronized = true,
+                Expanded = true,
+                Type = "project",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 1 }, { "type", 0 }
+                    }
+                },
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",
+                        DateStart = "2020-06-10",
+                        DateEnd = "2021-01-10",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 2 }, { "type", 1 }
+                            },
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DateStart = "2020-10-10",
+                        DateEnd = "2021-2-31",
+                        Type = "task",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 3 }, { "type", 1 }
+                            }
+                        }
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Project 1.1",
+                        DateStart = "2021-2-31",
+                        DateEnd = "2021-6-1",
+                        Expanded = true,
+                        Type = "project",
+                        Connections = new List<Dictionary<string, int>>()
+                        {
+                            new Dictionary<string, int>()
+                            {
+                                { "target", 4 }, { "type", 0 }
+                            }
+                        },
+                        Tasks = new List<GanttDataRecord>()
+                        {
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 1.1.1",
+                                DateStart = "2021-3-10",
+                                DateEnd = "2021-4-1",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>()
+                                {
+                                    new Dictionary<string, int>()
+                                    {
+                                        { "target", 6 }, { "type", 1 }
+                                    }
+                                }
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Task 1.1.2",
+                                DateStart = "2021-4-2",
+                                DateEnd = "2021-6-1",
+                                Type = "task",
+                                Connections = new List<Dictionary<string, int>>() {}
+                            },
+                            new GanttDataRecord()
+                            {
+                                Label = "Project 1.1.1",
+                                DateStart = "2021-06-1T12:30:00",
+                                DateEnd = "2021-9-1",
+                                Expanded = true,
+                                Type = "project",
+                                Connections = new List<Dictionary<string, int>>() { },
+                                Tasks = new List<GanttDataRecord>()
+                                {
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Task 1.1.1.1",
+                                        DateStart = "2021-07-10",
+                                        DateEnd = "2021-08-30",
+                                        Type = "task",
+                                        Connections = new List<Dictionary<string, int>>()
+                                        {
+                                            new Dictionary<string, int>()
+                                            {
+                                                { "target", 8 }, { "type", 1 }
+                                            }
+                                        }
+                                    },
+                                    new GanttDataRecord()
+                                    {
+                                        Label = "Task 1.1.1.2",
+                                        DateStart = "2021-08-30",
+                                        DateEnd = "2021-10-1",
+                                        Type = "task"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DateStart = "2020-03-10T15:30:00",
+                DateEnd = "2021-08-10",
+                Type = "task",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 10 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Milestone 1",
+                DateEnd = "2021-05-24",
+                Type = "milestone",
+                Connections = new List<Dictionary<string, int>>()
+                {
+                    new Dictionary<string, int>()
+                    {
+                        { "target", 11 }, { "type", 1 }
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 3",
+                DateStart = "2021-02-05",
+                DateEnd = "2021-07-08",
+                Progress = 50
+            }
+        };
+    }
+
+    private void OnCollapseClick()
+    {
+        if (indexSelector.SelectedValues != null)
+        {
+            gantt.Collapse(indexSelector.SelectedValues[0]);
+        }
+    }
+
+    private void OnExpandClick()
+    {
+        if (indexSelector.SelectedValues != null)
+        {
+            gantt.Expand(indexSelector.SelectedValues[0]);
+        }
+    }
+
+    private void OnCollapse(Event eventObj)
+    {
+        GanttChartCollapseEventDetail args = eventObj["Detail"];
+
+        eventLog += "<br />Collapse Task # " + args.Index;
+    }
+
+    private void OnExpand(Event eventObj)
+    {
+        GanttChartExpandEventDetail args = eventObj["Detail"];
+
+        eventLog += "<br />Collapse Task # " + args.Label;
+    }
+}

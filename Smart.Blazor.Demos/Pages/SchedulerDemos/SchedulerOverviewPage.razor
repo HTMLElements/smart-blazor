@@ -16,7 +16,6 @@
     }
 
     smart-scheduler {
-        width: calc(100% - 300px);
         height: 800px;
         border-radius: initial;
     }
@@ -278,19 +277,10 @@
                     </div>
                     <div class="controls-container">
                         <Calendar ScrollButtonsPosition="LayoutPosition.Far" OnChange="HandleCalendarChange" />
-                        <Input id="searchBar" class="underlined" Placeholder="Search for people" />
-
-                        <Tree @ref="tree" SelectionMode="TreeSelectionMode.CheckBox" ToggleElementPosition="Position.Far" OnChange="HandleTreeChange">
-                            <TreeItemsGroup IsExpanded>My calendars
-                                <TreeItem Value="birthdayValue" Selected>Birthdays</TreeItem>
-                                <TreeItem Value="holidayValue" Selected>Holidays</TreeItem>
-                                <TreeItem Value="eventValue" Selected>Events</TreeItem>
-                            </TreeItemsGroup>
-                        </Tree>
                     </div>
                 </section>
                 <section id="sideB">
-                    <Scheduler @ref="scheduler" DataSource="@dataRecords" Views="@views" View="SchedulerViewType.Day" NonworkingDays="@nonWorkingDays"
+                    <Scheduler @ref="scheduler" DataSource="@dataRecords" Views="@views" View="SchedulerViewType.Month" NonworkingDays="@nonWorkingDays"
                                DateCurrent="@dateCurrent" FirstDayOfWeek="1" DisableDateMenu="@disableDateMenu" CurrentTimeIndicator="@currentTimeIndicator" />
                 </section>
             </div>
@@ -317,8 +307,10 @@
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
     {
+        SchedulerViewType.Day,
         SchedulerViewType.Week,
-        SchedulerViewType.Month
+        SchedulerViewType.Month,
+        SchedulerViewType.Agenda
     };
 
     protected override void OnInitialized()
@@ -330,7 +322,7 @@
 
     private List<SchedulerDataSource> GetData()
     {
-        DateTime today = DateTime.Today;
+        DateTime today = DateTime.Now;
 
         List<SchedulerDataSource> data = new List<SchedulerDataSource>()
         {
@@ -395,7 +387,7 @@
                     {
                         Interval = 1,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute },
+                        Time = new int[] { today.Hour, today.Minute },
                         Message = "Approve Hiring of John Jeffers tomorrow",
                         IconType = "success"
                     }
@@ -424,7 +416,7 @@
                     {
                         Interval = 0,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Time = new int[] { today.Hour, today.Minute + 1 },
                         Message = "Compete Agreements in 15 minutes",
                         IconType = "time"
                     },
@@ -432,7 +424,7 @@
                     {
                         Interval = 0,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute + 1 },
+                        Time = new int[] { today.Hour, today.Minute + 1 },
                         Message = "Compete Agreements in 14 minutes",
                         IconType = "warning"
                     }
@@ -516,7 +508,7 @@
                     {
                         Interval = 2,
                         Type = SchedulerNotificationType.Days,
-                        Time = new List<object>() { today.Hour, today.Minute },
+                        Time = new int[] { today.Hour, today.Minute },
                         Message = "Upgrade Apps to Windows RT in 5 minutes",
                         IconType = "time"
                     }
@@ -612,17 +604,6 @@
         CalendarChangeEventDetail args = eventObj["Detail"];
 
         dateCurrent = args.Value;
-    }
-
-    private void HandleTreeChange(Event eventObj)
-    {
-        string[] selectedIndexes = tree.SelectedIndexes;
-        List<string> types = new List<string>();
-        for (int i = 0; i < selectedIndexes.Length; i++)
-        {
-            object type = tree.GetItem(selectedIndexes[i]);
-            //Console.WriteLine(type);
-        }
     }
 
     private List<object> GetPastThreeWeekDays(int weekday)

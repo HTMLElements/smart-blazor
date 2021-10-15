@@ -12,14 +12,14 @@
     }
 
     .planetIcon {
-        background-image: url("../../images/earth.png");
+        background-image: url("https://www.htmlelements.com/demos/images/earth.png");
         background-position: center;
     }
 </style>
 
-<Example Name="Menu">
+
     <Menu DataSource="menuDataSource"></Menu>
-</Example>
+
 
 @code {
     private List<Dictionary<string, object>> menuDataSource = new List<Dictionary<string, object>>()
@@ -57,7 +57,7 @@
                 }
             }
         },
-        new Dictionary<string, object>() { { "label", "<img id='helpIcon' src='../../images/help-icon.png' title='Help' />" } },
+        new Dictionary<string, object>() { { "label", "<img id='helpIcon' src='https://www.htmlelements.com/demos/images/help-icon.png' title='Help' />" } },
         new Dictionary<string, object>() { { "label", "<div class='planetIcon' title='Planet'></div>" } },
         new Dictionary<string, object>() { { "label", "About" }, { "value", "customValue" } },
     };

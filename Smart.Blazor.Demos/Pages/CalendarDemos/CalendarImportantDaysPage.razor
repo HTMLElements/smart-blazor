@@ -1,0 +1,25 @@
+﻿@page "/calendar-important-days"
+
+<Example Name="Calendar">
+    <Calendar Class="special-days" ImportantDatesTemplate="importantDatesTemplate" ImportantDates="importantDates" Tooltip />
+
+    <template id="importantDatesTemplate">
+        <span>{{day}}</span>
+        <span>&#127874</span>
+    </template>
+
+    <div class="options">
+        <div class="caption">Important Dates</div>
+        <div class="option" id="importantDates">
+            9 June 2021<br>
+            1 July 2021<br>
+            30 July 2021<br>
+            24 December 2021<br>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string importantDatesTemplate = "importantDatesTemplate";
+    List<string> importantDates = new List<string>() { "2021, 6, 9", "2021, 7, 1", "2021, 7, 30", "2021, 12, 24" };
+} 

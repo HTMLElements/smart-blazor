@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-load-save-state"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -25,35 +22,28 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler @ref="scheduler" DataSource="dataRecords" View="SchedulerViewType.Month" HourStart="9" HourEnd="18" FirstDayOfWeek="1" />
+    <Scheduler @ref="scheduler" DataSource="dataRecords" View="SchedulerViewType.Month" HourStart="9" HourEnd="18" FirstDayOfWeek="1" />
 
-        <div class="options">
-            <div class="option">
-                <b>Save State</b>
-                Button saves the current state of the Scheduler to LocalStorage.
-                <b>Load State</b> Button
-                reloads a previously saved state. <b>Reset</b> Button will erase any cache
-                and will restore the Scheduler to it's initial state.
-                <p>Previously saved states of the element are pre-loade on page refresh.</p>
-                <p>Notice that the element must have an 'id' in order to save/load it's state.</p>
-            </div>
-            <div class="option">
-                <Button OnClick="OnSaveStateClick">Save State</Button>
-            </div>
-            <div class="option">
-                <Button OnClick="OnLoadStateClick">Load State</Button>
-            </div>
-            <div class="option">
-                <Button OnClick="OnClearStateClick">Clear State</Button>
-            </div>
+    <div class="options">
+        <div class="option">
+            <b>Save State</b>
+            Button saves the current state of the Scheduler to LocalStorage.
+            <b>Load State</b> Button
+            reloads a previously saved state. <b>Reset</b> Button will erase any cache
+            and will restore the Scheduler to it's initial state.
+            <p>Previously saved states of the element are pre-loade on page refresh.</p>
+            <p>Notice that the element must have an 'id' in order to save/load it's state.</p>
         </div>
-    }
+        <div class="option">
+            <Button OnClick="OnSaveStateClick">Save State</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnLoadStateClick">Load State</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnClearStateClick">Clear State</Button>
+        </div>
+    </div>
 </Example>
 
 @code {

@@ -1,70 +1,69 @@
 ﻿@page "/scheduler-localization"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
-    /* This is the CSS used in the demo */
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        --smart-scheduler-shortcut-size: 30px;
-    }
+        /* This is the CSS used in the demo */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            --smart-scheduler-shortcut-size: 30px;
+        }
 
-    smart-scheduler {
-        width: calc(100% - 300px);
-        height: 800px;
-    }
-
-    @@media (max-width: 750px) {
         .smart-scheduler {
+            width: calc(100% - 260px);
+            height: calc(100% - 140px);
+        }
+
+        @@media (max-width: 750px) {
+            .smart-scheduler {
+                width: 100%;
+            }
+        }
+
+    .options {
+        padding: 20px;
+        background-color: rgba(191, 191, 191, .15);
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px
+    }
+
+    .options {
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+        .options .smart-input {
             width: 100%;
         }
-    }
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    { 
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <div class="demo-header" #demoHeader>
-            <div class="demo-header-label">Smart Scheduler Team</div>
-            <div class="demo-content">
-                <div class="person-a">
-                    <smart-check-box #checkbox id="steven" [checked]="true"></smart-check-box>
-                </div>
-                <div class="person-b">
-                    <smart-check-box #checkbox2 id="mark" [checked]="true"></smart-check-box>
-                </div>
-                <div class="person-c">
-                    <smart-check-box #checkbox3 id="janet" [checked]="true"></smart-check-box>
-                </div>
-            </div>
-        </div>
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" ViewSelectorType="SchedulerViewSelectorType.Auto" 
+               HourStart="hourStart" HourEnd="hourEnd" Locale="@locale" Messages="@messages" />
 
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" ViewSelectorType="SchedulerViewSelectorType.Auto" HourStart="7" Locale="@locale" Messages="@messages" />
-
-        <div class="options">
-            <div class="option">
-                <h4>Choose Language</h4>
-                <smart-input #input id="input" [readonly]="true" [value]="value" [dataSource]="inputDataSource"
-                             [dropDownButtonPosition]="dropDownButtonPosition" (onChange)="handleChange($event)"></smart-input>
-            </div>
-            <div class="option">
-                <p></p>
-                <smart-check-box #checkbox4 [checked]="true" id="checkbox" (onChange)="handleWorkingHours($event)">Show Working Hours</smart-check-box>
-            </div>
+    <div class="options">
+        <div class="option">
+            <h4>Choose Language</h4>
+            <Input Readonly @bind-Value="@locale" DataSource="@inputDataSource" DropDownButtonPosition="DropDownButtonPosition.Right" OnChange="OnInputChange"/>
         </div>
-    }
+        <div class="option">
+            <CheckBox @bind-Checked="showWorkingHours" OnChange="HandleWorkingHours">@workingHoursString</CheckBox>
+        </div>
+    </div>
 </Example>
 
 @code {   
     private string locale = "de";
+    private string[] inputDataSource = new string[] { "bg", "en", "de", "fr" };
+    private string workingHoursString = "Show Working Hours";
+    private int hourStart = 8;
+    private int hourEnd = 16;
+    private bool showWorkingHours = true;
+
     private List<CustomSchedulerDataSource> dataRecords;
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
@@ -450,7 +449,7 @@
                 FrLabel = "Accords de non-concurrence",
                 BgLabel = "Незавършени Споразумения"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Approve Hiring of John Jeffers",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-1),
@@ -461,7 +460,7 @@
                 FrLabel = "Approuver l'embauche de John Jeffers",
                 BgLabel = "Одобри назначаването на Джон Джефърс"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Update NDA Agreement",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
@@ -472,7 +471,7 @@
                 FrLabel = "Mettre à jour l'accord NDA",
                 BgLabel = "Обнови NDA Споразуменето"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Update Employee Files with New NDA",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(1),
@@ -483,7 +482,7 @@
                 FrLabel = "Mettre à jour les fichiers des employés avec un nouveau NDA",
                 BgLabel = "Обнови Работните Документи с нов NDA"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Compete Agreements",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 15, 0).AddDays(-1),
@@ -505,7 +504,7 @@
                 FrLabel = "Approuver l'embauche de Mark Waterberg",
                 BgLabel = "Одобри Назначаването на Марк Уотърбърг"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Update NDA Contracts",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
@@ -516,7 +515,7 @@
                 FrLabel = "Mettre à jour les contrats NBA",
                 BgLabel = "Обнови NBA Договорите"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Update Employees Information",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(1),
@@ -538,7 +537,7 @@
                 FrLabel = "Examiner les accords",
                 BgLabel = "Прегледай Споразуменията"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Fire John Jeffers",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0),
@@ -549,7 +548,7 @@
                 FrLabel = "Feu John Jeffers",
                 BgLabel = "Уволни Джон Джефърс"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Close The NDA Agreement",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 45, 0),
@@ -560,7 +559,7 @@
                 FrLabel = "Fermer l'accord NDA",
                 BgLabel = "Приключи с NDA Споразумението"
             },
-            new CustomSchedulerDataSource() 
+            new CustomSchedulerDataSource()
             {
                 Label = "Erase Fired Employee Files From NDA",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0),
@@ -574,6 +573,39 @@
         };
 
         return data;
+    }
+
+    private void OnInputChange(Event eventObj)
+    {
+        InputChangeEventDetail args = eventObj["Detail"];
+        string locale = args.Value;
+
+        switch(locale)
+        {
+            case "en": workingHoursString = "Show Working Hours";
+                break;
+            case "bg": workingHoursString = "Покажи работните часове";
+                break;
+            case "de": workingHoursString = "Arbeitszeiten Anzeigen";
+                break;
+            case "fr": workingHoursString = "Afficher Les Heures De Travail";
+                break;
+        }
+    }
+
+    private void HandleWorkingHours(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+        if (args.Value)
+        {
+            hourStart = 8;
+            hourEnd = 16;
+        }
+        else
+        {
+            hourStart = 0;
+            hourEnd = 23;
+        }
     }
 
     private class CustomSchedulerDataSource : SchedulerDataSource

@@ -1,0 +1,152 @@
+﻿@page "/dropdownlist-position"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        position: relative;
+        top: 260px;
+        min-height: 35px;
+        height: auto;
+    }
+    
+        smart-drop-down-list .smart-drop-down {
+            --smart-drop-down-element-max-height: 250px;
+        }
+    
+    html, body {
+        min-height: 900px;
+    }
+
+    @@media only screen and (max-width: 500px) {
+        smart-drop-down-list {
+            position: static;
+        }
+    }
+</style>
+
+<Example Name="DropDownList">
+    <DropDownList Class="drop-down-list-modes-demo" DataSource="dataSource" DropDownPosition="@dropDownPosition" OnReady="OnReady">
+        <ListItem Value="Afghanistan">Afghanistan</ListItem>
+        <ListItem Selected Value="Albania">Albania</ListItem>
+        <ListItem Value="Algeria">Algeria</ListItem>
+        <ListItem Value="American Samoa">American Samoa</ListItem>
+        <ListItem Value="Andorra">Andorra</ListItem>
+        <ListItem Value="Angola">Angola</ListItem>
+        <ListItem Value="Anguilla">Anguilla</ListItem>
+        <ListItem Value="Antarctica">Antarctica</ListItem>
+        <ListItem Value="Antigua and Barbuda">Antigua and Barbuda</ListItem>
+        <ListItem Value="Argentina">Argentina</ListItem>
+        <ListItem Value="Armenia">Armenia</ListItem>
+        <ListItem Value="Aruba">Aruba</ListItem>
+        <ListItem Value="Australia">Australia</ListItem>
+        <ListItem Value="Austria">Austria</ListItem>
+        <ListItem Value="Azerbaijan">Azerbaijan</ListItem>
+        <ListItem Value="Bahamas">Bahamas</ListItem>
+        <ListItem Value="Bahrain">Bahrain</ListItem>
+        <ListItem Value="Bangladesh">Bangladesh</ListItem>
+        <ListItem Value="Barbados">Barbados</ListItem>
+        <ListItem Value="Belarus">Belarus</ListItem>
+        <ListItem Value="Belgium">Belgium</ListItem>
+        <ListItem Value="Belize">Belize</ListItem>
+        <ListItem Value="Benin">Benin</ListItem>
+        <ListItem Value="Bermuda">Bermuda</ListItem>
+        <ListItem Value="Bhutan">Bhutan</ListItem>
+    </DropDownList>
+
+    <div class="options">
+        <div class="caption">DropDown list Position:</div>
+        <div class="option">
+            <RadioButton @ref="bottomRadioButton" GroupName="position" OnCheckValue="OnAutoChecked">Auto</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnBottomChecked">Bottom</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnOverlayBottomChecked">Overlay-bottom</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnOverlayCenterChecked">Overlay-center</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnOverlayTopChecked">Overlay-top</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnTopChecked">Top</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnCenterBottomChecked">Center-bottom</RadioButton><br /><br />
+            <RadioButton GroupName="position" OnCheckValue="OnCenterTopChecked">Center-top</RadioButton><br /><br />
+        </div>
+    </div>
+</Example>
+
+@code {
+    RadioButton bottomRadioButton;
+
+    private DropDownPosition dropDownPosition = DropDownPosition.Auto;
+
+    private List<string> dataSource = new List<string>()
+    {
+        "Affogato",
+        "Americano",
+        "Bicerin",
+        "Breve",
+        "Café Bombón",
+        "Café au lait",
+        "Caffé Corretto",
+        "Café Crema",
+        "Caffé Latte",
+        "Caffé macchiato",
+        "Café mélange",
+        "Coffee milk",
+        "Cafe mocha",
+        "Cappuccino",
+        "Carajillo",
+        "Cortado",
+        "Cuban espresso",
+        "Espresso",
+        "Eiskaffee",
+        "The Flat White",
+        "Frappuccino",
+        "Galao",
+        "Greek frappé coffee",
+        "Alabala",
+        "Indian filter coffee",
+        "Instant coffee",
+        "Irish coffee",
+        "Liqueur coffee"
+    };
+
+    private void OnReady(DropDownList list)
+    {
+        bottomRadioButton.Checked = true;
+    }
+
+    private void OnAutoChecked()
+    {
+        dropDownPosition = DropDownPosition.Auto;
+    }
+
+    private void OnBottomChecked()
+    {
+        dropDownPosition = DropDownPosition.Bottom;
+    }
+
+    private void OnOverlayBottomChecked()
+    {
+        dropDownPosition = DropDownPosition.OverlayBottom;
+    }
+
+    private void OnOverlayCenterChecked()
+    {
+        dropDownPosition = DropDownPosition.OverlayCenter;
+    }
+
+    private void OnOverlayTopChecked()
+    {
+        dropDownPosition = DropDownPosition.OverlayTop;
+    }
+
+    private void OnTopChecked()
+    {
+        dropDownPosition = DropDownPosition.Top;
+    }
+
+    private void OnCenterBottomChecked()
+    {
+        dropDownPosition = DropDownPosition.CenterBottom;
+    }
+
+    private void OnCenterTopChecked()
+    {
+        dropDownPosition = DropDownPosition.CenterTop;
+    }
+}

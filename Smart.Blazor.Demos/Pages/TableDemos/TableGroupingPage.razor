@@ -24,78 +24,67 @@
     }
 </style>
 
-<button @onclick=onclick>Refresh</button>
-@if (dataRecords == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <Table @ref=table ColumnResize="true" ColumnResizeFeedback="true" Tooltip="true" Columns="@columns">
-        @foreach (var dataRecord in dataRecords)
-        {
-            <tr hidden>
-                <td>
-                    <button>Configure</button>
-                </td>
-                <td>@dataRecord.ProductName</td>
-                <td>@dataRecord.Quantity</td>
-                <td>@dataRecord.Price</td>
-                <td>@dataRecord.TimeOfPurchase</td>
-            </tr>
-        }
-    </Table>
-}
+    <p>
+        This demo showcases the grouping functionality of smart-table.
+    </p>
 
-@code {
+    @if (dataRecords == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Table DataSource="dataRecords" Grouping="true" KeyboardNavigation="true" Columns="@columns" OnReady="OnTableReady"></Table>
+    }
 
-    private Table table;
 
+@code {   
     private List<DataRecord> dataRecords;
+
     List<TableColumn> columns = new List<TableColumn>()
-{
-      new TableColumn()
-      {
-         DataField = "Configure",
-         Label = "Configure",
-         DataType = TableColumnDataType.Any,
-         Width = 120
-      },
-      new TableColumn()
-      {
-         DataField = "ProductName",
-         Label = "Product Name",
-         DataType = TableColumnDataType.String
-      },
-      new TableColumn()
-      {
-         DataField = "Quantity",
-         Label = "Quantity",
-         DataType = TableColumnDataType.Number
-      },
-      new TableColumn()
-      {
-         DataField = "Price",
-         Label = "Price",
-         DataType = TableColumnDataType.Number
-      },
-      new TableColumn()
-      {
-         DataField = "TimeOfPurchase",
-         Label = "Date Purchase",
-         DataType = TableColumnDataType.Date
-      }
-   };
+    {
+        new TableColumn()
+        {
+            DataField = "Id",
+            Label = "Id",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "ProductName",
+            Label = "Product Name",
+            DataType = TableColumnDataType.String
+        },
+        new TableColumn()
+        {
+            DataField = "Quantity",
+            Label = "Quantity",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "Price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number,
+
+        },
+        new TableColumn()
+        {
+            DataField = "TimeOfPurchase",
+            Label = "Date Purchased",
+            DataType = TableColumnDataType.Date
+        }
+    };
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        dataRecords = dataService.GenerateData(15);
+        dataRecords = dataService.GenerateData(50);
     }
 
-    private void onclick()
+    private void OnTableReady(Table table)
     {
-        table?.StateHasChanged();
+        table.AddGroup("ProductName");
+        table.AddGroup("Quantity");
     }
-
 }

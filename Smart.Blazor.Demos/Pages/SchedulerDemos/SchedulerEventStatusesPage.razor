@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-event-statuses"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -25,15 +22,7 @@
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" HourStart="7" HourEnd="17"/>
-
-    }
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" TimelineDayScale="SchedulerTimelineDayScale.HalfHour" HourStart="7" HourEnd="17" />
 </Example>
 
 @code {
@@ -41,7 +30,9 @@
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
     {
-        SchedulerViewType.Week
+        SchedulerViewType.Day,
+        SchedulerViewType.Week,
+        SchedulerViewType.Month
     };
 
     protected override void OnInitialized()
@@ -60,96 +51,112 @@
                 Label = "Website Re-Design Plan",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-2),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-2),
+                Status = "busy",
                 BackgroundColor = "#00C853"
             },
             new SchedulerDataSource() {
                 Label = "Website Performance Optimization Plan",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 8, 30, 0).AddDays(-3),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 10, 30, 0).AddDays(-3),
+                Status = "busy",
                 BackgroundColor = "#8D6E63"
             },
             new SchedulerDataSource() {
                 Label = "Book Flights to San Fran for Sales Trip",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-1),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-1),
+                Status = "free",
                 BackgroundColor = "#0288D1"
             },
             new SchedulerDataSource() {
                 Label = "Book Flights to Los Angeles for Business Trip",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-4),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(-4),
-                BackgroundColor = "#D81B60"
+                     Status = "busy",
+           BackgroundColor = "#D81B60"
             },
             new SchedulerDataSource() {
                 Label = "Install New Router in Conference Room",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-2),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 30, 0).AddDays(-2),
+                Status = "busy",
                 BackgroundColor = "#F50057"
             },
             new SchedulerDataSource() {
                 Label = "Add a new desk to the Dev Room",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(-1),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(-1),
+                Status = "busy",
                 BackgroundColor = "#F57F17"
             },
             new SchedulerDataSource() {
                 Label = "Install New Router in Dev Room",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0),
-                BackgroundColor = "#D500F9"
+                   Status = "busy",
+             BackgroundColor = "#D500F9"
             },
             new SchedulerDataSource() {
                 Label = "Approve Personal Computer Upgrade Plan",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(1),
-                BackgroundColor = "#F57F17"
+                    Status = "busy",
+            BackgroundColor = "#F57F17"
             },
             new SchedulerDataSource() {
                 Label = "Final Budget Review",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 35, 0).AddDays(1),
-                BackgroundColor = "#2E7D32"
+                    Status = "busy",
+            BackgroundColor = "#2E7D32"
             },
             new SchedulerDataSource() {
                 Label = "Old Brochures",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
                 DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(1),
-                BackgroundColor = "#00BCD4"
+                    Status = "busy",
+            BackgroundColor = "#00BCD4"
             },
             new SchedulerDataSource() {
                 Label = "New Brochures",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(1),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(2),
+                    Status = "busy",
+            DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(2),
                 BackgroundColor = "#9575CD"
             },
             new SchedulerDataSource() {
                 Label = "Install New Database",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(1),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 15, 0).AddDays(1),
+                      Status = "free",
+          DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 15, 0).AddDays(1),
                 BackgroundColor = "#F57F17"
             },
             new SchedulerDataSource() {
                 Label = "Approve New Online Marketing Strategy",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(2),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2),
+                     Status = "free",
+           DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2),
                 BackgroundColor = "#E57373"
             },
             new SchedulerDataSource() {
                 Label = "Upgrade Personal Computers",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0),
+                    Status = "tentative",
+            DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0),
                 BackgroundColor = "#1976D2"
             },
             new SchedulerDataSource() {
                 Label = "Prepare current Year Marketing Plan",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(3),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(3),
+                     Status = "free",
+           DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(3),
                 BackgroundColor = "#66BB6A"
             },
             new SchedulerDataSource() {
                 Label = "Prepare current Year Marketing Plan",
                 DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(4),
-                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(4),
+                    Status = "tentative",
+            DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(4),
                 BackgroundColor = "#FF7043"
             }
         };

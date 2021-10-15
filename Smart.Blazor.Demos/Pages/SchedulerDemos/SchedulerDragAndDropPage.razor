@@ -1,8 +1,5 @@
 ﻿@page "/scheduler-drag-and-drop"
 
-@using Smart.Blazor.Demos.Data
-@inject RandomDataService dataService
-
 <style>
     /* This is the CSS used in the demo */
     html,
@@ -19,37 +16,13 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-column-gap: 20px;
     }
-
-    smart-scheduler {
-        height: 100vh;
-        --smart-scheduler-view-item-size: 100px;
-    }
-
-    @@media (max-width: 750px) {
-        .scheduler-container {
-            grid-template-columns: initial;
-            grid-row-gap: 20px;
-        }
-
-        smart-scheduler {
-            height: 100vh;
-            --smart-scheduler-view-item-size: 100px;
-        }
-    }
 </style>
 
 <Example Name="Scheduler">
-    @if (dataRecords == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <div class="scheduler-container">
-            <Scheduler DataSource="dataRecords" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
-            <Scheduler DataSource="dataRecords2" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
-        </div>
-    }
+    <div class="scheduler-container">
+        <Scheduler DataSource="dataRecords" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
+        <Scheduler DataSource="dataRecords2" Views="@views" View="@view" HourStart="@hourStart" TimelineDayScale="@timelineDayScale" />
+    </div>
 </Example>
 
 @code {
@@ -57,7 +30,7 @@
     private List<SchedulerDataSource> dataRecords2;
 
     private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
-{
+    {
         SchedulerViewType.Day,
         SchedulerViewType.Week,
         SchedulerViewType.Month

@@ -14,7 +14,7 @@
     }
 </style>
 
-<Example Name="Tree">
+
     <Tree @ref="tree" Filterable FilterInputPlaceholder="Filter query..." FilterMode="FilterMode.Contains" ShowLines ShowRootLines ToggleElementPosition="Position.Near" Sorted="@sorted" AutoSort="@autoSort">
         <TreeItemsGroup IsExpanded>
             Numbers
@@ -49,7 +49,7 @@
         <CheckBox OnChange="OnAutoSortChange">Auto sort</CheckBox><br /><br />
         <em>Note: Items can also be removed by swiping left or right.</em>
     </div>
-</Example>
+
 
 @code {
     private Tree tree;

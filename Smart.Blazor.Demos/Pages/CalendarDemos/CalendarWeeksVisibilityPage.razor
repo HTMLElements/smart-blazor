@@ -1,0 +1,35 @@
+﻿@page "/calendar-weeks-visibility"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-calendar {
+        height: auto;
+        min-height: initial;
+    }
+</style>
+
+<Example Name="Calendar">
+    <Calendar Weeks="@weeks" />
+
+    <div class="options">
+        <div class="caption">Number of weeks(1-6)</div>
+        <div class="option">
+            <Input @ref="input" Class="text-input" OnChange="OnChange" OnReady="OnReady" />
+        </div>
+    </div>
+</Example>
+
+@code {
+    Input input;
+    int weeks = 2;
+
+    private void OnChange(Event eventObj)
+    {
+        weeks = int.Parse(input.Value);
+    }
+
+    private void OnReady(Input input)
+    {
+        input.Value = (2).ToString();
+    }
+}

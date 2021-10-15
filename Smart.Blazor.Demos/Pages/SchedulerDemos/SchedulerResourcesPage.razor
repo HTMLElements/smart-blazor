@@ -1,0 +1,247 @@
+﻿@page "/scheduler-resources"
+@using System.Text.Json.Serialization;
+<style>
+    /* This is the CSS used in the demo */
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .smart-scheduler {
+        width: calc(100% - 300px);
+        height: 100%;
+    }
+
+    @@media (max-width: 750px) {
+        .smart-scheduler {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Scheduler">
+    <Scheduler DataSource="dataRecords" Views="@views" View="SchedulerViewType.Week" HourStart="7" HourEnd="17" 
+               FirstDayOfWeek="1" TimelineDayScale="SchedulerTimelineDayScale.QuarterHour" Resources="@resources" />
+</Example>
+
+@code {
+    private List<SchedulerDataSourceWithResource> dataRecords;
+    static DateTime today = DateTime.Today;
+
+    private IEnumerable<SchedulerViewType> views = new List<SchedulerViewType>()
+    {
+        SchedulerViewType.Week
+    };
+
+    IEnumerable<ISchedulerResource> resources = new List<ISchedulerResource>()
+    {
+        new SchedulerResource()
+        {
+            Label = "Priority",
+            Value = "priorityId",
+            DataSource = new object[]
+            {
+                new Dictionary<string, object>()
+                {
+                    { "label", "Low Priority" },
+                    { "id", 1 },
+                    { "backgroundColor", "#1e90ff" }
+                },
+                new Dictionary<string, object>()
+                {
+                    { "label", "Medium Priority" },
+                    { "id", 2 },
+                    { "backgroundColor", "#ff9747" }
+                }
+            }
+        },
+        new SchedulerResource()
+        {
+            Label = "Employee",
+            Value = "employeeId",
+            DataSource = new object[]
+            {
+                new Dictionary<string, object>()
+                {
+                    { "label", "Andrew Heart" },
+                    { "id", 1 },
+                    { "age", 28 },
+                    { "discipline", "ABS, Fitball, StepFit" },
+                    { "backgroundColor", "#28a745" }
+                },
+                new Dictionary<string, object>()
+                {
+                    { "label", "Nancy Johnson" },
+                    { "id", 2 },
+                    { "age", 31 },
+                    { "discipline", "Tennis, Yoga, Swimming" },
+                    { "backgroundColor", "#8f73af" }
+                }
+            }
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = GetData();
+    }
+
+    private List<SchedulerDataSourceWithResource> GetData()
+    {
+        List<SchedulerDataSourceWithResource> data = new List<SchedulerDataSourceWithResource>()
+        {
+            new SchedulerDataSourceWithResource() {
+                Label = "Website Re-Design Plan",
+                PriorityId = 1,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 30, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0).AddDays(-2)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Book Flights to San Fran for Sales Trip",
+                PriorityId = 2,
+                EmployeeId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Install New Router in Conference Room",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(-2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 30, 0).AddDays(-2)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Add a new desk to the Dev Room",
+                PriorityId = 1,
+                EmployeeId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 30, 0).AddDays(-1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 45, 0).AddDays(-1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Install New Router in Dev Room",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 30, 0)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Approve Personal Computer Upgrade Plan",
+                PriorityId = 2,
+                EmployeeId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 10, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Final Budget Review",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 35, 0).AddDays(1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Old Brochures",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "New Brochures",
+                PriorityId = 2,
+                EmployeeId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 13, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 15, 15, 0).AddDays(2)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Install New Database",
+                PriorityId = 1,
+                EmployeeId = 2,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0).AddDays(1),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 12, 15, 0).AddDays(1)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Approve New Online Marketing Strategy",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 12, 0, 0).AddDays(2),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 14, 0, 0).AddDays(2)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Upgrade Personal Computers",
+                PriorityId = 1,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 9, 0, 0),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 11, 30, 0)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Prepare current Year Marketing Plan",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(3),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(3)
+            },
+            new SchedulerDataSourceWithResource() {
+                Label = "Prepare current Year Marketing Plan",
+                PriorityId = 2,
+                EmployeeId = 1,
+                DateStart = new DateTime(today.Year, today.Month, today.Day, 11, 0, 0).AddDays(4),
+                DateEnd = new DateTime(today.Year, today.Month, today.Day, 13, 30, 0).AddDays(4)
+            }
+        };
+
+        return data;
+    }
+
+    private class SchedulerDataSourceWithResource : SchedulerDataSource
+    {
+        private int _priorityId;
+        [JsonPropertyName("priorityId")]
+        [JsonIgnore]
+        public int PriorityId
+        {
+            get
+            {
+
+                return this._priorityId;
+            }
+            set
+            {
+                var oldValue = this._priorityId;
+                this._priorityId = value;
+
+                NotifyPropertyChanged("PriorityId", "priorityId", oldValue, value, false);
+            }
+        }
+
+        private int _employeeId;
+        [JsonPropertyName("employeeId")]
+        [JsonIgnore]
+        public int EmployeeId
+        {
+            get
+            {
+
+                return this._employeeId;
+            }
+            set
+            {
+                var oldValue = this._employeeId;
+                this._employeeId = value;
+
+                NotifyPropertyChanged("EmployeeId", "employeeId", oldValue, value, false);
+            }
+        }
+
+        private void NotifyPropertyChanged(string propertyName, string instancePropertyName, object oldValue, object newValue, bool isEnum)
+        {
+            if (null == Properties)
+            {
+                Properties = new Dictionary<string, object>();
+            }
+            Properties[instancePropertyName] = newValue;
+        }
+    };
+}

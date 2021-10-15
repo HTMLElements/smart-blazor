@@ -7,7 +7,7 @@
         margin-top: 50px;
     }
 </style>
-<Example Name="QueryBuilder">
+
     <QueryBuilder @ref="queryBuilder" Fields="@fields" AllowDrag="@allowDrag" ShowIcons="@showIcons" Value="@value" OnReady="OnQueryBuilderReady" OnChange="OnQueryBuilderChange"></QueryBuilder>
 
     <div class="options">
@@ -20,7 +20,7 @@
     </div>
 
     <div>@filterQueryValue</div>
-</Example>
+
 
 @code {
     private QueryBuilder queryBuilder;

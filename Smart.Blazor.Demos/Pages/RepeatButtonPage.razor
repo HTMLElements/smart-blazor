@@ -1,11 +1,11 @@
-﻿@page "/repeatbutton"
+﻿@page "/repeatbutton-basic"
 
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
-<Example Name="RepeatButton">
+
 	<RepeatButton @onclick="IncrementCount">Click me</RepeatButton>
-</Example>
+
 
 @code {
 	private int currentCount = 0;
@@ -13,6 +13,5 @@
 	private void IncrementCount()
 	{
 		currentCount++;
-		StateHasChanged();
 	}
 }

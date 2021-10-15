@@ -1,0 +1,301 @@
+﻿@page "/charts"
+
+<style>
+    smart-chart {
+        width: 100%;
+        height: 300px;
+    }
+</style>
+
+<Example Name="UIElements">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Charts</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Line Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="lineChart" DataSource="salesData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" 
+                               XAxis="lineXAxis" SeriesGroups="lineSeriesGroups" ColorScheme="ChartColorScheme.Custom" OnReady="OnReady" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Column Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="columnChart" DataSource="salesComparisonData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" 
+                               XAxis="columnXAxis" SeriesGroups="columnSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Donut Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="donutChart" DataSource="sourceData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }"
+                               SeriesGroups="donutSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Pie Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="pieChart" DataSource="sourceData" Animation="Animation.None" Caption="" Description="" ShowLegend="false" 
+                               ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }"
+                               SeriesGroups="pieSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Spider Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="spiderChart"></div>
+                        <Chart @ref="spiderChart" DataSource="interestsData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" 
+                               XAxis="interestsXAxis" SeriesGroups="spiderSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Polar Chart</h4>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="polarChart" DataSource="interestsData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" 
+                               XAxis="interestsXAxis" SeriesGroups="polarSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Chart lineChart;
+    Chart columnChart;
+    Chart donutChart;
+    Chart pieChart;
+    Chart spiderChart;
+    Chart polarChart;
+
+    List<Dictionary<string, object>> salesData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "sales", 22330 }, { "orders", 9302 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "sales", 21323 }, { "orders", 8902 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "sales", 28200 }, { "orders", 10043 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "sales", 31889 }, { "orders", 10992 } },
+        new Dictionary<string, object> { { "month", "May" }, { "sales", 30056 }, { "orders", 9980 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "sales", 42024 }, { "orders", 13489 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "sales", 44995 }, { "orders", 19048 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "sales", 41045 }, { "orders", 12334 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "sales", 38012 }, { "orders", 11102 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "sales", 40045 }, { "orders", 11894 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "sales", 27542 }, { "orders", 8301 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "sales", 29012 }, { "orders", 10632 } }
+    };
+
+    List<Dictionary<string, object>> salesComparisonData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "current", 77 }, { "last", 98 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "current", 70 }, { "last", 89 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "current", 67 }, { "last", 79 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "current", 82 }, { "last", 81 } },
+        new Dictionary<string, object> { { "month", "May" }, { "current", 93 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "current", 112 }, { "last", 112 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "current", 130 }, { "last", 129 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "current", 118 }, { "last", 125 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "current", 92 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "current", 75 }, { "last", 83 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "current", 78 }, { "last", 90 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "current", 90 }, { "last", 112 } }
+    };
+
+    List<Dictionary<string, object>> interestsData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "field", "Entertainment" }, { "male", 53 }, { "female", 48 } },
+        new Dictionary<string, object> { { "field", "Technology" }, { "male", 80 }, { "female", 13 } },
+        new Dictionary<string, object> { { "field", "Politics" }, { "male", 13 }, { "female", 11 } },
+        new Dictionary<string, object> { { "field", "Art" }, { "male", 19 }, { "female", 62 } },
+        new Dictionary<string, object> { { "field", "Sports" }, { "male", 49 }, { "female", 7 } }
+    };
+
+    List<Dictionary<string, object>> sourceData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "market", "Direct" }, { "revenue", 2873 }, { "value", 11 } },
+        new Dictionary<string, object> { { "market", "Partner" }, { "revenue", 7201 }, { "value", -9 } },
+        new Dictionary<string, object> { { "market", "Online" }, { "revenue", 1254 }, { "value", 27 } },
+        new Dictionary<string, object> { { "market", "Other" }, { "revenue", 901 }, { "value", 0.2 } },
+    };
+
+    ChartXAxis lineXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month"
+    };
+
+    List<ChartSeriesGroup> lineSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "sales", DisplayText = "Sales ($)", SymbolSize = 8, SymbolType = ChartSymbolType.Circle },
+                new ChartSeriesGroupSerie() { DataField = "orders", DisplayText = "Orders", SymbolSize = 8, SymbolType = ChartSymbolType.Circle, LineDashStyle = "5,4" }
+            }
+        }
+    };
+
+    ChartXAxis columnXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month",
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> columnSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "last", DisplayText = "Last year" },
+                new ChartSeriesGroupSerie() { DataField = "current", DisplayText = "This year" }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> donutSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Donut,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "revenue", DisplayText = "market", Radius = 120, InnerRadius = 80 }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> pieSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Pie,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "revenue", DisplayText = "market", Radius = 120 }
+            }
+        }
+    };
+
+    ChartXAxis interestsXAxis = new ChartXAxis()
+    {
+        DataField = "field",
+        DisplayText = "Field",
+        ValuesOnTicks = true,
+        Labels = new ChartLabels() { AutoRotate = true }
+    };
+
+    List<ChartSeriesGroup> spiderSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Spider = true,
+            StartAngle = 0,
+            EndAngle = 360,
+            Radius = 100,
+            Type = ChartType.Area,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "male", DisplayText = "Male", Radius = 2, LineWidth = 2, SymbolType = ChartSymbolType.Circle },
+                new ChartSeriesGroupSerie() { DataField = "female", DisplayText = "Female", Radius = 2, LineWidth = 2, SymbolType = ChartSymbolType.Diamond }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> polarSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Polar = true,
+            StartAngle = 0,
+            EndAngle = 360,
+            Radius = 120,
+            Type = ChartType.Column,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "male", DisplayText = "Male", Radius = 2, LineWidth = 2, SymbolType = ChartSymbolType.Circle },
+                new ChartSeriesGroupSerie() { DataField = "female", DisplayText = "Female", Radius = 2, LineWidth = 2, SymbolType = ChartSymbolType.Diamond }
+            }
+        }
+    };
+
+    List<string> customScheme = new List<string>() { "#007bff", "#17a2b8", "#ffc107", "#28a745", "#dc3545", "#6c757d" };
+
+    private void OnReady(Chart chart)
+    {
+        lineChart.AddColorScheme("custom", customScheme);
+        columnChart.AddColorScheme("custom", customScheme);
+        donutChart.AddColorScheme("custom", customScheme);
+        pieChart.AddColorScheme("custom", customScheme);
+        spiderChart.AddColorScheme("custom", customScheme);
+        polarChart.AddColorScheme("custom", customScheme);
+
+        lineChart.Refresh();
+        columnChart.Refresh();
+        donutChart.Refresh();
+        pieChart.Refresh();
+        spiderChart.Refresh();
+        polarChart.Refresh();
+    }
+}

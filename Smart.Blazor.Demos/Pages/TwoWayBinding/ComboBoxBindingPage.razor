@@ -1,0 +1,33 @@
+@page "/bind-combobox"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<h2>Forecasts Summary</h2>
+		<ComboBox  @bind-SelectedIndexes="@SelectedIndex">
+			@foreach (var forecast in forecasts)
+			{
+				<ListItem Label="@forecast.Summary.Trim()"></ListItem>
+			}
+		</ComboBox>
+        <h3>  The Selected index is: @SelectedIndex[0]  </h3>
+
+	}
+@code {
+	private WeatherForecast[] forecasts;
+
+	int[] SelectedIndex = new int[]{ 1 };
+
+
+    
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
+}

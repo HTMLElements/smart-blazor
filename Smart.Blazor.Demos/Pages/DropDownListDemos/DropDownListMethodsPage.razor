@@ -1,0 +1,147 @@
+﻿@page "/dropdownlist-methods"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        min-height: 35px;
+        height: auto;
+        width: 300px;
+    }
+</style>
+
+<Example Name="DropDownList">
+    <DropDownList @ref="dropdownlist" DataSource="dataSource" Sorted="@sorted" Grouped="@grouped" SelectionMode="@selectionMode" Disabled="@disabled" />
+
+    <div class="options">
+        <div class="option">Settings</div>
+        <div class="option">
+            <Button OnClick="OnUnsortClick">Unsort</Button>
+            <Button OnClick="OnSortClick">Sort</Button>
+            <br /><br />
+            <Button OnClick="OnUngroupClick">Ungroup</Button>
+            <Button OnClick="OnGroupClick">Group</Button>
+            <br /><br />
+            <Button OnClick="OnOpenClick">Open</Button>
+            <Button OnClick="OnCloseClick">Close</Button>
+            <br /><br />
+            <Button OnClick="OnDefaultClick">Default</Button>
+            <Button OnClick="OnCheckClick">Check</Button><br /><br />
+            <Button OnClick="OnRadioClick">Radio</Button>
+            <br /><br />
+            <Button OnClick="OnInsertClick">Insert</Button>
+            <Button OnClick="OnUpdateClick">Update</Button><br /><br />
+            <Button OnClick="OnRemoveClick">Remove</Button>
+            <br /><br />
+            <Button Style="width:auto;" OnClick="OnEnableDisableClick">Enable/Disable</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private DropDownList dropdownlist;
+    private bool sorted;
+    private bool grouped;
+    private bool disabled;
+    private ListSelectionMode selectionMode = ListSelectionMode.ZeroAndOne;
+
+    private List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Andrew" }, { "value", 1 }, { "group", "Product Owners" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Natalia" }, { "value", 2 }, { "group", "Developers" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Michael" }, { "value", 3 }, { "group", "Developers" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Angel" }, { "value", 4 }, { "group", "Product Owners" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Hristo" }, { "value", 5 }, { "group", "Developers" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Peter" }, { "value", 6 }, { "group", "Developers" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Albert" }, { "value", 7 }, { "group", "Support" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "George" }, { "value", 8 }, { "group", "Support" }
+        }
+    };
+
+    private void OnUnsortClick()
+    {
+        sorted = false;
+    }
+
+    private void OnSortClick()
+    {
+        sorted = true;
+    }
+
+    private void OnUngroupClick()
+    {
+        grouped = false;
+    }
+
+    private void OnGroupClick()
+    {
+        grouped = true;
+    }
+
+    private void OnOpenClick()
+    {
+        dropdownlist.Open();
+    }
+
+    private void OnCloseClick()
+    {
+        dropdownlist.Close();
+    }
+
+    private void OnDefaultClick()
+    {
+        selectionMode = ListSelectionMode.OneOrManyExtended;
+    }
+
+    private void OnCheckClick()
+    {
+        selectionMode = ListSelectionMode.CheckBox;
+    }
+
+    private void OnRadioClick()
+    {
+        selectionMode = ListSelectionMode.RadioButton;
+    }
+
+    private void OnInsertClick()
+    {
+        dropdownlist.Insert(0, "New Item");
+    }
+
+    private void OnUpdateClick()
+    {
+        dropdownlist.Update(0, "Updated Item");
+    }
+
+    private void OnRemoveClick()
+    {
+        dropdownlist.RemoveAt(0);
+    }
+
+    private void OnEnableDisableClick()
+    {
+        disabled = !disabled;
+    }
+}

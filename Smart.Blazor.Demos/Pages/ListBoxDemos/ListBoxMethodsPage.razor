@@ -1,0 +1,170 @@
+﻿@page "/listbox-methods"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-list-box {
+        width: 300px;
+        height: 500px;
+    }
+
+    @@media only screen and (max-width: 700px) {
+      body, html {
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+      }
+
+      smart-list-box {
+        width: 100%;
+        height: 100%;
+      }
+    }
+</style>
+
+<Example Name="ListBox">
+    <ListBox @ref="listbox" DataSource="dataSource" Sorted="@sorted" Grouped="@grouped" SelectionMode="@selectionMode" Disabled="@disabled"></ListBox>
+
+    <div class="options">
+        <div class="option">Methods</div>
+        <div class="option">
+            <Button OnClick="OnUnsortClick">Unsort</Button>
+            <Button OnClick="OnSortClick">Sort</Button>
+        </div>
+
+        <div class="option">
+            <Button OnClick="OnUngroupClick">Ungroup</Button>
+            <Button OnClick="OnGroupClick">Group</Button>
+        </div>
+
+        <div class="option">
+            <Button OnClick="OnDefaultClick">Default</Button>
+            <Button OnClick="OnCheckClick">Check</Button><br />
+            <Button OnClick="OnRadioClick">Radio</Button>
+        </div>
+
+        <div class="option">
+            <Button OnClick="OnInsertClick">Insert</Button>
+            <Button OnClick="OnUpdateClick">Update</Button><br />
+            <Button OnClick="OnRemoveClick">Remove</Button>
+        </div>
+
+        <div class="option">
+            <Button Style="width:auto;" OnClick="OnEnableDisableClick">Enable/Disable</Button><br />
+            <Button OnClick="OnClearItemsClick">Clear Items</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private ListBox listbox;
+    private bool sorted;
+    private bool grouped;
+    private bool disabled;
+    private ListSelectionMode selectionMode = ListSelectionMode.CheckBox;
+
+    private List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Andrew" }, { "value", 1 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Natalia" }, { "value", 5 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Michael" }, { "value", 4 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Angel" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Hristo" }, { "value", 6 }, { "group", "C" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Peter" }, { "value", 3 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Albert" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Boyko" }, { "value", 8 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Dimitar" }, { "value", 2 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "George" }, { "value", 10 }, { "group", "C" }
+        }
+    };
+
+    private void OnUnsortClick()
+    {
+        sorted = false;
+    }
+
+    private void OnSortClick()
+    {
+        sorted = true;
+    }
+
+    private void OnUngroupClick()
+    {
+        grouped = false;
+    }
+
+    private void OnGroupClick()
+    {
+        grouped = true;
+    }
+
+    private void OnDefaultClick()
+    {
+        selectionMode = ListSelectionMode.One;
+    }
+
+    private void OnCheckClick()
+    {
+        selectionMode = ListSelectionMode.CheckBox;
+    }
+
+    private void OnRadioClick()
+    {
+        selectionMode = ListSelectionMode.RadioButton;
+    }
+
+    private void OnInsertClick()
+    {
+        listbox.Insert(0, "New Item");
+    }
+
+    private void OnUpdateClick()
+    {
+        listbox.Update(0, "Updated Item");
+    }
+
+    private void OnRemoveClick()
+    {
+        listbox.RemoveAt(0);
+    }
+
+    private void OnEnableDisableClick()
+    {
+        disabled = !disabled;
+    }
+
+    private void OnClearItemsClick()
+    {
+        listbox.ClearItems();
+    }
+}

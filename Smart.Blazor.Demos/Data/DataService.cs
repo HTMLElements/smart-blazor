@@ -196,7 +196,67 @@ namespace Smart.Blazor.Demos.Data
 		public List<Dictionary<string, int>> Connections
 		{
 			get; set;
-		} = new List<Dictionary<string, int>>() {};
+		} = new List<Dictionary<string, int>>() { };
+
+		[JsonPropertyName("disableDrag")]
+		public bool DisableDrag
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("disableResize")]
+		public bool DisableResize
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("minDateStart")]
+		public string MinDateStart
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("maxDateStart")]
+		public string MaxDateStart
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("minDateEnd")]
+		public string MinDateEnd
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("maxDateEnd")]
+		public string MaxDateEnd
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("minDuration")]
+		public int MinDuration
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("maxDuration")]
+		public int MaxDuration
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("value")]
+		public int Value
+		{
+			get; set;
+		}
+
+		[JsonPropertyName("dragProject")]
+		public bool DragProject
+		{
+			get; set;
+		}
 	}
 
 	//public class GanttProjectsDataRecord : GanttDataRecord
@@ -220,7 +280,7 @@ namespace Smart.Blazor.Demos.Data
 	//	}
 	//}
 	public partial class CountryRecord
-    {
+	{
 		public int Id { get; set; }
 		public string Country { get; set; }
 		public int Area { get; set; }
@@ -233,7 +293,7 @@ namespace Smart.Blazor.Demos.Data
 		public int GDP_Total { get; set; }
 	}
 	public partial class EmployeeRecord
-    {
+	{
 		public int EmployeeID { get; set; }
 		public int? ReportsTo { get; set; }
 		public string FirstName { get; set; }
@@ -246,7 +306,7 @@ namespace Smart.Blazor.Demos.Data
 		public string BirthDate { get; set; }
 	}
 	public partial class StockRecord
-    {
+	{
 		public string Symbol { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
@@ -259,7 +319,7 @@ namespace Smart.Blazor.Demos.Data
 	}
 
 	public partial class OrderRecord
-    {
+	{
 		public string Id { get; set; }
 		public int? ParentId { get; set; }
 		public string Name { get; set; }
@@ -272,7 +332,7 @@ namespace Smart.Blazor.Demos.Data
 	}
 
 	public class SchedulerDataRecord
-    {
+	{
 		public DateTime DateStart { get; set; }
 		public DateTime DateEnd { get; set; }
 		public string Label { get; set; }
@@ -283,7 +343,7 @@ namespace Smart.Blazor.Demos.Data
 	public class RandomDataService
 	{
 		public List<SchedulerDataRecord> GenerateSchedulerData()
-        {
+		{
 			List<SchedulerDataRecord> dataSource = new List<SchedulerDataRecord>()
 			{
 				 new SchedulerDataRecord() {
@@ -579,7 +639,7 @@ namespace Smart.Blazor.Demos.Data
 
 			return dataSource;
 		}
-		
+
 		public List<KanbanDataRecord> GenerateKanbanData()
 		{
 			string[] text = new string[]{
@@ -797,7 +857,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<KanbanDataRecord> GenerateKanbanHierarchicalData()
-        {
+		{
 			List<KanbanDataRecord> data = new List<KanbanDataRecord>{
 				new KanbanDataRecord()
 				{
@@ -894,11 +954,11 @@ namespace Smart.Blazor.Demos.Data
 					Price = new Random().NextDouble() * 5 + 1,
 					Quantity = new Random().Next(10) + 1,
 					TimeOfPurchase = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28)),
-					Expired = new Random().NextDouble() > 0.5,					
+					Expired = new Random().NextDouble() > 0.5,
 					Attachments = ""
 				};
 
-				data.Url = "https://www." + (new Random().NextDouble() > 0.5 ? "htmlelements" : "jqwidgets") + ".com"; 
+				data.Url = "https://www." + (new Random().NextDouble() > 0.5 ? "htmlelements" : "jqwidgets") + ".com";
 				data.Email = data.FirstName.ToLower() + "@htmlelements.com";
 				data.Total = data.Price * data.Quantity;
 
@@ -936,11 +996,11 @@ namespace Smart.Blazor.Demos.Data
 				{
 					Id = i.ToString(),
 					ParentId = null,
-					Name = "Order " + i ,
+					Name = "Order " + i,
 					FirstName = firstNames[random.Next(firstNames.Length)],
 					LastName = lastNames[random.Next(lastNames.Length)],
 					Customer = companyNames[random.Next(companyNames.Length)],
-					Date = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28)) 
+					Date = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28))
 				};
 				data.Add(row);
 
@@ -965,7 +1025,7 @@ namespace Smart.Blazor.Demos.Data
 					};
 					data.Add(subRow);
 					totalPrice += quantity * price;
-					totalQuantity += quantity;					
+					totalQuantity += quantity;
 				}
 				row.Price = totalPrice;
 				row.Quantity = totalQuantity;
@@ -975,12 +1035,12 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<Dictionary<string, double>> GenerateNumbersData()
-        {
+		{
 			Random random = new Random();
 
 			List<Dictionary<string, double>> data = new List<Dictionary<string, double>>();
 			for (int i = 0; i < 20; i++)
-            {
+			{
 				Dictionary<string, double> row = new Dictionary<string, double>()
 				{
 					{ "A", Math.Round(random.NextDouble(), 2) },
@@ -996,11 +1056,11 @@ namespace Smart.Blazor.Demos.Data
 				};
 
 				data.Add(row);
-            }
+			}
 
 			return data;
-        }
-		
+		}
+
 		public List<GanttDataRecord> GenerateGanttData()
 		{
 			List<GanttDataRecord> records = new List<GanttDataRecord>()
@@ -1220,7 +1280,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<EmployeeRecord> GenerateEmployeesData()
-        {
+		{
 			List<EmployeeRecord> employees = new List<EmployeeRecord>()
 			{
 				new EmployeeRecord()
@@ -1346,7 +1406,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<Dictionary<string, object>> GenerateEmployeesNestedData()
-        {
+		{
 			List<Dictionary<string, object>> employees = new List<Dictionary<string, object>>()
 			{
 				new Dictionary<string, object>()
@@ -1608,7 +1668,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public CountryRecord GenerateCountry()
-        {
+		{
 			string[] countries = new string[] { "Bulgaria", "Germany", "France", "Japan", "China", "Italy", "Spain", "Portugal", "India", "Romania", "Russia", "Serbia", "Turkey", "Israel" };
 			Random random = new Random();
 

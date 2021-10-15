@@ -1,12 +1,11 @@
-﻿@page "/input"
+﻿@page "/input-basic"
 
 @using Smart.Blazor.Demos.Data
 @inject WeatherForecastService ForecastService
 
-<Example Name="Input">
-	<p>Press "a" to Open the Auto-complete dropdown</p>
-	<Input Value="@text" DataSource="items" Class="underlined" Placeholder="Some Text..." />
-</Example>
+<p>Press "a" to Open the Auto-complete dropdown</p>
+<Input Value="@text" DataSource="items" Class="underlined" Placeholder="Some Text..." />
+
 
 @code {
 	private WeatherForecast[] forecasts;

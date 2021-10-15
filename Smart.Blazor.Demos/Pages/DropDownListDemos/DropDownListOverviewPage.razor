@@ -1,0 +1,851 @@
+﻿@page "/dropdownlist-overview"
+
+<style>
+    /* This is the CSS used in the demo */
+    /* ------------ Google fonts ------------ */ /* APACHE LICENSE 2.0 ! */
+    
+    td p {
+        position: relative;
+        top: 5px;
+    }
+    
+    .smart-demo-container {
+        margin: 0px;
+    }
+    
+    .combos1 {
+        position: relative;
+        top: 5px;
+    }
+
+    /* fallback */
+    @@font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(https://fonts.gstatic.com/s/materialicons/v31/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+    }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: inherit;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ------------ */
+
+    #materialDropDownListContainer {
+        margin: 0px;
+        line-height: 24px;
+        font-size: 13px;
+        margin-left: 0;
+    }
+    #materialDropDownListContainer section h2 {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        margin-bottom: 30px;
+        color: #764ebe;
+    }
+        #materialDropDownListContainer section h1 {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 40px;
+            margin-bottom: 30px;
+            color: #3949ab;
+        }
+
+        #materialDropDownListContainer section:first-of-type h1 {
+            font-size: 34px;
+        }
+
+        #materialDropDownListContainer section:first-of-type div h1 {
+            font-size: 20px;
+        }
+
+        #materialDropDownListContainer section {
+            margin-top: 80px;
+        }
+
+            #materialDropDownListContainer section:first-of-type {
+                margin-top: 0;
+            }
+
+            #materialDropDownListContainer section div h1 {
+                color: #212121;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 32px;
+                margin-bottom: 30px;
+                max-width: 940px;
+            }
+
+        #materialDropDownListContainer nav {
+            display: block;
+            border-left: 5px #3949ab solid;
+            padding-left: 20px;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            -webkit-font-smoothing: antialiased;
+            font: inherit;
+            margin-top: 60px;
+        }
+
+            #materialDropDownListContainer nav ul {
+                list-style: none;
+                margin-top: 0;
+                padding-left: 0;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                display: block;
+                list-style-type: disc;
+            }
+
+            #materialDropDownListContainer nav li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+                font-size: 20px;
+                line-height: 40px;
+            }
+
+                #materialDropDownListContainer nav li a {
+                    text-decoration: none;
+                }
+
+            #materialDropDownListContainer nav h1 {
+                font-size: 15px;
+                line-height: 16px;
+                padding-bottom: 12px;
+                font-weight: 400;
+                color: #757575;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                -webkit-margin-before: 1em;
+                -webkit-margin-after: 1em;
+                -webkit-margin-start: 0px;
+                -webkit-margin-end: 0px;
+            }
+
+    .module {
+        width: calc(100% / 4);
+        display: inline-block;
+        font: inherit;
+        margin-right: 40px;
+        min-width: 355px;
+        vertical-align: top;
+    }
+
+        .module h3 {
+            font-size: 13px;
+        }
+
+        .module p {
+            margin-bottom: 20px;
+        }
+
+        .module img {
+            width: 100%;
+        }
+
+        .module h2 {
+            font-weight: 400;
+        }
+
+    #materialDropDownListContainer section:first-of-type .module:first-of-type {
+        width: calc(100% / 2 + 45px);
+    }
+
+    #materialDropDownListContainer section:first-of-type .module:nth-of-type(4) {
+        margin-top: 40px;
+    }
+
+    #materialDropDownListContainer .preview smart-button {
+        position: absolute;
+        top: 35%;
+        width: 65px;
+        height: 65px;
+        left: 79%;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+        #materialDropDownListContainer .preview smart-button .material-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    #materialDropDownListContainer .preview smart-drop-down-list {
+        --smart-drop-down-element-height: auto;
+        --smart-drop-down-list-default-width: 30%;
+    }
+
+    #materialDropDownListContainer .preview #textFields {
+        width: 80%;
+        position: absolute;
+        left: 15%;
+        top: 46%;
+        height: 46%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #materialDropDownListContainer #textFields > span {
+        text-align: start;
+        border-bottom: 1px solid lightgray;
+        height: 40px;
+        line-height: 4;
+    }
+
+    #materialDropDownListContainer .preview .group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        margin-top: 10px;
+    }
+
+    #materialDropDownListContainer #textFields > span:nth-of-type(2),
+    #materialDropDownListContainer #textFields > span:nth-of-type(3) {
+        margin-top: 10px;
+    }
+
+    #materialDropDownListContainer .preview .group > span {
+        height: 100%;
+        text-align: start;
+        border-bottom: 1px solid lightgray;
+        width: 65%;
+        line-height: 4;
+        margin-right: 5%;
+    }
+
+    #materialDropDownListContainer #tankUsage .module h3,
+    #materialDropDownListContainer #discreteTanks .module h3 {
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    #materialDropDownListContainer #usage .dropDownListUsage,
+    #materialDropDownListContainer #style .dropDownListLightTheme,
+    #materialDropDownListContainer #style .dropDownListDarkTheme,
+    #materialDropDownListContainer #dropDownListSelectionModes .dropDownSelections,
+    #materialDropDownListContainer #dropDownListOpenModes .dropDownOpenModes {
+        width: calc(100% / 2 + 45px);
+        height: 300px;
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+
+    #materialDropDownListContainer #style .dropDownListLightTheme {
+        margin-top: 0;
+    }
+
+    #materialDropDownListContainer #style .dropDownListDarkTheme {
+        background-color: #000;
+    }
+
+    #materialDropDownListContainer #style .module:nth-of-type(3) {
+        margin-top: 50px;
+    }
+
+    #materialDropDownListContainer #style th,
+    #materialDropDownListContainer #dropDownListSelectionModes th,
+    #materialDropDownListContainer #dropDownListOpenModes th {
+        padding-left: 15px;
+    }
+
+    #materialDropDownListContainer .dropDownListUsage smart-drop-down-list,
+    #materialDropDownListContainer #style smart-drop-down-list {
+        --smart-drop-down-element-height: auto;
+    }
+
+    #materialDropDownListContainer #continuousTanks .module:first-of-type,
+    #materialDropDownListContainer #discreteTanks .module:first-of-type {
+        width: calc(100% - 280px);
+    }
+
+    #materialDropDownListContainer #continuousTanks .module:nth-child(2),
+    #materialDropDownListContainer #discreteTanks .module:nth-child(2) {
+        display: block;
+    }
+
+    #materialDropDownListContainer #continuousTanks .continuousTankDarkTheme,
+    #materialDropDownListContainer #discreteTanks .dropDownListDarkTheme {
+        background-color: #000;
+    }
+
+    #materialDropDownListContainer .dropDownListUsage table,
+    #materialDropDownListContainer .continuousTankLightTheme table,
+    #materialDropDownListContainer .continuousTankDarkTheme table,
+    #materialDropDownListContainer .dropDownListLightTheme table,
+    #materialDropDownListContainer .dropDownListDarkTheme table,
+    #materialDropDownListContainer .dropDownSelections table,
+    #materialDropDownListContainer .dropDownOpenModes table {
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+        text-align: justify;
+    }
+
+    #materialDropDownListContainer .continuousTankLightTheme table,
+    #materialDropDownListContainer .dropDownListLightTheme table,
+    #materialDropDownListContainer .dropDownOpenModes table,
+    #materialDropDownListContainer .dropDownSelections table {
+        background-color: #EEEEEE;
+    }
+
+
+
+    #materialDropDownListContainer #continuousTanks .module:nth-child(3),
+    #materialDropDownListContainer #continuousTanks .module:nth-child(5),
+    #materialDropDownListContainer #discreteTanks .module:nth-child(3) {
+        margin-top: 50px;
+    }
+
+    #materialDropDownListContainer #continuousTanks .module:first-of-type,
+    #materialDropDownListContainer #discreteTanks .module:first-of-type {
+        width: calc(100% - 280px);
+    }
+
+    #materialDropDownListContainer #style h1:first-of-type,
+    #materialDropDownListContainer #dropDownListSelectionModes h1:first-of-type,
+    #materialDropDownListContainer #dropDownListOpenModes h1:first-of-type,
+    #materialDropDownListContainer #demoDropDown h1:first-of-type {
+        border-top: 1px solid rgba(0,0,0,.12);
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        margin-bottom: 30px;
+        color: #3949ab;
+        padding-top: 80px;
+        width: calc(100% - 280px);
+    }
+
+    #materialDropDownListContainer #dropDownListSelectionModes .dropDownSelections,
+    #materialDropDownListContainer #dropDownListOpenModes .dropDownOpenModes,
+    #materialDropDownListContainer #dropDownListSelectionModes .discreteScaleSlider {
+        height: 200px;
+        margin-top: initial;
+    }
+
+    #dropDownListSelectionModes .discreteScaleSlider > div {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100%;
+    }
+
+    #materialDropDownListContainer #verticalTanks .module:nth-of-type(2) > div,
+    #materialDropDownListContainer #verticalTanks .module:nth-of-type(3) > div {
+        display: flex;
+        justify-content: space-evenly;
+        align-content: center;
+        background-color: #EEEEEE;
+        padding: 20px;
+        height: 225px;
+    }
+
+    #materialDropDownListContainer section:first-of-type .module:nth-of-type(4) {
+        position: relative;
+        color: #757575;
+        background-image: url(../../images/components-buttons-mobile.png);
+        height: 650px;
+        background-color: #EEEEEE;
+        text-align: center;
+        background-size: cover;
+        background-position: center;
+        margin-right: 0;
+    }
+
+    #materialDropDownListContainer #demoDropDown .media-controls h2,
+    #materialDropDownListContainer #demoDropDown .power-controls h2 {
+        color: black;
+        margin-bottom: 20%;
+        -webkit-margin-before: 0;
+    }
+
+    #materialDropDownListContainer #demoDropDown .media-controls > div > div,
+    #materialDropDownListContainer #demoDropDown .power-controls > div > div {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-bottom: 3%;
+        width: 100%;
+    }
+
+    #materialDropDownListContainer #demoDropDown .power-controls > div > div {
+        margin-bottom: 10%;
+    }
+
+    #materialDropDownListContainer #demoDropDown .power-controls .controls {
+        margin-top: 5%;
+    }
+
+    #materialDropDownListContainer #demoDropDown .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    #materialDropDownListContainer #demoDropDown .media-controls .material-icons,
+    #materialDropDownListContainer #demoDropDown .power-controls .material-icons {
+        font-size: 50px;
+    }
+
+    #materialDropDownListContainer #dropDownListSelectionModes smart-drop-down-list,
+    #materialDropDownListContainer #dropDownListOpenModes smart-drop-down-list {
+        --smart-drop-down-element-height: auto;
+    }
+
+    #materialDropDownListContainer .shipping {
+        background-color: #EEEEEE;
+        padding: 10px;
+    }
+
+    #materialDropDownListContainer .welcome {
+        background-color: #000;
+        height: 600px;
+        padding: 10px;
+    }
+
+        #materialDropDownListContainer .welcome > div {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: calc(100% - 60px);
+            padding: 30px;
+            background-color: #1976D2;
+        }
+
+        #materialDropDownListContainer .welcome h2 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 35px;
+            color: white;
+        }
+
+        #materialDropDownListContainer .welcome smart-drop-down-list {
+            margin-top: 150px;
+        }
+
+            #materialDropDownListContainer .welcome smart-drop-down-list {
+                margin-top: 150px;
+            }
+
+        #materialDropDownListContainer .welcome smart-button:first-of-type {
+            margin-top: 50px;
+            min-height: 40px;
+        }
+
+        #materialDropDownListContainer .welcome smart-button:last-of-type {
+            margin-top: 100px;
+        }
+
+            #materialDropDownListContainer .welcome smart-button:last-of-type button {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+    #materialDropDownListContainer .shipping > div {
+        height: 300px;
+        background-color: white;
+        border: 1px solid lightgray;
+        padding: 25px;
+        border-radius: 2px;
+        box-shadow: 0.5px 1px 1px lightgrey;
+    }
+
+    #materialDropDownListContainer .shipping h2 {
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    #materialDropDownListContainer .shipping .name,
+    #materialDropDownListContainer .shipping .email,
+    #materialDropDownListContainer .shipping .address > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        height: 30px;
+    }
+
+        #materialDropDownListContainer .shipping .name i,
+        #materialDropDownListContainer .shipping .email i,
+        #materialDropDownListContainer .shipping .address i {
+            width: 15px;
+            margin-right: 15px;
+        }
+
+        #materialDropDownListContainer .shipping .name > span,
+        #materialDropDownListContainer .shipping .email > span,
+        #materialDropDownListContainer .shipping .address > div:first-of-type > span {
+            border-bottom: 1px solid lightgrey;
+            width: calc(100% - 30px);
+        }
+
+        #materialDropDownListContainer .shipping .address > div:first-of-type > span {
+            line-height: 3;
+        }
+
+        #materialDropDownListContainer .shipping .address > div:not(:first-of-type) > span:first-of-type {
+            border-bottom: 1px solid lightgrey;
+            width: 50%;
+            margin-left: 30px;
+            padding: 2px;
+            line-height: 3;
+        }
+
+        #materialDropDownListContainer .shipping .address > div:not(:first-of-type) > span {
+            border-bottom: 1px solid lightgrey;
+            width: 55px;
+            margin-left: 2.5%;
+            padding: 2px;
+            line-height: 3;
+        }
+
+    #materialDropDownListContainer .shipping .address smart-drop-down-list {
+        --smart-drop-down-list-default-height: 25px;
+        margin-left: 2.5%;
+    }
+
+    #materialDropDownListContainer .shipping .address smart-drop-down-list .smart-drop-down-button {
+        padding: 12px;
+    }
+
+        #materialDropDownListContainer .shipping .address smart-drop-down-list:not([focused]) .smart-label {
+            top: calc(var(--smart-label-height) - 2px);
+        }
+
+    #materialDropDownListContainer .shipping .address > div > span {
+        height: 100%;
+    }
+
+    #materialDropDownListContainer .buttons {
+        height: 30px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 50px;
+    }
+
+        #materialDropDownListContainer .buttons smart-button {
+            height: 100%;
+            margin-left: 10px;
+        }
+</style>
+
+<Example Name="DropDownList">
+    <div id="materialDropDownListContainer">
+        <section>
+            <div>
+                <h2>Smart HTML DropDownList is a form control that allows selecting a value from a drop down list.</h2>
+                <div class="module">
+                    <p>
+                        A dropdown list selects between multiple selections. It displays the current state and a down/up arrow.
+                        Available states may be shown as a list of strings, a palette, or icons, for example.
+                    </p>
+                    <p>
+                        When a user interacts with the dropDown, a menu can appear over, under or below the drop down list and displays the possible states.
+                        Pressing a state dismisses the menu if the selection is single and updates the button to display this new state.
+                    </p>
+                    <p>Scrolling within the dropdown behaves the same way a menu scrolls.</p>
+                </div>
+                <div style="height: 5px;" class="module">
+                    <figure style="visibility: hidden;">
+                        <img alt="" src="./images/components-buttons.png">
+                    </figure>
+                </div>
+                <div class="module">
+                </div>
+                <div class="module preview">
+                    <Button Class="floating primary"><i class="material-icons">photo_camera</i></Button>
+                    <div id="textFields">
+                        <span>Name</span>
+                        <div class="group">
+                            <span>Phone</span>
+                            <DropDownList Class="combos1 " SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.One">
+                                <ListItem>Mobile</ListItem>
+                                <ListItem>Home</ListItem>
+                                <ListItem>Work</ListItem>
+                            </DropDownList>
+                        </div>
+                        <div class="group">
+                            <span>Email</span>
+                            <DropDownList Class="combos1 " SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.One">
+                                <ListItem>Work</ListItem>
+                                <ListItem>Mobile</ListItem>
+                                <ListItem>Home</ListItem>
+                            </DropDownList>
+                        </div>
+                        <div class="group">
+                            <span>Address</span>
+                            <DropDownList Class="combos1 " SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.One">
+                                <ListItem>Home</ListItem>
+                                <ListItem>Mobile</ListItem>
+                                <ListItem>Work</ListItem>
+                            </DropDownList>
+                        </div>
+                        <span>Ringtone</span>
+                        <span>Add note</span>
+                    </div>
+                </div>
+                <div class="module">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="module">
+                <h2>Generic overflow DropDownList</h2>
+                <p>
+                    The generic overflow DropDownList displays an arrow by default. When the button is pressed, the menu appears.
+                    Pressing an option on the menu navigates to further settings for that option.
+                </p>
+                <br />
+                <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom">
+                    <ListItem>Arial</ListItem>
+                    <ListItem Selected>Calibri</ListItem>
+                    <ListItem>Courier</ListItem>
+                    <ListItem>Verdana</ListItem>
+                </DropDownList>
+            </div>
+        </section>
+
+        <section id="style">
+            <h2>Style</h2>
+            <div class="module dropDownListLightTheme">
+                <table>
+                    <tr>
+                        <td><p>Normal</p></td>
+                        <td>
+                            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom">
+                                <ListItem Selected>Home</ListItem>
+                                <ListItem>Mobile</ListItem>
+                                <ListItem>Work</ListItem>
+                                <ListItem>Business</ListItem>
+                                <ListItem>Personal</ListItem>
+                            </DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Disabled</p></td>
+                        <td>
+                            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" Disabled>
+                                <ListItem>Home</ListItem>
+                                <ListItem>Mobile</ListItem>
+                                <ListItem>Work</ListItem>
+                                <ListItem>Business</ListItem>
+                                <ListItem Selected>Personal</ListItem>
+                            </DropDownList>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="dropDownListOpenModes">
+            <h2>Open Directions</h2>
+            <div class="module">
+                <p>Smart.DropDownList has a number of opening directions but the most popular are "bottom", "overlay-center" and "top".</p>
+            </div>
+            <div class="module dropDownOpenModes">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Bottom</td>
+                            <td>
+                                <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom">
+                                    <ListItem>Africa</ListItem>
+                                    <ListItem Selected>America</ListItem>
+                                    <ListItem>Asia</ListItem>
+                                    <ListItem>Europe</ListItem>
+                                </DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Overlay-center</td>
+                            <td>
+                                <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.OverlayCenter">
+                                    <ListItem>Yogurt</ListItem>
+                                    <ListItem Selected>Honey</ListItem>
+                                    <ListItem>Strawberries</ListItem>
+                                </DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Top</td>
+                            <td>
+                                <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Top">
+                                    <ListItem>Peanuts</ListItem>
+                                    <ListItem Selected>Hazelnuts</ListItem>
+                                    <ListItem>Almonds</ListItem>
+                                </DropDownList>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="dropDownListSelectionModes">
+            <h2>Selection Modes</h2>
+            <div class="module">
+                <p>Smart.DropDownList has a variaty of selection modes allowing single or multiple item selection.</p>
+            </div>
+            <div>One(Selection of single item)</div>
+            <br />
+            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom">
+                <ListItem Selected>State 1</ListItem>
+                <ListItem>State 2</ListItem>
+                <ListItem>State 3</ListItem>
+            </DropDownList>
+            <br />
+            <div>oneOrManyExtended - allows selection with shift and ctrl.</div>
+            <br />
+            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.OneOrManyExtended">
+                <ListItem>State 1</ListItem>
+                <ListItem Selected>State 2</ListItem>
+                <ListItem>State 3</ListItem>
+            </DropDownList>
+            <br />
+            <div>checkBox</div>
+            <br />
+            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.CheckBox">
+                <ListItem>Item 1</ListItem>
+                <ListItem Selected>Item 2</ListItem>
+                <ListItem>Item 3</ListItem>
+            </DropDownList>
+            <br />
+            <div>radioButton</div>
+            <br />
+            <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.Bottom" SelectionMode="ListSelectionMode.RadioButton">
+                <ListItem>Item 1</ListItem>
+                <ListItem Selected>Item 2</ListItem>
+                <ListItem>Item 3</ListItem>
+            </DropDownList>
+            <br />
+
+            <p>Additional selection modes are "zeroOrOne", "OneOrMany", "zeroOrMany" and "none"</p>
+        </section>
+
+        <section id="demoDropDown">
+            <h2>Demo</h2>
+            <div class="module">
+                <p>DropDownListes are controls that are used for making a selection from a list of options.</p>
+            </div>
+            <div class="module shipping">
+                <div>
+                    <h2>Edit shipping info</h2>
+                    <div>
+                        <div class="name">
+                            <i class="material-icons">&#xE7FD;</i>
+                            <span>John Williams</span>
+                        </div>
+                        <div class="address">
+                            <div>
+                                <i class="material-icons">&#xE55F;</i>
+                                <span>2000 Main Street</span> <br />
+                            </div>
+                            <div>
+                                <span>Hoboken</span>
+                                <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.OverlayCenter">
+                                    <ListItem>NJ</ListItem>
+                                    <ListItem Selected>DE</ListItem>
+                                    <ListItem>FL</ListItem>
+                                    <ListItem>NH</ListItem>
+                                    <ListItem>GA</ListItem>
+                                    <ListItem>IN</ListItem>
+                                    <ListItem>HI</ListItem>
+                                    <ListItem>CT</ListItem>
+                                    <ListItem>NM</ListItem>
+                                    <ListItem>ID</ListItem>
+                                    <ListItem>KS</ListItem>
+                                    <ListItem>LA</ListItem>
+                                    <ListItem>KY</ListItem>
+                                    <ListItem>CO</ListItem>
+                                    <ListItem>NE</ListItem>
+                                    <ListItem>OH</ListItem>
+                                    <ListItem>SC</ListItem>
+                                    <ListItem>RI</ListItem>
+                                    <ListItem>TX</ListItem>
+                                    <ListItem>WA</ListItem>
+                                </DropDownList>
+                                <span>94122</span>
+                            </div>
+                        </div>
+                        <div class="email">
+                            <i class="material-icons">&#xE0BE;</i>
+                            <span>Email</span>
+                        </div>
+                        <div class="buttons">
+                            <Button Class="material flat">Cancel</Button>
+                            <Button Class="material flat" Disabled>Done</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="module welcome">
+                <div>
+                    <h2>Welcome</h2>
+                    <DropDownList SelectedIndexes="new int[] { 0 }" DropDownPosition="DropDownPosition.OverlayCenter" 
+                                  SelectionMode="ListSelectionMode.ZeroOrOne" Placeholder="Select Language">
+                        <ListItem>English(US)</ListItem>
+                        <ListItem>English(UK)</ListItem>
+                        <ListItem>English(AU)</ListItem>
+                        <ListItem>English(IN)</ListItem>
+                        <ListItem>Czech</ListItem>
+                        <ListItem>Dutch</ListItem>
+                        <ListItem>French</ListItem>
+                        <ListItem>German(DE)</ListItem>
+                        <ListItem>German(AT)</ListItem>
+                        <ListItem>Italian</ListItem>
+                        <ListItem>Japanase</ListItem>
+                        <ListItem>Korean</ListItem>
+                        <ListItem>Polish</ListItem>
+                        <ListItem>Russian</ListItem>
+                        <ListItem>Spanish</ListItem>
+                        <ListItem>Arabic(EG)</ListItem>
+                        <ListItem>Arabic(IL)</ListItem>
+                        <ListItem>Bulgarian</ListItem>
+                        <ListItem>Croatian</ListItem>
+                        <ListItem>Danish</ListItem>
+                        <ListItem>Finnish</ListItem>
+                        <ListItem>Romanian</ListItem>
+                        <ListItem>Swedish</ListItem>
+                        <ListItem>Thai</ListItem>
+                        <ListItem>Turkish</ListItem>
+                        <ListItem>Ukrainian</ListItem>
+                        <ListItem>Vietnamese</ListItem>
+                    </DropDownList>
+                    <Button Class="floating"><i class="material-icons">&#xE5C8;</i></Button>
+                    <Button Class="raised error"><i class="material-icons">&#xE0CD;</i><span>EMERGENCY</span></Button>
+                </div>
+            </div>
+        </section>
+    </div>
+</Example>

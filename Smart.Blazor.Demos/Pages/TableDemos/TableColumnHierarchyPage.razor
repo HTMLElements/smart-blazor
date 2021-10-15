@@ -24,7 +24,7 @@
         height: 600px;
     }
 </style>
-<Example Name="Table">
+
     <p>This demo showcases column hierarchy in smart-table.</p>
 
     @if (dataRecords == null)
@@ -35,7 +35,7 @@
     {
         <Table DataSource="dataRecords" ColumnReorder="true" FreezeHeader="true" Columns="@columns" ColumnGroups="@columnGroups"></Table>           
     }
-</Example>
+
 
 @code {   
     private List<DataRecord> dataRecords;

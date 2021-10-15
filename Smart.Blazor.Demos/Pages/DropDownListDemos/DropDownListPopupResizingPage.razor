@@ -1,0 +1,113 @@
+﻿@page "/dropdownlist-popup-resizing"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        position: relative;
+        top: 260px;
+        min-height: 35px;
+        height: auto;
+    }
+
+        smart-drop-down-list .smart-drop-down {
+            --smart-drop-down-element-max-height: 250px;
+        }
+
+    html, body {
+        min-height: 900px;
+    }
+</style>
+
+<Example Name="DropDownList">
+    <div class="options">
+        <div class="caption">
+            Resize Mode
+        </div>
+        <div class="option">
+            <RadioButton GroupName="resize" OnCheckValue="OnNoneChecked">None</RadioButton><br /><br />
+            <RadioButton GroupName="resize" OnCheckValue="OnHorizontalChecked">Horizontal</RadioButton><br /><br />
+            <RadioButton GroupName="resize" OnCheckValue="OnBothChecked">Both</RadioButton><br /><br />
+            <RadioButton @ref="verticalRadioButton" GroupName="resize" OnCheckValue="OnVerticalChecked">Vertical</RadioButton><br /><br />
+        </div>
+        <div class="caption">
+            DropDown position
+        </div>
+        <div class="option">
+            <RadioButton @ref="bottomRadioButton" GroupName="position" OnCheckValue="OnBottomChecked">Bottom</RadioButton>
+            <RadioButton GroupName="position" OnCheckValue="OnTopChecked">Top</RadioButton>
+        </div>
+    </div>
+
+    <DropDownList SelectedIndexes="selectedIndexes" ResizeMode="@resizeMode" DropDownPosition="@dropDownPosition" OnReady="OnReady">
+        <ListItem Value="Afghanistan">Afghanistan</ListItem>
+        <ListItem Selected Value="Albania">Albania</ListItem>
+        <ListItem Value="Algeria">Algeria</ListItem>
+        <ListItem Value="American Samoa">American Samoa</ListItem>
+        <ListItem Value="Andorra">Andorra</ListItem>
+        <ListItem Value="Angola">Angola</ListItem>
+        <ListItem Value="Anguilla">Anguilla</ListItem>
+        <ListItem Value="Antarctica">Antarctica</ListItem>
+        <ListItem Value="Antigua and Barbuda">Antigua and Barbuda</ListItem>
+        <ListItem Value="Argentina">Argentina</ListItem>
+        <ListItem Value="Armenia">Armenia</ListItem>
+        <ListItem Value="Aruba">Aruba</ListItem>
+        <ListItem Value="Australia">Australia</ListItem>
+        <ListItem Value="Austria">Austria</ListItem>
+        <ListItem Value="Azerbaijan">Azerbaijan</ListItem>
+        <ListItem Value="Bahamas">Bahamas</ListItem>
+        <ListItem Value="Bahrain">Bahrain</ListItem>
+        <ListItem Value="Bangladesh">Bangladesh</ListItem>
+        <ListItem Value="Barbados">Barbados</ListItem>
+        <ListItem Value="Belarus">Belarus</ListItem>
+        <ListItem Value="Belgium">Belgium</ListItem>
+        <ListItem Value="Belize">Belize</ListItem>
+        <ListItem Value="Benin">Benin</ListItem>
+        <ListItem Value="Bermuda">Bermuda</ListItem>
+        <ListItem Value="Bhutan">Bhutan</ListItem>
+    </DropDownList>
+</Example>
+
+@code {
+    RadioButton verticalRadioButton;
+    RadioButton bottomRadioButton;
+
+    private ResizeMode resizeMode = ResizeMode.Vertical;
+    private int[] selectedIndexes = new int[] { 0 };
+    private DropDownPosition dropDownPosition = DropDownPosition.Bottom;
+
+    private void OnReady(DropDownList list)
+    {
+        verticalRadioButton.Checked = true;
+        bottomRadioButton.Checked = true;
+    }
+
+    private void OnNoneChecked()
+    {
+        resizeMode = ResizeMode.None;
+    }
+
+    private void OnHorizontalChecked()
+    {
+        resizeMode = ResizeMode.Horizontal;
+    }
+
+    private void OnBothChecked()
+    {
+        resizeMode = ResizeMode.Both;
+    }
+
+    private void OnVerticalChecked()
+    {
+        resizeMode = ResizeMode.Vertical;
+    }
+
+    private void OnBottomChecked()
+    {
+        dropDownPosition = DropDownPosition.Bottom;
+    }
+
+    private void OnTopChecked()
+    {
+        dropDownPosition = DropDownPosition.Top;
+    }
+}

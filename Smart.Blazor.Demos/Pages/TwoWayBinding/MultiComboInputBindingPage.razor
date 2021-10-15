@@ -1,0 +1,29 @@
+@page "/bind-multicomboinput"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<h2>Forecasts Summary</h2>
+		<MultiComboInput  @bind-Value="@MultiComboInputValue" DropDownButtonPosition="DropDownButtonPosition.Right" DataSource="@summaries"></MultiComboInput >
+        <br/>
+        <h3>Input Value (Type words like - chilly, sweltering or warm): @MultiComboInputValue </h3>
+    }
+@code {
+
+	string MultiComboInputValue = "";
+
+	private WeatherForecast[] forecasts;
+	private string[] summaries;
+    
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+		summaries = forecasts.Select(item => item.Summary).ToArray();
+	}
+}

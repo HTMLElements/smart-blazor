@@ -1,0 +1,346 @@
+﻿@page "/tables"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    .actions-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .actions-container .material-icons {
+            cursor: pointer;
+        }
+
+            .actions-container .material-icons:hover {
+                color: var(--smart-primary);
+            }
+
+    .color-box-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .color-box {
+        margin-right: 5px !important;
+        width: 10px;
+        min-width: 10px;
+        height: 10px;
+    }
+
+        .color-box.direct {
+            background-color: #16736F;
+        }
+
+        .color-box.partner {
+            background-color: #A2D56A;
+        }
+
+        .color-box.online {
+            background-color: #1C515C;
+        }
+
+        .color-box.facebook {
+            background-color: #1877f2;
+        }
+
+        .color-box.google {
+            background-color: #DB4437;
+        }
+
+        .color-box.other {
+            background-color: #62B773;
+        }
+
+    .positive {
+        color: forestgreen;
+    }
+
+    .negative {
+        color: orangered;
+    }
+
+    #hoverableTable th[data-field="Image"], #hoverableTable td[data-field="Image"] {
+        width: 50px !important;
+    }
+
+    #coloredTable tr[row-id="2"] {
+        background-color: var(--smart-primary);
+        color: var(--smart-primary-color);
+    }
+     
+    #coloredTable tr[row-id="4"] {
+        background-color: var(--smart-success);
+        color: var(--smart-success-color);
+    }
+
+    #spreadsheetTable {
+        height: 300px;
+    }
+
+        #spreadsheetTable thead th,
+        #spreadsheetTable tbody td {
+            border-right: var(--smart-border-width) solid var(--smart-border);
+        }
+</style>
+<Example Name="Table">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Tables</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Basic Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="basicTable" Tooltip>
+                            <tr hidden>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var record in dataRecords)
+                            {
+                                <tr hidden>
+                                    <td>@record.FirstName</td>
+                                    <td>@record.LastName</td>
+                                    <td>@record.Quantity</td>
+                                    <td>@record.TimeOfPurchase</td>
+                                    <td><div class="actions-container"><span class="material-icons">edit</span><span class="material-icons">delete_forever</span></div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Striped Rows</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="stripedTable" Class="table-striped">
+                            <tr hidden>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var record in dataRecords)
+                            {
+                                <tr hidden>
+                                    <td>@record.FirstName</td>
+                                    <td>@record.LastName</td>
+                                    <td>@record.Quantity</td>
+                                    <td>@record.TimeOfPurchase</td>
+                                    <td><div class="actions-container"><span class="material-icons">edit</span><span class="material-icons">delete_forever</span></div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Condensed Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="condensedTable" Class="small-table table-striped">
+                            <tr hidden>
+                                <th>Market</th>
+                                <th>Revenue</th>
+                                <th>Value</th>
+                            </tr>
+                            @foreach (var data in weeklyData)
+                            {
+                                <tr hidden>
+                                    <td><div class="color-box-container"><div class="color-box @data["market"].ToString().ToLower()"></div>@data["market"]</div></td>
+                                    <td>$ @data["revenue"]</td>
+                                    <td><div class="@((float.Parse(data["value"].ToString()) > 0 ? "positive" : "negative"))">@data["value"] % </div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Hoverable Rows</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="hoverableTable" Class="table-hover" Tooltip>
+                            <tr hidden>
+                                <th style="width: 25px;" class="image">Image</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                            </tr>
+                            @foreach (var data in clientsData)
+                            {
+                                <tr hidden>
+                                    <td class="image">
+                                        <div class="img-as-background rounded-circle square border">
+                                            <img style="width: 25px; height: 25px;" src="./images/phonebook/@((data["image"])).png" />
+                                        </div>
+                                    </td>
+                                    <td>@data["name"]</td>
+                                    <td>@data["company"]</td>
+                                    <td>@data["email"]</td>
+                                </tr>
+                            }
+                        </Table>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Bordered Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="borderedTable" Class="table-bordered">
+                            <tr hidden>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var record in dataRecords)
+                            {
+                                <tr hidden>
+                                    <td>@record.FirstName</td>
+                                    <td>@record.LastName</td>
+                                    <td>@record.Quantity</td>
+                                    <td>@record.TimeOfPurchase</td>
+                                    <td><div class="actions-container"><span class="material-icons">edit</span><span class="material-icons">delete_forever</span></div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Contextual Row Colors</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="coloredTable">
+                            <tr hidden>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var record in dataRecords)
+                            {
+                                <tr hidden>
+                                    <td>@record.FirstName</td>
+                                    <td>@record.LastName</td>
+                                    <td>@record.Quantity</td>
+                                    <td>@record.TimeOfPurchase</td>
+                                    <td><div class="actions-container"><span class="material-icons">edit</span><span class="material-icons">delete_forever</span></div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">Spreadsheet Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="spreadsheetTable" FreezeHeader KeyboardNavigation>
+                            <tr hidden>
+                                @foreach (var col in spreadsheetColumns)
+                                {
+                                    <th>@col</th>
+                                }
+                            </tr>
+                            @foreach (var row in spreadsheetData)
+                            {
+                                <tr hidden>
+                                    @foreach (var cell in row)
+                                    {
+                                        <td>@cell</td>
+                                    }
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private List<DataRecord> dataRecords;
+
+    private List<Dictionary<string, object>> weeklyData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "market", "Direct" }, { "revenue", 2873 }, { "value", 11 } },
+        new Dictionary<string, object> { { "market", "Partner" }, { "revenue", 7201 }, { "value", -9 } },
+        new Dictionary<string, object> { { "market", "Online" }, { "revenue", 1254 }, { "value", 27 } },
+        new Dictionary<string, object> { { "market", "Other" }, { "revenue", 901 }, { "value", 0.2 } },
+    };
+
+    private List<Dictionary<string, object>> clientsData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "image", "avril" }, { "name", "Marcia Gomez" }, { "company", "Sandy Lake" }, { "email", "marcia.gomez@example.com" }, { "status", "Active" } },
+        new Dictionary<string, object> { { "image", "andrew" }, { "name", "Marvin George" }, { "company", "Saddle Dr" }, { "email", "marvin.george@example.com" }, { "status", "Finished" } },
+        new Dictionary<string, object> { { "image", "johanna" }, { "name", "Carole Pearson" }, { "company", "Dane Ent." }, { "email", "carole.pearson@example.com" }, { "status", "Inactive" } },
+        new Dictionary<string, object> { { "image", "johnny" }, { "name", "Leroy Shelton" }, { "company", "Lakeview" }, { "email", "leroy.shelton@example.com" }, { "status", "Active" } },
+        new Dictionary<string, object> { { "image", "maria" }, { "name", "Daisy Murphy" }, { "company", "Saddle Dr" }, { "email", "daisy.murphy@example.com" }, { "status", "Active" } },
+    };
+
+    private List<string> spreadsheetColumns = new List<string>() { "" };
+
+    private List<List<string>> spreadsheetData = new List<List<string>>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(5);
+
+        for (int i = 65; i < 91; i++)
+        {
+            spreadsheetColumns.Add(((char)i).ToString());
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            List<string> row = new List<string>() { (i + 1).ToString() };
+
+            for (int j = 65; j < 91; j++)
+            {
+                row.Add(((char)j).ToString() + (i + 1));
+            }
+
+            spreadsheetData.Add(row);
+        }
+    }
+}

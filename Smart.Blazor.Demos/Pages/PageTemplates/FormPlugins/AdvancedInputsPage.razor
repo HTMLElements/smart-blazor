@@ -1,0 +1,167 @@
+﻿@page "/advanced-inputs"
+
+<style>
+    smart-drop-down-list,
+    smart-combo-box,
+    smart-date-range-input,
+    smart-date-time-picker,
+    smart-masked-text-box {
+        width: 100%;
+    }
+
+    smart-drop-down-list,
+    smart-combo-box,
+    label + smart-masked-text-box,
+    label + smart-date-range-input,
+    label + smart-date-time-picker {
+        margin-bottom: 10px;
+    }
+</style>
+
+<Example Name="FormPlugins">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Advanced Inputs</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">DropDownList</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Smart.DropDownList and Smart.ComboBox - alternatives of HTML select boxes.</p>
+                        <DropDownList DropDownAppendTo="body" Filterable Placeholder="Please select...">
+                            <ListItemsGroup Label="Cats">
+                                <ListItem>Lion</ListItem>
+                                <ListItem>Tiger</ListItem>
+                                <ListItem Disabled>Jaguar</ListItem>
+                                <ListItem>Domestic cat</ListItem>
+                            </ListItemsGroup>
+                            <ListItemsGroup Label="Dogs">
+                                <ListItem>Wolf</ListItem>
+                                <ListItem>Domestic dog</ListItem>
+                                <ListItem Disabled>Coyote</ListItem>
+                                <ListItem>Jackal</ListItem>
+                                <ListItem>Fox</ListItem>
+                            </ListItemsGroup>
+                        </DropDownList>
+
+                        <ComboBox DropDownAppendTo="body" Placeholder="Please select...">
+                            <ListItemsGroup Label="Cats">
+                                <ListItem>Lion</ListItem>
+                                <ListItem>Tiger</ListItem>
+                                <ListItem Disabled>Jaguar</ListItem>
+                                <ListItem>Domestic cat</ListItem>
+                            </ListItemsGroup>
+                            <ListItemsGroup Label="Dogs">
+                                <ListItem>Wolf</ListItem>
+                                <ListItem>Domestic dog</ListItem>
+                                <ListItem Disabled>Coyote</ListItem>
+                                <ListItem>Jackal</ListItem>
+                                <ListItem>Fox</ListItem>
+                            </ListItemsGroup>
+                        </ComboBox>
+
+                        <ComboBox DropDownAppendTo="body" Placeholder="Please select..." SelectionDisplayMode="SelectionDisplayMode.Tokens"
+                                  SelectionMode="ListSelectionMode.ZeroOrMany">
+                            <ListItemsGroup Label="Cats">
+                                <ListItem>Lion</ListItem>
+                                <ListItem>Tiger</ListItem>
+                                <ListItem Disabled>Jaguar</ListItem>
+                                <ListItem>Domestic cat</ListItem>
+                            </ListItemsGroup>
+                            <ListItemsGroup Label="Dogs">
+                                <ListItem>Wolf</ListItem>
+                                <ListItem>Domestic dog</ListItem>
+                                <ListItem Disabled>Coyote</ListItem>
+                                <ListItem>Jackal</ListItem>
+                                <ListItem>Fox</ListItem>
+                            </ListItemsGroup>
+                        </ComboBox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">DateRangeInput</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Smart.DateRangeInput is an input that allows to select a Date/Date range from a Calendar drop down.</p>
+                        <label>Date range</label>
+                        <DateRangeInput Placeholder="Please select..." DropDownButtonPosition="DropDownButtonPosition.Right" DropDownWidth="300" />
+                        <label>DateTime range</label>
+                        <DateRangeInput Placeholder="Please select..." DropDownButtonPosition="DropDownButtonPosition.Right" DropDownWidth="300" Timepicker />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">DateTimePicker</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label>Default</label>
+                                <DateTimePicker CalendarButton DropDownAppendTo="body" />
+                                <label>Time only</label>
+                                <DateTimePicker CalendarButton DropDownAppendTo="body" 
+                                                DropDownDisplayMode="DateTimePickerDropDownDisplayMode.TimePicker" FormatString="t" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Date only</label>
+                                <DateTimePicker CalendarButton DropDownAppendTo="body"
+                                                DropDownDisplayMode="DateTimePickerDropDownDisplayMode.Calendar" FormatString="d" />
+                                <label>With spin buttons</label>
+                                <DateTimePicker CalendarButton DropDownAppendTo="body" SpinButtons />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">MaskedTextBox</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Masked Text fields use a mask to distinguish between proper and improper user input.</p>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label>Date</label>
+                                <MaskedTextBox Mask="##/##/####" />
+                                <label>Time</label>
+                                <MaskedTextBox Mask="##:##:##" />
+                                <label>Date and Time</label>
+                                <MaskedTextBox Mask="##/##/#### ##:##:##" />
+                                <label>ZIP Code</label>
+                                <MaskedTextBox Mask="#####-###" />
+                                <label>Money</label>
+                                <MaskedTextBox Mask="###.###,##" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Phone Number</label>
+                                <MaskedTextBox Mask="####-####" />
+                                <label>Phone Number with Area Code</label>
+                                <MaskedTextBox Mask="(##) ####-####" />
+                                <label>US Phone Number</label>
+                                <MaskedTextBox Mask="+1 (###) ###-####" />
+                                <label>IPv4</label>
+                                <MaskedTextBox Mask="###.###.###.###" />
+                                <label>IPv6</label>
+                                <MaskedTextBox Mask="zzzz:zzzz:zzzz:zzzz:zzzz:zzzz:zzzz:zzzz" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>

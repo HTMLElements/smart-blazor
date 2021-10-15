@@ -1,0 +1,38 @@
+@page "/bind-input"
+
+@using Smart.Blazor.Demos.Data
+@inject WeatherForecastService ForecastService
+<style>
+    .content.px-4 {
+        height: calc(100% - 60px);
+    }
+</style>
+
+	@if (forecasts == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		<h2>Forecasts Summary</h2>
+	    <Input @bind-Value="@inputValue"  DataSource="items" Placeholder="Some Text..." />
+	}
+<br/>
+<h3>Input Value (Type words like - cold, scorching or warm): @inputValue </h3>
+
+@code {
+    private List<string> items = new List<string>();
+	string inputValue = "";
+    private WeatherForecast[] forecasts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+		
+		foreach (WeatherForecast forecast in forecasts)
+		{
+			items.Add(forecast.Date.ToString() + ", " + forecast.Summary);
+		}
+	}
+}

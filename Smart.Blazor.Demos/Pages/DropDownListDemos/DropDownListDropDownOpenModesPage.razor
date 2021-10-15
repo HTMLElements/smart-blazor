@@ -1,0 +1,124 @@
+﻿@page "/dropdownlist-drop-down-open-modes"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        min-height: 35px;
+        height: auto;
+        width: 300px;
+    }
+</style>
+
+<Example Name="DropDownList">
+    <div id="description">
+        <h3>Modes Description</h3>
+        <pre>Auto - the dropDownList is opened/closed when the element is hovered.</pre>
+        <pre>Default - the dropDownList is opened/closed when the element is clicked.</pre>
+        <pre>DropDownButton - the dropDownList is devided in two components. An Action Button and a dropDown Button. The dropDownList can be opened/closed when the dropDownButton is clicked.</pre>
+        <pre>None - the dropDownList can't be opened/closed.</pre>
+    </div>
+
+    <div id="container">
+        <DropDownList Class="drop-down-list-modes-demo" DataSource="dataSource" DropDownOpenMode="@dropDownOpenMode"/>
+        <div id="controlPanel">
+            <h3>DropDownListOpen Mode:</h3>
+            <Button Disabled="@defaultDisabled" OnClick="OnDefaultClick">Default</Button>
+            <Button Disabled="@autoDisabled" OnClick="OnAutoClick">Auto</Button>
+            <Button Style="font-size: 10px;" Disabled="@dropDownButtonDisabled" OnClick="OnDropDownButtonClick">DropDownButton</Button>
+            <Button Disabled="@noneDisabled" OnClick="OnNoneClick">None</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private bool defaultDisabled = true;
+    private bool autoDisabled = false;
+    private bool dropDownButtonDisabled = false;
+    private bool noneDisabled = false;
+
+    private DropDownOpenMode dropDownOpenMode = DropDownOpenMode.Default;
+
+    private List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Andrew" }, { "value", 1 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Natalia" }, { "value", 5 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Michael" }, { "value", 4 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Angel" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Hristo" }, { "value", 6 }, { "group", "C" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Peter" }, { "value", 3 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Albert" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Boyko" }, { "value", 8 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Dimitar" }, { "value", 2 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "George" }, { "value", 10 }, { "group", "C" }
+        }
+    };
+
+    private void OnDefaultClick()
+    {
+        dropDownOpenMode = DropDownOpenMode.Default;
+
+        defaultDisabled = true;
+        autoDisabled = false;
+        dropDownButtonDisabled = false;
+        noneDisabled = false;
+    }
+
+    private void OnAutoClick()
+    {
+        dropDownOpenMode = DropDownOpenMode.Auto;
+
+        defaultDisabled = false;
+        autoDisabled = true;
+        dropDownButtonDisabled = false;
+        noneDisabled = false;
+    }
+
+    private void OnDropDownButtonClick()
+    {
+        dropDownOpenMode = DropDownOpenMode.DropDownButton;
+
+        defaultDisabled = false;
+        autoDisabled = false;
+        dropDownButtonDisabled = true;
+        noneDisabled = false;
+    }
+
+    private void OnNoneClick()
+    {
+        dropDownOpenMode = DropDownOpenMode.None;
+
+        defaultDisabled = false;
+        autoDisabled = false;
+        dropDownButtonDisabled = false;
+        noneDisabled = true;
+    }
+}

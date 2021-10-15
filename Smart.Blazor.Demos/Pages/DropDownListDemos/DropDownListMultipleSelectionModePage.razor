@@ -1,0 +1,60 @@
+﻿@page "/dropdownlist-multiple-selection-mode"
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-drop-down-list {
+        min-height: 35px;
+        height: auto;
+        width: 300px;
+    }
+</style>
+
+<Example Name="DropDownList">
+    <DropDownList DataSource="dataSource" SelectionMode="ListSelectionMode.OneOrManyExtended" Grouped Sorted />
+</Example>
+
+@code {
+    private List<Dictionary<string, object>> dataSource = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>()
+        {
+            { "label", "Andrew" }, { "value", 1 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Natalia" }, { "value", 5 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Michael" }, { "value", 4 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Angel" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Hristo" }, { "value", 6 }, { "group", "C" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Peter" }, { "value", 3 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Albert" }, { "value", 2 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Boyko" }, { "value", 8 }, { "group", "A" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "Dimitar" }, { "value", 2 }, { "group", "B" }
+        },
+        new Dictionary<string, object>()
+        {
+            { "label", "George" }, { "value", 10 }, { "group", "C" }
+        }
+    };
+}

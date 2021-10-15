@@ -23,13 +23,13 @@
         box-sizing: unset;
     }
 </style>
-<Example Name="Table">
+
     <p>
         Add "sort-mode" attribute and set it to "many" to make the Table sortable by multiple columns tbody.
     </p>
 
     <Table DataSource="dataRecords" SortMode="TableSortMode.Many" Columns="@columns" OnReady="OnTableReady"></Table>    
-</Example>
+
 
 @code {
     private List<CountryRecord> dataRecords;

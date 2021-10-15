@@ -10,7 +10,7 @@
         height: 800px !important;
     }
 </style>
-<Example Name="Kanban">
+
     <p>
         This demo shows how to add tasks and columns to the Kanban dynamically
         via its UI.
@@ -25,7 +25,7 @@
         <Kanban DataSource="dataRecords" Columns="@columns" Users="@users" 
                 AddNewButton AddNewColumn Collapsible TaskActions TaskDue TaskProgress />
     }
-</Example>
+
 
 @code {
     List<KanbanColumn> columns = new List<KanbanColumn>()
@@ -59,31 +59,31 @@
         {
             Id = 0,
             Name = "Andrew",
-            Image = "../../images/people/andrew.png"
+            Image = "https://www.htmlelements.com/demos/images/people/andrew.png"
         },
         new KanbanUser()
         {
             Id = 1,
             Name = "Anne",
-            Image = "../../images/people/anne.png"
+            Image = "https://www.htmlelements.com/demos/images/people/anne.png"
         },
         new KanbanUser()
         {
             Id = 2,
             Name = "Janet",
-            Image = "../../images/people/janet.png"
+            Image = "https://www.htmlelements.com/demos/images/people/janet.png"
         },
         new KanbanUser()
         {
             Id = 3,
             Name = "John",
-            Image = "../../images/people/john.png"
+            Image = "https://www.htmlelements.com/demos/images/people/john.png"
         },
         new KanbanUser()
         {
             Id = 4,
             Name = "Laura",
-            Image = "../../images/people/laura.png"
+            Image = "https://www.htmlelements.com/demos/images/people/laura.png"
         }
     };
 

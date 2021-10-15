@@ -1,0 +1,72 @@
+﻿@page "/ganttchart-disable-drag-resize"
+
+@using Smart.Blazor.Demos.Data
+
+<style>
+    /* This is the CSS used in the demo */
+    smart-gantt-chart {
+        height: 200px;
+    }
+</style>
+
+<Example Name="GanttChart">
+    <b>Description =</b>
+    <pre><b>Task 1</b> - drag and resize is disabled.</pre>
+    <pre><b>Task 1.1</b> - resize is disabled.</pre>
+    <pre><b>Task 1.2</b> - drag is disabled.</pre>
+    <pre><b>Task 2</b> - resize is disabled.</pre>
+
+    <GanttChart DataSource="Records"/>
+</Example>
+
+@code {
+    public List<GanttDataRecord> Records;
+
+    protected override void OnInitialized()
+    {
+        Records = new List<GanttDataRecord>()
+    {
+            new GanttDataRecord()
+            {
+                Label = "Task 1",
+                DateStart = "2020-3-10",
+                DateEnd = "2021-6-10",
+                DisableDrag = true,
+                DisableResize = true,
+                Expanded = true,
+                Type = "project",
+                Tasks = new List<GanttDataRecord>()
+                {
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.1",                       
+                        DisableResize = true,
+                        MinDateStart = "2020-2-10",
+                        MaxDateEnd = "2021-8-10",                        
+                        DateStart = "2020-2-10",
+                        DateEnd = "2021-4-10",
+                        Type = "task"
+                    },
+                    new GanttDataRecord()
+                    {
+                        Label = "Task 1.2",
+                        DisableDrag = true,
+                        MinDateStart = "2020-3-10",
+                        MaxDateEnd = "2021-11-10",
+                        DateStart = "2020-3-10",
+                        DateEnd = "2021-6-10",
+                        Type = "task"
+                    }
+                }
+            },
+            new GanttDataRecord()
+            {
+                Label = "Task 2",
+                DisableResize = true,
+                DateStart = "2021-6-21",
+                DateEnd = "2021-12-10",
+                Type = "task"
+            }
+        };
+    }
+}
