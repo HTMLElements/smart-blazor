@@ -1,0 +1,77 @@
+﻿@page "/chart-partial-polar"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Sales volume and revenue by city" Description="(revenue in thousands)" Animation="Animation.None" ShowLegend 
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 5 }"
+           ColorScheme="ChartColorScheme.Scheme01" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "City", "London" }, { "SalesCountJan", 210 }, { "SalesRevenueJan", 123 } },
+        new Dictionary<string, object>() { { "City", "Madrid" }, { "SalesCountJan", 190 }, { "SalesRevenueJan", 114 } },
+        new Dictionary<string, object>() { { "City", "Munich" }, { "SalesCountJan", 201 }, { "SalesRevenueJan", 112 } },
+        new Dictionary<string, object>() { { "City", "Amsterdam" }, { "SalesCountJan", 110 }, { "SalesRevenueJan", 98 } },
+        new Dictionary<string, object>() { { "City", "Paris" }, { "SalesCountJan", 105 }, { "SalesRevenueJan", 93 } },
+        new Dictionary<string, object>() { { "City", "Prague" }, { "SalesCountJan", 54 }, { "SalesRevenueJan", 100 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "City",
+        ValuesOnTicks = true,
+        Labels = new ChartLabels() { AutoRotate = true }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings()
+            {
+                DecimalPlaces = 0
+            },
+            AutoRotate = true
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Polar = true,
+            EndAngle = 270,
+            Radius = 120,
+            Type = ChartType.Line,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "SalesCountJan",
+                    DisplayText = "Sales count",
+                    Opacity = 0.7f,
+                    LineWidth = 1,
+                    Radius = 2,
+                    SymbolType = ChartSymbolType.Circle
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "SalesRevenueJan",
+                    DisplayText = "Revenue",
+                    Opacity = 0.7f,
+                    LineWidth = 1,
+                    Radius = 2,
+                    SymbolType = ChartSymbolType.Square
+                }
+            }
+        }
+    };
+}

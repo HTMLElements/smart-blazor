@@ -1,0 +1,98 @@
+﻿@page "/pivottable-column-settings"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo shows how to apply styling and formatting settings to Smart.PivotTable header and cells using the
+        <strong>Align</strong> and <strong>SummarySettings</strong> column properties.
+    </p>
+
+    <PivotTable DataSource="Data" FreezeHeader KeyboardNavigation Columns="@columns" />
+</Example>
+
+@code {
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true,
+            Align = PivotTableColumnAlign.Right
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true,
+            Align = PivotTableColumnAlign.Center
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            Align = PivotTableColumnAlign.Right,
+            SummarySettings = new
+            {
+                align = "right"
+            }
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new 
+            {
+                align = "left",
+                prefix = "€",
+                decimalPlaces = 2,
+                thousandsSeparator = "",
+                decimalSeparator = ",",
+                negativesInBrackets = false
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(50);
+    }
+}

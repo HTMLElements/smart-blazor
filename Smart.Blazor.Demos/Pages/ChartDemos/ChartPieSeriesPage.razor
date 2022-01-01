@@ -1,0 +1,53 @@
+﻿@page "/chart-pie-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Desktop browsers share" Description="(source: gs.statcounter.com)" ShowLegend ShowBorderLine
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }"
+           SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    static List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Browser", "Chrome" }, { "Share", 68.95 } },
+        new Dictionary<string, object> { { "Browser", "Firefox" }, { "Share", 10.67 } },
+        new Dictionary<string, object> { { "Browser", "IE" }, { "Share", 6.42 } },
+        new Dictionary<string, object> { { "Browser", "Safari" }, { "Share", 5.35 } },
+        new Dictionary<string, object> { { "Browser", "Edge" }, { "Share", 4.2 } },
+        new Dictionary<string, object> { { "Browser", "Other" }, { "Share", 4.67 } }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Pie,
+            ShowLabels = true,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Share",
+                    DisplayText = "Browser",
+                    LabelRadius = 120,
+                    InitialAngle = 15,
+                    Radius = 170,
+                    CenterOffset = 0,
+                    FormatSettings = new ChartFormatSettings()
+                    {
+                        Sufix = "%"
+                    },
+                    UseGradientColors = false
+                }
+            }
+        }
+    };
+}

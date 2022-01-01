@@ -1,0 +1,80 @@
+﻿@page "/chart-spider-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Website audience acquision by source" Description="Month over month comparison" Animation="Animation.None"
+           ShowLegend Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 5 }"
+           ColorScheme="ChartColorScheme.Scheme05" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    static List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "type", "Organic Search" }, { "month1", 1725090 }, { "month2", 3136190 } },
+        new Dictionary<string, object> { { "type", "Paid Search" }, { "month1", 925090 }, { "month2", 2136190 } },
+        new Dictionary<string, object> { { "type", "Direct" }, { "month1", 425090 }, { "month2", 936190 } },
+        new Dictionary<string, object> { { "type", "Referral" }, { "month1", 1250900 }, { "month2", 2536190 } },
+        new Dictionary<string, object> { { "type", "Twitter" }, { "month1", 350900 }, { "month2", 681900 } },
+        new Dictionary<string, object> { { "type", "Facebook" }, { "month1", 381900 }, { "month2", 831500 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "type",
+        DisplayText = "Traffic source",
+        ValuesOnTicks = true,
+        Labels = new ChartLabels() { AutoRotate = false }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 1000000,
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings()
+            {
+                DecimalPlaces = 0
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Spider = true,
+            StartAngle = 0,
+            EndAngle = 360,
+            Radius = 120,
+            Type = ChartType.Spline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "month1",
+                    DisplayText = "January 2018",
+                    Opacity = 0.7f,
+                    Radius = 2,
+                    LineWidth = 2,
+                    SymbolType = ChartSymbolType.Circle
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "month2",
+                    DisplayText = "February 2018",
+                    Opacity = 0.7f,
+                    Radius = 2,
+                    LineWidth = 2,
+                    SymbolType = ChartSymbolType.Square
+                }
+            }
+        }
+    };
+}

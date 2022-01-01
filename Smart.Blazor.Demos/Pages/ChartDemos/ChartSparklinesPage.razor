@@ -1,0 +1,195 @@
+﻿@page "/chart-sparklines"
+
+<style>
+    table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 900px;
+        table-layout: fixed;
+    }
+
+    @@media only screen and (max-width: 700px) {
+        table {
+            width: 100%;
+            max-width: 100%;
+            display: block;
+        }
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: var(--smart-primary);
+        color: white;
+        width: 200px;
+    }
+
+    tr {
+        height: 100px;
+    }
+
+    smart-chart {
+        width: 100%;
+        height: 100px;
+    }
+</style>
+
+<Example Name="Chart">
+    <table>
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Store locations</th>
+                <th>Monthly sales</th>
+                <th>Daily sales trend</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>London</td>
+                <td>24</td>
+                <td>1128430</td>
+                <td>
+                    <Chart DataSource="londonData" Caption="" Description="" ShowLegend="false" Animation="Animation.None" ShowBorderLine="false" ShowToolTips="false"
+                        Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" 
+                        BackgroundColor="transparent" XAxis="xAxis" SeriesGroups="columnSeriesGroups" />
+                </td>
+            </tr>
+            <tr>
+                <td>New York</td>
+                <td>35</td>
+                <td>1434650</td>
+                <td>
+                    <Chart DataSource="newYorkData" Caption="" Description="" ShowLegend="false" Animation="Animation.None" ShowBorderLine="false" ShowToolTips="false"
+                           Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }"
+                           BackgroundColor="transparent" XAxis="xAxis" SeriesGroups="steplineSeriesGroups" />
+                </td>
+            </tr>
+            <tr>
+                <td>Berlin</td>
+                <td>11</td>
+                <td>498430</td>
+                <td>
+                    <Chart DataSource="berlinData" Caption="" Description="" ShowLegend="false" Animation="Animation.None" ShowBorderLine="false" ShowToolTips="false"
+                           Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }"
+                           BackgroundColor="transparent" XAxis="xAxis" SeriesGroups="columnSeriesGroups" />
+                </td>
+            </tr>
+            <tr>
+                <td>Madrid</td>
+                <td>4</td>
+                <td>181760</td>
+                <td>
+                    <Chart DataSource="madridData" Caption="" Description="" ShowLegend="false" Animation="Animation.None" ShowBorderLine="false" ShowToolTips="false"
+                           Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }"
+                           BackgroundColor="transparent" XAxis="xAxis" SeriesGroups="areaSeriesGroups" />
+                </td>
+            </tr>
+            <tr>
+                <td>Paris</td>
+                <td>9</td>
+                <td>381760</td>
+                <td>
+                    <Chart DataSource="parisData" Caption="" Description="" ShowLegend="false" Animation="Animation.None" ShowBorderLine="false" ShowToolTips="false"
+                           Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }"
+                           BackgroundColor="transparent" XAxis="xAxis" SeriesGroups="columnSeriesGroups" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</Example>  
+
+@code {
+
+    List<object> londonData = new List<object>() { 12, 8, 9, 3, 4, 5, 6, 2, 3, 4, 5, 6, 12, 4, 11, 4, 13, 9, 10, 12, 12, 8, 13, 7, 15, 9, 11, 12, 9, 8 };
+    List<object> newYorkData = new List<object>() { 11, 7, 3, 8, 6, 2, 2, 4, 3, 8, 5, 11, 7, 11, 11, 4, 5, 6, 5, 9, 9, 5, 11, 2, 8, 9, 14, 12, 9, 8 };
+    List<object> berlinData = new List<object>() { 11, 5, 8, 20, 23, 17, 6, 18, 6, 18, 15, 8, 13, 12, 20, 14, 13, 3, 23, 4, 14, 21, 15, 7, 4, 9, 22, 16, 3, 1 };
+    List<object> madridData = new List<object>() { 2, 5, 15, 17, 20, 10, 15, 21, 6, 8, 14, 2, 4, 10, 6, 18, 11, 20, 12, 14, 14, 22, 21, 10, 20, 1, 18, 12, 5, 23 };
+    List<object> parisData = new List<object>() { 15, 19, 15, 13, 17, 21, 3, 8, 8, 13, 8, 21, 19, 8, 8, 22, 3, 12, 18, 14, 15, 6, 15, 17, 14, 1, 14, 3, 8, 15 };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        Visible = false,
+        ValuesOnTicks = false
+    };
+
+    List<ChartSeriesGroup> columnSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ColumnsGapPercent = 0,
+            ColumnsMaxWidth = 2,
+            ValueAxis = new ChartValueAxis()
+            {
+                MinValue = 0,
+                Visible = false
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    LinesUnselectMode = ChartUnselectMode.Click
+                }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> steplineSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stepline,
+            ColumnsGapPercent = 0,
+            ColumnsMaxWidth = 2,
+            ValueAxis = new ChartValueAxis()
+            {
+                MinValue = 0,
+                Visible = false
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    LinesUnselectMode = ChartUnselectMode.Click
+                }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> areaSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Area,
+            ColumnsGapPercent = 0,
+            ColumnsMaxWidth = 2,
+            ValueAxis = new ChartValueAxis()
+            {
+                MinValue = 0,
+                Visible = false
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    LinesUnselectMode = ChartUnselectMode.Click
+                }
+            }
+        }
+    };
+}

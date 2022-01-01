@@ -1,0 +1,109 @@
+﻿@page "/chart-color-bands"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Monthly Project Schedule" Description="Website update plan" ShowLegend
+           Padding="new Padding() { Left = 5, Top = 5, Right = 10, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>
+        {
+            { "Person", "Planning" }, { "M1_From", 2 }, { "M1_To", 5 }, { "M2_From", 5 }, { "M2_To", 10 }
+        },
+        new Dictionary<string, object>
+        {
+            { "Person", "Dev 1" }, { "M1_From", 5 }, { "M1_To", 7 }, { "M2_From", 9 }, { "M2_To", 17 }
+        },
+        new Dictionary<string, object>
+        {
+            { "Person", "Dev 2" }, { "M1_From", 5 }, { "M1_To", 12 }, { "M2_From", 14 }, { "M2_To", 22 }
+        },
+        new Dictionary<string, object>
+        {
+            { "Person", "QA 1" }, { "M1_From", 7 }, { "M1_To", 14 }, { "M2_From", 14 }, { "M2_To", 25 }
+        }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Person",
+        UnitInterval = 1,
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Orientation = Orientation.Horizontal,
+            Type = ChartType.Rangecolumn,
+            ColumnsGapPercent = 100,
+            ValueAxis = new ChartValueAxis()
+            {
+                Flip = true,
+                MinValue = 1,
+                MaxValue = 30,
+                UnitInterval = 1,
+                Title = new ChartTitle() { Text = "Day" },
+                TickMarks = new ChartLines() { Color = "#BCBCBC" }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataFieldFrom = "M1_From",
+                    DataFieldTo = "M1_To",
+                    DisplayText = "Sprint 1",
+                    Opacity = 1
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataFieldFrom = "M2_From",
+                    DataFieldTo = "M2_To",
+                    DisplayText = "Sprint 2",
+                    Opacity = 1
+                }
+            },
+            Bands = new List<IChartSeriesGroupBand>()
+            {
+                new ChartSeriesGroupBand()
+                {
+                    MinValue = 13,
+                    MaxValue = 16,
+                    Color = "#00FF00",
+                    Opacity = 0.15f
+                },
+                new ChartSeriesGroupBand()
+                {
+                    MinValue = 24,
+                    MaxValue = 27,
+                    Color = "#FFBC70",
+                    Opacity = 0.20f
+                },
+                new ChartSeriesGroupBand()
+                {
+                    MinValue = 29,
+                    MaxValue = 29,
+                    Color = "#FF0000",
+                    Opacity = 0.5f,
+                    LineWidth = 3
+                }
+            }
+        }
+    };
+}

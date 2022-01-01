@@ -1,0 +1,104 @@
+﻿@page "/chart-bar-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        height: 625px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Top three populous countries" Description="in each continent" ShowLegend="false"
+           Padding="new Padding() { Left = 5, Top = 5, Right = 25, Bottom = 5 }" ColorScheme="ChartColorScheme.Scheme32"
+           TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }" XAxis="xAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>
+        {
+            { "Continent", "Asia" },
+            { "0", 1426.279708 },
+            { "1", 1338.558742 },
+            { "2", 263.564697 },
+            {
+                "Countries", new string[] { "China", "India", "Indonesia" }
+            }
+        },
+        new Dictionary<string, object> 
+        { 
+            { "Continent", "N. America" }, 
+            { "0", 327.527107 }, 
+            { "1", 129.132150 }, 
+            { "2", 36.436169 },
+            {
+                "Countries", new string[] { "United States", "Mexico", "Canada" }
+            }
+        },
+        new Dictionary<string, object> 
+        { 
+            { "Continent", "S. America" }, 
+            { "0", 210.193253 }, 
+            { "1", 49.265468 }, 
+            { "2", 44.139544 },
+            {
+                "Countries", new string[] { "Brazil", "Colombia", "Argentina" }
+            }
+        },
+        new Dictionary<string, object> 
+        { 
+            { "Continent", "Africa" }, 
+            { "0", 185.313910 }, 
+            { "1", 102.675041 }, 
+            { "2", 96.325988 },
+            {
+                "Countries", new string[] { "Nigeria", "Ethiopia", "Egypt" }
+            }
+        },
+        new Dictionary<string, object> 
+        { 
+            { "Continent", "Europe" }, 
+            { "0", 144.154086 }, 
+            { "1", 81.845984 }, 
+            { "2", 80.091763 },
+            {
+                "Countries", new string[] { "Russia", "Germany", "Turkey" }
+            }
+        }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Continent",
+        GridLines = new ChartLines() { Visible = true }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            Orientation = Orientation.Horizontal,
+            ColumnsGapPercent = 50,
+            SeriesGapPercent = 20,
+            UseGradientColors = false,
+            ValueAxis = new ChartValueAxis()
+            {
+                UnitInterval = 100,
+                MinValue = 0,
+                MaxValue = 1600,
+                Flip = true,
+                Description = "Population (in millions)",
+                AxisSize = "auto"
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "0", DisplayText ="First" },
+                new ChartSeriesGroupSerie() { DataField = "1", DisplayText = "Second" },
+                new ChartSeriesGroupSerie() { DataField = "2", DisplayText = "Third" }
+            }
+        }
+    };
+}

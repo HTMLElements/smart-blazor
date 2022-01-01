@@ -1,0 +1,114 @@
+﻿@page "/pivottable-toolbar"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo shows a Smart.PivotTable with toolbar. The toolbar features drag-drop areas
+        for manipulating the row group and pivot columns as well as the "Conditional formatting" and "Fields" buttons
+        which open a dialog with further customization options.
+    </p>
+
+    <PivotTable DataSource="Data" ConditionalFormatting="conditionalFormatting" 
+                FreezeHeader KeyboardNavigation Toolbar Columns="@columns"/>
+</Example>
+
+@code {
+    List<PivotTableConditionalFormatting> conditionalFormatting = new List<PivotTableConditionalFormatting>()
+    {
+        new PivotTableConditionalFormatting()
+        {
+            Column = "Quantity",
+            Condition = PivotTableConditionalFormattingCondition.GreaterThan,
+            FirstValue = 7,
+            Text = "#FFFFFF",
+            Highlight = "#6AA84F"
+        },
+        new PivotTableConditionalFormatting()
+        {
+            Column = "Quantity",
+            Condition = PivotTableConditionalFormattingCondition.Between,
+            FirstValue = 1,
+            SecondValue = 3,
+            FontSize = PivotTableConditionalFormattingFontSize.Tenpx,
+            Text = "#FFFFFF",
+            Highlight = "#CC0000"
+        }
+    };
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum
+        },
+        new PivotTableColumn()
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(25);
+    }
+}

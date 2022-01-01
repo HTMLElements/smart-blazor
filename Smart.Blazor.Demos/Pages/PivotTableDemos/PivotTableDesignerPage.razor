@@ -1,0 +1,82 @@
+﻿@page "/pivottable-designer"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo showcases the Smart.PivotTable designer which is a toolbox that allows customizing of column roles and
+        settings, as well as applying filters.
+    </p>
+
+    <PivotTable DataSource="Data" Designer FreezeHeader KeyboardNavigation Columns="@columns" />
+</Example>
+
+@code {
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn() 
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number
+        },
+        new PivotTableColumn()
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(25);
+    }
+}

@@ -1,0 +1,106 @@
+﻿@page "/editor-export-markdown"
+
+<style>
+    body,
+    html,
+    app {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .smart-editor {
+        width: calc(100% - 300px);
+        height: 100%;
+    }
+
+    @@media (max-width: 750px) {
+        .smart-editor {
+            width: 100%;
+        }
+    }
+</style>
+ 
+<Example Name="Editor">
+    <Editor @ref="editor" ToolbarItems="toolbarItems" Value="@value" />
+
+    <div class="options">
+        <div class="demo-description">
+            Editor's content can be Printed or exported to HTML file via the <b>ExportData</b> method by clicking on the
+            corresponding button.
+        </div>
+        <div class="option">
+            <Button OnClick="OnPDFExportClick">Export to PDF</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnMDExportClick">Export to Markdown</Button>
+        </div>
+        <div class="option">
+            <Button OnClick="OnPrintClick">Print</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Editor editor;
+
+    string value = @"
+# Smart UI
+Web Components, Anguiar UI Components and React UI Components  for Professional Web Applications
+
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/collection/HTMLElements/smarthtmlelements-core)
+
+
+Build responsive, mobile-first projects on the Web with the most advanced front-end component library
+-----------------------------------------------------------------------------------------------------
+
+What is Smart UI?
+----------------------------
+
+Smart UI is a Framework for building  Web Components and Custom Elements. Smart is similar to Stencil and LitElement. It supports two-way data-binding, templates, property change notifications, Typescript-like type-checking and validation.
+Smart does not have third-party dependencies. It is pure Javascript code. 
+60+ UI Components are built with Smart including Grid, Chart, Kanban, Gantt, Table, Tabs, Accordion, Gauge, DateTimePicker and others. Some of the UI Components built with the library are commercial. Others are open-source.
+Smart UI components are available in Javascript, Angular and React. Typescript definitions are included.
+
+Works across devices and browsers
+---------------------------------
+
+Supported Browsers: Chrome, Firefox, Safari, Edge, Opera";
+
+    List<IEditorToolbarItem> toolbarItems = new List<IEditorToolbarItem>()
+    {
+        new EditorToolbarItem() { Name = "Bold" },
+        new EditorToolbarItem() { Name = "Italic" },
+        new EditorToolbarItem() { Name = "Underline" },
+        new EditorToolbarItem() { Name = "StrikeThrough" },
+        new EditorToolbarItem() { Name = "|" },
+        new EditorToolbarItem() { Name = "Formats" },
+        new EditorToolbarItem() { Name = "OrderedList" },
+        new EditorToolbarItem() { Name = "UnorderedList" },
+        new EditorToolbarItem() { Name = "|" },
+        new EditorToolbarItem() { Name = "hyperlink" },
+        new EditorToolbarItem() { Name = "Image" },
+        new EditorToolbarItem() { Name = "|" },
+        new EditorToolbarItem() { Name = "Print" },
+        new EditorToolbarItem() { Name = "sourcecode" },
+        new EditorToolbarItem() { Name = "FullScreen" },
+        new EditorToolbarItem() { Name = "|" },
+        new EditorToolbarItem() { Name = "Undo" },
+        new EditorToolbarItem() { Name = "Redo" }
+    };
+
+    private void OnPDFExportClick()
+    {
+        editor.ExportData("pdf");
+    }
+
+    private void OnMDExportClick()
+    {
+        editor.ExportData("md");
+    }
+
+    private void OnPrintClick()
+    {
+        editor.Print();
+    }
+}

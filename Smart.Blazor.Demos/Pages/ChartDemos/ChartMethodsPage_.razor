@@ -1,0 +1,188 @@
+﻿@page "/chart-methods"
+
+<style>
+    .options smart-button {
+        width: 200px;
+        text-transform: unset;
+    }
+
+    span {
+        display: inline-block;
+        width: 50px;
+    }
+
+    smart-numeric-text-box {
+        display: inline-block;
+        width: 80px;
+    }
+
+    smart-chart {
+        width: 100%;
+        max-width: 550px;
+    }
+</style>
+    
+<Example Name="Chart">
+    <Chart @ref="chart" DataSource="sampleData" Clip="false" Caption="Domestic credit provided by banking sector" Description="(% of GDP)"
+           ShowLegend Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }"
+           TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }" ColorScheme="ChartColorScheme.Scheme29"
+           XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+
+    <div class="options">
+        <div><span>Series: </span><NumericTextBox Id="seriesNo" Min="0" Max="2" @bind-Value="seriesNo" SpinButtons /></div>
+        <br />
+        <br />
+        <div><span>Item: </span><NumericTextBox Id="itemNo" Min="0" Max="16" @bind-Value="itemNo" SpinButtons /></div>
+        <br />
+        <br />
+        <Button OnClick="OnGetItemsCount">getItemsCount</Button>
+        <Button OnClick="OnGetItemCoord">getItemCoord</Button>
+        <br />
+        <br />
+        <Button OnClick="OnShowSerie">showSerie</Button>
+        <Button OnClick="OnHideSerie">hideSerie</Button>
+        <br />
+        <br />
+        <Button OnClick="OnShowToolTip">showToolTip</Button>
+        <Button OnClick="OnHideToolTip">hideToolTip</Button>
+        <br />
+        <br />
+        <Button OnClick="OnGetXAxisRect">getXAxisRect</Button>
+        <Button OnClick="OnGetXAxisLabels">getXAxisLabels</Button>
+        <br />
+        <br />
+        <Button OnClick="OnGetValueAxisRect">getValueAxisRect</Button>
+        <Button OnClick="OnGetValueAxisLabels">getValueAxisLabels</Button>
+    </div>
+
+    <div>@((MarkupString)log)</div>
+</Example>  
+
+@code {
+    Chart chart;
+    string seriesNo = "0";
+    string itemNo = "0";
+
+    string log = "";
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Year", 2003 }, { "Austria", 120.61 }, { "Belgium", 116.12 }, { "Croatia", 45.11 } },
+        new Dictionary<string, object> { { "Year", 2004 }, { "Austria", 118.96 }, { "Belgium", 109.37 }, { "Croatia", 53.19 } },
+        new Dictionary<string, object> { { "Year", 2005 }, { "Austria", 118.06 }, { "Belgium", 105.45 }, { "Croatia", 54.39 } },
+        new Dictionary<string, object> { { "Year", 2006 }, { "Austria", 118.56 }, { "Belgium", 99.62 }, { "Croatia", 56.83 } },
+        new Dictionary<string, object> { { "Year", 2007 }, { "Austria", 125.98 }, { "Belgium", 100.75 }, { "Croatia", 62.85 } },
+        new Dictionary<string, object> { { "Year", 2008 }, { "Austria", 125.66 }, { "Belgium", 106 }, { "Croatia", 68.59 } },
+        new Dictionary<string, object> { { "Year", 2009 }, { "Austria", 122.7 }, { "Belgium", 108.79 }, { "Croatia", 70.76 } },
+        new Dictionary<string, object> { { "Year", 2010 }, { "Austria", 126.3 }, { "Belgium", 110.6 }, { "Croatia", 73.9 } },
+        new Dictionary<string, object> { { "Year", 2011 }, { "Austria", 135.09 }, { "Belgium", 116.05 }, { "Croatia", 77.38 } },
+        new Dictionary<string, object> { { "Year", 2012 }, { "Austria", 135.06 }, { "Belgium", 113.68 }, { "Croatia", 90.49 } },
+        new Dictionary<string, object> { { "Year", 2013 }, { "Austria", 132.09 }, { "Belgium", 114 }, { "Croatia", 88.71 } },
+        new Dictionary<string, object> { { "Year", 2014 }, { "Austria", 135.25 }, { "Belgium", 113.23 }, { "Croatia", 88.53 } },
+        new Dictionary<string, object> { { "Year", 2015 }, { "Austria", 130.43 }, { "Belgium", 112.06 }, { "Croatia", 89.57 } },
+        new Dictionary<string, object> { { "Year", 2016 }, { "Austria", 125.43 }, { "Belgium", 154.55 }, { "Croatia", 89.46 } },
+        new Dictionary<string, object> { { "Year", 2017 }, { "Austria", 123.44 }, { "Belgium", 148.03 }, { "Croatia", 87.48 } },
+        new Dictionary<string, object> { { "Year", 2018 }, { "Austria", 129.89 }, { "Belgium", 153.69 }, { "Croatia", 84.9 } },
+        new Dictionary<string, object> { { "Year", 2019 }, { "Austria", 126.73 }, { "Belgium", 135.66 }, { "Croatia", 77.02 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Year",
+        ValuesOnTicks = true
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Visible = true,
+        Title = new ChartTitle() { Text = "% of GDP" },
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings() { Sufix = "%" }
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Austria", Opacity = 0.8f, SymbolType = ChartSymbolType.Circle, SymbolSize = 10 },
+                new ChartSeriesGroupSerie() { DataField = "Belgium", Opacity = 0.7f, SymbolType = ChartSymbolType.Square, SymbolSize = 10 },
+                new ChartSeriesGroupSerie() { DataField = "Croatia", Opacity = 0.6f, SymbolType = ChartSymbolType.Diamond, SymbolSize = 10 }
+            }
+        }
+    };
+
+    private async void OnGetItemsCount()
+    {
+        int count = await chart.GetItemsCount(0, int.Parse(seriesNo));
+
+        log = $"Series ${seriesNo} has ${count} items.";
+    }
+
+    private async void OnGetItemCoord()
+    {
+        object coords = await chart.GetItemCoord(0, int.Parse(seriesNo), int.Parse(itemNo));
+
+        Dictionary<string, object> coordsObj = coords as Dictionary<string, object>;
+
+        // log = $"The coordinates of item ${itemNo} from series ${seriesNo} are (${coordsObj["x"]}, ${coordsObj["y"]}).";
+    }
+
+    private void OnShowSerie()
+    {
+        chart.ShowSerie(0, int.Parse(seriesNo.ToString()));
+    }
+
+    private void OnHideSerie()
+    {
+        chart.HideSerie(0, int.Parse(seriesNo.ToString()));
+    }
+
+    private void OnShowToolTip()
+    {
+        chart.ShowToolTip(0, int.Parse(seriesNo.ToString()), int.Parse(itemNo.ToString()));
+    }
+
+    private void OnHideToolTip()
+    {
+        chart.HideToolTip();
+    }
+
+    private async void OnGetXAxisRect()
+    {
+        object rect = await chart.GetXAxisRect(0);
+
+        Dictionary<string, object> rectObj = rect as Dictionary<string, object>;
+
+        // log = $"The xAxis rect starts at (${rectObj["x"]}, ${rectObj["y"]}) and has width ${rectObj["width"]}px and height ${rectObj["height"]}px.";
+    }
+
+    private async void OnGetXAxisLabels()
+    {
+        object labels = await chart.GetXAxisLabels(0);
+
+        List<object> labelsObjs = labels as List<object>;
+        object firstLabel = labelsObjs[0] as Dictionary<string, object>;
+    }
+
+    private async void OnGetValueAxisRect()
+    {
+        object rect = await chart.GetValueAxisRect(0);
+
+        Dictionary<string, object> rectObj = rect as Dictionary<string, object>;
+
+        // log = $"The valueAxis rect starts at (${rectObj["x"]}, ${rectObj["y"]}) and has width ${rectObj["width"]}px and height ${rectObj["height"]}px.";
+    }
+
+    private async void OnGetValueAxisLabels()
+    {
+        object labels = await chart.GetValueAxisLabels(0);
+
+        List<object> labelsObjs = labels as List<object>;
+        object firstLabel = labelsObjs[0] as Dictionary<string, object>;
+    }
+}

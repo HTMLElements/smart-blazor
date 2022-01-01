@@ -1,0 +1,124 @@
+﻿@page "/chart-live-updates"
+
+@using System.Timers
+@implements IDisposable
+
+<style>
+    smart-chart {
+        width: 100%;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart @ref="chart" DataSource="@sampleData" Animation="Animation.None" Caption="Live updates performance" Description="Data changes every 10 milliseconds" 
+           ShowLegend Padding="new Padding() { Left = 10, Top = 10, Right = 10, Bottom = 10 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>
+
+@code {
+    Chart chart;
+
+    List<Dictionary<string, double>> sampleData = new List<Dictionary<string, double>>();
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "key",
+        UnitInterval = 1,
+        ValuesOnTicks = true,
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        MinValue = 0,
+        MaxValue = 750,
+        Title = new ChartTitle() { Text = "Index Value<br>" }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+{
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Line,
+            UseGradientColors = false,
+            Series = new List<ChartSeriesGroupSerie>()
+        {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "value1",
+                    DisplayText = "value1",
+                    LineWidth = 2,
+                    SymbolType = ChartSymbolType.Circle,
+
+                }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            UseGradientColors = false,
+            ColumnsGapPercent = 50,
+
+            Series = new List<ChartSeriesGroupSerie>()
+        {
+                new ChartSeriesGroupSerie() { DataField = "value2", DisplayText = "value2" }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            UseGradientColors = false,
+            ColumnsGapPercent = 50,
+            Series = new List<ChartSeriesGroupSerie>()
+        {
+                new ChartSeriesGroupSerie() { DataField = "value3", DisplayText = "value3" }
+            }
+        }
+    };
+
+    private Timer timer = new Timer(1000);
+    Random random = new Random();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        for (int i = 0; i < 20; i++)
+        {
+            sampleData.Add(
+                new Dictionary<string, double>()
+                {
+                    { "key", i },
+                    { "value1", (random.NextDouble() * 200) % 200 + 200 },
+                    { "value2", (random.NextDouble() * 200) % 200 + 500 },
+                    { "value3", (random.NextDouble() * 200) % 200 }
+                }
+            );
+        }
+
+        timer.Elapsed += (sender, eventArgs) => OnTimerCallback();
+        timer.Start();
+    }
+
+    private void OnTimerCallback()
+    {
+        _ = InvokeAsync(() =>
+        {
+            sampleData.RemoveAt(0);
+            sampleData.Add(
+                new Dictionary<string, double>()
+                {
+                    { "key", sampleData[sampleData.Count - 1]["key"] + 1 },
+                    { "value1", (random.NextDouble() * 200) % 200 + 200 },
+                    { "value2", (random.NextDouble() * 200) % 200 + 500 },
+                    { "value3", (random.NextDouble() * 200) % 200 }
+                }
+            );
+
+            chart.Update();
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose() => timer.Dispose();
+}

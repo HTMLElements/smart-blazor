@@ -196,7 +196,7 @@ namespace Smart.Blazor.Demos.Data
 		public List<Dictionary<string, int>> Connections
 		{
 			get; set;
-		} = new List<Dictionary<string, int>>() { };
+		} = new List<Dictionary<string, int>>() {};
 
 		[JsonPropertyName("disableDrag")]
 		public bool DisableDrag
@@ -280,7 +280,7 @@ namespace Smart.Blazor.Demos.Data
 	//	}
 	//}
 	public partial class CountryRecord
-	{
+    {
 		public int Id { get; set; }
 		public string Country { get; set; }
 		public int Area { get; set; }
@@ -293,7 +293,7 @@ namespace Smart.Blazor.Demos.Data
 		public int GDP_Total { get; set; }
 	}
 	public partial class EmployeeRecord
-	{
+    {
 		public int EmployeeID { get; set; }
 		public int? ReportsTo { get; set; }
 		public string FirstName { get; set; }
@@ -306,7 +306,7 @@ namespace Smart.Blazor.Demos.Data
 		public string BirthDate { get; set; }
 	}
 	public partial class StockRecord
-	{
+    {
 		public string Symbol { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
@@ -319,7 +319,7 @@ namespace Smart.Blazor.Demos.Data
 	}
 
 	public partial class OrderRecord
-	{
+    {
 		public string Id { get; set; }
 		public int? ParentId { get; set; }
 		public string Name { get; set; }
@@ -331,8 +331,19 @@ namespace Smart.Blazor.Demos.Data
 		public int Quantity { get; set; }
 	}
 
+	public partial class PivotRecord
+    {
+		public string Continent { get; set; }		
+		public string City { get; set; }
+		public int Year { get; set; }
+		public string Quarter { get; set; }
+		public string Month { get; set; }
+		public int Revenue { get; set; }
+		public int Expense { get; set; }
+	}
+
 	public class SchedulerDataRecord
-	{
+    {
 		public DateTime DateStart { get; set; }
 		public DateTime DateEnd { get; set; }
 		public string Label { get; set; }
@@ -343,7 +354,7 @@ namespace Smart.Blazor.Demos.Data
 	public class RandomDataService
 	{
 		public List<SchedulerDataRecord> GenerateSchedulerData()
-		{
+        {
 			List<SchedulerDataRecord> dataSource = new List<SchedulerDataRecord>()
 			{
 				 new SchedulerDataRecord() {
@@ -639,7 +650,7 @@ namespace Smart.Blazor.Demos.Data
 
 			return dataSource;
 		}
-
+		
 		public List<KanbanDataRecord> GenerateKanbanData()
 		{
 			string[] text = new string[]{
@@ -857,7 +868,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<KanbanDataRecord> GenerateKanbanHierarchicalData()
-		{
+        {
 			List<KanbanDataRecord> data = new List<KanbanDataRecord>{
 				new KanbanDataRecord()
 				{
@@ -954,11 +965,11 @@ namespace Smart.Blazor.Demos.Data
 					Price = new Random().NextDouble() * 5 + 1,
 					Quantity = new Random().Next(10) + 1,
 					TimeOfPurchase = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28)),
-					Expired = new Random().NextDouble() > 0.5,
+					Expired = new Random().NextDouble() > 0.5,					
 					Attachments = ""
 				};
 
-				data.Url = "https://www." + (new Random().NextDouble() > 0.5 ? "htmlelements" : "jqwidgets") + ".com";
+				data.Url = "https://www." + (new Random().NextDouble() > 0.5 ? "htmlelements" : "jqwidgets") + ".com"; 
 				data.Email = data.FirstName.ToLower() + "@htmlelements.com";
 				data.Total = data.Price * data.Quantity;
 
@@ -996,11 +1007,11 @@ namespace Smart.Blazor.Demos.Data
 				{
 					Id = i.ToString(),
 					ParentId = null,
-					Name = "Order " + i,
+					Name = "Order " + i ,
 					FirstName = firstNames[random.Next(firstNames.Length)],
 					LastName = lastNames[random.Next(lastNames.Length)],
 					Customer = companyNames[random.Next(companyNames.Length)],
-					Date = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28))
+					Date = new DateTime(2020, 1 + new Random().Next(10), 1 + new Random().Next(28)) 
 				};
 				data.Add(row);
 
@@ -1025,7 +1036,7 @@ namespace Smart.Blazor.Demos.Data
 					};
 					data.Add(subRow);
 					totalPrice += quantity * price;
-					totalQuantity += quantity;
+					totalQuantity += quantity;					
 				}
 				row.Price = totalPrice;
 				row.Quantity = totalQuantity;
@@ -1035,12 +1046,12 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<Dictionary<string, double>> GenerateNumbersData()
-		{
+        {
 			Random random = new Random();
 
 			List<Dictionary<string, double>> data = new List<Dictionary<string, double>>();
 			for (int i = 0; i < 20; i++)
-			{
+            {
 				Dictionary<string, double> row = new Dictionary<string, double>()
 				{
 					{ "A", Math.Round(random.NextDouble(), 2) },
@@ -1056,11 +1067,11 @@ namespace Smart.Blazor.Demos.Data
 				};
 
 				data.Add(row);
-			}
+            }
 
 			return data;
-		}
-
+        }
+		
 		public List<GanttDataRecord> GenerateGanttData()
 		{
 			List<GanttDataRecord> records = new List<GanttDataRecord>()
@@ -1280,7 +1291,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<EmployeeRecord> GenerateEmployeesData()
-		{
+        {
 			List<EmployeeRecord> employees = new List<EmployeeRecord>()
 			{
 				new EmployeeRecord()
@@ -1406,7 +1417,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public List<Dictionary<string, object>> GenerateEmployeesNestedData()
-		{
+        {
 			List<Dictionary<string, object>> employees = new List<Dictionary<string, object>>()
 			{
 				new Dictionary<string, object>()
@@ -1668,7 +1679,7 @@ namespace Smart.Blazor.Demos.Data
 		}
 
 		public CountryRecord GenerateCountry()
-		{
+        {
 			string[] countries = new string[] { "Bulgaria", "Germany", "France", "Japan", "China", "Italy", "Spain", "Portugal", "India", "Romania", "Russia", "Serbia", "Turkey", "Israel" };
 			Random random = new Random();
 
@@ -1683,6 +1694,57 @@ namespace Smart.Blazor.Demos.Data
 			};
 
 			return country;
+		}
+
+		public List<PivotRecord> GeneratePivotData(int numOfRecords, int numOfYears)
+        {
+			string[] continents = new string[] { "Africa", "Asia", "Australia", "Europe", "North America", "South America" };
+
+			Dictionary<string, string[]> cities = new Dictionary<string, string[]>()
+			{
+				{ "Africa", new string[] { "Cairo", "Lagos", "Kinshasa", "Luanda", "Khartoum" } },
+				{ "Asia", new string[] { "Tokyo", "Delhi", "Shanghai", "Mumbai", "Beijing" } },
+				{ "Australia", new string[] { "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide" } },
+				{ "Europe", new string[] { "Istanbul", "Moscow", "Paris", "London", "Madrid" } },
+				{ "North America", new string[] { "Mexico City", "New York City", "Los Angeles", "Chicago", "Houston" } },
+				{ "South America", new string[] { "São Paulo", "Buenos Aires", "Rio de Janeiro", "Bogotá", "Lima" } }
+			};
+
+			Dictionary<string, string[]> months = new Dictionary<string, string[]>()
+			{
+				{ "Q1", new string[] { "January", "February", "March" } },
+				{ "Q2", new string[] { "April", "May", "June" } },
+				{ "Q3", new string[] { "July", "August", "September" } },
+				{ "Q4", new string[] { "October", "November", "December" } }
+			};
+
+			int maxYear = DateTime.Today.Year;
+			int minYear = maxYear - numOfYears + 1;
+
+			Random random = new Random();
+			List<PivotRecord> records = new List<PivotRecord>();
+
+			for (int i = 0; i < numOfRecords; i++)
+            {
+				string continent = continents[random.Next(continents.Length)];
+				string quarter = (new string[] { "Q1", "Q2", "Q3", "Q4" })[random.Next(4)];
+				int revenue = random.Next(1000, 10000);
+
+				PivotRecord record = new PivotRecord()
+				{
+					Continent = continent,
+					City = cities[continent][random.Next(cities[continent].Length)],
+					Year = random.Next(minYear, maxYear + 1),
+					Quarter = quarter,
+					Month = months[quarter][random.Next(3)],
+					Revenue = revenue,
+					Expense = -revenue
+				};
+
+				records.Add(record);
+            }
+
+			return records;
 		}
 
 		public Task<DataRecord[]> GetDataAsync(int length)

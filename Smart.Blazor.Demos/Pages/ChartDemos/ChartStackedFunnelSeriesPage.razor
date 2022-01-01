@@ -1,0 +1,65 @@
+﻿@page "/chart-stacked-funnel-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Stacked Funnel chart" Description="This example demonstrates stacked funnel chart with positive and negative values" ShowLegend
+           Padding="new Padding() { Left = 15, Top = 15, Right = 15, Bottom = 15 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Index", 1 }, { "SerieA", -30 }, { "SerieB", -10 }, { "SerieC", -25 } },
+        new Dictionary<string, object> { { "Index", 2 }, { "SerieA", -25 }, { "SerieB", -25 }, { "SerieC", 10 } },
+        new Dictionary<string, object> { { "Index", 3 }, { "SerieA", 30 }, { "SerieB", 10 }, { "SerieC", 25 } },
+        new Dictionary<string, object> { { "Index", 4 }, { "SerieA", 35 }, { "SerieB", 25 }, { "SerieC", 45 } },
+        new Dictionary<string, object> { { "Index", 5 }, { "SerieA", 10 }, { "SerieB", 20 }, { "SerieC", 25 } },
+        new Dictionary<string, object> { { "Index", 6 }, { "SerieA", 30 }, { "SerieB", 10 }, { "SerieC", 30 } },
+        new Dictionary<string, object> { { "Index", 7 }, { "SerieA", 60 }, { "SerieB", 45 }, { "SerieC", 10 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Index",
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1
+        },
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1
+        }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Labels = new ChartLabels() { HorizontalAlignment = HorizontalAlignment.Right }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stackedcolumn,
+            ColumnsGapPercent = 50,
+            SeriesGapPercent = 0,
+            ColumnsTopWidthPercent = 100,
+            ColumnsBottomWidthPercent = 30,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "SerieA", DisplayText = "Serie A", Labels = new ChartLabels() { Visible = true } },
+                new ChartSeriesGroupSerie() { DataField = "SerieB", DisplayText = "Serie B", Labels = new ChartLabels() { Visible = true } },
+                new ChartSeriesGroupSerie() { DataField = "SerieC", DisplayText = "Serie C", Labels = new ChartLabels() { Visible = true } }
+            }
+        }
+    };
+}

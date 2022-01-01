@@ -1,0 +1,63 @@
+﻿@page "/chart-scatter-large-data"
+
+<style>
+    smart-chart {
+        width: 100%;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="@sampleData" Animation="Animation.None" Caption="Large set of data points" Description="" ShowLegend ColorScheme="ChartColorScheme.Scheme32" 
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }" 
+           XAxis="xAxis" ValueAxis="valueAxis" @bind-SeriesGroups="@seriesGroups" />
+</Example>
+
+@code {
+    static List<Dictionary<string, double>> sampleData = new List<Dictionary<string, double>>();
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "X",
+        ValuesOnTicks = false
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 10,
+        Title = new ChartTitle() { Text = "Sales ($)<br>" },
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings() { Prefix = "$", ThousandsSeparator = "," },
+            HorizontalAlignment = HorizontalAlignment.Right
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Scatter,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Y",
+                    SymbolSize = 1,
+                    SymbolType = ChartSymbolType.Circle,
+                    DisplayText ="Sales in Q1"
+                }
+            }
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Random random = new Random();
+        for (int i = 0; i < 25000; i++)
+        {
+            sampleData.Add(new Dictionary<string, double>() { { "X", Math.Pow(random.NextDouble(), 3) * 50 }, { "Y", Math.Pow(random.NextDouble(), 3) * 70 } });
+        }
+    }
+}

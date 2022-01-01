@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.5" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-	<PackageReference Include="Smart.Blazor" Version="10.0.77" />
+	<PackageReference Include="Smart.Blazor" Version="11.0.38" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,61 @@
+﻿@page "/chart-waterfall-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="EU Population between 2006 and 2018" Description="data source: Eurostat" ShowLegend="false"
+           Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme06" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "year", 2006 }, { "population", 495900000 } },
+        new Dictionary<string, object> { { "year", 2007 }, { "population", 2400000 } },
+        new Dictionary<string, object> { { "year", 2008 }, { "population", 2000000 } },
+        new Dictionary<string, object> { { "year", 2009 }, { "population", 1790000 } },
+        new Dictionary<string, object> { { "year", 2010 }, { "population", 1080000 } },
+        new Dictionary<string, object> { { "year", 2011 }, { "population", 1320000 } },
+        new Dictionary<string, object> { { "year", 2012 }, { "population", -430000 } },
+        new Dictionary<string, object> { { "year", 2013 }, { "population", 1110000 } },
+        new Dictionary<string, object> { { "year", 2014 }, { "population", 1800000 } },
+        new Dictionary<string, object> { { "year", 2015 }, { "population", 1530000 } },
+        new Dictionary<string, object> { { "year", 2016 }, { "population", 1780000 } },
+        new Dictionary<string, object> { { "year", 2017 }, { "population", 1530000 } },
+        new Dictionary<string, object> { { "year", 2018 }, { "population", 790000 } },
+        new Dictionary<string, object> { { "year", "Total" }, { "summary", true } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        Type = ChartXAxisType.Basic,
+        DataField = "year",
+        DisplayText = "Year",
+        Labels = new ChartLabels() { Angle = 0 }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        MinValue = 490e6,
+        Title = new ChartTitle() { Text = "Population (millions)<br>" },
+        UnitInterval = 2000000
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Waterfall,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "population", Summary = "summary", DisplayText = "Population change" }
+            }
+        }
+    };
+}

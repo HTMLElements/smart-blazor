@@ -1,0 +1,154 @@
+﻿@page "/pivottable-export"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo shows how to export Smart.PivotTable to a variety of popular file formats -
+        CSV, HTML, JSON, PDF, TSV, XLSX, and XML.
+    </p>
+
+    <PivotTable @ref="pivotTable" DataSource="Data" FreezeHeader KeyboardNavigation RowTotals Columns="@columns" />
+
+    <div class="options">
+        <div class="option">
+            <Button Id="csv" OnClick="OnCSVClick">Export to CSV</Button>
+        </div>
+        <div class="option">
+            <Button Id="html" OnClick="OnHTMLClick">Export to HTML</Button>
+        </div>
+        <div class="option">
+            <Button Id="json" OnClick="OnJSONClick">Export to JSON</Button>
+        </div>
+        <div class="option">
+            <Button Id="pdf" OnClick="OnPDFClick">Export to PDF</Button>
+        </div>
+        <div class="option">
+            <Button Id="tsv" OnClick="OnTSVClick">Export to TSV</Button>
+        </div>
+        <div class="option">
+            <Button Id="xlsx" OnClick="OnXLSXClick">Export to XLSX</Button>
+        </div>
+        <div class="option">
+            <Button Id="xml" OnClick="OnXMLClick">Export to XML</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    PivotTable pivotTable;
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                align = "center"
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(50);
+    }
+
+    private async void OnCSVClick()
+    {
+        await pivotTable.ExportData("csv");
+    }
+
+    private async void OnHTMLClick()
+    {
+        await pivotTable.ExportData("html");
+    }
+
+    private async void OnJSONClick()
+    {
+        await pivotTable.ExportData("json");
+    }
+
+    private async void OnPDFClick()
+    {
+        await pivotTable.ExportData("pdf");
+    }
+
+    private async void OnTSVClick()
+    {
+        await pivotTable.ExportData("tsv");
+    }
+
+    private async void OnXLSXClick()
+    {
+        await pivotTable.ExportData("xlsx");
+    }
+
+    private async void OnXMLClick()
+    {
+        await pivotTable.ExportData("xml");
+    }
+}

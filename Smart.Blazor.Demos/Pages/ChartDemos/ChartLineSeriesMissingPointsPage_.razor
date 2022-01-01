@@ -1,0 +1,97 @@
+﻿@page "/chart-line-series-missing-points"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart @ref="chart" DataSource="sampleData" Animation="Animation.None" Caption="Line serie with missing points" 
+           Description="Sample line series with missing values" ShowLegend Padding="new Padding() { Left = 5, Top = 5, Right = 15, Bottom = 5 }" 
+           TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }" ColorScheme="ChartColorScheme.Scheme31" XAxis="xAxis" SeriesGroups="seriesGroups" />
+
+    <br />
+    <div class="options">
+        <p>Select missing points display mode:</p>
+        <DropDownList DataSource="missingPointsSource" SelectionMode="ListSelectionMode.One"
+                      @bind-SelectedIndexes="selectedIndexes" OnChange="OnMissingPointsModeChange" />
+    </div>
+</Example>  
+
+@code {
+    Chart chart;
+
+    string[] missingPointsSource = new string[] { "skip", "zero", "connect" };
+    int[] selectedIndexes = new int[] { 0 };
+
+   // List<object> sampleData = new List<object>() { 29, null, 10, 15, 10, null, null, 30, 25, null, 33, 19, 11 };
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "a", 29 } },
+        new Dictionary<string, object> { { "a", null } },
+        new Dictionary<string, object> { { "a", 10 } },
+        new Dictionary<string, object> { { "a", 15 } },
+        new Dictionary<string, object> { { "a", 10 } },
+        new Dictionary<string, object> { { "a", null } },
+        new Dictionary<string, object> { { "a", null } },
+        new Dictionary<string, object> { { "a", 30 } },
+        new Dictionary<string, object> { { "a", 25 } },
+        new Dictionary<string, object> { { "a", null } },
+        new Dictionary<string, object> { { "a", 33 } },
+        new Dictionary<string, object> { { "a", 19 } },
+        new Dictionary<string, object> { { "a", 11 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        Text = "x",
+        ValuesOnTicks = true
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Line,
+            ValueAxis = new ChartValueAxis()
+            {
+                Title = new ChartTitle() { Text = "Value<br>" }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    EmptyPointsDisplay = ChartSeriesGroupSerieEmptyPointsDisplay.Skip,
+                    DataField = "a",
+                    DisplayText = "Value",
+                    LineWidth = 2,
+                    SymbolSize = 8,
+                    SymbolType = ChartSymbolType.Circle
+                }
+            }
+        }
+    };
+
+    private void OnMissingPointsModeChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Value)
+        {
+            case "skip":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].EmptyPointsDisplay = ChartSeriesGroupSerieEmptyPointsDisplay.Skip;
+                break;
+            case "zero":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].EmptyPointsDisplay = ChartSeriesGroupSerieEmptyPointsDisplay.Zero;
+                break;
+            case "connect":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].EmptyPointsDisplay = ChartSeriesGroupSerieEmptyPointsDisplay.Connect;
+                break;
+        }
+
+        chart.Update();
+    }
+}

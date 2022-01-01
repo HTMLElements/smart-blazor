@@ -1,0 +1,116 @@
+﻿@page "/pivottable-empty-cell-settings"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            max-height: 750px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <div class="demo-description">
+        This demo shows how to change the value shown in cells that do not have aggregated
+        data to display. This behavior is controlled by the property <strong>NullDefaultValue</strong> which is
+        <em>null</em> by default and displays empty cells. In this example, the property is set to <em>0</em>.
+    </div>
+
+    <PivotTable DataSource="Data" FreezeHeader KeyboardNavigation @bind-NullDefaultValue="@nullDefaultValue" Columns="@columns" />
+
+    <div class="options">
+        <div class="option">
+            <ToggleButton Id="toggleButton" OnChange="OnChange">
+                Change <strong>nullDefaultValue</strong> to <span>@toggleLabel</span>
+            </ToggleButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string toggleLabel = "default";
+    int nullDefaultValue = 0;
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String
+        },
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true,
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum
+        },
+        new PivotTableColumn()
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(50);
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        ToggleButtonChangeEventDetail args = eventObj["Detail"];
+
+        if (args.Value)
+        {
+            // nullDefaultValue = null;
+            toggleLabel = "0";
+        }
+        else
+        {
+            nullDefaultValue = 0;
+            toggleLabel = "null";
+        }
+    }
+}

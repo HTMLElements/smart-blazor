@@ -1,0 +1,68 @@
+﻿@page "/chart-logarithmic-axis"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+    
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Logarithmic Scale Axis Example" Description="Sample logarithmic scale axis with base 2"
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme29" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "a", 0.35 }, { "b", 14.5 } },
+        new Dictionary<string, object> { { "a", 1 }, { "b", 2.5 } },
+        new Dictionary<string, object> { { "a", 10 }, { "b", 0.2 } },
+        new Dictionary<string, object> { { "a", 100 }, { "b", 205 } },
+        new Dictionary<string, object> { { "a", 1 }, { "b", 100 } },
+        new Dictionary<string, object> { { "a", 5.11 }, { "b", 10.13 } },
+        new Dictionary<string, object> { { "a", 20.13 }, { "b", 10.13 } },
+        new Dictionary<string, object> { { "a", 600 }, { "b", 300 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = ""
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        LogarithmicScale = true,
+        LogarithmicScaleBase = 2,
+        UnitInterval = 1,
+        Title = new ChartTitle() { Text = "Value" },
+        Labels = new ChartLabels() 
+        { 
+            FormatSettings = new ChartFormatSettings() { DecimalPlaces = 3 }, 
+            HorizontalAlignment = HorizontalAlignment.Right 
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "a", DisplayText = "A" },
+                new ChartSeriesGroupSerie() { DataField = "b", DisplayText = "B" }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Line,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "a", DisplayText = "A2" },
+                new ChartSeriesGroupSerie() { DataField = "b", DisplayText = "B2" }
+            }
+        }
+    };
+}

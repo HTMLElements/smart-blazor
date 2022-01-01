@@ -1,0 +1,110 @@
+﻿@page "/editor-edit-mode-markdown-custom-formats"
+
+<style>
+    body,
+    html,
+    app {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .smart-editor {
+        width: 100%;
+    }
+
+    @@media (max-width: 750px) {
+        .smart-editor {
+            width: 100%;
+        }
+    }
+</style>
+
+<Example Name="Editor">
+    <Editor @ref="editor" EditMode="EditMode.Markdown" ToolbarItems="toolbarItems" Value="@value" />
+
+    <div class="options">
+        <h3>Description</h3>
+        <div class="description">
+            Smart Editor\'s drop down toolbar items can be customized in order to have different values. In the
+            following demo the <b>formats</b> toolbar item has been modified to include additional headings. Click on
+            the toobar item in order to add a format.
+            Clicking on the <b>Source Code</b> Toolbar item will show the HTML output of the markdown.
+        </div>
+        <div class="option">
+            <h4>Preview HTML Output:</h4>
+            <SwitchButton OnChange="OnChange">Show HTML Output</SwitchButton>
+        </div>
+    </div>
+</Example>
+ 
+@code {
+    Editor editor;
+
+    List<IEditorToolbarItem> toolbarItems = new List<IEditorToolbarItem>()
+    {
+        new EditorToolbarItem() { Name = "bold" },
+        new EditorToolbarItem() { Name = "italic" },
+        new EditorToolbarItem() { Name = "Underline" },
+        new EditorToolbarItem() { Name = "StrikeThrough" },
+        new EditorToolbarItem() { Name = "hyperlink" },
+        new EditorToolbarItem() { Name = "removeLink" },
+        new EditorToolbarItem() { Name = "copy" },
+        new EditorToolbarItem() { Name = "cut" },
+        new EditorToolbarItem() { Name = "paste" },
+        new EditorToolbarItem() { Name = "alignment" },
+        new EditorToolbarItem() { Name = "table" },
+        new EditorToolbarItem() { Name = "image" },
+        new EditorToolbarItem() { Name = "sourcecode" },
+        new EditorToolbarItem()
+        {
+            Name = "formats",
+            DataSource = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string>() { { "label", "Header 1" }, { "value", "#" } },
+                new Dictionary<string, string>() { { "label", "Header 2" }, { "value", "##" } },
+                new Dictionary<string, string>() { { "label", "Header 3" }, { "value", "###" } },
+                new Dictionary<string, string>() { { "label", "Header 4" }, { "value", "####" } },
+                new Dictionary<string, string>() { { "label", "Header 5" }, { "value", "#####" } },
+                new Dictionary<string, string>() { { "label", "Header 6" }, { "value", "######" } },
+                new Dictionary<string, string>() { { "label", "Code Block" }, { "value", "``````" } }
+            }
+        },
+        new EditorToolbarItem() { Name = "splitmode" }
+    };
+
+    string value = @"
+# Smart UI
+Web Components, Anguiar UI Components and React UI Components  for Professional Web Applications
+
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/collection/HTMLElements/smarthtmlelements-core)
+
+
+Build responsive, mobile-first projects on the Web with the most advanced front-end component library
+-----------------------------------------------------------------------------------------------------
+
+What is Smart UI?
+----------------------------
+
+Smart UI is a Framework for building  Web Components and Custom Elements. Smart is similar to Stencil and LitElement. It supports two-way data-binding, templates, property change notifications, Typescript-like type-checking and validation.
+Smart does not have third-party dependencies. It is pure Javascript code. 
+60+ UI Components are built with Smart including Grid, Chart, Kanban, Gantt, Table, Tabs, Accordion, Gauge, DateTimePicker and others. Some of the UI Components built with the library are commercial. Others are open-source.
+Smart UI components are available in Javascript, Angular and React. Typescript definitions are included.
+
+Works across devices and browsers
+---------------------------------
+
+Supported Browsers: Chrome, Firefox, Safari, Edge, Opera
+
+| Header 1 | Header 2 | Header 3 |
+|--------- |--------- |--------- |
+| Column A 1 | Column A 2 | Column A 3 |
+| Column A 1 | Column A 2 | Column A 3 |
+| Column B 1 | Column B 2 | Column B 3 |";
+
+    private async void OnChange(Event eventObj)
+    {
+        SwitchButtonChangeEventDetail args = eventObj["Detail"];
+
+        editor.PreviewMode(args.Value);
+    }
+}

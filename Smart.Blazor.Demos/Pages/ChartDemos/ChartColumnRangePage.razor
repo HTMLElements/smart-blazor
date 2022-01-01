@@ -1,0 +1,68 @@
+﻿@page "/chart-column-range"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Temperature Averages by Month in Bern, Switzerland" Description="(source ncdc.noaa.gov)" ShowLegend="false"
+           Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }" TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme05" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "min", -3 }, { "max", 3 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "min", -3 }, { "max", 5 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "min", 1 }, { "max", 10 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "min", 4 }, { "max", 15 } },
+        new Dictionary<string, object> { { "month", "May" }, { "min", 8 }, { "max", 18 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "min", 12 }, { "max", 23 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "min", 13 }, { "max", 25 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "min", 13 }, { "max", 24 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "min", 10 }, { "max", 20 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "min", 6 }, { "max", 14 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "min", 1 }, { "max", 8 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "min", -2 }, { "max", -1 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        Labels = new ChartLabels() { Angle = 90 },
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Visible = true,
+        Title = new ChartTitle() { Text = "Temperature (°C)" },
+        Flip = true,
+        MinValue = -10,
+        MaxValue = 30,
+        FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Rangecolumn,
+            Orientation = Orientation.Horizontal,
+            ColumnsMaxWidth = 15,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataFieldFrom = "min",
+                    DataFieldTo = "max",
+                    DisplayText = "Temperature Range"
+                }
+            }
+        }
+    };
+}

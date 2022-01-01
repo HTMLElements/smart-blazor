@@ -1,0 +1,259 @@
+﻿@page "/chart-column-series-spacing"
+
+<style>
+    table {
+        padding-left: 30px;
+        padding-top: 10px;
+    }
+
+    body {
+    	height: 800px;
+    }
+    smart-chart {
+        width: 65%;
+    }
+    @@media only screen and (max-width: 600px) {
+    	smart-chart {
+    	   width: 100%;
+    	}
+    }
+    smart-slider {
+        width: 200px;
+        height: 50px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart  DataSource="sampleData" Caption="Columns spacing and padding" Description="Example with two series groups and three series in each group" 
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           Animation="Animation.None" ShowLegend ColumnSeriesOverlap ColorScheme="ChartColorScheme.Scheme04" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+
+    <div class="options">
+        <table>
+            <tr>
+                <td><b>Series group 1/2:</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <CheckBox @bind-Checked="series1StackedChecked" OnChange="OnSeries1StackedChanged">Stacked</CheckBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <CheckBox OnChange="OnSeries2StackedChanged">Stacked</CheckBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Space between columns / padding:                    
+                    <Slider Min="0" Max="99" @bind-Value="columnsGapPercentGroup1Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None" 
+                            TicksVisibility="TicksVisibility.Major" OnChange="OnColumnsGapPercentGroup1Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Space between columns / padding:
+                    <Slider Min="0" Max="99" @bind-Value="columnsGapPercentGroup2Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None"
+                            TicksVisibility="TicksVisibility.Major" OnChange="OnColumnsGapPercentGroup2Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Space between series:
+                    <Slider Min="0" Max="100" @bind-Value="sliderSeriesGapGroup1Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None" 
+                        TicksVisibility="TicksVisibility.Major" OnChange="OnSliderSeriesGapGroup1Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Space between series:
+                    <Slider Min="0" Max="100" @bind-Value="sliderSeriesGapGroup2Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None" 
+                        TicksVisibility="TicksVisibility.Major" OnChange="OnSliderSeriesGapGroup2Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Minimum column width:
+                    <Slider Min="0" Max="50" @bind-Value="sliderMinWidthGroup1Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None" 
+                        TicksVisibility="TicksVisibility.Major" OnChange="OnSliderMinWidthGroup1Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Minimum column width:
+                    <Slider Min="0" Max="50" @bind-Value="sliderMinWidthGroup2Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None"
+                        TicksVisibility="TicksVisibility.Major" OnChange="OnSliderMinWidthGroup2Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Maximum column width:
+                    <Slider Min="1" Max="120" @bind-Value="sliderMaxWidthGroup1Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None"
+                            TicksVisibility="TicksVisibility.Major" OnChange="OnSliderMaxWidthGroup1Changed" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Maximum column width:
+                    <Slider Min="1" Max="120" @bind-Value="sliderMaxWidthGroup2Value" Coerce Interval="1" LabelsVisibility="LabelsVisibility.None"
+                            TicksVisibility="TicksVisibility.Major" OnChange="OnSliderMaxWidthGroup2Changed" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</Example>  
+
+@code {
+    bool series1StackedChecked = true;
+    object columnsGapPercentGroup1Value = 25;
+    object columnsGapPercentGroup2Value = 25;
+    object sliderSeriesGapGroup1Value = 10;
+    object sliderSeriesGapGroup2Value = 10;
+    object sliderMinWidthGroup1Value = 0;
+    object sliderMinWidthGroup2Value = 0;
+    object sliderMaxWidthGroup1Value = 40;
+    object sliderMaxWidthGroup2Value = 40;
+
+    static List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Position", 0 }, { "Serie1", 30 }, { "Serie2", 5 }, { "Serie3", 25 }, { "Serie4", 30 }, { "Serie5", 10 }, { "Serie6", 5 } },
+        new Dictionary<string, object> { { "Position", 1 }, { "Serie1", 25 }, { "Serie2", 25 }, { "Serie3", 5 }, { "Serie4", 20 }, { "Serie5", 20 }, { "Serie6", 10 } },
+        new Dictionary<string, object> { { "Position", 3 }, { "Serie1", 30 }, { "Serie2", 5 }, { "Serie3", 25 }, { "Serie4", 10 }, { "Serie5", 20 }, { "Serie6", 15 } },
+        new Dictionary<string, object> { { "Position", 6 }, { "Serie1", 35 }, { "Serie2", 25 }, { "Serie3", 45 }, { "Serie4", 5 }, { "Serie5", 30 }, { "Serie6", 20 } },
+        new Dictionary<string, object> { { "Position", 7 }, { "Serie1", 5 }, { "Serie2", 20 }, { "Serie3", 25 }, { "Serie4", 20 }, { "Serie5", 40 }, { "Serie6", 15 } },
+        new Dictionary<string, object> { { "Position", 9 }, { "Serie1", 30 }, { "Serie2", 10 }, { "Serie3", 30 }, { "Serie4", 10 }, { "Serie5", 5 }, { "Serie6", 20 } },
+        new Dictionary<string, object> { { "Position", 10 }, { "Serie1", 60 }, { "Serie2", 45 }, { "Serie3", 10 }, { "Serie4", 20 }, { "Serie5", 10 }, { "Serie6", 15 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Position",
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        Flip = false,
+        ValuesOnTicks = false
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 10,
+        Title = new ChartTitle() { Text = "Value" },
+        TickMarks = new ChartLines() { Color = "#BCBCBC" },
+        GridLines = new ChartLines() { Color = "#BCBCBC" },
+        Labels = new ChartLabels() { HorizontalAlignment = HorizontalAlignment.Right }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stackedcolumn,
+            ColumnsGapPercent = 25,
+            SeriesGapPercent = 10,
+            ColumnsMaxWidth = 40,
+            ColumnsMinWidth = 1,
+            SkipOverlappingPoints = false,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Serie1", DisplayText = "Serie1" },
+                new ChartSeriesGroupSerie() { DataField = "Serie2", DisplayText = "Serie2" },
+                new ChartSeriesGroupSerie() { DataField = "Serie3", DisplayText = "Serie3" }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ColumnsGapPercent = 25,
+            SeriesGapPercent = 10,
+            ColumnsMaxWidth = 40,
+            ColumnsMinWidth = 1,
+            SkipOverlappingPoints = false,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Serie4", DisplayText = "Serie4", GreyScale = true },
+                new ChartSeriesGroupSerie() { DataField = "Serie5", DisplayText = "Serie5", GreyScale = true },
+                new ChartSeriesGroupSerie() { DataField = "Serie6", DisplayText = "Serie6", GreyScale = true }
+            }
+        }
+    };
+
+    private void OnSeries1StackedChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[0].Type = args.Value ? ChartType.Stackedcolumn : ChartType.Column;
+    }
+
+    private void OnSeries2StackedChanged(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[1].Type = args.Value ? ChartType.Stackedcolumn : ChartType.Column;
+    }
+
+    private void OnColumnsGapPercentGroup1Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[0].ColumnsGapPercent = int.Parse(args.Value.ToString());
+    }
+
+    private void OnColumnsGapPercentGroup2Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[1].ColumnsGapPercent = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderSeriesGapGroup1Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[0].SeriesGapPercent = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderSeriesGapGroup2Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[1].SeriesGapPercent = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderMinWidthGroup1Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[0].ColumnsMinWidth = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderMinWidthGroup2Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[1].ColumnsMinWidth = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderMaxWidthGroup1Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[0].ColumnsMinWidth = int.Parse(args.Value.ToString());
+    }
+
+    private void OnSliderMaxWidthGroup2Changed(Event eventObj)
+    {
+        SliderChangeEventDetail args = eventObj["Detail"];
+
+        seriesGroups[1].ColumnsMinWidth = int.Parse(args.Value.ToString());
+    }
+}

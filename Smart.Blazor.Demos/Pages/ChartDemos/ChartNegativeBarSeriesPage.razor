@@ -1,0 +1,65 @@
+﻿@page "/chart-negative-bar-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+    
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="CPI inflation comparison by country" Description="Years: 2011 vs 2012" ShowLegend
+           Padding="new Padding() { Left = 20, Top = 5, Right = 20, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme08" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Country", "Switzerland" }, { "Inflation2012", -0.95 }, { "Inflation2011", -0.72 } },
+        new Dictionary<string, object> { { "Country", "USA" }, { "Inflation2012", 2.35 }, { "Inflation2011", 2.96 } },
+        new Dictionary<string, object> { { "Country", "Germany" }, { "Inflation2012", 2.03 }, { "Inflation2011", 2.10 } },
+        new Dictionary<string, object> { { "Country", "India" }, { "Inflation2012", 8.38 }, { "Inflation2011", 6.49 } },
+        new Dictionary<string, object> { { "Country", "China" }, { "Inflation2012", 3.34 }, { "Inflation2011", 4.06 } },
+        new Dictionary<string, object> { { "Country", "Canada" }, { "Inflation2012", 2.05 }, { "Inflation2011", 2.30 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Country"
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Title = new ChartTitle() { Visible = false },
+        UnitInterval = 1,
+        MinValue = -5,
+        MaxValue = 10,
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings()
+            {
+                Sufix = "%"
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            Orientation = Orientation.Horizontal,
+            ColumnsGapPercent = 50,
+            ToolTipFormatSettings = new ChartFormatSettings()
+            {
+                Sufix = "%"
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Inflation2012", DisplayText = "Inflation 2012" },
+                new ChartSeriesGroupSerie() { DataField = "Inflation2011", DisplayText = "Inflation 2011" }
+            }
+        }
+    };
+}

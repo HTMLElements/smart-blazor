@@ -1,0 +1,202 @@
+﻿@page "/chart-scatter"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 550px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart @ref="chart" Animation="Animation.None" Clip="false" Caption="Height of 100 Random Adolescents" Description="between ages 13 and 20"
+           ShowLegend ColorScheme="ChartColorScheme.Scheme32" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }"
+           TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }" XAxis="xAxis" ValueAxis="valueAxis" @bind-SeriesGroups="@seriesGroups" />
+
+    <div class="options">
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Select Serie 1 Symbol:
+                    </p>
+                    <DropDownList DataSource="symbolsSource" SelectionMode="ListSelectionMode.One"
+                                  @bind-SelectedIndexes="selectedIndexes1" OnChange="OnSerie1SymbolChange" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>
+                        Select Serie 2 Symbol:
+                    </p>
+                    <DropDownList DataSource="symbolsSource" SelectionMode="ListSelectionMode.One"
+                                  @bind-SelectedIndexes="selectedIndexes2" OnChange="OnSerie2SymbolChange" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</Example>
+
+@code {
+    Chart chart;
+
+    string[] symbolsSource = new string[] { "circle", "diamond", "square", "triangle_up", "triangle_down", "triangle_left", "triangle_right" };
+
+    int[] selectedIndexes1 = new int[] { 0 };
+    int[] selectedIndexes2 = new int[] { 0 };
+
+    List<Dictionary<string, double>> averages = new List<Dictionary<string, double>>()
+    {
+        new Dictionary<string, double>() { { "Age", 13 }, { "Male", 156.2 }, { "Female", 156.7 } },
+        new Dictionary<string, double>() { { "Age", 14 }, { "Male", 163.8 }, { "Female", 158.7 } },
+        new Dictionary<string, double>() { { "Age", 15 }, { "Male", 170.1 }, { "Female", 159.7 } },
+        new Dictionary<string, double>() { { "Age", 16 }, { "Male", 173.4 }, { "Female", 162.5 } },
+        new Dictionary<string, double>() { { "Age", 17 }, { "Male", 175.2 }, { "Female", 162.5 } },
+        new Dictionary<string, double>() { { "Age", 18 }, { "Male", 175.7 }, { "Female", 163 } },
+        new Dictionary<string, double>() { { "Age", 19 }, { "Male", 176.5 }, { "Female", 163 } },
+        new Dictionary<string, double>() { { "Age", 20 }, { "Male", 177 }, { "Female", 163.3 } }
+    };
+
+    static List<Dictionary<string, double>> maleData = new List<Dictionary<string, double>>();
+    static List<Dictionary<string, double>> femaleData = new List<Dictionary<string, double>>();
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Age",
+        ValuesOnTicks = false,
+        Type = ChartXAxisType.Linear,
+        UnitInterval = 1,
+        MinValue = 13,
+        MaxValue = 20
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Title = new ChartTitle() { Text = "Height (cm)" },
+        MinValue = 140,
+        MaxValue = 185
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+{
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Scatter,
+            DataSource = maleData,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Height",
+                    SymbolSize = 20,
+                    SymbolType = ChartSymbolType.Circle,
+                    DisplayText ="Boys"
+                }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Scatter,
+            DataSource = femaleData,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Height",
+                    SymbolSize = 20,
+                    SymbolType = ChartSymbolType.Diamond,
+                    DisplayText ="Girls"
+                }
+            }
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Random random = new Random();
+        for (int i = 0; i < 200; i++)
+        {
+            string gender = (i % 2 == 0) ? "Male" : "Female";
+            double age = random.NextDouble() * 7 + 13;
+
+            double averageHeight = averages[int.Parse(Math.Floor(age - 13).ToString())][gender];
+            double height = random.NextDouble() * 25 + averageHeight - 12.5;
+
+            if (gender == "Male")
+            {
+                maleData.Add(new Dictionary<string, double>() { { "Age", age }, { "Height", height } });
+            }
+            else
+            {
+                femaleData.Add(new Dictionary<string, double>() { { "Age", age }, { "Height", height } });
+            }
+        }
+    }
+
+    private void OnSerie1SymbolChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Value)
+        {
+            case "circle":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Circle;
+                break;
+            case "diamond":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Diamond;
+                break;
+            case "square":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Square;
+                break;
+            case "triangle_up":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_up;
+                break;
+            case "triangle_down":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_down;
+                break;
+            case "triangle_left":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_left;
+                break;
+            case "triangle_right":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_right;
+                break;
+        }
+
+        chart.Update();
+        StateHasChanged();
+    }
+
+    private void OnSerie2SymbolChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Value)
+        {
+            case "circle":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Circle;
+                break;
+            case "diamond":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Diamond;
+                break;
+            case "square":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Square;
+                break;
+            case "triangle_up":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_up;
+                break;
+            case "triangle_down":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_down;
+                break;
+            case "triangle_left":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_left;
+                break;
+            case "triangle_right":
+                (seriesGroups[1].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_right;
+                break;
+        }
+
+        chart.Refresh();
+        StateHasChanged();
+    }
+}

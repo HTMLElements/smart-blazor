@@ -1,0 +1,114 @@
+﻿@page "/chart-events"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Fitness & exercise weekly scorecard" Description="Time spent in vigorous exercise"
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           ShowToolTips="false" ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" SeriesGroups="seriesGroups"
+           OnMouseout="OnMouseout" OnMouseover="OnMouseover" OnToggle="OnToggle" />
+
+    <br />
+    <div id="log">@((MarkupString)eventLog)</div>
+</Example>  
+
+@code {
+    string eventLog;
+
+    IEnumerable<object> sampleData = new List<object>(){
+        new FitnessItem()
+        {
+            Day = "Monday", Keith= 30, Erica = 15, George = 25
+        },
+        new FitnessItem()
+        {
+            Day= "Tuesday", Keith= 25, Erica= 25, George= 30
+        },
+        new FitnessItem()
+        {
+            Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+        },
+        new FitnessItem()
+        {
+            Day= "Wednesday", Keith= 30, Erica= 20, George= 25
+        },
+        new FitnessItem()
+        {
+            Day= "Thursday", Keith= 35, Erica= 25, George= 45
+        },
+        new FitnessItem()
+        {
+            Day= "Friday", Keith= 20, Erica= 20, George= 25
+        },
+        new FitnessItem()
+        {
+            Day= "Saturday", Keith= 30, Erica= 20, George= 30
+        },
+        new FitnessItem()
+        {
+            Day= "Sunday", Keith= 60, Erica= 45, George= 90
+        }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Day", Type = ChartXAxisType.Basic
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                MinValue = 0,
+                MaxValue = 100,
+                UnitInterval = 10,
+                Title = new ChartTitle() { Text = "Time in minutes" }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Keith", DisplayText = "Keith" },
+                new ChartSeriesGroupSerie() { DataField = "Erica", DisplayText = "Erica" },
+                new ChartSeriesGroupSerie() { DataField = "George", DisplayText = "George" }
+            }
+        }
+    };
+
+    private void OnMouseout(Event eventObj)
+    {
+        eventLog = "<div><b>Last Event: </b>mouseout<b></div>";
+    }
+
+    private void OnMouseover()
+    {
+        eventLog = "<div><b>Last Event: </b>mouseover<b></div>";
+    }
+
+    private void OnClick()
+    {
+        eventLog = "<div><b>Last Event: </b>click<b></div>";
+    }
+
+    private void OnToggle()
+    {
+        eventLog = "<div><b>Last Event: </b>toggle<b></div>";
+    }
+
+    public class FitnessItem
+    {
+        public int George { get; set; }
+
+        public int Erica { get; set; }
+
+        public int Keith { get; set; }
+
+        public string Day { get; set; }
+    }
+}

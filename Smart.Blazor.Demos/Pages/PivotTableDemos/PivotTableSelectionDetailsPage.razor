@@ -1,0 +1,120 @@
+﻿@page "/pivottable-selection-details"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            --jqx-table-group-count-display: none;
+            max-height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo showcases the cell selection functionality of Smart.PivotTable. Click-drag in order to select multiple
+        cells. When multiple cells with non-null summary values are selected, a tooltip showng the Average, Count, and
+        Sum of the values is displayed.
+    </p>
+
+    <PivotTable DataSource="Data" DrillDown FreezeHeader GrandTotal @bind-HideCellSelectionTooltip="hideCellSelectionTooltip"
+                KeyboardNavigation Selection SelectionMode="PivotTableSelectionMode.Cell" Toolbar Columns="@columns" OnReady="OnReady" />
+
+    <div class="options">
+        <div class="option">
+            <ToggleButton Id="toggleButton" OnChange="OnChange">Hide cell selection tooltip</ToggleButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    bool hideCellSelectionTooltip = false;
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "Continent",
+            DataField = "Continent",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "City",
+            DataField = "City",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Year",
+            DataField = "Year",
+            DataType = PivotTableColumnDataType.Number,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quarter",
+            DataField = "Quarter",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Revenue",
+            DataField = "Revenue",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                negativesInBrackets = true
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Expenses",
+            DataField = "Expense",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                negativesInBrackets = true
+            }
+        }
+    };
+
+    public List<PivotRecord> Data;
+
+    protected override void OnInitialized()
+    {
+        Data = RandomDataService.GeneratePivotData(300, 2);
+    }
+
+    private void OnReady(PivotTable pivotTable)
+    {
+        pivotTable.Select("Australia0", "2021_Q4_Revenue");
+        pivotTable.Select("Australia0", "2021_Q4_Expense");
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        ToggleButtonChangeEventDetail args = eventObj["Detail"];
+
+        hideCellSelectionTooltip = args.Value;
+    }
+}

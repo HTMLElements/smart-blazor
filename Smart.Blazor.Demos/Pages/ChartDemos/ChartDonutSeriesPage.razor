@@ -1,0 +1,102 @@
+﻿@page "/chart-donut-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart Caption="Mobile & Desktop browsers share" Description="(source: gs.statcounter.com)" ShowLegend ShowBorderLine
+           LegendLayout="legendLayout" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" SeriesGroups="seriesGroups"
+           TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }" ColorScheme="ChartColorScheme.Scheme32" />
+</Example>  
+
+@code {
+
+    static List<Dictionary<string, object>> sourceDesktop = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Browser", "Chrome" }, { "Share", 68.95 } },
+        new Dictionary<string, object> { { "Browser", "Firefox" }, { "Share", 10.67 } },
+        new Dictionary<string, object> { { "Browser", "IE" }, { "Share", 6.42 } },
+        new Dictionary<string, object> { { "Browser", "Safari" }, { "Share", 5.35 } },
+        new Dictionary<string, object> { { "Browser", "Edge" }, { "Share", 4.2 } },
+        new Dictionary<string, object> { { "Browser", "Other" }, { "Share", 4.67 } }
+    };
+
+    static List<Dictionary<string, object>> sourceMobile = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Browser", "Chrome" }, { "Share", 54.84 } },
+        new Dictionary<string, object> { { "Browser", "Safari" }, { "Share", 19.16 } },
+        new Dictionary<string, object> { { "Browser", "UC Browser" }, { "Share", 11.33 } },
+        new Dictionary<string, object> { { "Browser", "Samsung Internet" }, { "Share", 5.71 } },
+        new Dictionary<string, object> { { "Browser", "Opera" }, { "Opera", 4.53 } },
+        new Dictionary<string, object> { { "Browser", "Android" }, { "Share", 1.87 } },
+        new Dictionary<string, object> { { "Browser", "KaiOS" }, { "Share", 0.76 } },
+        new Dictionary<string, object> { { "Browser", "Firefox" }, { "Share", 0.38 } },
+        new Dictionary<string, object> { { "Browser", "QQ Browser" }, { "Share", 0.35 } },
+        new Dictionary<string, object> { { "Browser", "Other" }, { "Share", 1.07 } }
+    };
+
+    Dictionary<string, object> legendLayout = new Dictionary<string, object>()
+    {
+        { "left", 520 }, { "top", 170 }, { "width", 300 }, { "height", 200 }, { "flow", "vertical" },
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Donut,
+            OffsetX = 250,
+            DataSource = sourceMobile,
+            ColumnsGapPercent = 50,
+            SeriesGapPercent = 0,
+            XAxis = new ChartXAxis() { FormatSettings = new ChartFormatSettings() { Sufix = " (mobile)" } },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Share",
+                    DisplayText = "Browser",
+                    LabelRadius = 120,
+                    InitialAngle = 10,
+                    Radius = 130,
+                    InnerRadius = 90,
+                    CenterOffset = 0,
+                    FormatSettings = new ChartFormatSettings()
+                    {
+                        Sufix = "%",
+                        DecimalPlaces = 1
+                    }
+                }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Donut,
+            OffsetX = 250,
+            DataSource = sourceDesktop,
+            XAxis = new ChartXAxis() { FormatSettings = new ChartFormatSettings() { Sufix = " (desktop)" } },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Share",
+                    DisplayText = "Browser",
+                    LabelRadius = 120,
+                    InitialAngle = 10,
+                    Radius = 70,
+                    InnerRadius = 30,
+                    CenterOffset = 0,
+                    FormatSettings = new ChartFormatSettings()
+                    {
+                        Sufix = "%",
+                        DecimalPlaces = 1
+                    }
+                }
+            }
+        }
+    };
+}

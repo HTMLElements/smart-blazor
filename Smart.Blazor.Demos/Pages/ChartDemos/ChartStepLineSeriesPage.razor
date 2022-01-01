@@ -1,0 +1,99 @@
+﻿@page "/chart-step-line-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Stock Prices of Entertainment Companies" Description="February 13 - March 12, 2019" ShowLegend
+           Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }" TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme02" XAxis="xAxis" SeriesGroups="seriesGroups" />
+</Example>
+
+@code {
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+{
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 13) }, { "NFLX", 351.77 }, { "DIS", 110.2 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 14) }, { "NFLX", 359.07 }, { "DIS", 110.66 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 15) }, { "NFLX", 356.87 }, { "DIS", 112.59 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 19) }, { "NFLX", 361.92 }, { "DIS", 113.51 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 20) }, { "NFLX", 359.91 }, { "DIS", 113.68 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 21) }, { "NFLX", 356.97 }, { "DIS", 114.29 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 22) }, { "NFLX", 363.02 }, { "DIS", 115.25 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 25) }, { "NFLX", 363.91 }, { "DIS", 113.59 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 26) }, { "NFLX", 364.97 }, { "DIS", 113.5 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 27) }, { "NFLX", 362.87 }, { "DIS", 112.78 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 1, 28) }, { "NFLX", 358.1 }, { "DIS", 112.84 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 1) }, { "NFLX", 357.32 }, { "DIS", 114.01 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 4) }, { "NFLX", 351.04 }, { "DIS", 114.33 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 5) }, { "NFLX", 354.3 }, { "DIS", 114 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 6) }, { "NFLX", 359.61 }, { "DIS", 114.85 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 7) }, { "NFLX", 352.6 }, { "DIS", 114.01 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 8) }, { "NFLX", 349.6 }, { "DIS", 113.81 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 11) }, { "NFLX", 358.86 }, { "DIS", 114.75 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2019, 2, 12) }, { "NFLX", 356.27 }, { "DIS", 114.73 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Date",
+        Type = ChartXAxisType.Date,
+        BaseUnit = ChartBaseUnit.Day,
+        ValuesOnTicks = true,
+        TickMarks = new ChartLines()
+        {
+            Visible = false,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        UnitInterval = 1,
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 3
+        },
+        Labels = new ChartLabels()
+        {
+            Angle = -45,
+            RotationPoint = ChartRotationPoint.Topright,
+            Offset = new Offset() { X = -25, Y = 0 }
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stepline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "NFLX", DisplayText = "Netflix, Inc. (NFLX)" }
+            },
+            ValueAxis =  new ChartValueAxis()
+            {
+                GridLines = new ChartLines() { Visible = false },
+                Title = new ChartTitle() { Text = "NFLX stock price (USD)" },
+                Labels = new ChartLabels() { FormatSettings = new ChartFormatSettings() { Sufix = "$" } }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stepline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "DIS", DisplayText = "Walt Disney Co (DIS)" }
+            },
+            ValueAxis =  new ChartValueAxis()
+            {
+                GridLines = new ChartLines() { Visible = false },
+                Position = AxisPosition.Right,
+                Title = new ChartTitle() { Text = "DIS stock price (USD)" },
+                Labels = new ChartLabels() { FormatSettings = new ChartFormatSettings() { Sufix = "$" } }
+            }
+        }
+    };
+}

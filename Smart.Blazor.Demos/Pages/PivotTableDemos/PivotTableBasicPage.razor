@@ -1,0 +1,88 @@
+﻿@page "/pivottable-basic"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <h1>Pivot Table</h1>
+    <p>
+        This demo showcases the basic functionality of Smart.PivotTable - a table of statistics that summarizes tabular
+        data.
+    </p>
+
+    <PivotTable DataSource="Data" FreezeHeader GrandTotal KeyboardNavigation Columns="@columns" />
+</Example>
+
+@code {
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn() 
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            Pivot = true,
+            AllowPivot = true,
+            DataType = PivotTableColumnDataType.String
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new 
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(100);
+    }
+}

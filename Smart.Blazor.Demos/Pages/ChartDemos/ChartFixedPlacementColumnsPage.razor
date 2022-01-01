@@ -1,0 +1,76 @@
+﻿@page "/chart-fixed-placement-columns"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Film Series Revenue Comparison" Description="Star Wars vs Jurassic Park" ShowLegend ColumnSeriesOverlap
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Film", 1 }, { "StarWars", 621.7 }, { "Jurassic", 983.8 } },
+        new Dictionary<string, object> { { "Film", 2 }, { "StarWars", 457.3 }, { "Jurassic", 618.6 } },
+        new Dictionary<string, object> { { "Film", 3 }, { "StarWars", 418.4 }, { "Jurassic", 368.8 } },
+        new Dictionary<string, object> { { "Film", 4 }, { "StarWars", 983.6 }, { "Jurassic", 1671.7 } },
+        new Dictionary<string, object> { { "Film", 5 }, { "StarWars", 640.9 }, { "Jurassic", 1309.5 } },
+        new Dictionary<string, object> { { "Film", 6 }, { "StarWars", 848.8 } },
+        new Dictionary<string, object> { { "Film", 7 }, { "StarWars", 2068 } },
+        new Dictionary<string, object> { { "Film", 8 }, { "StarWars", 1332.5 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Film",
+        Title = new ChartTitle() { Text = "Film" },
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        Flip = false,
+        ValuesOnTicks = false
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 100,
+        Title = new ChartTitle() { Text = "Revenue (millions USD)" }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ColumnsMaxWidth = 40,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Jurassic", DisplayText = "Jurassic Park" }
+            }
+        },
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ColumnsMaxWidth = 20,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "StarWars", DisplayText = "Star Wars" }
+            }
+        }
+    };
+}

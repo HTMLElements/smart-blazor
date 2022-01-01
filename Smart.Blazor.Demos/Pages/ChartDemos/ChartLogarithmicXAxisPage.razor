@@ -1,0 +1,60 @@
+﻿@page "/chart-logarithmic-x-axis"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+    
+<Example Name="Chart">
+    <Chart DataSource="sampleData" RenderEngine="ChartRenderEngine.HTML5" Caption="Logarithmic Scale x-Axis Example" 
+           Description="Horizontal axis with base 2 logarithmic scale" Padding="new Padding() { Left = 15, Top = 5, Right = 15, Bottom = 5 }" 
+           TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }" ColorScheme="ChartColorScheme.Scheme32" 
+           XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "a", 0.1535 }, { "b", 0.5 } },
+        new Dictionary<string, object> { { "a", 0.48 }, { "b", 20.5 } },
+        new Dictionary<string, object> { { "a", 10 }, { "b", 60 } },
+        new Dictionary<string, object> { { "a", 100 }, { "b", 80 } },
+        new Dictionary<string, object> { { "a", 200 }, { "b", 90 } },
+        new Dictionary<string, object> { { "a", 245.11 }, { "b", 100.13 } },
+        new Dictionary<string, object> { { "a", 300.13 }, { "b", 150.13 } },
+        new Dictionary<string, object> { { "a", 340 }, { "b", 200 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "a",
+        LogarithmicScale = true,
+        LogarithmicScaleBase = 2
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        LogarithmicScale = false,
+        LogarithmicScaleBase = 2,
+        Title = new ChartTitle() { Text = "Value" },
+        Labels = new ChartLabels() 
+        {
+            HorizontalAlignment = HorizontalAlignment.Right 
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Line,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "a", DisplayText = "A", SymbolType = ChartSymbolType.Square, SymbolSize = 6, LineDashStyle="4,4", LineWidth = 1 },
+                new ChartSeriesGroupSerie() { DataField = "b", DisplayText = "B", SymbolType = ChartSymbolType.Circle, SymbolSize = 6, LineWidth = 1  }
+            }
+        }
+    };
+}

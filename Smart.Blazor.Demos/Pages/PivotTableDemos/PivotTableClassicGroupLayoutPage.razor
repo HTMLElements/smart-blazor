@@ -1,0 +1,133 @@
+﻿@page "/pivottable-classic-group-layout"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            max-height: 750px;
+        }
+    </style>
+
+    <div class="demo-description">
+        This demo shows how to display PivotTable row nesting (based on
+        <strong>rowGroup</strong> columns) in a classic, OLAP, layout. In this layout, there is a separate column for
+        each level of nesting. Clicking the toggle button will change to the default, tree grid-like, style with a
+        separate row for each record in the hierarchy.
+    </div>
+
+    <PivotTable DataSource="Data" FreezeHeader @bind-GroupLayout="@groupLayout" KeyboardNavigation Columns="@columns" OnReady="OnReady"/>
+
+    <div class="options">
+        <div class="option">
+            <ToggleButton Id="toggleButton" OnChange="OnChange">
+                Change <strong>groupLayout</strong> to '<span id="toggleButtonLabel">@toggleLabel</span>'
+            </ToggleButton>
+        </div>
+    </div>
+</Example>
+
+@code {
+    string toggleLabel = "default";
+
+    PivotTableGroupLayout groupLayout = PivotTableGroupLayout.Classic;
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn() 
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true,
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new 
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        },
+        new PivotTableColumn() 
+        {
+            Label = "Available",
+            DataField = "Available",
+            DataType = PivotTableColumnDataType.Boolean,
+            AllowRowGroup = true,
+            RowGroup = true
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(100);
+    }
+
+    private void OnReady(PivotTable pivotTable)
+    {
+        pivotTable.ExpandRow(0);
+        pivotTable.ExpandRow(1);
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        ToggleButtonChangeEventDetail args = eventObj["Detail"];
+
+        if (args.Value)
+        {
+            groupLayout = PivotTableGroupLayout.Default;
+            toggleLabel = "classic";
+        }
+        else
+        {
+            groupLayout = PivotTableGroupLayout.Classic;
+            toggleLabel = "default";
+        }
+    }
+}

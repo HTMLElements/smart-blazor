@@ -1,0 +1,225 @@
+﻿@page "/chart-bubble-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 550px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart @ref="chart" DataSource="sampleData" Animation="Animation.None" Caption="Sales by City in Q1 and Q2, and YoY sales growth"
+           Description="(the size of the circles represents relative YoY growth)" ShowLegend ColorScheme="ChartColorScheme.Scheme32"
+           Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           XAxis="xAxis" ValueAxis="valueAxis" @bind-SeriesGroups="@seriesGroups" />
+
+    <div class="options">
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Select Serie 1 Symbol:
+                    </p>
+                    <DropDownList DataSource="symbolsSource" SelectionMode="ListSelectionMode.One" 
+                                  @bind-SelectedIndexes="selectedIndexes1" OnChange="OnSerie1SymbolChange" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>
+                        Select Serie 2 Symbol:
+                    </p>
+                    <DropDownList DataSource="symbolsSource" SelectionMode="ListSelectionMode.One" 
+                                  @bind-SelectedIndexes="selectedIndexes2" OnChange="OnSerie2SymbolChange"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</Example>  
+
+@code {
+    Chart chart;
+
+    string[] symbolsSource = new string[] { "circle", "diamond", "square", "triangle_up", "triangle_down", "triangle_left", "triangle_right" };
+
+    int[] selectedIndexes1 = new int[] { 0 };
+    int[] selectedIndexes2 = new int[] { 0 };
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>
+        {
+            { "City", "New York" },
+            { "SalesQ1", 310500 },
+            { "SalesQ2", 210500 },
+            { "YoYGrowthQ1", 1.05 },
+            { "YoYGrowthQ2", 1.25 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "London" },
+            { "SalesQ1", 120000 },
+            { "SalesQ2", 169000 },
+            { "YoYGrowthQ1", 1.15 },
+            { "YoYGrowthQ2", 0.95 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "Paris" },
+            { "SalesQ1", 205000 },
+            { "SalesQ2", 275500 },
+            { "YoYGrowthQ1", 1.45 },
+            { "YoYGrowthQ2", 1.15 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "Tokyo" },
+            { "SalesQ1", 187000 },
+            { "SalesQ2", 130100 },
+            { "YoYGrowthQ1", 0.45},
+            { "YoYGrowthQ2", 0.55 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "Berlin" },
+            { "SalesQ1", 187000 },
+            { "SalesQ2", 113000 },
+            { "YoYGrowthQ1", 1.65 },
+            { "YoYGrowthQ2", 1.05 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "San Francisco" },
+            { "SalesQ1", 142000 },
+            { "SalesQ2", 102000 },
+            { "YoYGrowthQ1", 0.75 },
+            { "YoYGrowthQ2", 0.15 }
+        },
+        new Dictionary<string, object>
+        {
+            { "City", "Chicago" },
+            { "SalesQ1", 171000 },
+            { "SalesQ2", 124000 },
+            { "YoYGrowthQ1", 0.75 },
+            { "YoYGrowthQ2", 0.65 }
+        }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "City",
+        ValuesOnTicks = false
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 50000,
+        MinValue = 50000,
+        MaxValue = 350000,
+        Title = new ChartTitle() { Text = "Sales ($)<br>" },
+        Labels = new ChartLabels()
+        {
+            FormatSettings = new ChartFormatSettings()
+            {
+                Prefix = "$",
+                ThousandsSeparator = ","
+            },
+            HorizontalAlignment = HorizontalAlignment.Right
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Bubble,
+            UseGradientColors = true,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "SalesQ1",
+                    RadiusDataField = "YoYGrowthQ1",
+                    MinRadius = 10,
+                    MaxRadius = 30,
+                    DisplayText ="Sales in Q1",
+                    SymbolType = ChartSymbolType.Circle
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "SalesQ2",
+                    RadiusDataField = "YoYGrowthQ2",
+                    MinRadius = 10,
+                    MaxRadius = 30,
+                    DisplayText ="Sales in Q2",
+                    SymbolType = ChartSymbolType.Circle                   
+                }
+            }
+        }
+    };
+
+    private void OnSerie1SymbolChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Value)
+        {
+            case "circle": (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Circle;
+                break;
+            case "diamond":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Diamond;
+                break;
+            case "square":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Square;
+                break;
+            case "triangle_up":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_up;
+                break;
+            case "triangle_down":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_down;
+                break;
+            case "triangle_left":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_left;
+                break;
+            case "triangle_right":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[0].SymbolType = ChartSymbolType.Triangle_right;
+                break;
+        }
+
+        chart.Update();
+        StateHasChanged();
+    }
+
+    private void OnSerie2SymbolChange(Event eventObj)
+    {
+        DropDownListChangeEventDetail args = eventObj["Detail"];
+
+        switch (args.Value)
+        {
+            case "circle":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Circle;
+                break;
+            case "diamond":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Diamond;
+                break;
+            case "square":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Square;
+                break;
+            case "triangle_up":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Triangle_up;
+                break;
+            case "triangle_down":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Triangle_down;
+                break;
+            case "triangle_left":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Triangle_left;
+                break;
+            case "triangle_right":
+                (seriesGroups[0].Series as List<ChartSeriesGroupSerie>)[1].SymbolType = ChartSymbolType.Triangle_right;
+                break;
+        }
+
+        chart.Refresh();
+        StateHasChanged();
+    }
+}

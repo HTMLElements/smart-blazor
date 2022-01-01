@@ -1,0 +1,58 @@
+﻿@page "/chart-pie-series-legend"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Mobile browsers share" Description="(source: gs.statcounter.com)" ShowLegend ShowBorderLine
+           LegendLayout="legendLayout" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" ColorScheme="ChartColorScheme.Scheme31"
+           TitlePadding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 10 }" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    static List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Browser", "Chrome" }, { "Share", 54.84 } },
+        new Dictionary<string, object> { { "Browser", "Safari" }, { "Share", 19.16 } },
+        new Dictionary<string, object> { { "Browser", "UC Browser" }, { "Share", 11.33 } },
+        new Dictionary<string, object> { { "Browser", "Samsung Internet" }, { "Share", 5.71 } },
+        new Dictionary<string, object> { { "Browser", "Opera" }, { "Opera", 4.53 } },
+        new Dictionary<string, object> { { "Browser", "Android" }, { "Share", 1.87 } },
+        new Dictionary<string, object> { { "Browser", "Other" }, { "Share", 2.56 } }
+    };
+
+    Dictionary<string, object> legendLayout = new Dictionary<string, object>()
+    {
+        { "left", 700 }, { "top", 160 }, { "width", 300 }, { "height", 200 }, { "flow", "vertical" }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Pie,
+            ShowLabels = true,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Share",
+                    DisplayText = "Browser",
+                    LabelRadius = 170,
+                    InitialAngle = 15,
+                    Radius = 145,
+                    CenterOffset = 0,
+                    FormatSettings = new ChartFormatSettings()
+                    {
+                        Sufix = "%"
+                    }
+                }
+            }
+        }
+    };
+}

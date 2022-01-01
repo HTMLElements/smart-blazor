@@ -1,0 +1,81 @@
+﻿@page "/chart-100-stacked-area-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Web Traffic Analysis" Description="Unique monthly site visitors (percentage stacked)"
+        ShowLegend Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }" ColorScheme="ChartColorScheme.Scheme32"
+        TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 1) }, { "Referral", 1391 }, { "SearchPaid", 1158 }, { "SearchNonPaid", 1201 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 2) }, { "Referral", 1379 }, { "SearchPaid", 1439 }, { "SearchNonPaid", 1015 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 3) }, { "Referral", 1026 }, { "SearchPaid", 1288 }, { "SearchNonPaid", 1282 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 4) }, { "Referral", 1497 }, { "SearchPaid", 1063 }, { "SearchNonPaid", 1089 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 5) }, { "Referral", 1153 }, { "SearchPaid", 1107 }, { "SearchNonPaid", 1051 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 6) }, { "Referral", 1367 }, { "SearchPaid", 1351 }, { "SearchNonPaid", 1037 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 7) }, { "Referral", 1243 }, { "SearchPaid", 1079 }, { "SearchNonPaid", 1139 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 8) }, { "Referral", 1445 }, { "SearchPaid", 1187 }, { "SearchNonPaid", 1174 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 9) }, { "Referral", 1495 }, { "SearchPaid", 1095 }, { "SearchNonPaid", 1192 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 10) }, { "Referral", 1031 }, { "SearchPaid", 1441 }, { "SearchNonPaid", 1277 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 11) }, { "Referral", 1061 }, { "SearchPaid", 1312 }, { "SearchNonPaid", 1122 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 12) }, { "Referral", 1231 }, { "SearchPaid", 1382 }, { "SearchNonPaid", 1437 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 13) }, { "Referral", 1069 }, { "SearchPaid", 1018 }, { "SearchNonPaid", 1180 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 14) }, { "Referral", 1309 }, { "SearchPaid", 1358 }, { "SearchNonPaid", 1425 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 15) }, { "Referral", 1161 }, { "SearchPaid", 1376 }, { "SearchNonPaid", 1017 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 16) }, { "Referral", 1250 }, { "SearchPaid", 1401 }, { "SearchNonPaid", 1198 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 17) }, { "Referral", 1235 }, { "SearchPaid", 1341 }, { "SearchNonPaid", 1114 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 18) }, { "Referral", 1345 }, { "SearchPaid", 1089 }, { "SearchNonPaid", 1158 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 19) }, { "Referral", 1487 }, { "SearchPaid", 1110 }, { "SearchNonPaid", 1382 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 20) }, { "Referral", 1308 }, { "SearchPaid", 1165 }, { "SearchNonPaid", 1453 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 21) }, { "Referral", 1326 }, { "SearchPaid", 1058 }, { "SearchNonPaid", 1140 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 22) }, { "Referral", 1021 }, { "SearchPaid", 1176 }, { "SearchNonPaid", 1085 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 23) }, { "Referral", 1219 }, { "SearchPaid", 1190 }, { "SearchNonPaid", 1233 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 24) }, { "Referral", 1345 }, { "SearchPaid", 1057 }, { "SearchNonPaid", 1300 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 25) }, { "Referral", 1283 }, { "SearchPaid", 1491 }, { "SearchNonPaid", 1273 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 26) }, { "Referral", 1435 }, { "SearchPaid", 1483 }, { "SearchNonPaid", 1298 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 27) }, { "Referral", 1097 }, { "SearchPaid", 1102 }, { "SearchNonPaid", 1022 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 28) }, { "Referral", 1222 }, { "SearchPaid", 1218 }, { "SearchNonPaid", 1485 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 29) }, { "Referral", 1270 }, { "SearchPaid", 1108 }, { "SearchNonPaid", 1180 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 30) }, { "Referral", 1339 }, { "SearchPaid", 1372 }, { "SearchNonPaid", 1499 } },
+        new Dictionary<string, object> { { "Date", new DateTime(2017, 10, 31) }, { "Referral", 1435 }, { "SearchPaid", 1181 }, { "SearchNonPaid", 1235 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        Type = ChartXAxisType.Date,
+        BaseUnit = ChartBaseUnit.Day,
+        DataField = "Date",
+        ValuesOnTicks = true,
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Title = new ChartTitle() { Text = "Daily visitors" },
+        Labels = new ChartLabels() { HorizontalAlignment = HorizontalAlignment.Right }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Stackedarea100,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "SearchNonPaid", DisplayText = "Organic Search Traffic" },
+                new ChartSeriesGroupSerie() { DataField = "SearchPaid", DisplayText = "Paid Search Traffic" },
+                new ChartSeriesGroupSerie() { DataField = "Referral", DisplayText = "Referral Traffic" }
+            }
+        }
+    };
+}

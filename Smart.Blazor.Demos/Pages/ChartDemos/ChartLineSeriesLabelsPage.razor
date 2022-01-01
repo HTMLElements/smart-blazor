@@ -1,0 +1,94 @@
+﻿@page "/chart-line-series-labels"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Monthly Average Temperature" Description="dataSource: google.com" ShowLegend
+           Padding="new Padding() { Left = 30, Top = 5, Right = 30, Bottom = 5 }" TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" Clip="false" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Month", "Jan" }, { "Varna", 6 }, { "Moscow", -5 }, { "Cairo", 19 } },
+        new Dictionary<string, object> { { "Month", "Feb" }, { "Varna", 8 }, { "Moscow", -4 }, { "Cairo", 21 } },
+        new Dictionary<string, object> { { "Month", "Mar" }, { "Varna", 11 }, { "Moscow", 2 }, { "Cairo", 24 } },
+        new Dictionary<string, object> { { "Month", "Apr" }, { "Varna", 16 }, { "Moscow", 11 }, { "Cairo", 29 } },
+        new Dictionary<string, object> { { "Month", "May" }, { "Varna", 21 }, { "Moscow", 19 }, { "Cairo", 33 } },
+        new Dictionary<string, object> { { "Month", "Jun" }, { "Varna", 26 }, { "Moscow", 22 }, { "Cairo", 35 } },
+        new Dictionary<string, object> { { "Month", "Jul" }, { "Varna", 28 }, { "Moscow", 24 }, { "Cairo", 35 } },
+        new Dictionary<string, object> { { "Month", "Aug" }, { "Varna", 29 }, { "Moscow", 22 }, { "Cairo", 35 } },
+        new Dictionary<string, object> { { "Month", "Sep" }, { "Varna", 24 }, { "Moscow", 16 }, { "Cairo", 34 } },
+        new Dictionary<string, object> { { "Month", "Oct" }, { "Varna", 19 }, { "Moscow", 8 }, { "Cairo", 30 } },
+        new Dictionary<string, object> { { "Month", "Nov" }, { "Varna", 13 }, { "Moscow", 1 }, { "Cairo", 25 } },
+        new Dictionary<string, object> { { "Month", "Dec" }, { "Varna", 8 }, { "Moscow", -3 }, { "Cairo", 21 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Month",
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 3,
+            Color = "#BCBCBC"
+        }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        Visible = true,
+        Title = new ChartTitle() { Text = "Temperature (°C)" },
+        TickMarks = new ChartLines() { Color = "#BCBCBC" },
+        UnitInterval = 10,
+        MinValue = -10,
+        MaxValue = 40
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Line,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Varna",
+                    DisplayText = "Varna",
+                    Labels = new ChartLabels() { Visible = true, FormatSettings = new ChartFormatSettings() { Sufix = "°" } },
+                    SymbolType = ChartSymbolType.Circle,
+                    SymbolSize = 8
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Moscow",
+                    DisplayText = "Moscow",
+                    Labels = new ChartLabels() { Visible = true, FormatSettings = new ChartFormatSettings() { Sufix = "°" } },
+                    SymbolType = ChartSymbolType.Diamond,
+                    SymbolSize = 10
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Cairo",
+                    DisplayText = "Cairo",
+                    Labels = new ChartLabels() { Visible = true, FormatSettings = new ChartFormatSettings() { Sufix = "°" } },
+                    SymbolType = ChartSymbolType.Circle,
+                    SymbolSize = 8
+                }
+            }
+        }
+    };
+}

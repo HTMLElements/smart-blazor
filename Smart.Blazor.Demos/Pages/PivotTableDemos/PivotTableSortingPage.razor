@@ -1,0 +1,102 @@
+﻿@page "/pivottable-sorting"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+            height: 800px;
+        }
+    </style>
+
+    <p>
+        This demo showcases the sorting capabilities of Smart.PivotTable which are enabled via the property
+        <strong>SortMode</strong> which can be set to 'none', 'one', or 'many'.
+    </p>
+
+    <PivotTable DataSource="Data" FreezeHeader KeyboardNavigation @bind-SortMode="sortMode" Columns="@columns" />
+
+    <div class="options">
+        <div class="option">
+            <CheckBox OnChange="OnChange">sortMode: 'many'</CheckBox>
+        </div>
+    </div>
+</Example>
+
+@code {
+    PivotTableSortMode sortMode = PivotTableSortMode.One;
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "First Name",
+            DataField = "FirstName",
+            DataType = PivotTableColumnDataType.String
+        },
+        new PivotTableColumn()
+        {
+            Label = "Last Name",
+            DataField = "LastName",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Product Name",
+            DataField = "ProductName",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quantity",
+            DataField = "Quantity",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum
+        },
+        new PivotTableColumn()
+        {
+            Label = "Price",
+            DataField = "Price",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$",
+                decimalPlaces = 2
+            }
+        },
+        new PivotTableColumn()
+        {
+            Label = "Date Purchased",
+            DataField = "TimeOfPurchase",
+            DataType = PivotTableColumnDataType.Date
+        }
+    };
+
+    public DataRecord[] Data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await RandomDataService.GetDataAsync(50);
+    }
+
+    private void OnChange(Event eventObj)
+    {
+        CheckBoxChangeEventDetail args = eventObj["Detail"];
+
+        sortMode = args.Value ? PivotTableSortMode.Many : PivotTableSortMode.One;
+    }
+}

@@ -1,0 +1,62 @@
+﻿@page "/chart-waterfall-multiple-series"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="@caption" Description="Season 1 vs Season 6" ShowLegend
+           Padding="new Padding() { Left = 10, Top = 5, Right = 10, Bottom = 5 }" TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }"
+           XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>
+
+@code {
+    string caption = "\"Game of Thrones\" Viewership";
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+{
+        new Dictionary<string, object> { { "Episode", 1 }, { "Season1", 2220000 }, { "Season6", 7940000 } },
+        new Dictionary<string, object> { { "Episode", 2 }, { "Season1", -20000 }, { "Season6", -650000 } },
+        new Dictionary<string, object> { { "Episode", 3 }, { "Season1", 240000 }, { "Season6", -10000 } },
+        new Dictionary<string, object> { { "Episode", 4 }, { "Season1", 10000 }, { "Season6", 540000 } },
+        new Dictionary<string, object> { { "Episode", 5 }, { "Season1", 130000 }, { "Season6", 70000 } },
+        new Dictionary<string, object> { { "Episode", 6 }, { "Season1", -140000 }, { "Season6", -1180000 } },
+        new Dictionary<string, object> { { "Episode", 7 }, { "Season1", -40000 }, { "Season6", 1090000 } },
+        new Dictionary<string, object> { { "Episode", 8 }, { "Season1", 320000 }, { "Season6", -200000 } },
+        new Dictionary<string, object> { { "Episode", 9 }, { "Season1", 600000 }, { "Season6", 60000 } },
+        new Dictionary<string, object> { { "Episode", 10 }, { "Season1", 380000 }, { "Season6", 1230000 } },
+        new Dictionary<string, object> { { "Episode", "Total" }, { "summary", true }, { "Season1", 0 }, { "Season6", 0 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        Type = ChartXAxisType.Basic,
+        DataField = "Episode",
+        Title = new ChartTitle() { Text = "Episode" },
+        Labels = new ChartLabels() { Angle = 0 },
+        ValuesOnTicks = false
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        MinValue = 2000000,
+        Title = new ChartTitle() { Text = "Viewership (millions)" },
+        UnitInterval = 500000
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Waterfall,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Season1", Summary = "summary", DisplayText = "Season 1" },
+                new ChartSeriesGroupSerie() { DataField = "Season6", Summary = "summary", DisplayText = "Season 6" }
+            }
+        }
+    };
+}

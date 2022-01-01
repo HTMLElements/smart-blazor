@@ -1,0 +1,96 @@
+﻿@page "/chart-overview"
+
+<style>
+    smart-chart {
+        width: 100%;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Fitness & exercise weekly scorecard" Description="Time spent in vigorous exercise by activity"
+        ShowLegend Padding="new Padding() { Left = 10, Top = 10, Right = 15, Bottom = 10 }" ColorScheme="ChartColorScheme.Scheme13"
+        TitlePadding="new Padding() { Left = 90, Top = 0, Right = 0, Bottom = 10 }" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example>  
+
+@code {
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "Day", "Monday" }, { "Running", 30 }, { "Swimming", 10 }, { "Cycling", 25 } },
+        new Dictionary<string, object> { { "Day", "Tuesday" }, { "Running", 25 }, { "Swimming", 15 }, { "Cycling", 10 } },
+        new Dictionary<string, object> { { "Day", "Wednesday" }, { "Running", 30 }, { "Swimming", 10 }, { "Cycling", 25 } },
+        new Dictionary<string, object> { { "Day", "Thursday" }, { "Running", 40 }, { "Swimming", 20 }, { "Cycling", 25 } },
+        new Dictionary<string, object> { { "Day", "Friday" }, { "Running", 45 }, { "Swimming", 20 }, { "Cycling", 25 } },
+        new Dictionary<string, object> { { "Day", "Saturday" }, { "Running", 30 }, { "Swimming", 20 }, { "Cycling", 30 } },
+        new Dictionary<string, object> { { "Day", "Sunday" }, { "Running", 20 }, { "Swimming", 30 }, { "Cycling", 10 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Day",
+        UnitInterval = 2,
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1
+        },
+        GridLines = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1
+        },
+        ValuesOnTicks = false,
+        Padding = new Padding() { Bottom = 10 }
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        UnitInterval = 10,
+        MinValue = 0,
+        MaxValue = 50,
+        Title = new ChartTitle() { Text = "Time in minutes<br><br>" },
+        Labels = new ChartLabels()
+        {
+            HorizontalAlignment = HorizontalAlignment.Right
+        }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Swimming",
+                    SymbolType = ChartSymbolType.Square,
+                    Labels = new ChartLabels()
+                    {
+                        Visible = true,
+                        BackgroundColor = "#FEFEFE",
+                        BackgroundOpacity = 0.2f,
+                        BorderColor = "#7FC4EF",
+                        BorderOpacity = 0.7f,
+                        Padding = new Padding() { Left = 5, Right = 5, Top = 0, Bottom = 0 }
+                    }
+                },
+                new ChartSeriesGroupSerie()
+                {
+                    DataField = "Running",
+                    SymbolType = ChartSymbolType.Square,
+                    Labels = new ChartLabels()
+                    {
+                        Visible = true,
+                        BackgroundColor = "#FEFEFE",
+                        BackgroundOpacity = 0.2f,
+                        BorderColor = "#7FC4EF",
+                        BorderOpacity = 0.7f,
+                        Padding = new Padding() { Left = 5, Right = 5, Top = 0, Bottom = 0 }
+                    }
+                }
+            }
+        }
+    };
+}

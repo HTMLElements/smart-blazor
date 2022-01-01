@@ -1,0 +1,99 @@
+﻿@page "/pivottable-simple-array"
+
+@using Smart.Blazor.Demos.Data;
+@inject RandomDataService RandomDataService
+
+<Example Name="PivotTable">
+    <style>
+        body,
+        html,
+        app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-pivot-table {
+            width: 1050px;
+        }
+
+        #pivotTable {
+            --jqx-table-group-count-display: none;
+        }
+
+            #pivotTable thead > tr:nth-child(3) .total-arrow {
+                display: none;
+            }
+    </style>
+
+    <p>
+        This demo showcases a Pivot Table bound to a simple array.
+    </p>
+
+    <PivotTable Id="pivotTable" DataSource="Data" ColumnTotals ColumnTotalsPosition="PivotTableColumnTotalsPosition.Far" 
+                FreezeHeader GrandTotal KeyboardNavigation RowTotals SortMode="PivotTableSortMode.One" Columns="@columns" />
+</Example>
+
+@code {
+
+    List<PivotTableColumn> columns = new List<PivotTableColumn>()
+    {
+        new PivotTableColumn()
+        {
+            Label = "Continent",
+            DataField = "Continent",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "City",
+            DataField = "City",
+            DataType = PivotTableColumnDataType.String,
+            AllowRowGroup = true,
+            RowGroup = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Year",
+            DataField = "Year",
+            DataType = PivotTableColumnDataType.Number,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Quarter",
+            DataField = "Quarter",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Month",
+            DataField = "Month",
+            DataType = PivotTableColumnDataType.String,
+            AllowPivot = true,
+            Pivot = true
+        },
+        new PivotTableColumn()
+        {
+            Label = "Revenue",
+            DataField = "Revenue",
+            DataType = PivotTableColumnDataType.Number,
+            Summary = PivotTableColumnSummary.Sum,
+            SummarySettings = new
+            {
+                prefix = "$"
+            }
+        }
+    };
+
+    public List<PivotRecord> Data;
+
+    protected override void OnInitialized()
+    {
+        Data = RandomDataService.GeneratePivotData(300, 3);
+    }
+}

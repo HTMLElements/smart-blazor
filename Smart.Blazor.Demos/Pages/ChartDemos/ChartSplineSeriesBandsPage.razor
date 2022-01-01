@@ -1,0 +1,130 @@
+﻿@page "/chart-spline-series-bands"
+
+<style>
+    smart-chart {
+        width: 100%;
+        max-width: 850px;
+    }
+</style>
+
+<Example Name="Chart">
+    <Chart DataSource="sampleData" Caption="Wind speed" Description="on March 8, 2019" ShowLegend
+           Padding="new Padding() { Left = 50, Top = 5, Right = 50, Bottom = 5 }" TitlePadding="new Padding() { Left = 50, Top = 0, Right = 0, Bottom = 10 }"
+           ColorScheme="ChartColorScheme.Scheme32" XAxis="xAxis" ValueAxis="valueAxis" SeriesGroups="seriesGroups" />
+</Example> 
+ 
+@code {
+
+    List<Dictionary<string, object>> sampleData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "Hour", "9 PM" }, { "Bangkok", 13 }, { "Sofia", 5 }, { "Honolulu", 24 }, { "Rio Gallegos", 14 } },
+        new Dictionary<string, object>() { { "Hour", "12 AM" }, { "Bangkok", 19 }, { "Sofia", 8 }, { "Honolulu", 26 }, { "Rio Gallegos", 18 } },
+        new Dictionary<string, object>() { { "Hour", "3 AM" }, { "Bangkok", 16 }, { "Sofia", 13 }, { "Honolulu", 24 }, { "Rio Gallegos", 27 } },
+        new Dictionary<string, object>() { { "Hour", "6 AM" }, { "Bangkok", 16 }, { "Sofia", 11 }, { "Honolulu", 24 }, { "Rio Gallegos", 31 } },
+        new Dictionary<string, object>() { { "Hour", "9 AM" }, { "Bangkok", 13 }, { "Sofia", 10 }, { "Honolulu", 26 }, { "Rio Gallegos", 34 } },
+        new Dictionary<string, object>() { { "Hour", "12 PM" }, { "Bangkok", 11 }, { "Sofia", 10 }, { "Honolulu", 34 }, { "Rio Gallegos", 34 } },
+        new Dictionary<string, object>() { { "Hour", "3 PM" }, { "Bangkok", 13 }, { "Sofia", 8 }, { "Honolulu", 35 }, { "Rio Gallegos", 31 } },
+        new Dictionary<string, object>() { { "Hour", "6 PM" }, { "Bangkok", 23 }, { "Sofia", 8 }, { "Honolulu", 32 }, { "Rio Gallegos", 26 } }
+    };
+
+    ChartXAxis xAxis = new ChartXAxis()
+    {
+        DataField = "Hour",
+        Type = ChartXAxisType.Basic,
+        TickMarks = new ChartLines()
+        {
+            Visible = true,
+            UnitInterval = 1,
+            Color = "#BCBCBC"
+        },
+        UnitInterval = 1
+    };
+
+    ChartValueAxis valueAxis = new ChartValueAxis()
+    {
+        MinValue = 0,
+        MaxValue = 50,
+        Visible = true,
+        GridLines = new ChartLines() { Visible = false },
+        Title = { Text = "Wind speed (km/h)" },
+        TickMarks = new ChartLines() { Color = "#BCBCBC" }
+    };
+
+    List<ChartSeriesGroup> seriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "Bangkok", DisplayText = "Bangkok" },
+                new ChartSeriesGroupSerie() { DataField = "Sofia", DisplayText = "Sofia" },
+                new ChartSeriesGroupSerie() { DataField = "Honolulu", DisplayText = "Honolulu" },
+                new ChartSeriesGroupSerie() { DataField = "Rio Gallegos", DisplayText = "Rio Gallegos" }
+            },
+            Bands = new List<ChartSeriesGroupBand>()
+            {
+                new ChartSeriesGroupBand() { MinValue = 2, MaxValue = 6, Color = "rgba(124, 181, 236, 0.3)" },
+                new ChartSeriesGroupBand() { MinValue = 13, MaxValue = 19, Color = "rgba(124, 181, 236, 0.3)" },
+                new ChartSeriesGroupBand() { MinValue = 31, MaxValue = 39, Color = "rgba(124, 181, 236, 0.3)" }
+            },
+            Annotations = new List<ChartSeriesGroupAnnotation>()
+            {
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 5,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Light Air" }
+                },
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 10,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Light Breeze" }
+                },
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 19,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Gentle Breeze" }
+                },
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 28,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Moderate Breeze" }
+                },
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 36,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Fresh Breeze" }
+                },
+                new ChartSeriesGroupAnnotation()
+                {
+                    Type = ChartSeriesGroupAnnotationType.Text,
+                    YValue = 46,
+                    XValue = 0,
+                    Offset = new Offset() { X = 10 },
+                    FillColor = "#EFEFEF",
+                    Text = new ChartSeriesGroupAnnotationText() { Value = "Strong Breeze" }
+                }
+            }
+        }
+    };
+}
