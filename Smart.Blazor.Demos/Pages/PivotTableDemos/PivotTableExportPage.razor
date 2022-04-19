@@ -119,36 +119,36 @@
 
     private async void OnCSVClick()
     {
-        await pivotTable.ExportData("csv");
+        await pivotTable.ExportData("csv", "pivotGrid");
     }
 
     private async void OnHTMLClick()
     {
-        await pivotTable.ExportData("html");
+        await pivotTable.ExportData("html", "pivotGrid");
     }
 
     private async void OnJSONClick()
     {
-        await pivotTable.ExportData("json");
+        await pivotTable.ExportData("json", "pivotGrid");
     }
 
     private async void OnPDFClick()
     {
-        await pivotTable.ExportData("pdf");
+        await pivotTable.ExportData("pdf", "pivotGrid");
     }
 
     private async void OnTSVClick()
     {
-        await pivotTable.ExportData("tsv");
+        await pivotTable.ExportData("tsv", "pivotGrid");
     }
 
     private async void OnXLSXClick()
     {
-        await pivotTable.ExportData("xlsx");
+        await pivotTable.ExportData("xlsx", "pivotGrid");
     }
 
     private async void OnXMLClick()
     {
-        await pivotTable.ExportData("xml");
+        await pivotTable.ExportData("xml", "pivotGrid");
     }
 }

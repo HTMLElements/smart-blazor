@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "28b94209-ca6c-4f1f-bc98-2e978388a66c": {
+      "ProjectGuid": "28b94209-ca6c-4f1f-bc98-2e978388a66c",
+      "DisplayName": "Smart.Blazor.Demos",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

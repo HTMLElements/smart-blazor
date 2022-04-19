@@ -1,12 +1,96 @@
-@page "/bind-numberinput"
+@page "/numberinput-binding"
 
+<div>
+    <form style="width: 50%">
+        <div>
+            <label class="form-label">Name</label>
+            <Input class="form-control" @bind-Value="@name" />
+        </div>
+    
+        <div>
+            <label class="form-label">Age</label>
+            <NumericTextBox class="form-control" @bind-Value="@Age" />
+            <NumberInput class="form-control" @bind-Value="@Age2" />
+            <NumberInput @ref="numberinput" />
+        </div>
+    
+        <div>
+            <label class="form-label">BirthDate</label>
+            <DateInput class="form-control" @bind-Value="@birthDate" />
+        </div>
+        <div>
+            <label class="form-label">BirthDate 2</label>
+            <DateTimePicker class="form-control" @bind-Value="@birthDate2" />
+        </div>
 
-    <NumberInput @bind-Value=@inputValue Placeholder="Please Enter a Number"></NumberInput>
-    <br/>
-    <h3>Enter a number: @inputValue  </h3>
+        <Button OnClick="Click">Click</Button>
+    </form>
+    
+    <div>
+        <p>Name: @name</p>
+        <p>Age: @age</p>
+        <p>BirthDate: @birthDate</p>
+        <p>BirthDate 2: @birthDate2</p>
+    </div>
+</div>
+ 
 
-@code {
+@code
+{
+    NumberInput numberinput;
 
-    string inputValue=  "1233";
+    private void Click(MouseEventArgs args)
+    {
+        double value = numberinput.Value;
 
+    }
+    string name = "John";
+    int age = 20;
+    private string Age
+    {
+        get
+        {
+            return age.ToString();
+        }
+        set {
+            age = Int32.Parse(value);
+        }
+    }
+
+    private double Age2
+    {
+        get
+        {
+            return age;
+        }
+        set {
+            age = (int)value;
+        }
+    }
+
+    DateTime birthDate = new DateTime(2002, 2, 10);
+    private string BirthDate
+    {
+        get
+        {
+            return birthDate.ToString();
+        }
+        set
+        {
+            birthDate = DateTime.Parse(value);
+        }
+    }
+
+    DateTime birthDate2 = new DateTime(2002, 2, 10);
+    private string BirthDate2
+    {
+        get
+        {
+            return birthDate2.ToString();
+        }
+        set
+        {
+            birthDate2 = DateTime.Parse(value);
+        }
+    }
 }
