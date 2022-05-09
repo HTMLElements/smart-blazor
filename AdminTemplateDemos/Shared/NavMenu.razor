@@ -1,0 +1,374 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Admin</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div id="navContainer" class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <Tree Style="width: 100%; height: 100%">
+            <TreeItemsGroup>
+                Applications
+
+                <TreeItemsGroup>
+                    Dashboards
+
+                    <TreeItem Id="dashboard-1">
+                        <NavLink href="dashboard-1">
+                            Dashboard 1
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem Id="dashboard-2">
+                        <NavLink href="dashboard-2">
+                            Dashboard 2
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="dashboard-3">
+                            Dashboard 3
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    E-commerce
+
+                    <TreeItem>
+                        <NavLink href="e-commerce">
+                            Dashboard
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="clients">
+                            Clients
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="e-commerce-details">
+                            Details
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="e-commerce-list">
+                            List
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    Analytics
+
+                    <TreeItem>
+                        <NavLink href="analytics">
+                            Dashboard
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    Projects
+
+                    <TreeItem>
+                        <NavLink href="projects-list-1">
+                            List 1
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="projects-list-2">
+                            List 2
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+                        <NavLink href="detail">
+                            Detail
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    Crypto
+
+                    <TreeItem>
+
+                        <NavLink href="crypto">
+                            Crypto
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    Profile
+
+                    <TreeItem>
+
+                        <NavLink href="profile-1">
+                            Overview 1
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+
+                        <NavLink href="profile-2">
+                            Overview 2
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+
+                        <NavLink href="users-list">
+                            Users
+                        </NavLink>
+                    </TreeItem>
+                    <TreeItem>
+
+                        <NavLink href="social">
+                            Social Page
+                        </NavLink>
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItemsGroup>
+                    Kanban
+
+                    <TreeItem>
+
+                        <NavLink href="tasks">
+                            Tasks 1
+                        </NavLink>
+
+                    </TreeItem>
+                    <TreeItem>
+
+                        <NavLink href="tasks-2">
+                            Tasks 2
+                        </NavLink>
+
+                    </TreeItem>
+                </TreeItemsGroup>
+
+                <TreeItem>
+
+                    <NavLink href="chat">
+                        Chat
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="inbox">
+                        Inbox
+                    </NavLink>
+
+                </TreeItem>
+            </TreeItemsGroup>
+
+            <TreeItemsGroup>
+                Pages
+
+                <TreeItem>
+
+                    <NavLink href="sign-in">
+                        Sign In
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="sign-up">
+                        Sign Up
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="reset-password">
+                        Reset Password
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="invoice">
+                        Invoice
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="pricing">
+                        Pricing
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="404">
+                        404 Page
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="500">
+                        500 Page
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="knowledge-base">
+                        Knowledge Base
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="blank">
+                        Blank Page
+                    </NavLink>
+
+                </TreeItem>
+            </TreeItemsGroup>
+
+            <TreeItemsGroup>
+                Forms
+
+                <TreeItem>
+
+                    <NavLink href="basic-inputs">
+                        Basic Inputs
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="advanced-inputs">
+                        Advanced Inputs
+                    </NavLink>
+
+                </TreeItem>
+            </TreeItemsGroup>
+
+            <TreeItemsGroup>
+                Data Tables
+
+                <TreeItem>
+
+                    <NavLink href="tables">
+                        Tables
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="responsive-table">
+                        Responsive Table
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="table-with-buttons">
+                        Table with Buttons
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="column-search">
+                        Column Search
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="multi-selection">
+                        Multi Selection
+                    </NavLink>
+
+                </TreeItem>
+            </TreeItemsGroup>
+
+            <TreeItemsGroup>
+                UI Elements
+
+                <TreeItem>
+
+                    <NavLink href="buttons">
+                        Buttons
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="cards">
+                        Cards
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="carousel">
+                        Carousel
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="charts">
+                        Charts
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="modals">
+                        Modals
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="embed-video">
+                        Embed Video
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="general">
+                        General
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="grid-layout">
+                        Grid Layout
+                    </NavLink>
+
+                </TreeItem>
+                <TreeItem>
+
+                    <NavLink href="typography">
+                        Typography
+                    </NavLink>
+
+                </TreeItem>
+            </TreeItemsGroup>
+        </Tree>
+    </nav>
+</div>
+
+@code {
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

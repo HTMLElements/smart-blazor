@@ -1,0 +1,83 @@
+﻿@page "/sign-in"
+
+<style>
+    .img-as-background {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .w-125 {
+        width: 125px !important;
+        height: 125px !important;
+    }
+
+    .img-as-background img {
+        object-fit: cover;
+        position: absolute;
+        left: -1px;
+        right: 0;
+        z-index: 0;
+        margin: 0 auto;
+        top: 0;
+        bottom: 0;
+        min-width: calc(100% + 2px);
+        min-height: 100%;
+        max-width: 105%;
+    }
+
+    .shadow-5, .hover-shadow-5:hover {
+        box-shadow: 0 0 26px rgb(0 0 0 / 10%);
+    }
+
+    .smart-card-view smart-card, .card {
+        border: 0;
+    }
+
+    .mb-5, .my-5 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .mt-5, .my-5 {
+        margin-top: 1.5rem !important;
+    }
+</style>
+
+<Example Name="Pages">
+    <div class="container">
+        <div class="text-center my-5">
+            <h2>Welcome back, John!</h2>
+            <p>Please sign in to your account to continue</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="card shadow-5">
+                    <div class="card-body">
+                        <div class="img-as-background square rounded-circle w-125 mx-auto mb-4">
+                            <img src="./images/phonebook/mark.png">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="d-block">Email</label>
+                            <Input Class="w-100" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="d-block">Password</label>
+                            <PasswordTextBox Class="w-100" />
+                            <a href="#" class="small">Forgot your password?</a>
+                        </div>
+
+                        <div class="form-group">
+                            <CheckBox Checked>Remember me</CheckBox>
+                        </div>
+
+                        <div class="text-center">
+                            <Button Class="primary">Sign in</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>

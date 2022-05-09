@@ -1,0 +1,157 @@
+﻿@page "/invoice"
+
+<style>
+    #printContainer {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    table > tbody > tr > .no-line {
+        border-top: none;
+    }
+
+    table tr th:first-of-type {
+        width: 70%;
+    }
+
+    table tr th:last-of-type * {
+        justify-content: flex-end;
+    }
+
+    table tr th {
+        font-weight: bold !important;
+        font-size: 14px !important;
+        text-transform: uppercase;
+    }
+
+        table tr th:last-of-type,
+        table tr td:last-of-type {
+            text-align: right;
+        }
+
+    table > thead > tr > .no-line {
+        border-bottom: none;
+    }
+
+    table > tbody > tr > .thick-line {
+        border-top: 2px solid;
+    }
+</style>
+
+<Example Name="Pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Invoice Preview</h4></div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="invoice">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="">Invoice #0000045</h5>
+                                <h6>Order #56</h6>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <address>
+                                        <strong>Billed To:</strong><br>
+                                        John Smith<br>
+                                        1234 Main<br>
+                                        Apt. 4B<br>
+                                        Springfield, ST 54321
+                                    </address>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <address>
+                                        <strong>Shipped To:</strong><br>
+                                        Jane Smith<br>
+                                        1234 Main<br>
+                                        Apt. 4B<br>
+                                        Springfield, ST 54321
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <address>
+                                        <strong>Payment Method:</strong><br>
+                                        Visa ending **** 4242<br>
+                                        jsmith@email.com
+                                    </address>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <address>
+                                        <strong>Order Date:</strong><br>
+                                        March 7, 2014<br><br>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5 class="">Order summary</h5>
+
+                            <div class="table-responsive">
+                                <Table Id="invoiceTable" Class="table table-condensed no-border" Tooltip>
+                                    <tr hidden>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    @foreach (var data in invoiceData)
+                                    {                                      
+                                        <tr hidden>
+                                            <td>@data["description"]</td>
+
+                                            @if (int.TryParse(data["quantity"].ToString(), out n))
+                                            {
+                                                <td>@data["quantity"]</td>
+                                            }
+                                            else
+                                            {
+                                                <td><strong>@data["quantity"]</strong></td>
+                                            }
+
+                                            @if (data["amount"].ToString().Contains("%"))
+                                            {
+                                                <td>@data["amount"]</td>
+                                            }
+                                            else
+                                            {
+                                                <td>$@data["amount"]</td>
+                                            }
+                                        </tr>
+                                    }
+                                </Table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="printContainer" class="mt-3">
+            <Button Class="primary">Print invoice</Button>
+        </div>
+    </div>
+</Example>
+
+@code {
+    private List<Dictionary<string, object>> invoiceData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "description", "Premium support" }, { "quantity", 1 }, { "amount", 199 } },
+        new Dictionary<string, object> { { "description", "Custom development hours" }, { "quantity", 7 }, { "amount", 210 } },
+        new Dictionary<string, object> { { "description", "Debug session" }, { "quantity", 3 }, { "amount", 120 } },
+        new Dictionary<string, object> { { "description", "" }, { "quantity", "Subtotal" }, { "amount", 529 } },
+        new Dictionary<string, object> { { "description", "" }, { "quantity", "Shipping" }, { "amount", 12 } },
+        new Dictionary<string, object> { { "description", "" }, { "quantity", "Discount" }, { "amount", "8%" } },
+        new Dictionary<string, object> { { "description", "" }, { "quantity", "Total" }, { "amount", 497.72 } }
+    };
+    int n;
+} 

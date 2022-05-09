@@ -1,0 +1,96 @@
+﻿@page "/carousel"
+
+<style>
+    smart-carousel {
+        width: 100%;
+        height: 300px;
+    }
+
+    #carouselWithCaptions .smart-carousel-item-label {
+        padding: 3px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: white;
+    }
+</style>
+
+<Example Name="UIElements">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Carousel</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Slides only</h4>
+                    </div>
+                    <div class="card-body">
+                        <Carousel AutoPlay DataSource="dataSource" HideArrows HideIndicators Interval="2000" Loop SlideShow />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">With controls</h4>
+                    </div>
+                    <div class="card-body">
+                        <Carousel AutoPlay DataSource="dataSource" HideIndicators Interval="5000" Loop SlideShow />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">With indicators</h4>
+                    </div>
+                    <div class="card-body">
+                        <Carousel AutoPlay DataSource="dataSource" Interval="5000" Loop SlideShow />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">With captions</h4>
+                    </div>
+                    <div class="card-body">
+                        <Carousel Id="carouselWithCaptions" AutoPlay DataSource="dataSourceWithCaptions" Interval="5000" Loop SlideShow />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Slide animation</h4>
+                    </div>
+                    <div class="card-body">
+                        <Carousel Class="slide" AutoPlay DataSource="dataSource" HideIndicators Interval="2000" Loop SlideShow />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    List<Dictionary<string, string>> dataSource = new List<Dictionary<string, string>>()
+    {
+        new Dictionary<string, string>() { { "image", "./images/travel/4.jpg" } },
+        new Dictionary<string, string>() { { "image", "./images/travel/5.jpg" } },
+        new Dictionary<string, string>() { { "image", "./images/travel/6.jpg" } }
+    };
+
+    List<Dictionary<string, string>> dataSourceWithCaptions = new List<Dictionary<string, string>>()
+    {
+        new Dictionary<string, string>() { { "image", "./images/travel/4.jpg" }, { "label", "Photo 1" } },
+        new Dictionary<string, string>() { { "image", "./images/travel/5.jpg" }, { "label", "Photo 2" }  },
+        new Dictionary<string, string>() { { "image", "./images/travel/6.jpg" }, { "label", "Photo 3" } }
+    };
+
+}

@@ -1,0 +1,494 @@
+﻿@page "/analytics"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    .header-menu .welcome {
+        font-size: 1.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        grid-area: welcome;
+    }
+
+    @@media (min-width: 768px) {
+        .header-menu {
+            grid-template-columns: 1fr auto 35px 35px;
+            grid-template-rows: 35px;
+            grid-template-areas: "welcome today filter refresh";
+        }
+    }
+
+    .header-menu {
+        display: grid;
+        gap: 5px;
+        justify-content: start;
+        margin-bottom: 20px;
+    }
+
+    smart-progress-bar {
+        width: 100%;
+    }
+
+    #languagesTable th[data-field="Image"], #languagesTable td[data-field="Image"] {
+        width: 50px !important;
+    }
+
+    #sourceChart {
+        height: 150px;
+    }
+
+    .positive {
+        color: forestgreen;
+    }
+
+    .negative {
+        color: orangered;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+</style>
+
+<Example Name="SampleApps">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header-menu">
+                    <div class="welcome">Welcome back, John!</div>
+                    <Button Class="today-button settings-button">
+                        <span class="material-icons">calendar_today</span>Today
+                        <span class="material-icons">keyboard_arrow_down</span>
+                    </Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">filter_alt</span></Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">refresh</span></Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="row row-mx-10 h-100">
+                    <div class="col-sm-6 col-lg-3 col-md-3 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold mb-0">Visitors</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="smart-badge smart-badge-success">Today</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h5 class="mb-0">5.305</h5>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="">91%</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-12">
+                                        <ProgressBar Class="success" Value="91" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 col-md-3 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold mb-0">Bounce</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="smart-badge smart-badge-warning">Annual</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h5 class="mb-0">809</h5>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="">23%</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-12">
+                                        <ProgressBar Class="warning" Value="23" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 col-md-3 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold mb-0">Real-Time</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="smart-badge smart-badge-primary">Monthly</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h5 class="mb-0">17.380</h5>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="">50%</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-12">
+                                        <ProgressBar Class="primary" Value="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 col-md-3 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold mb-0">Activity</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="smart-badge smart-badge-info">Yearly</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center mb-5">
+                                    <div class="col">
+                                        <h5 class="mb-0">992</h5>
+                                    </div>
+                                    <div class="col text-right">
+                                        <span class="">41%</span>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-12">
+                                        <ProgressBar Class="info" Value="41" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Languages</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body maxh-300">
+                        <Table Id="languagesTable" Class="no-border">
+                            <tr hidden>
+                                <th>Language</th>
+                                <th>Users</th>
+                                <th>% Users</th>
+                            </tr>
+                            @foreach (var data in languagesData)
+                            {
+                                <tr hidden>
+                                    <td>
+                                        <img src="https://img.icons8.com/office/30/000000/@((data["code"])).png" alt="@((data["language"]))" title="@((data["language"]))" />
+                                    </td>
+                                    <td>@data["users"]</td>
+                                    <td><ProgressBar ShowProgressValue Value="@(int.Parse(data["users"].ToString()) * 100 / totalUsers)" /></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Mobile / Desktop</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="deviceChart" Class="w-100 h-100" DataSource="deviceData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" 
+                               XAxis="devicesXAxis" SeriesGroups="deviceSeriesGroups" ColorScheme="ChartColorScheme.Custom" OnReady="OnChartReady"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Interests</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="interestsChart" Class="w-100 h-100" DataSource="interestsData" Animation="Animation.None" Caption="" Description="" 
+                               ShowLegend="false" ShowBorderLine="false" Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" 
+                               XAxis="interestsXAxis" SeriesGroups="interestsSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Source</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="sourceChart" Id="sourceChart" Class="combo-chart w-100 h-auto p-0 mb-3" DataSource="sourceData" 
+                                Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false" 
+                               Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" SeriesGroups="sourceSeriesGroups" 
+                               ColorScheme="ChartColorScheme.Custom"/>
+                        <Table Class="small-table no-border w-100">
+                            <tr hidden>
+                                <th>Source</th>
+                                <th>Revenue</th>
+                                <th>Value</th>
+                            </tr>
+                            @foreach (var data in sourceData)
+                            {
+                                <tr hidden>
+                                    <td>
+                                        <div class="color-box-container">
+                                            <div class="color-box @((data["market"].ToString().ToLower()))" />
+                                            @data["market"]
+                                        </div>
+                                    </td>
+                                    <td>$ @data["revenue"]</td>
+                                    <td><div class="@((float.Parse(data["value"].ToString()) > 0 ? "positive" : "negative"))">@data["value"] % </div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Traffic</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body maxh-350">
+                        <Table Class="table-striped no-border" SortMode="TableSortMode.Many" OnReady="OnTrafficTableReady">
+                            <tr hidden>
+                                <th>Source</th>
+                                <th>Users</th>
+                                <th>Sessions</th>
+                                <th>Bounce rate</th>
+                                <th>Avg. Session Duration</th>
+                            </tr>
+                            @foreach (var data in trafficData)
+                            {
+                            <tr hidden>
+                                <td>@data["source"]</td>
+                                <td>@data["users"]</td>
+                                <td>@data["sessions"]</td>
+                                <td>
+                                    <div class="@((float.Parse(data["bounceRate"].ToString()) < 40 ? "positive" : "negative"))">@data["bounceRate"] % </div>
+                                </td>
+                                <td>
+                                    @((GetTimeParts(int.Parse(data["avgSessionDuration"].ToString()))["hours"])):@((GetTimeParts(int.Parse(data["avgSessionDuration"].ToString()))["minutes"])):@((GetTimeParts(int.Parse(data["avgSessionDuration"].ToString()))["seconds"]))
+                                </td>
+                            </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Menu Mode="MenuMode.DropDown">
+        @*<MenuItem Label="settingsTemplate"></MenuItem>*@
+        <MenuItem>First action</MenuItem>
+        <MenuItem>Second action</MenuItem>
+        <MenuItem Separator>Third action</MenuItem>
+        <MenuItem>Additional action</MenuItem>
+    </Menu>
+
+    <template id="settingsTemplate">SETTINGS</template>
+</Example>
+
+@code {
+    Chart deviceChart;
+    Chart interestsChart;
+    Chart sourceChart;
+
+    string settingsTemplate = "settingsTemplate";
+
+    List<Dictionary<string, object>> languagesData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>() { { "language", "English" }, { "code", "usa" }, { "users", 890 } },
+        new Dictionary<string, object>() { { "language", "Chinese" }, { "code", "china" }, { "users", 328 } },
+        new Dictionary<string, object>() { { "language", "Spanish" }, { "code", "spain" }, { "users", 13 } },
+        new Dictionary<string, object>() { { "language", "Hindi" }, { "code", "india" }, { "users", 716 } },
+        new Dictionary<string, object>() { { "language", "Russian" }, { "code", "russian-federation" }, { "users", 96 } }
+    };
+
+    int totalUsers = 2042;
+
+    List<Dictionary<string, object>> sourceData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "market", "Direct" }, { "revenue", 2873 }, { "value", 11 } },
+        new Dictionary<string, object> { { "market", "Partner" }, { "revenue", 7201 }, { "value", -9 } },
+        new Dictionary<string, object> { { "market", "Online" }, { "revenue", 1254 }, { "value", 27 } },
+        new Dictionary<string, object> { { "market", "Other" }, { "revenue", 901 }, { "value", 0.2 } },
+    };
+
+    List<Dictionary<string, object>> trafficData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "source", "Google" }, { "users", 3026 }, { "sessions", 18721 }, { "bounceRate", 11.3 }, { "avgSessionDuration", 785 } },
+        new Dictionary<string, object> { { "source", "Direct" }, { "users", 2983 }, { "sessions", 36789 }, { "bounceRate", 2.9 }, { "avgSessionDuration", 1893 } },
+        new Dictionary<string, object> { { "source", "Bing" }, { "users", 803 }, { "sessions", 1023 }, { "bounceRate", 33.4 }, { "avgSessionDuration", 802 } },
+        new Dictionary<string, object> { { "source", "Baidu" }, { "users", 902 }, { "sessions", 1203 }, { "bounceRate", 27.3 }, { "avgSessionDuration", 647 } },
+        new Dictionary<string, object> { { "source", "Yahoo!" }, { "users", 420 }, { "sessions", 730 }, { "bounceRate", 31 }, { "avgSessionDuration", 704 } },
+        new Dictionary<string, object> { { "source", "Yandex" }, { "users", 202 }, { "sessions", 594 }, { "bounceRate", 45.6 }, { "avgSessionDuration", 250 } },
+        new Dictionary<string, object> { { "source", "Ask.com" }, { "users", 123 }, { "sessions", 325 }, { "bounceRate", 56 }, { "avgSessionDuration", 341 } },
+        new Dictionary<string, object> { { "source", "DuckDuckGo" }, { "users", 903 }, { "sessions", 1490 }, { "bounceRate", 18.4 }, { "avgSessionDuration", 1109 } }
+    };
+
+    List<Dictionary<string, object>> deviceData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "mobile", 22 }, { "desktop", 89 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "mobile", 46 }, { "desktop", 92 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "mobile", 89 }, { "desktop", 80 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "mobile", 120 }, { "desktop", 78 } },
+        new Dictionary<string, object> { { "month", "May" }, { "mobile", 112 }, { "desktop", 90 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "mobile", 99 }, { "desktop", 101 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "mobile", 135 }, { "desktop", 88 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "mobile", 128 }, { "desktop", 99 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "mobile", 144 }, { "desktop", 76 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "mobile", 132 }, { "desktop", 97 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "mobile", 127 }, { "desktop", 80 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "mobile", 139 }, { "desktop", 85 } }
+    };
+
+    List<Dictionary<string, object>> interestsData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "field", "Entertainment" }, { "users", 53 } },
+        new Dictionary<string, object> { { "field", "Technology" }, { "users", 80 } },
+        new Dictionary<string, object> { { "field", "Politics" }, { "users", 13 } },
+        new Dictionary<string, object> { { "field", "Art" }, { "users", 19 } },
+        new Dictionary<string, object> { { "field", "Sports" }, { "users", 49 } }
+    };
+
+    ChartXAxis devicesXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month",
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> deviceSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "mobile", DisplayText = "Mobile" },
+                new ChartSeriesGroupSerie() { DataField = "desktop", DisplayText = "Desktop" }
+            }
+        }
+    };
+
+    ChartXAxis interestsXAxis = new ChartXAxis()
+    {
+        DataField = "field",
+        DisplayText = "Field",
+        ValuesOnTicks = true,
+        Labels = new ChartLabels() { AutoRotate = true }
+    };
+
+    List<ChartSeriesGroup> interestsSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Spider = true,
+            StartAngle = 0,
+            EndAngle = 360,
+            Radius = 80,
+            Type = ChartType.Area,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "users", DisplayText = "Users", Radius = 2, LineWidth = 2, SymbolType = ChartSymbolType.Circle }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> sourceSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Donut,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "revenue", DisplayText = "market", Radius = 70, InnerRadius = 50, SelectedRadiusChange = 2 }
+            }
+        }
+    };
+
+    List<string> customScheme = new List<string>() { "#007bff", "#17a2b8", "#ffc107", "#28a745", "#dc3545", "#6c757d" };
+
+    private void OnChartReady(Chart chart)
+    {
+        deviceChart.AddColorScheme("custom", customScheme);
+        interestsChart.AddColorScheme("custom", customScheme);
+        sourceChart.AddColorScheme("custom", customScheme);
+
+        deviceChart.Refresh();
+        interestsChart.Refresh();
+        sourceChart.Refresh();
+    }
+
+    private void OnTrafficTableReady(Table table)
+    {
+        table.SortBy("Sessions", "desc");
+    }
+
+    private Dictionary<string, string> GetTimeParts(int seconds)
+    {
+        string hoursPart = (seconds / 3600).ToString();
+        int secondsN = seconds % 3600;
+        string minutesPart = (seconds / 60).ToString().PadLeft(2, '0');
+        string secondsPart = (secondsN % 60).ToString().PadLeft(2, '0');
+
+        return new Dictionary<string, string>() { { "hours", hoursPart }, { "minutes", minutesPart }, { "seconds", secondsPart } };
+    }
+}

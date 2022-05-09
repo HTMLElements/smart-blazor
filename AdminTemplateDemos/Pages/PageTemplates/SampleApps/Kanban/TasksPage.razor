@@ -1,0 +1,159 @@
+﻿@page "/tasks-2"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    .mb-3, .my-3 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .smart-card-view smart-card, .card {
+        -webkit-box-shadow: 0 0 30px 0 rgb(82 63 105 / 5%);
+        box-shadow: 0 0 30px 0 rgb(82 63 105 / 5%);
+        border: 0;
+        border-radius: var(--smart-border-radius);
+        background: var(--white);
+    }
+
+    #kanban {
+        border: none;
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+    }
+
+        #kanban .smart-kanban-column-header {
+            --smart-border: var(--smart-outline);
+        }
+
+        #kanban .smart-kanban-task {
+            background-color: var(--light);
+        }
+
+        #kanban .smart-kanban-task {
+            display: flex;
+            flex-flow: column;
+            border: 1px solid var(--smart-border);
+            border-radius: var(--smart-border-radius);
+        }
+
+        #kanban .smart-kanban-task-footer {
+            order: 1;
+        }
+
+        #kanban .smart-kanban-task-tag {
+            padding: 0.25em 0.4em;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 1;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #kanban .smart-kanban-task-text {
+            order: 2;
+            width: 100%;
+            text-align: left;
+        }
+
+        #kanban .smart-kanban-task-content {
+            order: 3;
+            display: flex;
+            flex-flow: column;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+        }
+
+        #kanban .smart-kanban-column-header {
+            --smart-border: transparent;
+            background: transparent;
+        }
+</style>
+<Example Name="Kanban">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Tasks 2</h4></div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <Kanban Id="kanban" DataSource="dataRecords" Columns="@columns" Users="@users" Collapsible Editable UserList />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    List<KanbanColumn> columns = new List<KanbanColumn>()
+    {
+        new KanbanColumn()
+        {
+            DataField = "ToDo",
+            Label = "To do"
+        },
+        new KanbanColumn()
+        {
+            DataField = "InProgress",
+            Label = "In progress"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Testing",
+            Label = "Testing"
+        },
+        new KanbanColumn()
+        {
+            DataField = "Done",
+            Label = "Done"
+        }
+    };
+
+    List<KanbanUser> users = new List<KanbanUser>()
+    {
+        new KanbanUser()
+        {
+            Id = 0,
+            Name = "Andrew",
+            Image = "../../images/people/andrew.png"
+        },
+        new KanbanUser()
+        {
+            Id = 1,
+            Name = "Anne",
+            Image = "../../images/people/anne.png"
+        },
+        new KanbanUser()
+        {
+            Id = 2,
+            Name = "Janet",
+            Image = "../../images/people/janet.png"
+        },
+        new KanbanUser()
+        {
+            Id = 3,
+            Name = "John",
+            Image = "../../images/people/john.png"
+        },
+        new KanbanUser()
+        {
+            Id = 4,
+            Name = "Laura",
+            Image = "../../images/people/laura.png"
+        }
+    };
+
+    private List<KanbanDataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateKanbanData();
+    }
+}

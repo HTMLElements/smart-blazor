@@ -1,0 +1,128 @@
+﻿@page "/knowledge-base"
+
+<style>
+    smart-card img {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .no-result {
+        display: none;
+    }
+
+        .no-result.no-items {
+            display: block;
+        }
+
+    .bg-primary-opacity-3 {
+        background: rgba(0, 123, 255, 0.3);
+    }
+</style>
+
+<Example Name="Pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Knowledge Base</h4></div>
+        </div>
+
+        <div class="jumbotron bg-primary-opacity-3" style="background-image: url('./images/banner.png')">
+            <h2 class="text-primary text-center">Dedicated Source Used on Website</h2>
+            <p class="mb-2 text-center">
+                <span>Popular searches: </span><span class="font-weight-bolder">Sales automation, Email marketing</span>
+            </p>
+
+            <div class="row mt-5">
+                <div class="col-lg-7 mx-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><span class="material-icons">search</span></span>
+                        </div>
+                        <Input Id="search" Class="form-control border-left-0" Placeholder="Ask a question" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cards-holder">
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/sales.svg">
+
+                        <h4 class="mt-3">Sales Automation</h4>
+                        <p>There is perhaps no better demonstration of the folly of image of our tiny world.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/marketing.svg">
+
+                        <h4 class="mt-3">Marketing Automation</h4>
+                        <p>Look again at that dot. That’s here. That’s home. That’s us. On it everyone you love.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/api.svg">
+
+                        <h4 class="mt-3">API Questions</h4>
+                        <p>Every hero and coward, every creator and destroyer of civilization.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/personalization.svg">
+
+                        <h4 class="mt-3">Personalization</h4>
+                        <p>It has been said that astronomy is a humbling and character experience.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/email.svg">
+
+                        <h4 class="mt-3">Email Marketing</h4>
+                        <p>There is perhaps no better demonstration of the folly of human conceits.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-6 col-lg-4 h-100 mb-3 card-item">
+                <Card Class="card simple">
+                    <div class="card-body text-center">
+                        <img src="./images/demand.svg">
+
+                        <h4 class="mt-3">Demand Generation</h4>
+                        <p>Competent means we will never take anything for granted.</p>
+                        <Button Class="primary outlined small">Learn More</Button>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="col-12 col-lg-12 h-100 mb-3 no-result text-center">
+                <h4>No results found</h4>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+
+} 

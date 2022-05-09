@@ -1,0 +1,75 @@
+﻿@page "/table-with-buttons"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    .actions-container smart-button + smart-button {
+        margin-left: 10px;
+    }
+
+    #table th[data-field="Quantity"], #table td[data-field="Quantity"] {
+        width: 80px !important;
+    }
+
+    .small-button {
+        --smart-button-padding: 5px;
+        font-size: 12px;
+        text-transform: none;
+    }
+</style>
+<Example Name="Table">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Table With Buttons</h4></div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <Table Id="table" Filtering Paging SortMode="TableSortMode.One" Tooltip OnReady="OnReady">
+                    <tr hidden>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var record in dataRecords)
+                    {
+                        <tr hidden>
+                            <td>@record.Id</td>
+                            <td>@record.FirstName</td>
+                            <td>@record.LastName</td>
+                            <td>@record.ProductName</td>
+                            <td>@record.Quantity</td>
+                            <td>@Math.Round(record.Price, 2)</td>
+                            <td>
+                                <div class="actions-container">
+                                    <Button Class="small-button outlined primary">Copy</Button>
+                                    <Button Class="small-button outlined error">Remove</Button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </Table>
+            </div>
+        </div>            
+    </div>
+</Example>
+
+@code {
+    private List<DataRecord> dataRecords;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        dataRecords = dataService.GenerateData(50);
+    }
+
+    private void OnReady(Table table)
+    {
+        table.SortBy("LastName", "asc");
+    }
+}

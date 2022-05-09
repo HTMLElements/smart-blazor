@@ -1,0 +1,109 @@
+﻿@using Smart.Blazor
+@using System.Text.Json
+
+
+@*@if (SelectedTab == 0)
+{
+	@ChildContent
+}
+else if (SelectedTab == 2)
+{
+	@DynamicRender
+}
+else
+{
+	<CodeView PageName="@($"{Name}Page.razor")" />
+}*@
+
+@ChildContent
+
+
+@code {
+	[Parameter]
+			public RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+			public string Name { get; set; }
+
+	[Parameter]
+			public bool Heading { get; set; } = true;
+
+	[Parameter]
+			public bool Documentation { get; set; } = true;
+
+	[Parameter]
+			public string DocumentationUrl { get; set; }
+
+	[Parameter]
+			public IEnumerable<string> SourceCodePages { get; set; } = Enumerable.Empty<string>();
+
+	private bool IsHidden { get; set; } = false;
+	private bool IsSourceHidden { get; set; } = true;
+
+
+	public int SelectedTab = 0;
+
+	private void OnChange(Event args)
+	{
+		var detail = args["detail"];
+		int index = ((JsonElement)detail).GetProperty("index").GetInt32();
+
+		if (index == 2)
+		{
+			RenderComponent();
+		}
+
+		SelectedTab = index;
+
+
+		base.InvokeAsync(StateHasChanged);
+	}
+
+	private RenderFragment DynamicRender { get; set; }
+
+	private RenderFragment CreateComponent() => builder =>
+	{
+		var assembly = typeof(Button).Assembly;
+		Type apiComponent = assembly.GetType("Smart.Blazor." + Name + "API");
+
+		builder.OpenComponent(0, apiComponent);
+		builder.CloseComponent();
+
+
+		Dictionary<string, string[]> components = new Dictionary<string, string[]>();
+		components.Add("Accordion", new string[] { "AccordionItem" });
+		components.Add("Form",  new string[] {"FormControl", "FormGroup" });
+		components.Add("ComboBox",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("DropDownList",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("TextBox",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("ListBox",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("Layout",  new string[] {"LayoutItem", "LayoutGroup", "TabLayoutItem", "TabLayoutGroup" });
+		components.Add("MultiSplitButton",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("MultilineTextBox",  new string[] {"ListItem", "ListItemsGroup" });
+		components.Add("ListMenu",  new string[] {"MenuItem", "MenuItemsGroup" });
+		components.Add("Menu",  new string[] {"MenuItem", "MenuItemsGroup" });
+		components.Add("Button",  new string[] { "RepeatButton", "ToggleButton", "PowerButton" });
+		components.Add("ProgressBar",  new string[] {"CircularProgressBar" });
+		components.Add("Splitter",  new string[] {"SplitterItem", "SplitterBar" });
+		components.Add("Tabs",  new string[] {"TabItem", "TabItemsGroup" });
+		components.Add("Tree",  new string[] {"TreeItem", "TreeItemsGroup" });
+
+		if (components.ContainsKey(Name))
+		{
+			string[] subComponents = components[Name];
+
+			for (int i = 0; i < subComponents.Length; i++)
+			{
+				Type subComponent = assembly.GetType("Smart.Blazor." + subComponents[i] + "API");
+
+				builder.OpenComponent(i+1, subComponent);
+				builder.CloseComponent();
+			}
+		}
+	};
+
+	private void RenderComponent()
+	{
+		DynamicRender = CreateComponent();
+	}
+}

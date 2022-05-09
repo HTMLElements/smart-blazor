@@ -1,0 +1,463 @@
+﻿@page "/e-commerce"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    .header-menu .welcome {
+        font-size: 1.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        grid-area: welcome;
+    }
+
+    @@media (min-width: 768px) {
+        .header-menu {
+            grid-template-columns: 1fr auto 35px 35px;
+            grid-template-rows: 35px;
+            grid-template-areas: "welcome today filter refresh";
+        }
+    }
+
+    .header-menu {
+        display: grid;
+        gap: 5px;
+        justify-content: start;
+        margin-bottom: 20px;
+    }
+
+    smart-progress-bar {
+        width: 100%;
+    }
+
+    .smart-badge-pill.css {
+        background-color: navy;
+    }
+
+    .smart-badge-pill.c-sharp {
+        background-color: orchid;
+    }
+
+    .smart-badge-pill.html {
+        background-color: orange;
+    }
+
+    .smart-badge-pill.java {
+        background-color: coral;
+    }
+
+    .smart-badge-pill.javascript {
+        background-color: yellow;
+        color: black;
+    }
+
+    .smart-badge-pill.typescript {
+        background-color: #2F6897;
+    }
+
+    .appointment:first-child {
+        margin-top: 20px;
+    }
+
+    .appointment {
+        position: relative;
+        padding: 20px;
+        padding-top: 0;
+        padding-left: 40px;
+    }
+
+        .appointment:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 1px;
+            height: 100%;
+            background-color: var(--smart-border);
+        }
+
+        .appointment:after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            border: 3px solid var(--smart-primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--smart-background);
+        }
+
+        .appointment > .label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+            .appointment > .label > span {
+                font-size: 12px;
+                opacity: 0.8;
+            }
+
+        .appointment p {
+            margin: 0;
+        }
+
+    .text-right {
+        text-align: right !important;
+    }
+</style>
+
+<Example Name="SampleApps">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header-menu">
+                    <div class="welcome">Welcome back, John!</div>
+                    <Button Class="today-button settings-button">
+                        <span class="material-icons">calendar_today</span>Today
+                        <span class="material-icons">keyboard_arrow_down</span>
+                    </Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">filter_alt</span></Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">refresh</span></Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Income</h6>
+                            </div>
+                            <div class="col text-right">
+                                <span class="smart-badge smart-badge-info">Today</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">$53.305</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">91%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="info" Value="91" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Orders</h6>
+                            </div>
+                            <div class="col text-right">
+                                <span class="smart-badge smart-badge-warning">Annual</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">9.809</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">23%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="warning" Value="23" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Activity</h6>
+                            </div>
+                            <div class="col text-right">
+                                <span class="smart-badge smart-badge-primary">Monthly</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">17.380</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">50%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="primary" Value="50" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Revenue</h6>
+                            </div>
+                            <div class="col text-right">
+                                <span class="smart-badge smart-badge-success">Yearly</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">$28.940</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">41%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="success" Value="41" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-lg-7 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Total Revenue</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body maxh-350">
+                        <Chart @ref="revenueChart" Id="revenueChart" Class="h-100 w-100" DataSource="salesData" Animation="Animation.None"
+                               Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" XAxis="revenueXAxis"
+                               SeriesGroups="revenueSeriesGroups" ColorScheme="ChartColorScheme.Custom" OnReady="OnReady" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Order Activity</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+                    <div class="card-body maxh-350 p-0">
+                        <div id="appointmentContainer" class="h-100">
+                            <div class="appointment">
+                                <div class="label"><strong>Delivered</strong></div>
+                                <p class="">30 minutes ago</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>In transit</strong></div>
+                                <p class="">3 hours ago</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Shipped</strong></div>
+                                <p class="">1 day ago</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Received</strong></div>
+                                <p class="">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Real-Time</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="bestSellingTable" Class="table-striped no-border maxh-300" SortMode="TableSortMode.One">
+                            <tr hidden>
+                                <th>Product Name</th>
+                                <th>Language</th>
+                                <th>Sales</th>
+                            </tr>
+                            @foreach (var data in bestSellingData)
+                            {
+                                <tr hidden>
+
+                                    <td>@data["name"]</td>
+                                    <td><span class="smart-badge smart-badge-pill @(data["language"].ToString().ToLower())">@data["language"]</span></td>
+                                    <td>@data["sales"]</td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Sales Comparison</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="salesComparisonChart" Id="salesComparisonChart" Class="w-100 h-100" DataSource="salesComparisonData"
+                               Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" XAxis="salesComparisonXAxis" SeriesGroups="salesComparisonSeriesGroups" ColorScheme="ChartColorScheme.Custom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Chart revenueChart;
+    Chart salesComparisonChart;
+
+    List<Dictionary<string, object>> salesData = new List<Dictionary<string, object>>()
+{
+        new Dictionary<string, object> { { "month", "Jan" }, { "sales", 22330 }, { "orders", 9302 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "sales", 21323 }, { "orders", 8902 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "sales", 28200 }, { "orders", 10043 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "sales", 31889 }, { "orders", 10992 } },
+        new Dictionary<string, object> { { "month", "May" }, { "sales", 30056 }, { "orders", 9980 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "sales", 42024 }, { "orders", 13489 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "sales", 44995 }, { "orders", 19048 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "sales", 41045 }, { "orders", 12334 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "sales", 38012 }, { "orders", 11102 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "sales", 40045 }, { "orders", 11894 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "sales", 27542 }, { "orders", 8301 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "sales", 29012 }, { "orders", 10632 } }
+    };
+
+    List<Dictionary<string, object>> salesComparisonData = new List<Dictionary<string, object>>()
+{
+        new Dictionary<string, object> { { "month", "Jan" }, { "current", 77 }, { "last", 98 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "current", 70 }, { "last", 89 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "current", 67 }, { "last", 79 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "current", 82 }, { "last", 81 } },
+        new Dictionary<string, object> { { "month", "May" }, { "current", 93 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "current", 112 }, { "last", 112 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "current", 130 }, { "last", 129 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "current", 118 }, { "last", 125 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "current", 92 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "current", 75 }, { "last", 83 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "current", 78 }, { "last", 90 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "current", 90 }, { "last", 112 } }
+    };
+
+    ChartXAxis revenueXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month"
+    };
+
+    List<ChartSeriesGroup> revenueSeriesGroups = new List<ChartSeriesGroup>()
+{
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+        {
+                new ChartSeriesGroupSerie() { DataField = "sales", DisplayText = "Sales ($)", SymbolSize = 8, SymbolType = ChartSymbolType.Circle },
+                new ChartSeriesGroupSerie() { DataField = "orders", DisplayText = "Orders", SymbolSize = 8, SymbolType = ChartSymbolType.Circle, LineDashStyle = "5,4" }
+            }
+        }
+    };
+
+    ChartXAxis salesComparisonXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month",
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> salesComparisonSeriesGroups = new List<ChartSeriesGroup>()
+{
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+        {
+                new ChartSeriesGroupSerie() { DataField = "last", DisplayText = "Last year" },
+                new ChartSeriesGroupSerie() { DataField = "current", DisplayText = "This year" }
+            }
+        }
+    };
+
+    private List<Dictionary<string, object>> bestSellingData = new List<Dictionary<string, object>>()
+{
+        new Dictionary<string, object> { { "name", "UX-Generator" }, { "language", "JavaScript" }, { "sales", 54000 } },
+        new Dictionary<string, object> { { "name", "Smart HTML Elements" }, { "language", "JavaScript" }, { "sales", 163030 } },
+        new Dictionary<string, object> { { "name", "Hawk UI" }, { "language", "C#" }, { "sales", 13000 } },
+        new Dictionary<string, object> { { "name", "Styler-CSS" }, { "language", "CSS" }, { "sales", 3400 } },
+        new Dictionary<string, object> { { "name", "TypeWriterJS" }, { "language", "TypeScript" }, { "sales", 18900 } },
+        new Dictionary<string, object> { { "name", "UX-Paradigm" }, { "language", "JavaScript" }, { "sales", 920 } },
+        new Dictionary<string, object> { { "name", "Mobile-enhancer" }, { "language", "CSS" }, { "sales", 7570 } },
+        new Dictionary<string, object> { { "name", "Async-script" }, { "language", "Java" }, { "sales", 15030 } }
+    };
+
+    List<string> customScheme = new List<string>() { "#007bff", "#17a2b8", "#ffc107", "#28a745", "#dc3545", "#6c757d" };
+
+    private void OnReady(Chart chart)
+    {
+        revenueChart.AddColorScheme("custom", customScheme);
+        salesComparisonChart.AddColorScheme("custom", customScheme);
+
+        revenueChart.Refresh();
+        salesComparisonChart.Refresh();
+    }
+}

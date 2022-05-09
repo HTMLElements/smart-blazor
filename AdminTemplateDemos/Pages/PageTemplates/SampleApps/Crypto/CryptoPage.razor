@@ -1,0 +1,371 @@
+﻿@page "/crypto"
+
+<style>
+    .header-menu .welcome {
+        font-size: 1.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        grid-area: welcome;
+    }
+
+    @@media (min-width: 768px) {
+        .header-menu {
+            grid-template-columns: 1fr auto 35px 35px;
+            grid-template-rows: 35px;
+            grid-template-areas: "welcome today filter refresh";
+        }
+    }
+
+    .header-menu {
+        display: grid;
+        gap: 5px;
+        justify-content: start;
+        margin-bottom: 20px;
+    }
+
+    .crypto-table {
+        --smart-table-column-header-height: 40px;
+        --smart-table-row-height: 25px;
+        --smart-table-cell-padding: 10px;
+        height: auto;
+    }
+
+    #currencyTable [data-field="price"],
+    #currencyTable [data-field="volume"],
+    #currencyTable [data-field="change"],
+    #sellTable [data-field],
+    #buyTable [data-field] {
+        text-align: right;
+    }
+
+        #currencyTable [data-field="price"] .wrapper,
+        #currencyTable [data-field="volume"] .wrapper,
+        #currencyTable [data-field="change"] .wrapper,
+        #sellTable [data-field] .wrapper,
+        #buyTable [data-field] .wrapper {
+            justify-content: flex-end;
+        }
+
+    .positive {
+        color: forestgreen;
+    }
+
+    .negative {
+        color: orangered;
+    }
+
+    #buyTable, #sellTable {
+        height: 430px;
+    }
+</style>
+
+<Example Name="SampleApps">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header-menu">
+                    <div class="welcome">Welcome back, John!</div>
+                    <Button Class="today-button settings-button">
+                        <span class="material-icons">calendar_today</span>Today<span class="material-icons">keyboard_arrow_down</span>
+                    </Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">filter_alt</span></Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">refresh</span></Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="font-weight-bold mb-0">BTC/USDT</h5>
+                            <span class="text-danger">-0.37%</span>
+                        </div>
+                        <p class=" mb-0">10688.27</p>
+                        <p class="mb-0">Volume: 240611229</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="font-weight-bold mb-0">BCH/USDT</h5>
+                            <span class="text-warning">0.4%</span>
+                        </div>
+                        <p class=" mb-0">227.30</p>
+                        <p class="mb-0">Volume: 21193756</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="font-weight-bold mb-0">LTC/BTC</h5>
+                            <span class="text-success">1.18%</span>
+                        </div>
+                        <p class=" mb-0">0.0042867</p>
+                        <p class="mb-0">Volume: 9359876</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="font-weight-bold mb-0">ETH/BTC</h5>
+                            <span class="text-success">0.22%</span>
+                        </div>
+                        <p class=" mb-0">0.033165</p>
+                        <p class="mb-0">Volume: 8546909</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Markets</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="currencyTable" Class="crypto-table no-border table-striped maxh-350" SortMode="TableSortMode.One">
+                            <tr hidden>
+                                <th>Cryptocurrency</th>
+                                <th>Price</th>
+                                <th>Volume</th>
+                                <th>Change</th>
+                            </tr>
+                            @foreach (var data in currencyPrices)
+                            {
+                                <tr hidden>
+                                    <td>@data["currency"]</td>
+                                    <td>$ @data["price"]</td>
+                                    <td>$ @data["volume"]</td>
+                                    <td><div class="@((float.Parse(data["change"].ToString()) > 0 ? "positive" : "negative"))">@data["change"] %</div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="label">BTC/USDT</h5>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart Id="exchangeChart" Class="w-100 h-100 maxh-350" DataSource="btcToUsdtExchangeData" Animation="Animation.None" 
+                               Caption="" Description="" ShowLegend="false" ShowBorderLine="false" EnableCrosshairs 
+                               Padding="new Padding() { Left = 5, Top = 5, Right = 5, Bottom = 5 }" ColorScheme="ChartColorScheme.Scheme30" 
+                               XAxis="candlestickXAxis" SeriesGroups="candlestickSeriesGroups" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Sell Orders</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="sellTable" Class="crypto-table no-border table-striped maxh-350" DataSource="sellOrdersData" Columns="buySellColumns"></Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Buy Orders</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="buyTable" Class="crypto-table no-border table-striped maxh-350" DataSource="buyOrdersData" Columns="buySellColumns"></Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+
+    private List<Dictionary<string, object>> btcToUsdtExchangeData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 9538.82 }, { "h", 9733.33 }, { "l", 9529.46 }, { "c", 9703.25 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 9703.22 }, { "h", 10160 }, { "l", 9652.03 }, { "c", 9927.02 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 9929.12 }, { "h", 11377.5 }, { "l", 9922.14 }, { "c", 11023.7 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 11031.4 }, { "h", 11241.7 }, { "l", 10569 }, { "c", 10919.3 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 10910.4 }, { "h", 11344.6 }, { "l", 10834.1 }, { "c", 11100.9 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 11100.9 }, { "h", 11172.5 }, { "l", 10834.5 }, { "c", 11101.6 }
+        },
+        new Dictionary<string, object> {
+            { "date", new DateTime(2020, 6, 25) }, { "o", 11102.7 }, { "h", 11438.7 }, { "l", 10963.8 }, { "c", 11339 }
+        }
+    };
+
+    private List<Dictionary<string, object>> currencyPrices = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> {
+            { "currency", "BTC" }, { "price", 10732.60 }, { "volume", 50315567171 }, { "change",  0.37 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "ETH" }, { "price", 356.26 }, { "volume", 12148917583 }, { "change", 0.93 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "USDT" }, { "price", 1.00 }, { "volume", 36915715574 }, { "change", -0.07 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "XRP" }, { "price", 0.24 }, { "volume", 1651813883 }, { "change", -0.41 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "BCH" }, { "price", 228.84 }, { "volume", 1440967601 }, { "change", 1.15 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "BNB" }, { "price", 28.58 }, { "volume", 612001852 }, { "change", 3.69 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "POT" }, { "price", 4.36 }, { "volume", 469759239 }, { "change", -3.33 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "LINK" }, { "price", 9.74 }, { "volume", 1924067658 }, { "change", -4.59 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "BSV" }, { "price", 175.64 }, { "volume", 625571669 }, { "change", 4.48 }
+        },
+        new Dictionary<string, object> {
+            { "currency", "CRO" }, { "price", 0.15 }, { "volume", 62829032 }, { "change", -0.14 }
+        }
+    };
+
+    private Dictionary<string, double> baseLinePrices = new Dictionary<string, double>()
+    {
+        { "price", 0.03892189 }, { "eth", 7.81612747 }, { "btc", 0.08005164 }, { "sum", 1.51080382 }
+    };
+
+    private List<Dictionary<string, double>> sellOrdersData = new List<Dictionary<string, double>>();
+    private List<Dictionary<string, double>> buyOrdersData = new List<Dictionary<string, double>>();
+
+    List<TableColumn> buySellColumns = new List<TableColumn>()
+    {
+        new TableColumn()
+        {
+            DataField = "price",
+            Label = "Price",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "eth",
+            Label = "ETH",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "btc",
+            Label = "BTC",
+            DataType = TableColumnDataType.Number
+        },
+        new TableColumn()
+        {
+            DataField = "sum",
+            Label = "Sum(BTC)",
+            DataType = TableColumnDataType.Number
+        }
+    };
+
+    ChartXAxis candlestickXAxis = new ChartXAxis()
+    {
+        DataField = "date",
+        DisplayText = "Date",
+        Type = ChartXAxisType.Basic,
+        ValuesOnTicks = true,
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> candlestickSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Candlestick,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() {
+                    DataFieldClose = "c",
+                    DisplayTextClose = "Close",
+                    DataFieldOpen = "o",
+                    DisplayTextOpen = "Open",
+                    DataFieldHigh = "h",
+                    DisplayTextHigh = "High",
+                    DataFieldLow = "l",
+                    DisplayTextLow = "Low",
+                    LineWidth = 1
+                }
+            }
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Random random = new Random();
+        for (int i = 0; i < 30; i++)
+        {
+            Dictionary<string, double> dataPoint = new Dictionary<string, double>()
+            {
+                {
+                    "price",
+                    double.Parse((baseLinePrices["price"] + (random.NextDouble() > 0.5 ? 1 : -1) * (random.NextDouble() * (0.09 - 0.01) + 0.01)).ToString("N10"))
+                },
+                {
+                    "eth",
+                    double.Parse((baseLinePrices["eth"] + (random.NextDouble() > 0.5 ? 1 : -1) * (random.NextDouble() * (1.5 - 0.05) + 0.05)).ToString("N10"))
+                },
+                {
+                    "btc",
+                    double.Parse((baseLinePrices["btc"] + (random.NextDouble() > 0.5 ? 1 : -1) * (random.NextDouble() * (0.02 - 0.005) + 0.005)).ToString("N10"))
+                },
+                {
+                    "sum",
+                    double.Parse((baseLinePrices["sum"] + (random.NextDouble() > 0.5 ? 1 : -1) * (random.NextDouble() * (1 - 0.09) + 0.09)).ToString("N10"))
+                }
+            };
+
+            if (i < 15)
+            {
+                sellOrdersData.Add(dataPoint);
+            }
+            else
+            {
+                buyOrdersData.Add(dataPoint);
+            }
+        }
+    }
+}

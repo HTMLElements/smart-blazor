@@ -1,0 +1,359 @@
+﻿@page "/modals"
+
+<style>
+    #primary,
+    #success,
+    #error,
+    #primaryc,
+    #successc,
+    #errorc,
+    #small,
+    #alert,
+    #dialog {
+        --smart-window-default-height: auto;
+    }
+    
+    #success,
+    #successc {
+        --smart-primary: var(--smart-success);
+    }
+    
+    #error,
+    #errorc {
+        --smart-primary: var(--smart-error);
+    }
+    
+    #primaryc .smart-header-section,
+    #successc .smart-header-section,
+    #errorc .smart-header-section {
+        border-bottom: 1px solid var(--smart-border);
+    }
+    
+    #primaryc {
+        --smart-background: var(--smart-primary);
+        --smart-background-color: var(--smart-primary-color);
+    }
+    
+    #successc {
+        --smart-background: var(--smart-success);
+        --smart-background-color: var(--smart-success-color);
+    }
+    
+    #errorc {
+        --smart-background: var(--smart-error);
+        --smart-background-color: var(--smart-error-color);
+    }
+    
+    #small {
+        --smart-window-default-width: 300px;
+    }
+    
+    #medium,
+    #multiline {
+        --smart-window-default-height: 250px;
+    }
+    
+    #large {
+        --smart-window-default-width: 600px;
+    }
+    
+    #multiline {
+        --smart-multiline-text-box-default-height: 250px;
+        --smart-window-default-height: 430px;
+    }
+
+    .small-button {
+        --smart-button-padding: 5px;
+        font-size: 12px;
+        text-transform: none;
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .mr-3, .mx-3 {
+        margin-right: 0.75rem !important;
+    }
+</style>
+
+<Example Name="UIElements">
+  <div class="container">
+    <div class="row">
+        <div class="col-12 mb-3"><h4>Modals</h4></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-5">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="label">Default modal (Window)</h4>
+                </div>
+                <div class="card-body">
+                    <Button Class="small-button primary mb-3 mr-3" OnClick="OnOpenPrimaryModal">Open primary modal</Button>
+                    <Button Class="small-button success mb-3 mr-3" OnClick="OnOpenSuccessModal">Open success modal</Button>
+                    <Button Class="small-button error mb-3" OnClick="OnOpenErrorModal">Open error modal</Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-5">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="label">Colored modal</h4>
+                </div>
+                <div class="card-body">
+                    <Button Class="small-button primary mb-3 mr-3" OnClick="OnOpenPrimaryCModal">Open primary colored modal</Button>
+                    <Button Class="small-button success mb-3 mr-3" OnClick="OnOpenSuccessCModal">Open success colored modal</Button>
+                    <Button Class="small-button error mb-3" OnClick="OnOpenErrorCModal">Open error colored modal</Button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-5">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="label">Modal sizes</h4>
+                </div>
+                <div class="card-body">
+                    <Button Class="small-button primary mb-3 mr-3" OnClick="OnOpenSmallModal">Open small modal</Button>
+                    <Button Class="small-button primary mb-3 mr-3" OnClick="OnOpenMediumModal">Open medium modal</Button>
+                    <Button Class="small-button primary mb-3" OnClick="OnOpenLargeModal">Open large modal</Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-5">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="label">Modal types</h4>
+                </div>
+                <div class="card-body">
+                    <Button Class="small-button secondary mb-3 mr-3" OnClick="OnOpenAlertModal">Open alert modal</Button>
+                    <Button Class="small-button secondary mb-3 mr-3" OnClick="OnOpenDialogModal">Open dialog modal</Button>
+                    <Button Class="small-button secondary mb-3" OnClick="OnOpenMultilineModal">Open multiline modal</Button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Window @ref="primary" Id="primary" Label="Primary modal" Modal>
+    This is a modal with the primary color.
+    <Button Class="primary outlined smart-close mt-5" OnClick="ClosePrimary">Close</Button>
+</Window>
+
+<Window @ref="success" Id="success" Label="Success modal" Modal>
+    This is a modal with the success color.
+    <Button Class="success outlined smart-close mt-5" OnClick="CloseSuccess">Close</Button>
+</Window>
+
+<Window @ref="error" Id="error" Label="Error modal" Modal>
+    This is a modal with the error color.
+    <Button Class="error outlined smart-close mt-5" OnClick="CloseError">Close</Button>
+</Window>
+
+<Window @ref="primaryC" Id="primaryc" Label="Primary-colored modal" Modal>
+    This is a modal with the primary color.
+    <Button Class="smart-close mt-5" OnClick="ClosePrimaryC">Close</Button>
+</Window>
+
+<Window @ref="successC" Id="successc" Label="Success-colored modal" Modal>
+    This is a modal with the success color.
+    <Button Class="smart-close mt-5" OnClick="CloseSuccessC">Close</Button>
+</Window>
+
+<Window @ref="errorC" Id="errorc" Label="Error-colored modal" Modal>
+    This is a modal with the error color.
+    <Button Class="smart-close mt-5" OnClick="CloseErrorC">Close</Button>
+</Window>
+
+<Window @ref="small" Id="small" Label="Small modal" Modal>
+    This is a small modal.
+    <Button Class="primary smart-close mt-5" OnClick="CloseSmall">Close</Button>
+</Window>
+
+<Window @ref="medium" Id="medium" Label="Medium modal" Modal>
+    This is a medium modal.
+    <Button Class="primary smart-close mt-5" OnClick="CloseMedium">Close</Button>
+</Window>
+
+<Window @ref="large" Id="large" Label="Large modal" Modal>
+    This is a large modal.
+    <Button Class="primary smart-close mt-5" OnClick="CloseLarge">Close</Button>
+</Window>
+
+<Window @ref="alert" Id="alert" Label="Alert modal" Modal>
+    This is an alert modal!
+    <hr style="width: 100%;" />
+    <div style="width: 100%; display: flex; justify-content: end;">
+        <Button style="margin-right: 15px;" OnClick="OnAlertOk">Ok</Button>
+    </div>
+</Window>
+
+<Window @ref="dialog" Id="dialog" Label="Dialog modal" Modal>
+    Proin venenatis dignissim tortor vel mattis. Mauris vel justo consectetur quam iaculis volutpat ac a libero. Ut in
+    facilisis orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+    Vivamus a ex turpis. In dignissim consectetur metus, iaculis volutpat urna scelerisque id. Aliquam vel dictum orci,
+    nec tempor metus?
+
+    <hr style="width: 100%;" />
+    <div style="width: 100%; display: flex; justify-content: end;">
+        <div>
+            <Button OnClick="OnDialogClick">Ok</Button>
+            <Button OnClick="OnDialogClick">Cancel</Button>
+        </div>
+    </div>
+</Window>
+
+<Window @ref="multiline" Id="multiline" Label="Multiline modal" Modal>
+    <div style="width: 100%;"><p>Enter your address:</p></div>
+
+    <MultilineTextBox Style="width: 100%"/>
+
+    <hr style="width: 100%;" />
+    <div style="width: 100%; display: flex; justify-content: end;">
+        <div>
+            <Button OnClick="OnMultilineClick">Ok</Button>
+            <Button OnClick="OnMultilineClick">Cancel</Button>
+        </div>
+    </div>
+</Window>
+</Example>
+
+@code {
+    Window primary;
+    Window success;
+    Window error;
+    Window primaryC;
+    Window successC;
+    Window errorC;
+    Window small;
+    Window medium;
+    Window large;
+    Window alert;
+    Window dialog;
+    Window multiline;
+
+    private void OnOpenPrimaryModal()
+    {
+        primary.Open();
+    }
+
+    private void ClosePrimary()
+    {
+        primary.Close();
+    }
+
+    private void OnOpenSuccessModal()
+    {
+        success.Open();
+    }
+
+    private void CloseSuccess()
+    {
+        success.Close();
+    }
+
+    private void OnOpenErrorModal()
+    {
+        error.Open();
+    }
+
+    private void CloseError()
+    {
+        error.Close();
+    }
+
+    private void OnOpenPrimaryCModal()
+    {
+        primaryC.Open();
+    }
+
+    private void ClosePrimaryC()
+    {
+        primaryC.Close();
+    }
+
+    private void OnOpenSuccessCModal()
+    {
+        successC.Open();
+    }
+
+    private void CloseSuccessC()
+    {
+        successC.Close();
+    }
+
+    private void OnOpenErrorCModal()
+    {
+        errorC.Open();
+    }
+
+    private void CloseErrorC()
+    {
+        errorC.Close();
+    }
+
+    private void OnOpenSmallModal()
+    {
+        small.Open();
+    }
+
+    private void CloseSmall()
+    {
+        small.Close();
+    }
+
+    private void OnOpenMediumModal()
+    {
+        medium.Open();
+    }
+
+    private void CloseMedium()
+    {
+        medium.Close();
+    }
+
+    private void OnOpenLargeModal()
+    {
+        large.Open();
+    }
+
+    private void CloseLarge()
+    {
+        large.Close();
+    }
+
+    private void OnOpenAlertModal()
+    {
+        alert.Open();
+    }
+
+    private void OnAlertOk()
+    {
+        alert.Close();
+    }
+
+    private void OnOpenDialogModal()
+    {
+        dialog.Open();
+    }
+
+    private void OnDialogClick()
+    {
+        dialog.Close();
+    }
+
+    private void OnOpenMultilineModal()
+    {
+        multiline.Open();
+    }
+
+    private void OnMultilineClick()
+    {
+        multiline.Close();
+    }
+}

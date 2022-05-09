@@ -1,0 +1,402 @@
+﻿@page "/social"
+
+<style>
+    .img-as-background img {
+        object-fit: cover;
+        position: absolute;
+        left: -1px;
+        right: 0;
+        z-index: 0;
+        margin: 0 auto;
+        top: 0;
+        bottom: 0;
+        min-width: calc(100% + 2px);
+        min-height: 100%;
+        max-width: 105%;
+    }
+
+    .img-as-background {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .w-30px {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .w-50px {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .w-65px {
+        width: 65px !important;
+        height: 65px !important;
+    }
+    .w-100px {
+        width: 100px !important;
+    }
+
+    .square:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+    smart-button button.smart-button, .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .travel-images img {
+        width: 290px;
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .ml-4, .mx-4 {
+        margin-left: 1rem !important;
+    }
+
+    .ml-md-4, .mx-md-4 {
+        margin-left: 1rem !important;
+    }
+
+    .smart-badge {
+        padding: 0.25em 0.4em;
+        font-weight: 700;
+        font-size: 75%;
+        line-height: 1;
+        border-radius: 0.25rem;
+    }
+
+    smart-button button.smart-button, smart-button a.smart-button {
+        line-height: 1.5;
+        letter-spacing: 0;
+    }
+
+    .small-button {
+        --smart-button-padding: 5px;
+        font-size: 12px;
+        text-transform: none;
+    }
+
+    #loadMore {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    @@media (min-width: 768px) {
+        .pt-md-5, .py-md-5 {
+            padding-top: 1.5rem !important;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .pb-md-3, .py-md-3 {
+            padding-bottom: 0.75rem !important;
+        }
+    }
+</style>
+
+<Example Name="Profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">Activities</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="d-md-flex border-bottom py-3">
+                            <div class="avatar-holder">
+                                <div class="img-as-background square rounded-circle w-65px border">
+                                    <img src="./images/phonebook/maya.png" />
+                                </div>
+                            </div>
+
+                            <div class="ml-md-4">
+                                <div class="row justify-content-between pt-3 pb-2  pt-md-5 pb-md-3">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Eva Hayes</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <small class="text-muted">7m ago</small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    Aliquam eleifend orci eget tortor ultrices suscipit. In felis odio, viverra et est et,
+                                    mollis vestibulum lorem. Donec laoreet tellus sit amet ligula blandit, sed dignissim lacus
+                                    imperdiet. Aliquam consequat auctor ex eget facilisis.  😌
+                                    <br />
+                                    <br />
+                                    <img src="./images/travel/12.jpg" />
+                                </div>
+
+                                <div class="meta d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">Today, 11:23 am</small>
+                                    <Button Class="small-button outlined error"><span class="material-icons">favorite</span> Like</Button>
+                                </div>
+
+                                <div class="comments">
+                                    <h6 class=" font-weight-bold">Comments:</h6>
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/michael.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="ml-4 ">
+                                            <strong>Frederick Murphy:</strong> Vivamus quis ultrices nisi. Vestibulum
+                                            sodales tristique odio, sodales
+                                            mollis eros faucibus non.
+                                        </div>
+                                    </div>
+
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/maya.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="ml-4 "><strong>Eva Hayes:</strong> Thanks for your opinion.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-md-flex border-bottom py-3">
+                            <div class="avatar-holder">
+                                <div class="img-as-background square rounded-circle w-65px border">
+                                    <img src="./images/phonebook/maria.png" />
+                                </div>
+                            </div>
+
+                            <div class="ml-md-4">
+                                <div class="row justify-content-between pt-3 pb-2  pt-md-5 pb-md-3">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Joyce Scott</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <small class="text-muted">2h ago</small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    Phasellus mollis laoreet augue vel aliquet. Donec semper orci ut feugiat maximus. Aliquam euismod scelerisque nisi quis molestie. Suspendisse posuere mauris egestas lobortis suscipit.
+                                </div>
+
+                                <div class="meta d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">Today, 9:11 am</small>
+                                    <Button Class="small-button outlined error"><span class="material-icons">favorite</span> Like</Button>
+                                </div>
+
+                                <div class="comments">
+                                    <h6 class=" font-weight-bold">Comments:</h6>
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/maya.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="ml-4 "><strong>Eva Hayes:</strong> Cras tincidunt ex id tincidunt interdum.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-md-flex border-bottom-0 py-3">
+                            <div class="avatar-holder">
+                                <div class="img-as-background square rounded-circle w-65px border">
+                                    <img src="./images/phonebook/monica.png" />
+                                </div>
+                            </div>
+
+                            <div class="ml-md-4">
+                                <div class="row justify-content-between pt-3 pb-2  pt-md-5 pb-md-3">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Victoria Ramos</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <small class="text-muted">1d ago</small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    In quis posuere lorem. Duis ac mauris vel neque bibendum luctus vel at metus. Cras bibendum magna quis varius elementum.
+                                    <br />
+                                    <br />
+                                    <div class="text-center travel-images">
+                                        <img src="./images/travel/11.jpg" class="mb-3" />
+                                        <img src="./images/travel/10.jpg" class="mb-3" />
+                                    </div>
+                                </div>
+
+                                <div class="meta d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">Yesterday, 06:14 pm</small>
+                                    <Button Class="small-button outlined error"><span class="material-icons">favorite</span> Like</Button>
+                                </div>
+
+                                <div class="comments">
+                                    <h6 class=" font-weight-bold">Comments:</h6>
+
+                                    <span class="text-muted">There is no comments for this article.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-5">
+                    <div class="card-body text-center">
+                        <div class="img-as-background square rounded-circle w-100px mx-auto mb-4">
+                            <img src="./images/phonebook/mark.png" />
+                        </div>
+
+                        <h5>John Doe</h5>
+                        <h6 class="mb-4">Manager, UX Department</h6>
+
+                        <div>
+                            <Button Class="small-button primary outlined">Follow</Button>
+                            <Button Class="small-button primary outlined"><span class="material-icons">message</span> Chat</Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Friends</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="friends">
+                            <div class="d-md-flex border-bottom py-3">
+                                <div class="img-as-background square rounded-circle w-50px">
+                                    <img src="./images/phonebook/maya.png" />
+                                </div>
+
+                                <div class="ml-md-4">
+                                    <h6>Eva Hayes</h6>
+                                    <Button Class="small-button outlined primary">Remove</Button>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex border-bottom py-3">
+                                <div class="img-as-background square rounded-circle w-50px">
+                                    <img src="./images/phonebook/maria.png" />
+                                </div>
+
+                                <div class="ml-md-4">
+                                    <h6>Joyce Scott</h6>
+                                    <Button Class="small-button outlined primary">Remove</Button>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex border-bottom py-3">
+                                <div class="img-as-background square rounded-circle w-50px">
+                                    <img src="./images/phonebook/michael.png" />
+                                </div>
+
+                                <div class="ml-md-4">
+                                    <h6>Frederick Murphy</h6>
+                                    <Button Class="small-button outlined primary">Remove</Button>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex border-bottom-0 py-3">
+                                <div class="img-as-background square rounded-circle w-50px">
+                                    <img src="./images/phonebook/monica.png" />
+                                </div>
+
+                                <div class="ml-md-4">
+                                    <h6>Victoria Ramos</h6>
+                                    <Button Class="small-button outlined primary">Remove</Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Activities</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="feeds">
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/michael.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Frederick Murphy</strong> reacted to your blog post</div>
+                                    <small class="text-muted">Today 8:19 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">7 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/maria.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Elisha Scott</strong> is now engaged</div>
+                                    <small class="text-muted">Today 10:45 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">10 hours ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/michael.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>John Doe</strong> is now engaged</div>
+                                    <small class="text-muted">Today 12:03 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">8 hours ago</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <Button Id="loadMore" Class="primary">Load more</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+}

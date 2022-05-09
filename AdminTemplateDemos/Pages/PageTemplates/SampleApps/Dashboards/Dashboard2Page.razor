@@ -1,0 +1,783 @@
+﻿@page "/dashboard-2"
+
+<style>
+    .header-menu .welcome {
+        font-size: 1.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        grid-area: welcome;
+    }
+
+    @@media (min-width: 768px) {
+        .header-menu {
+            grid-template-columns: 1fr auto 35px 35px;
+            grid-template-rows: 35px;
+            grid-template-areas: "welcome today filter refresh";
+        }
+    }
+
+    .header-menu {
+        display: grid;
+        gap: 5px;
+        justify-content: start;
+        margin-bottom: 20px;
+    }
+
+    #calendar:not([display-mode="year"]):not([display-mode="decade"]) .smart-calendar-body {
+        display: block;
+    }
+
+    .smart-badge.sale,
+    .smart-badge.done {
+        background-color: forestgreen;
+        color: #fff;
+    }
+
+    .smart-badge.in-progress {
+        background-color: orange;
+        color: #fff;
+    }
+
+    .smart-badge.tax,
+    .smart-badge.cancelled {
+        background-color: crimson;
+        color: #fff;
+    }
+
+    .smart-badge.extended,
+    .smart-badge.unassigned {
+        background-color: deepskyblue;
+        color: #fff;
+    }
+
+    .appointment:first-child {
+        margin-top: 20px;
+    }
+
+    .appointment {
+        position: relative;
+        padding: 20px;
+        padding-top: 0;
+        padding-left: 40px;
+    }
+
+        .appointment:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 1px;
+            height: 100%;
+            background-color: var(--smart-border);
+        }
+
+        .appointment:after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            border: 3px solid var(--smart-primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--smart-background);
+        }
+
+        .appointment > .label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+            .appointment > .label > span {
+                font-size: 12px;
+                opacity: 0.8;
+            }
+
+        .appointment p {
+            margin: 0;
+        }
+
+    #salesComparisonChart, #projectsTable {
+        height: 300px;
+    }
+
+    #weeklySalesChart {
+        height: 150px;
+    }
+
+    .h-150 {
+        height: 150px !important;
+    }
+
+    .img-as-background {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .w-50px {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .border {
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .img-as-background img {
+        object-fit: cover;
+        position: absolute;
+        left: -1px;
+        right: 0;
+        z-index: 0;
+        margin: 0 auto;
+        top: 0;
+        bottom: 0;
+        min-width: calc(100% + 2px);
+        min-height: 100%;
+        max-width: 105%;
+    }
+
+    .color-box-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .color-box {
+        margin-right: 5px !important;
+        width: 10px;
+        min-width: 10px;
+        height: 10px;
+    }
+
+        .color-box.direct {
+            background-color: #16736F;
+        }
+
+        .color-box.partner {
+            background-color: #A2D56A;
+        }
+
+        .color-box.online {
+            background-color: #1C515C;
+        }
+
+        .color-box.other {
+            background-color: #62B773;
+        }
+
+    .smart-card-view smart-card .card-header, .card .card-header {
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: 0;
+    }
+
+    .card-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    #loadMore {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .bg-warning-opacity-2 {
+        background: rgba(255, 193, 7, 0.3);
+    }
+
+    .bg-success-opacity-2 {
+        background: rgba(40, 167, 69, 0.3);
+    }
+
+    .bg-danger-opacity-2 {
+        background: rgba(220, 53, 69, 0.3);
+    }
+
+    .bg-info-opacity-2 {
+        background: rgba(23, 162, 184, 0.3);
+    }
+
+    .rounded-xl {
+        border-radius: 12px !important;
+        height: 100%;
+    }
+
+    .overflow-hidden {
+        overflow: hidden !important;
+    }
+
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .card {
+        height: 100%;
+    }
+</style>
+
+<Example Name="Dashboards">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header-menu">
+                    <div class="welcome">Welcome back, John!</div>
+                    <Button Class="today-button settings-button">
+                        <span class="material-icons">calendar_today</span>Today
+                        <span class="material-icons">keyboard_arrow_down</span>
+                    </Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">filter_alt</span></Button>
+                    <Button Style="width: 50px;" Class="primary"><span class="material-icons">refresh</span></Button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-5">
+                <div class="card">
+                    <div class="card-header border-0 bg-primary py-5">
+                        <h5 class="card-title font-weight-bolder text-white">Sales Stat</h5>
+                        <div class="settings-button text-white">…</div>
+                    </div>
+
+                    <div class="card-body position-relative">
+                        <div style="padding-bottom: 50px;">
+                            <Chart @ref="revenueChart" Id="revenueChart" Class="h-50 w-100 border-0" DataSource="salesData" 
+                               Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" XAxis="revenueXAxis"
+                               SeriesGroups="revenueSeriesGroups" ColorScheme="ChartColorScheme.Custom" OnReady="OnReady" />
+                        </div>
+
+                        <div class="h-85px"></div>
+
+                        <div class="row row-mx-10 mb-4">
+                            <div class="col-6 col-px-10">
+                                <div class="bg-white rounded-xl overflow-hidden">
+                                    <div class="bg-warning-opacity-2 rounded-xl text-warning h-100 p-4">
+                                        <span class="d-block"><i class="material-icons font-size-38px">insights</i></span>
+                                        <a href="#" class="font-weight-bold font-size-h6 text-warning text-decoration-none">Weekly Sales</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-px-10">
+                                <div class="bg-white rounded-xl overflow-hidden">
+                                    <div class="bg-info-opacity-2 rounded-xl text-info h-100 p-4">
+                                        <span class="d-block"><i class="material-icons font-size-38px">person_add</i></span>
+                                        <a href="#" class="font-weight-bold font-size-h6 text-info text-decoration-none">New Users</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-mx-10">
+                            <div class="col-6 col-px-10">
+                                <div class="bg-danger-opacity-2 rounded-xl text-danger h-100 p-4">
+                                    <span class="d-block"><i class="material-icons font-size-38px">insights</i></span>
+                                    <a href="#" class="font-weight-bold font-size-h6 text-danger text-decoration-none">Item Orders</a>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-px-10">
+                                <div class="bg-success-opacity-2 rounded-xl text-success h-100 p-4">
+                                    <span class="d-block"><i class="material-icons font-size-38px">person_add</i></span>
+                                    <a href="#" class="font-weight-bold font-size-h6 text-success text-decoration-none">Bug Reports</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Daily feed</h4>
+                        <div class="smart-badge smart-badge-primary smart-badge-pill">Today</div>
+                    </div>
+
+                    <div class="card-body maxh-350 py-2">
+                        <div class="feeds">
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/michael.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Frederick Murphy</strong> reacted to your blog post</div>
+                                    <small class="text-muted">Today 8:19 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">7 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/maria.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Elisha Scott</strong> is now engaged</div>
+                                    <small class="text-muted">Today 10:45 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">10 hours ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/michael.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>John Doe</strong> is now engaged</div>
+                                    <small class="text-muted">Today 12:03 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">8 hours ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/monica.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Monica Smith</strong> is now engaged</div>
+                                    <small class="text-muted">Today 09:30 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">5 hours ago</small>
+                                </div>
+                            </div>
+
+                            <div class="row row-mx-5 hover-text-primary border-bottom py-3">
+                                <div class="col-auto col-px-5">
+                                    <div class="img-as-background rounded-circle w-50px square border">
+                                        <img src="./images/phonebook/michael.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col col-px-5">
+                                    <div class=""><strong>Frederick Murphy</strong> reacted to your blog post</div>
+                                    <small class="text-muted">Today 8:19 PM</small>
+                                </div>
+
+                                <div class="col-auto col-px-5">
+                                    <small class="w-auto text-muted">7 min ago</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <Button Id="loadMore" Class="primary">Load more</Button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Appointments</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body maxh-350 p-0">
+                        <div id="appointmentContainer" class="h-100">
+                            <div class="appointment">
+                                <div class="label"><strong>Contact Sales</strong><span>14:00</span></div>
+                                <p class="">Proin sagittis nisl diam, in pretium velit congue et.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Meet with new client</strong><span>15:20</span></div>
+                                <p class="">
+                                    Donec sodales, tellus at facilisis commodo, lectus lectus pharetra neque, at
+                                    condimentum augue diam vitae massa.
+                                </p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Dinner with manager</strong><span>19:00</span></div>
+                                <p class="">Aenean facilisis mi ac vestibulum vestibulum.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Meeting with the colegues</strong><span>10:30</span></div>
+                                <p class="">Aenean facilisis mi ac vestibulum vestibulum.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Lunch with husband</strong><span>12:30</span></div>
+                                <p class="">Aenean facilisis mi ac vestibulum vestibulum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-mx-10">
+            <div class="col-px-10 mb-5 col-sm-6 col-md-4 col-lg">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div><span class="material-icons text-primary mr-3 font-size-36px">shopping_cart</span></div>
+                        <div>
+                            <h5 class="font-weight-bold">218</h5>
+                            <h6 class="">Sales Today</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-px-10 mb-5 col-sm-6 col-md-4 col-lg">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div><span class="material-icons text-warning mr-3 font-size-36px">show_chart</span></div>
+                        <div>
+                            <h5 class="font-weight-bold">4.138</h5>
+                            <h6 class="">Visitors Today</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-px-10 mb-5 col-sm-6 col-md-4 col-lg">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div><span class="material-icons text-success mr-3 font-size-36px">attach_money</span></div>
+                        <div>
+                            <h5 class="font-weight-bold">109.783</h5>
+                            <h6 class="">Total Earnings</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-px-10 mb-5 col-sm-6 col-md-6 col-lg">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div><span class="material-icons text-info mr-3 font-size-36px">add_shopping_cart</span></div>
+                        <div>
+                            <h5 class="font-weight-bold">7</h5>
+                            <h6 class="">Pending Orders</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-px-10 mb-5 col-sm-6 col-md-6 col-lg">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div><span class="material-icons text-danger mr-3 font-size-36px">attach_money</span></div>
+                        <div>
+                            <h5 class="font-weight-bold">86.002</h5>
+                            <h6 class="">Total Revenue</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Sales Comparison</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="salesComparisonChart" Id="salesComparisonChart" Class="w-100 h-100" DataSource="salesComparisonData"
+                               Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" XAxis="salesComparisonXAxis" SeriesGroups="salesComparisonSeriesGroups" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Calendar</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body p-0">
+                        <Calendar Id="calendar" Class="w-100 border-0" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Weekly sales</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="weeklySalesChart" Id="weeklySalesChart" Class="combo-chart h-auto w-100" DataSource="weeklyData"
+                               Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 0, Top = 0, Right = 0, Bottom = 0 }" SeriesGroups="pieSeriesGroups"
+                               ColorScheme="ChartColorScheme.Custom" />
+
+                        <Table Id="weeklySalesTable" Class="span-table no-border h-auto">
+                            <tr hidden>
+                                <th>Market</th>
+                                <th>Revenue</th>
+                                <th>Value</th>
+                            </tr>
+                            @foreach (var data in weeklyData)
+                            {
+                                <tr hidden>
+                                    <td><div class="color-box-container"><div class="color-box @data["market"].ToString().ToLower()"></div>@data["market"]</div></td>
+                                    <td>$ @data["revenue"]</td>
+                                    <td><div class="@((float.Parse(data["value"].ToString()) > 0 ? "positive" : "negative"))">@data["value"] % </div></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="label">Latest Projects</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Table Id="projectsTable" Class="no-border maxh-300" FreezeHeader Paging PageSize="TablePageSize.Ten"
+                               SortMode="TableSortMode.Many" Tooltip OnReady="OnProjectsTableReady">
+                            <tr hidden>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Assignee</th>
+                            </tr>
+                            @foreach (var data in projectsData)
+                            {
+                                <tr hidden>
+                                    <td>@data["name"]</td>
+                                    <td>@data["startDate"]</td>
+                                    <td>@data["endDate"]</td>
+                                    <td><span class="smart-badge smart-badge-pill @(data["status"].ToString().Replace(" ", "-").ToLower())">@data["status"]</span></td>
+                                    <td>@data["assignee"]</td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Chart revenueChart;
+    Chart weeklySalesChart;
+    Chart salesComparisonChart;
+
+    List<Dictionary<string, object>> salesData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "sales", 22330 }, { "orders", 9302 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "sales", 21323 }, { "orders", 8902 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "sales", 28200 }, { "orders", 10043 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "sales", 31889 }, { "orders", 10992 } },
+        new Dictionary<string, object> { { "month", "May" }, { "sales", 30056 }, { "orders", 9980 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "sales", 42024 }, { "orders", 13489 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "sales", 44995 }, { "orders", 19048 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "sales", 41045 }, { "orders", 12334 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "sales", 38012 }, { "orders", 11102 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "sales", 40045 }, { "orders", 11894 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "sales", 27542 }, { "orders", 8301 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "sales", 29012 }, { "orders", 10632 } }
+    };
+
+    List<Dictionary<string, object>> salesComparisonData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "current", 77 }, { "last", 98 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "current", 70 }, { "last", 89 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "current", 67 }, { "last", 79 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "current", 82 }, { "last", 81 } },
+        new Dictionary<string, object> { { "month", "May" }, { "current", 93 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "current", 112 }, { "last", 112 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "current", 130 }, { "last", 129 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "current", 118 }, { "last", 125 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "current", 92 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "current", 75 }, { "last", 83 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "current", 78 }, { "last", 90 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "current", 90 }, { "last", 112 } }
+    };
+
+    List<Dictionary<string, object>> weeklyData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "market", "Direct" }, { "revenue", 2873 }, { "value", 11 } },
+        new Dictionary<string, object> { { "market", "Partner" }, { "revenue", 7201 }, { "value", -9 } },
+        new Dictionary<string, object> { { "market", "Online" }, { "revenue", 1254 }, { "value", 27 } },
+        new Dictionary<string, object> { { "market", "Other" }, { "revenue", 901 }, { "value", 0.2 } },
+    };
+
+    private List<Dictionary<string, object>> projectsData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object>
+        {
+            { "name", "Ruby" }, { "startDate", new DateTime(2019, 3, 4) }, { "endDate", new DateTime(2019, 4, 7) },
+            { "status", "Done" }, { "assignee", "Ethan Holland" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Diamond" }, { "startDate", new DateTime(2018, 1, 14) }, { "endDate", new DateTime(2019, 1, 7) },
+            { "status", "Done" }, { "assignee", "Jessie Price" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Alexandrite" }, { "startDate", new DateTime(2020, 8, 1) }, { "endDate", new DateTime(2020, 8, 11) },
+            { "status", "Done" }, { "assignee", "Miriam Watts" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Blue Sapphire" }, { "startDate", new DateTime(2019, 3, 19) }, { "endDate", new DateTime(2019, 10, 30) },
+            { "status", "Cancelled" }, { "assignee", "Duane Williamson" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Tanzanite" }, { "startDate", new DateTime(2009, 11, 11) }, { "endDate", new DateTime(2010, 11, 25) },
+            { "status", "Done" }, { "assignee", "Claude Garcia" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Pink sapphire" }, { "startDate", new DateTime(2020, 8, 24) }, { "endDate", new DateTime(2020, 11, 30) },
+            { "status", "Unassigned" }, { "assignee", "" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Aquamarine" }, { "startDate", new DateTime(2020, 2, 27) }, { "endDate", new DateTime(2020, 4, 17) },
+            { "status", "Done" }, { "assignee", "Virgil Curtis" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Violet Sapphire" }, { "startDate", new DateTime(2017, 5, 23) }, { "endDate", new DateTime(2019, 8, 9) },
+            { "status", "Done" }, { "assignee", "Steven Gray" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Tourmaline" }, { "startDate", new DateTime(2020, 1, 1) }, { "endDate", new DateTime(2021, 5, 1) },
+            { "status", "In progress" }, { "assignee", "Beatrice Kim"}
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Heliodor" }, { "startDate", new DateTime(2019, 3, 4) }, { "endDate", new DateTime(2019, 4, 7) },
+            { "status", "Done" }, { "assignee", "Enrique White" }
+        },
+        new Dictionary<string, object>
+        {
+            { "name", "Red beryl" }, { "startDate", new DateTime(2020, 5, 1) }, { "endDate", new DateTime(2020, 9, 1) },
+            { "status", "In progress" }, { "assignee", "Jenny Rodriguez" }
+        }
+    };
+
+    ChartXAxis revenueXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month"
+    };
+
+    List<ChartSeriesGroup> revenueSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Spline,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "sales", DisplayText = "Sales ($)", SymbolSize = 8, SymbolType = ChartSymbolType.Circle },
+                new ChartSeriesGroupSerie() { DataField = "orders", DisplayText = "Orders", SymbolSize = 8, SymbolType = ChartSymbolType.Circle, LineDashStyle = "5,4" }
+            }
+        }
+    };
+
+    List<ChartSeriesGroup> pieSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Pie,
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "revenue", DisplayText = "market", Radius = 70, SelectedRadiusChange = 2 }
+            }
+        }
+    };
+
+    ChartXAxis salesComparisonXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month",
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> salesComparisonSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "last", DisplayText = "Last year" },
+                new ChartSeriesGroupSerie() { DataField = "current", DisplayText = "This year" }
+            }
+        }
+    };
+
+    List<string> customScheme = new List<string>() { "#007bff", "#17a2b8", "#ffc107", "#28a745", "#dc3545", "#6c757d" };
+
+    private void OnReady(Chart chart)
+    {
+        revenueChart.AddColorScheme("custom", customScheme);
+        weeklySalesChart.AddColorScheme("custom", customScheme);
+        salesComparisonChart.AddColorScheme("custom", customScheme);
+
+        revenueChart.Refresh();
+        weeklySalesChart.Refresh();
+        salesComparisonChart.Refresh();
+    }
+
+    private void OnProjectsTableReady(Table table)
+    {
+        table.SortBy("Start Date", "asc");
+    }
+}

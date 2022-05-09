@@ -1,0 +1,518 @@
+﻿@page "/detail"
+
+<style>
+    smart-progress-bar {
+        width: 100%;
+    }
+
+    .smart-badge.smart-badge-warning {
+        color: var(--smart-warning-color);
+        background-color: var(--smart-warning)
+    }
+
+    .img-as-background {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .w-30px {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .w-35px {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    .w-60px {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .w-65px {
+        width: 65px !important;
+        height: 65px !important;
+    }
+
+    .mb-3, .my-3 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .mr-3, .mx-3 {
+        margin-right: 0.75rem !important;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .border {
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .img-as-background img {
+        object-fit: cover;
+        position: absolute;
+        left: -1px;
+        right: 0;
+        z-index: 0;
+        margin: 0 auto;
+        top: 0;
+        bottom: 0;
+        min-width: calc(100% + 2px);
+        min-height: 100%;
+        max-width: 105%;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+</style>
+<Example Name="Projects">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Project Detail</h4></div>
+        </div>
+
+        <div class="row row-mx-10">
+            <div class="col-md-3 col-px-10 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Income</h6>
+                            </div>
+                            <div class="col text-right">
+                                <!--<span class="smart-badge smart-badge-success">Today</span>-->
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">$53.305</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">91%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="success" Value="91" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-px-10 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Orders</h6>
+                            </div>
+                            <div class="col text-right">
+                                <!--<span class="smart-badge smart-badge-warning">Annaul</span>-->
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">9.809</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">23%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="warning" Value="23" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-px-10 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Activity</h6>
+                            </div>
+                            <div class="col text-right">
+                                <!--<span class="smart-badge smart-badge-primary">Monthly</span>-->
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">17.380</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">50%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="primary" Value="50" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-px-10 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h6 class="font-weight-bold mb-0">Revenue</h6>
+                            </div>
+                            <div class="col text-right">
+                                <!--<span class="smart-badge smart-badge-info">Yearly</span>-->
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-5">
+                            <div class="col">
+                                <h5 class="mb-0">$28.940</h5>
+                            </div>
+                            <div class="col text-right">
+                                <span class="">41%</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-12">
+                                <ProgressBar Class="info" Value="41" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="card1" class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Red beryl</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <span class="smart-badge smart-badge-warning smart-badge-pill">In progress</span>
+                        <h6 class="font-weight-bold mt-4">Description</h6>
+
+                        <p>
+                            Vivamus convallis scelerisque finibus. Mauris at nulla lacinia sapien fringilla aliquam
+                            quis vel nisl. Nullam rutrum neque nibh, vel tempor massa tincidunt vitae. Vivamus
+                            aliquet malesuada nisl rhoncus porttitor. Donec sollicitudin, dolor placerat mollis
+                            dictum, tortor lectus convallis est, dictum bibendum sapien elit at orci. Sed quis
+                            gravida nulla.
+                        </p>
+
+                        <h6 class="font-weight-bold mt-3">Asignees</h6>
+                        <div class="d-flex flex-wrap">
+                            <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                <img src="./images/phonebook/johnny.png">
+                            </div>
+                            <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                <img src="./images/phonebook/monica.png">
+                            </div>
+                            <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                <img src="./images/phonebook/margaret.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Comments <span class="smart-badge smart-badge-primary smart-badge-pill ml-2">2</span></h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div class="d-md-flex border-bottom py-3">
+                            <div class="avatar-holder">
+                                <div class="img-as-background square rounded-circle w-60px border">
+                                    <img src="./images/phonebook/monica.png" />
+                                </div>
+                            </div>
+
+                            <div class="ml-md-4">
+                                <div class="row justify-content-between pt-3 pb-2  pt-md-5 pb-md-3">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Sarah Little</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <small class="text-muted">Now</small>
+                                    </div>
+                                </div>
+
+                                <div class="content mb-5">
+                                    Vivamus in ante at sapien faucibus convallis in volutpat ante. Pellentesque tempus ultrices ex, quis sagittis odio varius eget. In luctus risus tellus, at egestas libero pretium eu. Duis porttitor pulvinar laoreet.
+                                </div>
+
+                                <div class="meta d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">Today, 11:30 pm</small>
+                                </div>
+
+                                <div class="comments">
+                                    <h6 class="font-weight-bold">Replies:</h6>
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/johnny.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="content ml-4 "><strong>Zack Turner:</strong> In luctus!</div>
+                                    </div>
+
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/maya.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="content ml-4 "><strong>Eva Hayes:</strong> Thanks for your opinion.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-md-flex border-bottom-0 py-3">
+                            <div class="avatar-holder">
+                                <div class="img-as-background square rounded-circle w-65px border">
+                                    <img src="./images/phonebook/margaret.png" />
+                                </div>
+                            </div>
+
+                            <div class="ml-md-4">
+                                <div class="row justify-content-between pt-3 pb-2  pt-md-5 pb-md-3">
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Eva Hayes</h6>
+                                    </div>
+                                    <div class="col text-right">
+                                        <small class="text-muted">7m ago</small>
+                                    </div>
+                                </div>
+
+                                <div class="content mb-5">
+                                    Nulla rutrum justo vel ex gravida tincidunt sit amet quis diam. Morbi eu hendrerit ipsum, at semper lacus. Morbi condimentum sollicitudin ipsum, in euismod elit facilisis varius?
+                                    <br />
+                                    <br />
+                                    <pre><code>console.log("Hello, world!")</code></pre>
+                                </div>
+
+                                <div class="meta d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">Today, 11:23 am</small>
+                                </div>
+
+                                <div class="comments">
+                                    <h6 class="font-weight-bold">Comments:</h6>
+                                    <div class="comment d-flex mb-3">
+                                        <div class="avatar-holder">
+                                            <div class="img-as-background square rounded-circle w-30px border">
+                                                <img src="./images/phonebook/monica.png" />
+                                            </div>
+                                        </div>
+
+                                        <div class="content ml-4 ">
+                                            <strong>Sarah Little:</strong>
+                                            <pre><code>alert('Hello, world!');</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Information</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="border-bottom pb-2">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Assignees</h6>
+                                </div>
+                                <div class="col-7">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                            <img src="./images/phonebook/johnny.png">
+                                        </div>
+                                        <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                            <img src="./images/phonebook/monica.png">
+                                        </div>
+                                        <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                            <img src="./images/phonebook/margaret.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Supervisor</h6>
+                                </div>
+                                <div class="col-7">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="img-as-background rounded-circle w-35px square border mr-3 mb-3">
+                                            <img src="./images/phonebook/laura.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-bottom pb-2">
+                            <div class="row align-items-center pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Created</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">7 November 2019</span>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Started</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">8 January 2020</span>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Ended</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">21 February 2022</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-bottom pb-2">
+                            <div class="row align-items-center pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Budget</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">$302,059</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pb-2">
+                            <div class="row align-items-center pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Status</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="smart-badge smart-badge-warning smart-badge-pill">In progress</span>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Logged</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">192 h</span>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between pt-3">
+                                <div class="col-5">
+                                    <h6 class="font-weight-bold mb-0">Estimated</h6>
+                                </div>
+                                <div class="col-7">
+                                    <span class="">1110 h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4 class="label">Earnings</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body">
+                        <Chart @ref="salesComparisonChart" Id="salesComparisonChart" Class="h-100 w-100" DataSource="salesComparisonData"
+                               Animation="Animation.None" Caption="" Description="" ShowLegend="false" ShowBorderLine="false"
+                               Padding="new Padding() { Left = 5, Top = 15, Right = 25, Bottom = 5 }" XAxis="salesComparisonXAxis" SeriesGroups="salesComparisonSeriesGroups" ColorScheme="ChartColorScheme.Scheme32" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Example>
+
+@code {
+    Chart salesComparisonChart;
+
+    List<Dictionary<string, object>> salesComparisonData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> { { "month", "Jan" }, { "current", 77 }, { "last", 98 } },
+        new Dictionary<string, object> { { "month", "Feb" }, { "current", 70 }, { "last", 89 } },
+        new Dictionary<string, object> { { "month", "Mar" }, { "current", 67 }, { "last", 79 } },
+        new Dictionary<string, object> { { "month", "Apr" }, { "current", 82 }, { "last", 81 } },
+        new Dictionary<string, object> { { "month", "May" }, { "current", 93 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Jun" }, { "current", 112 }, { "last", 112 } },
+        new Dictionary<string, object> { { "month", "Jul" }, { "current", 130 }, { "last", 129 } },
+        new Dictionary<string, object> { { "month", "Aug" }, { "current", 118 }, { "last", 125 } },
+        new Dictionary<string, object> { { "month", "Sep" }, { "current", 92 }, { "last", 99 } },
+        new Dictionary<string, object> { { "month", "Oct" }, { "current", 75 }, { "last", 83 } },
+        new Dictionary<string, object> { { "month", "Nov" }, { "current", 78 }, { "last", 90 } },
+        new Dictionary<string, object> { { "month", "Dec" }, { "current", 90 }, { "last", 112 } }
+    };
+
+    ChartXAxis salesComparisonXAxis = new ChartXAxis()
+    {
+        DataField = "month",
+        DisplayText = "Month",
+        GridLines = new ChartLines() { Visible = false }
+    };
+
+    List<ChartSeriesGroup> salesComparisonSeriesGroups = new List<ChartSeriesGroup>()
+    {
+        new ChartSeriesGroup()
+        {
+            Type = ChartType.Column,
+            ValueAxis = new ChartValueAxis()
+            {
+                Labels = new ChartLabels()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FormatSettings = new ChartFormatSettings() { DecimalPlaces = 0 }
+                },
+                GridLines = new ChartLines() { Visible = false }
+            },
+            Series = new List<ChartSeriesGroupSerie>()
+            {
+                new ChartSeriesGroupSerie() { DataField = "last", DisplayText = "Last year" },
+                new ChartSeriesGroupSerie() { DataField = "current", DisplayText = "This year" }
+            }
+        }
+    };
+}

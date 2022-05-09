@@ -1,0 +1,277 @@
+﻿@page "/clients"
+
+@using Smart.Blazor.Demos.Data
+@inject RandomDataService dataService
+
+<style>
+    #clientsTable .active {
+        background-color: forestgreen;
+        color: #fff;
+    }
+
+    #clientsTable .inactive {
+        background-color: orange;
+        color: #fff;
+    }
+
+    #clientsTable .finished {
+        background-color: indigo;
+        color: #fff;
+    }
+
+    #clientsTable th[data-field="Image"], #clientsTable td[data-field="Image"] {
+        width: 50px !important;
+    }
+
+    .appointment:first-child {
+        margin-top: 20px;
+    }
+
+    .appointment {
+        position: relative;
+        padding: 20px;
+        padding-top: 0;
+        padding-left: 40px;
+    }
+
+    .appointment:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 1px;
+        height: 100%;
+        background-color: var(--smart-border);
+    }
+
+        .appointment:after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            border: 3px solid var(--smart-primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--smart-background);
+        }
+
+    .appointment > .label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+        .appointment > .label > span {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+    .appointment p {
+        margin: 0;
+    }
+</style>
+
+<Example Name="SampleApps">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3"><h4>Clients</h4></div>
+        </div>
+
+        <div class="row d-flex">
+            <div class="col-lg-8 mb-5 order-2 order-lg-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">Clients</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+                    <div class="card-body p-0">
+                        <Table Id="clientsTable" Class="no-border table-striped" Filtering Paging SortMode="TableSortMode.One">
+                            <tr hidden>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                            </tr>
+                            @foreach (var data in clientsData)
+                            {
+                                <tr hidden>
+                                    <td class="image">
+                                        <div class="img-as-background rounded-circle square border">
+                                            <img style="width: 25px; height: 25px;" src="./images/phonebook/@((data["image"])).png" />
+                                        </div>
+                                    </td>
+                                    <td>@data["name"]</td>
+                                    <td>@data["company"]</td>
+                                    <td>@data["email"]</td>
+                                    <td><span class="smart-badge smart-badge-pill @(data["status"].ToString().ToLower())">@data["status"]</span></td>
+                                </tr>
+                            }
+                        </Table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-5 order-1 order-lg-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="label">Marcia Gomez</h4>
+                        <div class="settings-button">…</div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-auto">
+                                <div class="img-as-background square rounded-circle w-60px">
+                                    <img src="./images/phonebook/avril.png">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <h6 class="font-weight-bold">About client</h6>
+                                <p class="">Vestibulum aliquam arcu ut nisl commodo auctor. Pellentesque at bibendum metus, sit amet tempor elit.</p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table  border-bottom w-100" style="table-layout: fixed;">
+                                <thead style="display: none;">
+                                    <tr>
+                                        <td style="width: 100px;"></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td class="font-weight-bold">Name</td>
+                                    <td class="text-right">Marcia Gomez</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Company</td>
+                                    <td class="text-right">Sandy Lake</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Email</td>
+                                    <td class="text-right">marcia.gomez@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Phone</td>
+                                    <td class="text-right">+883123123321</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Status</td>
+                                    <td class="text-right">Active</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h6 class="font-weight-bold">Activity</h6>
+
+                        <div id="appointmentContainer" class="h-100">
+                            <div class="appointment">
+                                <div class="label"><strong>Contacted manager</strong><span>14:00</span></div>
+                                <p class="">Proin sagittis nisl diam, in pretium velit congue et.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Renewed contract</strong><span>yesterday</span></div>
+                                <p class="">
+                                    Donec sodales, tellus at facilisis commodo, lectus lectus pharetra neque, at
+                                    condimentum augue diam vitae massa.
+                                </p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Requested invoice</strong><span>2d ago</span></div>
+                                <p class="">Aenean facilisis mi ac vestibulum vestibulum.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Custom support payment</strong><span>1 mo ago</span></div>
+                                <p class="">Praesent molestie convallis consequat.</p>
+                            </div>
+                            <div class="appointment">
+                                <div class="label"><strong>Bought license</strong><span>3 mo ago</span></div>
+                                <p class="">Aenean facilisis mi ac vestibulum vestibulum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Menu Id="todayMenu" Mode="MenuMode.DropDown">
+        <MenuItem Label="@settingsTemplate"></MenuItem>
+        <MenuItem>First action</MenuItem>
+        <MenuItem>Second action</MenuItem>
+        <MenuItem Separator>Third action</MenuItem>
+        <MenuItem>Additional action</MenuItem>
+    </Menu>
+
+    <template id="settingsTemplate">
+        SETTINGS
+    </template>
+</Example>
+
+@code {
+    string settingsTemplate = "settingsTemplate";
+
+    private List<Dictionary<string, object>> clientsData = new List<Dictionary<string, object>>()
+    {
+        new Dictionary<string, object> {
+            { "image", "avril" }, { "name", "Marcia Gomez" }, { "company", "Sandy Lake" }, { "email", "marcia.gomez@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "andrew" }, { "name", "Marvin George" }, { "company", "Saddle Dr" }, { "email", "marvin.george@example.com" }, { "status", "Finished" }
+        },
+        new Dictionary<string, object> {
+            { "image", "johanna" }, { "name", "Carole Pearson" }, { "company", "Dane Ent." }, { "email", "carole.pearson@example.com" }, { "status", "Inactive" }
+        },
+        new Dictionary<string, object> {
+            { "image", "johnny" }, { "name", "Leroy Shelton" }, { "company", "Lakeview" }, { "email", "leroy.shelton@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "maria" }, { "name", "Daisy Murphy" }, { "company", "Saddle Dr" }, { "email", "daisy.murphy@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "mark" }, { "name", "Lois Franklin" }, { "company", "Saddle Dr" }, { "email", "lois.franklin@example.com" }, { "status", "Finished" }
+        },
+        new Dictionary<string, object> {
+            { "image", "michael" }, { "name", "Tom Day" }, { "company", "Homestead" }, { "email", "tom.day@example.com" }, { "status", "Inactive" }
+        },
+        new Dictionary<string, object> {
+            { "image", "maya" }, { "name", "Pamela Miller" }, { "company", "Railroad" }, { "email", "pamela.miller@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "monica" }, { "name", "Sue Nichols" }, { "company", "Lakeview" }, { "email", "sue.nichols@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "toni" }, { "name", "Ritthy Green" }, { "company", "Lakeview" }, { "email", "ritthy.green@example.com" }, { "status", "Inactive" }
+        },
+        new Dictionary<string, object> {
+            { "image", "robert" }, { "name", "Martin Shelton" }, { "company", "Lakeview" }, { "email", "martin.shelton@example.com" }, { "status", "Finished" }
+        },
+        new Dictionary<string, object> {
+            { "image", "laura" }, { "name", "Katrina Murray" }, { "company", "First Street" }, { "email", "katrina.murray@example.com" }, { "status", "Inactive" }
+        },
+        new Dictionary<string, object> {
+            { "image", "steven" }, { "name", "Alfred Soto" }, { "company", "Homestead" }, { "email", "alfred.soto@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "anne" }, { "name", "Irene Sanders" }, { "company", "Blossom Hill Ent." }, { "email", "irene.sanders@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "johnny" }, { "name", "Randy Newman" }, { "company", "Wycliff Solutions" }, { "email", "randy.newman@example.com" }, { "status", "Finished" }
+        },
+        new Dictionary<string, object> {
+            { "image", "monica" }, { "name", "Emma Long" }, { "company", "Northraven" }, { "email", "emma.long@example.com" }, { "status", "Active" }
+        },
+        new Dictionary<string, object> {
+            { "image", "avril" }, { "name", "Irene Sanders" }, { "company", "Wycliff Solutions" }, { "email", "sanders.ene@example.com" }, { "status", "Inactive" }
+        },
+        new Dictionary<string, object> {
+            { "image", "maria" }, { "name", "Jenny Thompson" }, { "company", "Green Café" }, { "email", "jenny.thompson@example.com" }, { "status", "Finished" }
+        },
+        new Dictionary<string, object> {
+            { "image", "toni" }, { "name", "Jim Fisher" }, { "company", "First Street" }, { "email", "jim.fisher@example.com" }, { "status", "Finished" }
+        }
+    };
+}

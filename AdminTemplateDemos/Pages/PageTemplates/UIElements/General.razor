@@ -1,0 +1,178 @@
+﻿@page "/general"
+
+<style>
+    .h-150 {
+        height: 150px !important;
+    }
+    .w-150 {
+        width: 150px !important;
+    }
+
+    .small-button {
+        --smart-button-padding: 5px;
+        font-size: 12px;
+        text-transform: none;
+    }
+</style>
+
+<Example Name="UIElements">
+    <div class="container">
+    <div class="row">
+        <div class="col-12 mb-3"><h4>General-Use Components</h4></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Accordion</h4>
+                </div>
+
+                <div class="card-body">
+                    <Accordion Class="w-100">
+                        <AccordionItem Label="First Item">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque aliquam at nunc sed aliquet. Quisque nec tristique lacus, sit amet venenatis risus. Pellentesque nisl odio, scelerisque nec ipsum ut, ullamcorper fringilla odio. Interdum et malesuada fames ac ante ipsum primis in faucibus.</AccordionItem>
+                        <AccordionItem Label="Second Item">Proin eu fringilla ante. Fusce tempus est at dui posuere blandit. Pellentesque id eros dui.</AccordionItem>
+                        <AccordionItem Label="Third Item">Duis ut nunc non eros rutrum laoreet commodo nec nulla. Duis volutpat dapibus mi in interdum. Praesent ornare ex metus.</AccordionItem>
+                        <AccordionItem Label="Fourth Item">Vestibulum in leo porta, tempus orci eleifend, pharetra libero.</AccordionItem>
+                    </Accordion>
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Breadcrumbs</h4>
+                </div>
+                <div class="card-body">
+                    <Breadcrumb Class="w-100 mb-5" DataSource="breadcrumbSource" />
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Progressbars</h4>
+                </div>
+                <div class="card-body">
+                    <ProgressBar Class="w-100 mb-5" Value="30" />
+                    <ProgressBar Class="w-100 mb-5 barber-shop-effect" Value="50" />
+                    <ProgressBar Class="w-100 mb-5 barber-shop-effect" Indeterminate />
+                    <div class="d-flex justify-content-between">
+                        <CircularProgressBar Class="w-150 h-150" Value="50" />
+                        <CircularProgressBar Class="w-150 h-150 barber-shop-effect" Indeterminate />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Badges</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-5">                        
+                        <span class="smart-badge smart-badge-light">Light</span>
+                        <span class="smart-badge smart-badge-dark">Dark</span>
+                        <span class="smart-badge smart-badge-info">Info</span>
+                        <span class="smart-badge smart-badge-success">Success</span>
+                        <span class="smart-badge smart-badge-warning">Warning</span>
+                        <span class="smart-badge smart-badge-danger">Danger</span>
+                    </div>
+
+                    <div>
+                        <span class="smart-badge smart-badge-light smart-badge-pill">Light</span>
+                        <span class="smart-badge smart-badge-dark smart-badge-pill">Dark</span>
+                        <span class="smart-badge smart-badge-info smart-badge-pill">Info</span>
+                        <span class="smart-badge smart-badge-success smart-badge-pill">Success</span>
+                        <span class="smart-badge smart-badge-warning smart-badge-pill">Warning</span>
+                        <span class="smart-badge smart-badge-danger smart-badge-pill">Danger</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">List Boxes</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row d-flex">
+                        <div class="col-6 mb-5">
+                            <h6>With selection</h6>
+                            <ListBox Class="h-auto">
+                                <ListItem>Item 1</ListItem>
+                                <ListItem Selected>Item 2</ListItem>
+                                <ListItem>Item 3</ListItem>
+                            </ListBox>
+                        </div>
+                        <div class="col-6 mb-5">
+                            <h6>No selection</h6>
+                            <ListBox Class="h-auto" SelectionMode="ListSelectionMode.None">
+                                <ListItem>Item 1</ListItem>
+                                <ListItem>Item 2</ListItem>
+                                <ListItem>Item 3</ListItem>
+                            </ListBox>
+                        </div>
+                        <div class="col-6 mb-5">
+                            <h6>Disabled item</h6>
+                            <ListBox Class="h-auto">
+                                <ListItem Disabled>Item 1</ListItem>
+                                <ListItem Selected>Item 2</ListItem>
+                                <ListItem>Item 3</ListItem>
+                            </ListBox>
+                        </div>
+                        <div class="col-6 mb-5">
+                            <h6>With grouping</h6>
+                            <ListBox Class="h-auto">
+                                <ListItemsGroup Label="Group 1">
+                                    <ListItem>Item 1</ListItem>
+                                </ListItemsGroup>
+                                <ListItemsGroup Label="Group 2">
+                                    <ListItem Selected>Item 2</ListItem>
+                                    <ListItem>Item 3</ListItem>
+                                </ListItemsGroup>
+                            </ListBox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Pagers</h4>
+                </div>
+                <div class="card-body" id="pagersContainer">
+                    <Pager Class="mb-5" ShowPrevNextNavigationButtons AutoEllipsis="PagerAutoEllipsis.Both" ShowPageIndexSelectors PagesCount="20" PageIndexSelectors="10" />
+                    <Pager Class="mb-5" ShowNavigationButtonLabels ShowPrevNextNavigationButtons ShowFirstLastNavigationButtons ShowPageIndexSelectors PagesCount="5" PageIndexSelectors="5" />
+                    <Pager Class="w-100" ShowPageSizeSelector ShowNavigationInput ShowPrevNextNavigationButtons PagesCount="10" ShowSummary />
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="label">Tooltips</h4>
+                </div>
+                <div class="card-body">
+                    <Button Id="buttonWithTooltip1" Class="small-button success">Tooltip on left</Button>
+                    <Tooltip Selector="buttonWithTooltip1" Arrow Position="TooltipPosition.Left">Tooltip on left</Tooltip>
+                    <Button Id="buttonWithTooltip2" Class="small-button">Tooltip on top</Button>
+                    <Tooltip Selector="buttonWithTooltip2" Arrow Position="TooltipPosition.Top">Tooltip on top</Tooltip>
+                    <Button Id="buttonWithTooltip3" Class="small-button secondary">Tooltip on bottom</Button>
+                    <Tooltip Selector="buttonWithTooltip3" Arrow Position="TooltipPosition.Bottom">Tooltip on bottom</Tooltip>
+                    <Button Id="buttonWithTooltip4" Class="small-button primary">Tooltip on right</Button>
+                    <Tooltip Selector="buttonWithTooltip4" Arrow Position="TooltipPosition.Right">Tooltip on right</Tooltip>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</Example>
+
+@code {
+    List<Dictionary<string, string>> breadcrumbSource = new List<Dictionary<string, string>> ()
+    {
+        new Dictionary<string, string>() { { "label", "<a href=\"#home\">Home</a>" }, { "value", "home" } },
+        new Dictionary<string, string>() { { "label", "<a href=\"#catalog\">Catalog</a>" }, { "value", "catalog" } },
+        new Dictionary<string, string>() { { "label", "<a href=\"#apple_computers\">Apple Computers</a>" }, { "value", "apple_computers" } },
+        new Dictionary<string, string>() { { "label", "<a href=\"#home\">Home</a>" }, { "value", "macbook_pro_13" } },
+        new Dictionary<string, string>() { { "label", "Macbook Pro 13" }, { "value", "home" } }
+    };
+}

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <History>True|2022-04-10T15:21:59.7031532Z;False|2022-04-10T13:11:24.0021367+03:00;</History>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\Team\blazor\AdminTemplateDemos\bin\Release\net6.0\browser-wasm\publish\</_PublishTargetUrl>
+  </PropertyGroup>
+</Project>
